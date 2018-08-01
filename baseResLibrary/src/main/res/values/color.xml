@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--app主色调-->
+    <color name="colorMain">#06A366</color>
+    <!--界面背景底色 -->
+    <color name="windowBackground">#EFEFF4</color>
+    <!--字体-->
+    <color name="text_gray">#979797</color>
+    <color name="text_ordergoods">#666666</color>
+    <color name="text_black">#000000</color>
+    <color name="text_blue">#4FA9F7</color>
+    <color name="text_red">#F55252</color>
+    <color name="text_yellow">#FE9F24</color>
+    <!--线条颜色-->
+    <color name="line_gray">#c8c7cc</color>
+    <!-- 按压效果颜色-->
+    <color name="blue_default">#4FA9F7</color>
+    <color name="blue_pressed">#3485FB</color>
+    <color name="red_default">#F55252</color>
+    <color name="red_pressed">#FF0000</color>
+    <color name="white_default">#FFFFFF</color>
+    <color name="white_pressed">#EEEEEE</color>
+    <color name="gray_default">#F0F0F0</color>
+    <color name="gray_pressed">#EEEEEE</color>
+    <color name="gray_ordergoods">#E5E5E5</color>
+    <color name="yellow_default">#FF8A00</color>
+    <color name="yellow_pressed">#FF8000</color>
+</resources>

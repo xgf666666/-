@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JadeMall.iml" filepath="$PROJECT_DIR$/JadeMall.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baseResLibrary/baseResLibrary.iml" filepath="$PROJECT_DIR$/baseResLibrary/baseResLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baseUiLibrary/baseUiLibrary.iml" filepath="$PROJECT_DIR$/baseUiLibrary/baseUiLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baseUtilsLibrary/baseUtilsLibrary.iml" filepath="$PROJECT_DIR$/baseUtilsLibrary/baseUtilsLibrary.iml" />
     </modules>
   </component>
 </project>
