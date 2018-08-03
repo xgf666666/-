@@ -1,4 +1,4 @@
-package com.microple.jademall
+package com.microple.jademall.base
 
 import android.app.Application
 

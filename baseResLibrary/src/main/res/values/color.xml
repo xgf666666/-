@@ -6,11 +6,10 @@
     <color name="windowBackground">#EFEFF4</color>
     <!--字体-->
     <color name="text_gray">#979797</color>
-    <color name="text_ordergoods">#666666</color>
-    <color name="text_black">#000000</color>
-    <color name="text_blue">#4FA9F7</color>
-    <color name="text_red">#F55252</color>
-    <color name="text_yellow">#FE9F24</color>
+    <color name="text_gray_goods">#666666</color>
+    <!--<color name="text_black">#000000</color>-->
+    <color name="text_black">#0B0827</color>
+    <color name="text_red">#E6162D</color>
     <!--线条颜色-->
     <color name="line_gray">#c8c7cc</color>
     <!-- 按压效果颜色-->
