@@ -7,14 +7,14 @@
     <!--字体-->
     <color name="text_gray">#979797</color>
     <color name="text_gray_goods">#666666</color>
-    <!--<color name="text_black">#000000</color>-->
-    <color name="text_black">#0B0827</color>
+    <color name="text_black">#000000</color>
+    <!--<color name="text_black">#0B0827</color>-->
     <color name="text_red">#E6162D</color>
     <!--线条颜色-->
     <color name="line_gray">#c8c7cc</color>
     <!-- 按压效果颜色-->
-    <color name="blue_default">#4FA9F7</color>
-    <color name="blue_pressed">#3485FB</color>
+    <color name="green_default">#06A366</color>
+    <color name="green_pressed">#0C6825</color>
     <color name="red_default">#F55252</color>
     <color name="red_pressed">#FF0000</color>
     <color name="white_default">#FFFFFF</color>

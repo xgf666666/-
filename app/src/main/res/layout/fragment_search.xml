@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_default"
+    android:orientation="vertical">
+
+    <include layout="@layout/fragment_tool_bar" />
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_gray_5"
+        android:drawableLeft="@mipmap/ic_search_n"
+        android:drawablePadding="23dp"
+        android:hint="输入你想搜索的"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:lines="1"
+        android:paddingLeft="10dp"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/sp_14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_classify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按分类查找"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginLeft="13dp"
+
+            />
+        <TextView
+            android:id="@+id/tv_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="热门关键字"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/text_black"
+            android:layout_marginLeft="25dp"
+            />
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史关键字"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/text_black"
+            android:layout_marginLeft="25dp"
+            />
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="20dp"
+        />
+</LinearLayout>

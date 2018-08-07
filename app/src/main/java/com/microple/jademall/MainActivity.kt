@@ -7,6 +7,8 @@ import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import com.microple.jademall.ui.home.HomeFragment
+import com.microple.jademall.ui.live.LiveFragment
+import com.microple.jademall.ui.search.SearchFragment
 import com.microple.jademall.uitls.BottomNavigationViewUtils
 import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -52,8 +54,8 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
                 if (fragment == null) {
                     when (i) {
                         0 -> mFragments[i] = HomeFragment()
-                        1 -> mFragments[i] = HomeFragment()
-                        2 -> mFragments[i] = HomeFragment()
+                        1 -> mFragments[i] = LiveFragment()
+                        2 -> mFragments[i] = SearchFragment()
                         3 -> mFragments[i] = HomeFragment()
                         4 -> mFragments[i] = HomeFragment()
                     }

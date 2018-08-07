@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_default"
+    android:orientation="vertical"
+    >
+<include layout="@layout/layout_tool_bar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="208dp">
+        <ImageView
+            android:id="@+id/iv_live"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_img_default"
+            android:scaleType="fitXY"
+            />
+        <ImageView
+            android:id="@+id/iv_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_play_n"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_liveName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="JV2367号切石直播"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/sp_16"
+        android:layout_marginTop="27dp"
+        android:layout_marginLeft="14dp"
+        />
+    <TextView
+        android:id="@+id/tv_liveTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2018-11-23 12:20"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        />
+    <TextView
+        android:id="@+id/tv_liveMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="如果你无法简洁的表达你的想法，那只说明你还不够了解它。 -- 阿尔伯特·爱因斯坦"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="14dp"
+        />
+    <Button
+        android:id="@+id/bt_make"
+        style="@style/ButtonPrimary"
+        android:text="预   约"
+        android:layout_marginTop="62dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        />
+</LinearLayout>

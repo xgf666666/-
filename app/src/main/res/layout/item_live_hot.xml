@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="3dp"
+    app:cardMaxElevation="3dp"
+    android:layout_margin="6dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white_default"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_live"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_img_default" />
+
+        <TextView
+            android:id="@+id/tv_liveName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="14dp"
+            tools:text="JV2367号切石直播"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/sp_14"
+            />
+
+        <TextView
+            android:id="@+id/tv_liveMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            tools:text="如果你无法简洁的表达你的想法，那只说明你还不够了解它。"
+            android:textColor="@color/text_gray_goods"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="15dp"
+            android:text="直播时间:"
+            android:textColor="@color/text_gray_goods"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_liveTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="2dp"
+            tools:text="2018-11-23 12:11 ~ 12:20"
+            android:textColor="@color/text_gray_goods"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

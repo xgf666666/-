@@ -18,9 +18,9 @@ import java.util.ArrayList
  * date: 2018/8/1.
  * describe:
  */
-class HomeFragment : BaseMvpViewFragment(),View.OnClickListener {
+class HomeFragment : BaseMvpViewFragment(), View.OnClickListener {
 
-    private var isType = true
+    private var isFiltrate = true
     private val fragments = ArrayList<BannerFragment>() // 供ViewPager使用
     private val imageList = arrayOf(Constant.item, Constant.item, Constant.item, Constant.item, Constant.item)
     override fun getFragmentLayoutId(): Int = R.layout.fragment_home
@@ -34,30 +34,48 @@ class HomeFragment : BaseMvpViewFragment(),View.OnClickListener {
         //商品列表
         initGoodsData()
         tv_filtrate.setOnClickListener(this)
+        tv_price.setOnClickListener(this)
+        tv_hot.setOnClickListener(this)
+        tv_newest.setOnClickListener(this)
     }
+
     override fun onClick(v: View?) {
-        when(v){
-            tv_filtrate ->{
-                if (isType){
+        when (v) {
+            tv_filtrate -> {
+                if (isFiltrate) {
                     ll_filtrate.visibility = View.VISIBLE
-                    isType = !isType
-                }else{
+                    isFiltrate = !isFiltrate
+                } else {
                     ll_filtrate.visibility = View.GONE
-                    isType = !isType
-
+                    isFiltrate = !isFiltrate
                 }
+            }
+            tv_price -> {
+                tv_price.setTextColor(resources.getColor(R.color.colorMain))
+                tv_hot.setTextColor(resources.getColor(R.color.text_black))
+                tv_newest.setTextColor(resources.getColor(R.color.text_black))
 
+            }
+            tv_hot -> {
+                tv_hot.setTextColor(resources.getColor(R.color.colorMain))
+                tv_price.setTextColor(resources.getColor(R.color.text_black))
+                tv_newest.setTextColor(resources.getColor(R.color.text_black))
+            }
+            tv_newest -> {
+                tv_newest.setTextColor(resources.getColor(R.color.colorMain))
+                tv_price.setTextColor(resources.getColor(R.color.text_black))
+                tv_hot.setTextColor(resources.getColor(R.color.text_black))
             }
         }
     }
 
     private fun initGoodsData() {
         val fragments = ArrayList<Fragment>()
-        val titles = arrayOf("精品翡翠","冰种翡翠","任性赌石","赌石亏光")
+        val titles = arrayOf("精品翡翠", "冰种翡翠", "任性赌石", "赌石亏光")
         for (i in titles.indices) {
             fragments.add(HomeGoodsFragment())
         }
-        viewPagergGoods.adapter = HomeTabAdapter(this!!.fragmentManager!!,fragments,titles)
+        viewPagergGoods.adapter = HomeTabAdapter(this!!.fragmentManager!!, fragments, titles)
         slidingTabLayout.setViewPager(viewPagergGoods)
 
     }

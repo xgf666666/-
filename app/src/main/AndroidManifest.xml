@@ -31,6 +31,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- ***********************************直播模块*********************************** -->
+        <activity
+            android:name=".ui.live.activity.LiveDetailsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!-- ***********************************搜索模块*********************************** -->
+        <activity
+            android:name=".ui.search.activity.SearchSortGoodsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.search.activity.SearchResultGoodsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>
