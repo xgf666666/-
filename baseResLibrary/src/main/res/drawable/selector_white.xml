@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <mItem android:state_pressed="true">
+    <item android:state_pressed="true">
         <shape>
             <solid android:color="@color/white_pressed" />
         </shape>
-    </mItem>
-    <mItem>
+    </item>
+    <item>
         <shape>
             <solid android:color="@color/white_default" />
         </shape>
-    </mItem>
+    </item>
 
 </selector>

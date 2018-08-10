@@ -94,14 +94,14 @@
                     android:text="我的订单"
                     android:textColor="@color/text_gray2" />
 
-                <!--<View style="@style/LineGray" />-->
+                <View style="@style/LineGray" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_myOrder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <!--<View style="@style/LineGray" />-->
+                <View style="@style/LineGray" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -113,14 +113,14 @@
                     android:text="设置"
                     android:textColor="@color/text_gray2" />
 
-                <!--<View style="@style/LineGray" />-->
+                <View style="@style/LineGray" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <!--<View style="@style/LineGray" />-->
+                <View style="@style/LineGray" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                     android:id="@+id/rv_common"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <!--<View style="@style/LineGray" />-->
+                <View style="@style/LineGray" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -150,7 +150,7 @@
                     android:text="帮助"
                     android:textColor="@color/text_gray2" />
 
-                <!--<View style="@style/LineGray" />-->
+                <View style="@style/LineGray" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_help"

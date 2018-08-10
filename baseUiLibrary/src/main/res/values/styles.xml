@@ -2,19 +2,19 @@
 <resources>
     <style name="custom_dialog" parent="@android:style/Theme.Dialog">
         <!-- 边框 -->
-        <mItem name="android:windowFrame">@null</mItem>
+        <item name="android:windowFrame">@null</item>
         <!-- 是否浮现在activity之上 -->
-        <mItem name="android:windowIsFloating">true</mItem>
+        <item name="android:windowIsFloating">true</item>
         <!-- 半透明 -->
-        <mItem name="android:windowIsTranslucent">true</mItem>
+        <item name="android:windowIsTranslucent">true</item>
         <!-- 无标题 -->
-        <mItem name="android:windowNoTitle">true</mItem>
-        <mItem name="android:background">@android:color/transparent</mItem>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
         <!-- 背景透明 -->
-        <mItem name="android:windowBackground">@android:color/transparent</mItem>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 模糊 -->
-        <mItem name="android:backgroundDimEnabled">true</mItem>
+        <item name="android:backgroundDimEnabled">true</item>
         <!-- 遮罩层 -->
-        <mItem name="android:backgroundDimAmount">0.5</mItem>
+        <item name="android:backgroundDimAmount">0.5</item>
     </style>
 </resources>
