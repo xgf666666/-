@@ -5,10 +5,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
-import com.microple.jademall.adapter.LiveHotAdapter
-import com.microple.jademall.adapter.LiveRecommendAdapter
-import com.microple.jademall.adapter.LiveReviewAdapter
-import com.microple.jademall.base.Constant
+import com.microple.jademall.ui.live.adapter.LiveHotAdapter
+import com.microple.jademall.ui.live.adapter.LiveRecommendAdapter
+import com.microple.jademall.ui.live.adapter.LiveReviewAdapter
+import com.microple.jademall.common.Constant
 import com.microple.jademall.ui.live.activity.LiveDetailsActivity
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import com.xx.baseuilibrary.widget.DividerListItemDecoration
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_live.*
 /**
  * author: linfeng
  * date: 2018/8/6.
- * describe:
+ * describe:直播
  */
 class LiveFragment : BaseMvpViewFragment(),BaseQuickAdapter.OnItemClickListener {
 

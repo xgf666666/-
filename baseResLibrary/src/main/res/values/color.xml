@@ -6,7 +6,7 @@
     <color name="windowBackground">#EFEFF4</color>
     <!--字体-->
     <color name="text_gray">#979797</color>
-    <color name="text_gray_goods">#666666</color>
+    <color name="text_gray2">#666666</color>
     <color name="text_black">#000000</color>
     <!--<color name="text_black">#0B0827</color>-->
     <color name="text_red">#E6162D</color>
@@ -20,8 +20,4 @@
     <color name="white_default">#FFFFFF</color>
     <color name="white_pressed">#EEEEEE</color>
     <color name="gray_default">#F0F0F0</color>
-    <color name="gray_pressed">#EEEEEE</color>
-    <color name="gray_ordergoods">#E5E5E5</color>
-    <color name="yellow_default">#FF8A00</color>
-    <color name="yellow_pressed">#FF8000</color>
 </resources>

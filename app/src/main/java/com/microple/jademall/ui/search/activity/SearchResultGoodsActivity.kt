@@ -26,8 +26,12 @@ class SearchResultGoodsActivity : BaseMvpViewActivity(), View.OnClickListener{
         recyclerView.adapter = mAdapter
         mAdapter.addData(data)
         mAdapter.notifyDataSetChanged()
+        iv_back.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
+        when(v){
+            iv_back -> finish()
+        }
     }
 }

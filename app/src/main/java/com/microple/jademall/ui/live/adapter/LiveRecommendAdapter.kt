@@ -1,12 +1,8 @@
-package com.microple.jademall.adapter
+package com.microple.jademall.ui.live.adapter
 
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
-import com.microple.jademall.base.Constant
 
 /**
  * author: linfeng

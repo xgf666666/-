@@ -1,13 +1,12 @@
 package com.microple.jademall.ui.home
 
-import android.app.Activity
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
 import com.bumptech.glide.Glide
-import com.microple.jademall.base.Constant
+import com.microple.jademall.common.Constant
 import com.microple.jademall.R
-import com.microple.jademall.adapter.HomeTabAdapter
+import com.microple.jademall.ui.home.adapter.HomeTabAdapter
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import com.xx.baseuilibrary.widget.CustPagerTransformer
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -16,7 +15,7 @@ import java.util.ArrayList
 /**
  * author: linfeng
  * date: 2018/8/1.
- * describe:
+ * describe:首页
  */
 class HomeFragment : BaseMvpViewFragment(), View.OnClickListener {
 

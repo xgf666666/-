@@ -2,23 +2,23 @@
 <resources>
     <!-- 主按钮样式 -->
     <style name="ButtonPrimary" parent="Widget.AppCompat.Button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">44dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/selector_green_22</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/sp_16</item>
+        <mItem name="android:layout_width">match_parent</mItem>
+        <mItem name="android:layout_height">44dp</mItem>
+        <mItem name="android:gravity">center</mItem>
+        <mItem name="android:background">@drawable/selector_green_22</mItem>
+        <mItem name="android:textColor">@android:color/white</mItem>
+        <mItem name="android:textSize">@dimen/sp_16</mItem>
     </style>
     <!--灰色横线样式-->
     <style name="LineGray">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0.5dp</item>
-        <item name="android:background">@color/line_gray</item>
+        <mItem name="android:layout_width">match_parent</mItem>
+        <mItem name="android:layout_height">0.5dp</mItem>
+        <mItem name="android:background">@color/line_gray</mItem>
     </style>
     <!--星星评分等级-->
     <style name="RatingStyle">
-        <item name="android:minHeight">12dp</item>
-        <item name="android:maxHeight">12dp</item>
+        <mItem name="android:minHeight">12dp</mItem>
+        <mItem name="android:maxHeight">12dp</mItem>
     </style>
 
 </resources>

@@ -1,10 +1,9 @@
 package com.microple.jademall.ui.live.activity
 
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.microple.jademall.R
-import com.microple.jademall.base.Constant
+import com.microple.jademall.common.Constant
 import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
 import kotlinx.android.synthetic.main.activity_live_details.*
 
