@@ -8,6 +8,6 @@ package com.microple.jademall.common
 class Constant {
     companion object {
         //测试用网络图片
-        val item = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533200224397&di=59c7644d7ce5fc3aeee1875b4154312a&imgtype=0&src=http%3A%2F%2Fwww.3310.com%2Fuploads%2Fallimg%2F140312%2F60955-1403121F634-50.jpg"
+        val item = "https://ss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=45e1c8e71ddfa9ece22e501752d1f754/342ac65c103853434cc02dda9f13b07eca80883a.jpg"
     }
 }

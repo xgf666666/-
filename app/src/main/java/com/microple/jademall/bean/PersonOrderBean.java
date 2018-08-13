@@ -1,4 +1,4 @@
-package com.microple.jademall.ui.Personal.bean;
+package com.microple.jademall.bean;
 
 import android.app.Activity;
 

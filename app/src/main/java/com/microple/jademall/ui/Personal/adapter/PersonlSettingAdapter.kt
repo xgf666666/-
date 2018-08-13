@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
-import com.microple.jademall.ui.Personal.bean.PersonSettingBean
+import com.microple.jademall.bean.PersonSettingBean
 
 /**
  * author: linfeng
@@ -12,8 +12,8 @@ import com.microple.jademall.ui.Personal.bean.PersonSettingBean
  * describe:
  */
 class PersonlSettingAdapter(resLayoutId: Int, mData: List<PersonSettingBean>?) : BaseQuickAdapter<PersonSettingBean, BaseViewHolder>(resLayoutId, mData) {
-    override fun convert(helper: BaseViewHolder?, mItem: PersonSettingBean?) {
-        helper!!.getView<ImageView>(R.id.iv_allOrder).setImageResource(mItem!!.icon)
-        helper.setText(R.id.tv_allOrder,mItem.name)
+    override fun convert(helper: BaseViewHolder?, item: PersonSettingBean?) {
+        helper!!.getView<ImageView>(R.id.iv_allOrder).setImageResource(item!!.icon)
+        helper.setText(R.id.tv_allOrder,item.name)
     }
 }

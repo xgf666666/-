@@ -2,16 +2,15 @@ package com.microple.jademall.ui.Personal
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.ui.Personal.adapter.PersonlCommonAdapter
 import com.microple.jademall.ui.Personal.adapter.PersonlHelpAdapter
 import com.microple.jademall.ui.Personal.adapter.PersonlOrderAdapter
 import com.microple.jademall.ui.Personal.adapter.PersonlSettingAdapter
-import com.microple.jademall.ui.Personal.bean.PersonCommonBean
-import com.microple.jademall.ui.Personal.bean.PersonHelpBean
-import com.microple.jademall.ui.Personal.bean.PersonOrderBean
-import com.microple.jademall.ui.Personal.bean.PersonSettingBean
+import com.microple.jademall.bean.PersonCommonBean
+import com.microple.jademall.bean.PersonHelpBean
+import com.microple.jademall.bean.PersonOrderBean
+import com.microple.jademall.bean.PersonSettingBean
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import kotlinx.android.synthetic.main.fragment_personl.view.*
 
