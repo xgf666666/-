@@ -14,14 +14,14 @@
             android:id="@+id/iv_live"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_img_default"
+            android:src="@drawable/ic_img_default"
             android:scaleType="fitXY"
             />
         <ImageView
             android:id="@+id/iv_player"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_play_n"
+            android:src="@drawable/ic_play_n"
             android:layout_centerInParent="true"
             />
     </RelativeLayout>

@@ -20,8 +20,8 @@ class LiveDetailsActivity : BaseMvpViewActivity() {
         title = "直播详情"
         Glide.with(this).load(Constant.item)
                 .apply(RequestOptions()
-                        .placeholder(R.mipmap.ic_img_default)
-                        .error(R.mipmap.ic_img_default))
+                        .placeholder(R.drawable.ic_img_default)
+                        .error(R.drawable.ic_img_default))
                 .into(iv_live)
         tv_liveName.text = "JV2367号切石直播"
         tv_liveTime.text = "2018-11-23 12:20"

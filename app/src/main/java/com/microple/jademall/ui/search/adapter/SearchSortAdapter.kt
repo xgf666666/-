@@ -17,8 +17,8 @@ class SearchSortAdapter (layoutId: Int) : BaseQuickAdapter<Any, BaseViewHolder>(
     override fun convert(helper: BaseViewHolder, item: Any) {
         Glide.with(mContext).load(Constant.item)
                 .apply(RequestOptions()
-                        .placeholder(R.mipmap.ic_img_default)
-                        .error(R.mipmap.ic_img_default))
+                        .placeholder(R.drawable.ic_img_default)
+                        .error(R.drawable.ic_img_default))
                 .into(helper.getView(R.id.iv_sort) as ImageView)
         helper.setText(R.id.tv_sort,"翡翠类别")
     }

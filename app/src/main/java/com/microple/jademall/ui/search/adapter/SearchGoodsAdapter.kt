@@ -20,8 +20,8 @@ class SearchGoodsAdapter(layoutId: Int) : BaseQuickAdapter<Any, BaseViewHolder>(
         helper.setText(R.id.tv_goodsPrice, "￥3980.00")
         Glide.with(mContext).load(Constant.item)
                 .apply(RequestOptions()
-                        .placeholder(R.mipmap.ic_img_default)
-                        .error(R.mipmap.ic_img_default))
+                        .placeholder(R.drawable.ic_img_default)
+                        .error(R.drawable.ic_img_default))
                 .into(helper.getView(R.id.iv_goodsImage) as ImageView)
     }
 }

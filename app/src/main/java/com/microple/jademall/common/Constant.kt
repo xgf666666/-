@@ -1,8 +1,8 @@
 package com.microple.jademall.common
 
 /**
- * author: linfeng
- * date: 2018/8/2.
+ * author: xiaoguagnfei
+ * date: 2018/8/14
  * describe:
  */
 class Constant {

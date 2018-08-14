@@ -2,6 +2,7 @@ package com.xx.baseuilibrary
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.xx.baseutilslibrary.status_bar.StatusBarUtils
 import kotlinx.android.synthetic.main.layout_tool_bar.*
 
@@ -18,6 +19,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         StatusBarUtils.apply(this, true)
         var layoutId = getActivityLayoutId()
         if (layoutId > 0) {

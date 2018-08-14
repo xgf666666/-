@@ -10,7 +10,7 @@
     android:id="@+id/iv_back"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@mipmap/global_btn_return"
+    android:src="@drawable/global_btn_return"
     android:padding="16dp"
     />
     <TextView
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:drawablePadding="4dp"
-            android:drawableRight="@mipmap/btn_down_n"
+            android:drawableRight="@drawable/btn_down_n"
             android:text="筛选"
             android:textColor="@color/colorMain"
             android:textSize="12sp"

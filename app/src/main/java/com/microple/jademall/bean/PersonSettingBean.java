@@ -50,9 +50,9 @@ public class PersonSettingBean {
 
     public static List<PersonSettingBean> createList(){
         List<PersonSettingBean> data = new ArrayList<>();
-        data.add(new PersonSettingBean(R.mipmap.ic_personage_n, "个人资料设置", LiveDetailsActivity.class));
-        data.add(new PersonSettingBean(R.mipmap.ic_site_n,"收货地址管理", LiveDetailsActivity.class));
-        data.add(new PersonSettingBean(R.mipmap.ic_safety_n,"安全性设置", LiveDetailsActivity.class));
+        data.add(new PersonSettingBean(R.drawable.ic_personage_n, "个人资料设置", LiveDetailsActivity.class));
+        data.add(new PersonSettingBean(R.drawable.ic_site_n,"收货地址管理", LiveDetailsActivity.class));
+        data.add(new PersonSettingBean(R.drawable.ic_safety_n,"安全性设置", LiveDetailsActivity.class));
         return data;
     }
 }

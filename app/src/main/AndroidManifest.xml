@@ -22,9 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name="com.microple.jademall.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,6 +46,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.Personal.activity.AllOrderActivity" />
+        <activity android:name=".ui.Personal.activity.OrderDetailActivity" />
+        <activity android:name=".ui.Personal.activity.CustomerActivity" />
+        <activity android:name=".ui.Personal.activity.NotReviewOrderActivity" />
+        <activity android:name=".ui.Personal.activity.NotGoodsOrderActivity" />
+        <activity android:name=".ui.Personal.activity.CompleteOrderActivity"></activity>
     </application>
 
 </manifest>

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="175dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_img_default" />
+            android:src="@drawable/ic_img_default" />
 
         <TextView
             android:id="@+id/tv_liveName"

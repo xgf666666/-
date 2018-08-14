@@ -50,10 +50,10 @@ public class PersonHelpBean {
 
     public static List<PersonHelpBean> createList(){
         List<PersonHelpBean> data = new ArrayList<>();
-        data.add(new PersonHelpBean(R.mipmap.ic_issue_n, "常见问题", LiveDetailsActivity.class));
-        data.add(new PersonHelpBean(R.mipmap.ic_service_n,"联系客服", LiveDetailsActivity.class));
-        data.add(new PersonHelpBean(R.mipmap.ic_idea_n,"意见反馈", LiveDetailsActivity.class));
-        data.add(new PersonHelpBean(R.mipmap.ic_aboutus_n,"关于我们", LiveDetailsActivity.class));
+        data.add(new PersonHelpBean(R.drawable.ic_issue_n, "常见问题", LiveDetailsActivity.class));
+        data.add(new PersonHelpBean(R.drawable.ic_service_n,"联系客服", LiveDetailsActivity.class));
+        data.add(new PersonHelpBean(R.drawable.ic_idea_n,"意见反馈", LiveDetailsActivity.class));
+        data.add(new PersonHelpBean(R.drawable.ic_aboutus_n,"关于我们", LiveDetailsActivity.class));
         return data;
     }
 }

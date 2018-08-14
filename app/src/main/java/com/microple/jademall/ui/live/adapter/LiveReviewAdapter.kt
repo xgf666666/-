@@ -17,8 +17,8 @@ class LiveReviewAdapter(layoutId: Int) : BaseQuickAdapter<Any, BaseViewHolder>(l
     override fun convert(helper: BaseViewHolder, item: Any) {
         Glide.with(mContext).load(Constant.item)
                 .apply(RequestOptions()
-                        .placeholder(R.mipmap.ic_img_default)
-                        .error(R.mipmap.ic_img_default))
+                        .placeholder(R.drawable.ic_img_default)
+                        .error(R.drawable.ic_img_default))
                 .into(helper.getView(R.id.iv_live) as ImageView)
         helper.setText(R.id.tv_liveName,"JV2367号切石直播")
         helper.setText(R.id.tv_liveMessage,"如果你无法简洁的表达你的想法，那只说明你还不够了解它。")

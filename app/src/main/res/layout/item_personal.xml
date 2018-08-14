@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="23dp"
-        android:src="@mipmap/ic_allmy_n"
+        android:src="@drawable/ic_allmy_n"
         android:layout_marginTop="12dp"
         />
     <TextView
@@ -33,7 +33,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/global_btn_right"
+        android:src="@drawable/global_btn_right"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="14dp"

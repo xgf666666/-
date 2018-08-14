@@ -50,12 +50,12 @@ public class PersonCommonBean {
 
     public static List<PersonCommonBean> createList(){
         List<PersonCommonBean> data = new ArrayList<>();
-        data.add(new PersonCommonBean(R.mipmap.ic_collect_n, "我的收藏", LiveDetailsActivity.class));
-        data.add(new PersonCommonBean(R.mipmap.ic_appoint_n,"我的预约", LiveDetailsActivity.class));
-        data.add(new PersonCommonBean(R.mipmap.ic_asset_n,"我的资产", LiveDetailsActivity.class));
-        data.add(new PersonCommonBean(R.mipmap.ic_share_n1,"分享", LiveDetailsActivity.class));
-        data.add(new PersonCommonBean(R.mipmap.ic_team_n,"我的团队", LiveDetailsActivity.class));
-        data.add(new PersonCommonBean(R.mipmap.ic_enter_n,"商家入驻申请", LiveDetailsActivity.class));
+        data.add(new PersonCommonBean(R.drawable.ic_collect_n, "我的收藏", LiveDetailsActivity.class));
+        data.add(new PersonCommonBean(R.drawable.ic_appoint_n,"我的预约", LiveDetailsActivity.class));
+        data.add(new PersonCommonBean(R.drawable.ic_asset_n,"我的资产", LiveDetailsActivity.class));
+        data.add(new PersonCommonBean(R.drawable.ic_share_n1,"分享", LiveDetailsActivity.class));
+        data.add(new PersonCommonBean(R.drawable.ic_team_n,"我的团队", LiveDetailsActivity.class));
+        data.add(new PersonCommonBean(R.drawable.ic_enter_n,"商家入驻申请", LiveDetailsActivity.class));
         return data;
     }
 }

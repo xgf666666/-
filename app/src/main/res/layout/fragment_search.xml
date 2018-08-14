@@ -15,7 +15,7 @@
         android:layout_marginRight="13dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_gray_5"
-        android:drawableLeft="@mipmap/ic_search_n"
+        android:drawableLeft="@drawable/ic_search_n"
         android:drawablePadding="23dp"
         android:hint="输入你想搜索的"
         android:imeOptions="actionSearch"
