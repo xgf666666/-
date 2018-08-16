@@ -2,7 +2,7 @@ package com.microple.jademall.common
 
 /**
  * author: xiaoguagnfei
- * date: 2018/8/14
+ * date: 2018/8/15
  * describe:
  */
 class Constant {

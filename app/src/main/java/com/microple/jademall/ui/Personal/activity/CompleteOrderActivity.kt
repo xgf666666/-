@@ -1,12 +1,14 @@
 package com.microple.jademall.ui.Personal.activity
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.ui.Personal.adapter.AllOrderAdapter
-import kotlinx.android.synthetic.main.fragment_allorder.*
+import kotlinx.android.synthetic.main.activity_complete_order.*
 import kotlinx.android.synthetic.main.item_title.*
 /**
  * author: xiaoguagnfei
@@ -14,8 +16,13 @@ import kotlinx.android.synthetic.main.item_title.*
  * describe:已完成订单
  */
 class CompleteOrderActivity : AppCompatActivity() {
+    companion object {
+        fun startCompleteOrderActivity(context: Context){
+            val intent = Intent(context,CompleteOrderActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
     var adapter = AllOrderAdapter(arrayListOf())
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complete_order)
@@ -26,7 +33,7 @@ class CompleteOrderActivity : AppCompatActivity() {
         recyclerView.adapter=adapter
         adapter.addData(data)
         adapter.setOnItemClickListener { adapter, view, position ->
-            OrderDetailActivity.startOrderDetailActivity(this!!)
+            CusetomerOrderDetailActivity.startCusetomerOrderDetailActivity(this!!)
         }
     }
 }

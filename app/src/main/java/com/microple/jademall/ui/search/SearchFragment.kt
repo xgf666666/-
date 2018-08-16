@@ -6,6 +6,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.common.Constant
+import com.microple.jademall.ui.search.activity.SearchResultGoodsActivity
 import com.microple.jademall.ui.search.activity.SearchSortGoodsActivity
 import com.microple.jademall.ui.search.adapter.SearchSortAdapter
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
@@ -33,6 +34,9 @@ class SearchFragment : BaseMvpViewFragment(),BaseQuickAdapter.OnItemClickListene
         mAdapter.addData(data)
         mAdapter.notifyDataSetChanged()
         mAdapter.setOnItemClickListener(this)
+        tv_head.setOnClickListener{
+            SearchResultGoodsActivity.startSearchResultGoodsActivity(context!!)
+        }
     }
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         startActivity(Intent(context,SearchSortGoodsActivity::class.java))

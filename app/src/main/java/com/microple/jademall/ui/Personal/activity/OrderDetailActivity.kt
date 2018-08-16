@@ -27,7 +27,7 @@ class OrderDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_order_detail)
         tv_title.text="订单详情"
         tv_order.setOnClickListener{
-            CustomerActivity.startCustomerActivity(this)
+            ApplyCustomerActivity.startCustomerListActivity(this)
         }
     }
 }

@@ -17,6 +17,8 @@
         android:textSize="17sp"
         android:textColor="@color/black_000000"
         android:layout_centerInParent="true"/>
+    <View style="@style/LineGray"
+        android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

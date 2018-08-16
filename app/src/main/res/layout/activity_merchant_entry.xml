@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_default"
+    tools:context=".ui.Personal.activity.MerchantEntryActivity">
+    <include layout="@layout/item_title"/>
+    <RelativeLayout
+        android:id="@+id/ll_jilu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商家入驻申请记录"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:layout_marginLeft="@dimen/dp_13"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_13"
+            android:src="@drawable/global_btn_right"/>
+        <View
+            style="@style/LineGray"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/ll_shenqing"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发起新的入驻申请"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:layout_marginLeft="@dimen/dp_13"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_13"
+            android:src="@drawable/global_btn_right"/>
+        <View
+            style="@style/LineGray"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

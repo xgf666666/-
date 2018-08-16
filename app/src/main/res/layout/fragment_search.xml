@@ -5,7 +5,9 @@
     android:background="@color/white_default"
     android:orientation="vertical">
 
-    <include layout="@layout/fragment_tool_bar" />
+    <include
+        android:id="@+id/tv_head"
+        layout="@layout/fragment_tool_bar" />
 
     <EditText
         android:id="@+id/et_search"

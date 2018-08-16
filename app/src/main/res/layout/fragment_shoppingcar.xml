@@ -8,12 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <include
-            layout="@layout/fragment_tool_bar"
-
-
-            />
+            layout="@layout/fragment_tool_bar"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,8 +22,61 @@
             />
     </RelativeLayout>
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="sfs"
+        android:text="你购物车部分商品已经缺货，请重新选择其他商品，"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginRight="@dimen/dp_13"
+        android:textSize="@dimen/sp_17"
+        android:textColor="@color/black_333333"
         />
+    <TextView
+        android:id="@+id/tv_index"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="好的"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginRight="@dimen/dp_13"
+        android:textSize="15sp"
+        android:textColor="@color/green_06A366"
+        android:layout_marginBottom="21dp"
+        android:layout_marginTop="21dp"/>
+    <android.support.v4.widget.SlidingPaneLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.widget.SlidingPaneLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <View
+            style="@style/LineGray"/>
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购物袋合计  ￥9999"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_13"
+            android:textSize="17sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black_333333" />
+        <TextView
+            android:id="@+id/tv_submint"
+            android:layout_width="116dp"
+            android:layout_height="34dp"
+            android:text="下单"
+            android:layout_marginRight="@dimen/dp_13"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/sp_17"
+            android:gravity="center"
+            android:textColor="@color/white_default"
+            android:background="@drawable/bg_sure"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
 </LinearLayout>

@@ -51,7 +51,28 @@
         <activity android:name=".ui.Personal.activity.CustomerActivity" />
         <activity android:name=".ui.Personal.activity.NotReviewOrderActivity" />
         <activity android:name=".ui.Personal.activity.NotGoodsOrderActivity" />
-        <activity android:name=".ui.Personal.activity.CompleteOrderActivity"></activity>
+        <activity android:name=".ui.Personal.activity.CompleteOrderActivity" />
+        <activity android:name=".ui.Personal.activity.CancalOrderActivity" />
+        <activity android:name=".ui.Personal.activity.CustomerOrderActivity" />
+        <activity android:name=".ui.Personal.activity.MyCollectionActivity" />
+        <activity android:name=".ui.Personal.activity.MyAppointmentActivity" />
+        <activity android:name=".ui.Personal.activity.MyAssetActivity" />
+        <activity android:name=".ui.Personal.activity.BillQueryActivity" />
+        <activity android:name=".ui.Personal.activity.IntergrationDetailActivity" />
+        <activity android:name=".ui.Personal.activity.IntergrationPushActivity" />
+        <activity android:name=".ui.Personal.activity.EmeraldsActivity" />
+        <activity android:name=".ui.Personal.activity.EmeraldsDetailActivity" />
+        <activity android:name=".ui.Personal.activity.IntergrationGetActivity" />
+        <activity android:name=".ui.Personal.activity.ShareActivity" />
+        <activity android:name=".ui.Personal.activity.MyTeamActivity" />
+        <activity android:name=".ui.Personal.activity.TeamTwoActivity" />
+        <activity android:name=".ui.Personal.activity.MerchantEntryActivity" />
+        <activity android:name=".ui.Personal.activity.ApplicationActivity" />
+        <activity android:name=".ui.Personal.activity.CusetomerOrderDetailActivity" />
+        <activity android:name=".ui.Personal.activity.ApplyCustomerActivity" />
+        <activity android:name=".ui.Personal.activity.MerchantEntryRecordActivity" />
+        <activity android:name=".ui.Personal.activity.MerchantEntryRecordDetailActivity" />
+        <activity android:name=".ui.Personal.activity.PickGoodsActivity"></activity>
     </application>
 
 </manifest>

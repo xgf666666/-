@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_head"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:src="@drawable/img_head_n"
+        android:layout_gravity="center_vertical" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kewen    13066230849"
+        android:textColor="@color/black_333333"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/sp_15"
+        android:layout_marginLeft="19dp"/>
+
+
+</LinearLayout>
