@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Personal.activity.PersonalSettingActivity"
+    android:orientation="vertical">
+    <include layout="@layout/item_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分资产"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:layout_marginLeft="@dimen/dp_13"/>
+        <ImageView
+            android:id="@+id/iv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/global_btn_right"
+            android:layout_marginRight="@dimen/dp_13"/>
+        <View
+            style="@style/LineGray"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_13"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分资产"
+            android:textColor="@color/black_333333"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:src="@drawable/img_head_n"/>
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/global_btn_right"
+            android:layout_marginRight="@dimen/dp_13"/>
+        <View
+            style="@style/LineGray"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_13"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

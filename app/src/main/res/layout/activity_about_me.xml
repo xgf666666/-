@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Personal.activity.AboutMeActivity"
+    android:orientation="vertical">
+    <include layout="@layout/item_title"/>
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:orientation="vertical"
+        android:background="@color/green_06A366"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="104dp">
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginRight="@dimen/dp_13"
+        android:layout_marginTop="11dp"
+        android:textSize="20sp"
+        android:textColor="@color/green_06A366"
+        android:text="3H翡翠商城"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginRight="@dimen/dp_13"
+        android:layout_marginTop="39dp"
+        android:textSize="15sp"
+        android:textColor="@color/green_06A366"
+        android:text="版本号:1.0"
+        android:gravity="center_horizontal"/>
+
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Personal.activity.MessageDetailActivity"
+    android:orientation="vertical">
+    <include layout="@layout/item_title"/>
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginRight="@dimen/dp_13"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/black_333333"
+        android:text="如果你无法简洁的表达你的想法，那只说明你还不够
+了解它。
+                                        -- 阿尔伯特·爱因斯坦"/>
+
+
+</LinearLayout>

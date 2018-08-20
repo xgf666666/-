@@ -51,6 +51,9 @@ class PersonlFragment : BaseMvpViewFragment() {
         mHelpAdapter = PersonlHelpAdapter(R.layout.item_personal, PersonHelpBean.createList())
         rv_help.adapter = mHelpAdapter
         rv_help.isNestedScrollingEnabled = false
+        iv_message.setOnClickListener{
+            MessageActivity.startMessageActivity(context!!)
+        }
         mOrderAdapter.setOnItemClickListener { adapter, view, position ->
            when(position){//我的订单
                0->{
@@ -95,7 +98,22 @@ class PersonlFragment : BaseMvpViewFragment() {
                 }
             }
         }
-
+        mHelpAdapter.setOnItemClickListener { adapter, view, position ->
+            when(position){
+                0->{
+                    AskQuestionActivity.startAskQuestionActivity(context!!)
+                }
+                1->{
+                    CustomerServiceAcitivity.startCustomerServiceAcitivity(context!!)
+                }
+                2->{
+                    FeedBackActivity.startFeedBackActivity(context!!)
+                }
+                3->{
+                    AboutMeActivity.startAboutMeActivity(context!!)
+                }
+            }
+        }
 
 
 

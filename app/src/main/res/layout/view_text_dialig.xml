@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="197dp"
+        android:background="@drawable/shape_white_side_black_r5">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/sp_17"
+            android:textColor="@color/black_333333"
+            android:textStyle="bold"
+            android:text="积分返还"/>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_18"
+            android:textColor="@color/black_444444"
+            android:layout_marginBottom="30dp"
+            android:text="如果您未按照行业特殊材料要求进行提交,将会导致审核被拒绝。"/>
+
+        <LinearLayout
+            android:id="@+id/ll_btn"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/blue_007AFF"
+                android:gravity="center"
+                android:textSize="@dimen/sp_17"
+                android:text="关闭"/>
+        </LinearLayout>
+        <View
+            android:id="@+id/view_line"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_C8C7CC"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

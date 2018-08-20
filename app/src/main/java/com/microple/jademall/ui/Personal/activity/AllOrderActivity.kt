@@ -39,6 +39,9 @@ class AllOrderActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         fragmentList.add(AllOrderFramgent())
         fragmentList.add(AllOrderFramgent())
         fragmentList.add(AllOrderFramgent())
+        fragmentList.add(AllOrderFramgent())
+        fragmentList.add(AllOrderFramgent())
+        fragmentList.add(AllOrderFramgent())
         var adapter=ViewPagerAdapter(fragmentManager,fragmentList)
         viewPager.adapter=adapter
         viewPager.setOnPageChangeListener(this)
@@ -61,16 +64,38 @@ class AllOrderActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             setText(tv_daishouhuo)
             viewPager.setCurrentItem(3)
         }
+        tv_exit.setOnClickListener{
+            setText(tv_exit)
+            viewPager.setCurrentItem(4)
+
+        }
+        tv_complete.setOnClickListener{
+            setText(tv_complete)
+            viewPager.setCurrentItem(5)
+
+        }
+        tv_shouhou.setOnClickListener{
+            setText(tv_shouhou)
+            viewPager.setCurrentItem(6)
+
+        }
+
     }
     fun setText(textView:TextView){
         tv_allOrder.textSize=13f
         tv_daishenhe.textSize=13f
         tv_daifahuo.textSize=13f
         tv_daishouhuo.textSize=13f
+        tv_complete.textSize=13f
+        tv_exit.textSize=13f
+        tv_shouhou.textSize=13f
         tv_allOrder.setTextColor(resources.getColor(R.color.black_333333))
         tv_daishenhe.setTextColor(resources.getColor(R.color.black_333333))
         tv_daifahuo.setTextColor(resources.getColor(R.color.black_333333))
         tv_daishouhuo.setTextColor(resources.getColor(R.color.black_333333))
+        tv_exit.setTextColor(resources.getColor(R.color.black_333333))
+        tv_shouhou.setTextColor(resources.getColor(R.color.black_333333))
+        tv_complete.setTextColor(resources.getColor(R.color.black_333333))
         textView.setTextColor(resources.getColor(R.color.green_06A366))
         textView.textSize=16f
     }
@@ -96,6 +121,20 @@ class AllOrderActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             }
             3->{
                 setText(tv_daishouhuo)
+            }
+            4->{
+                setText(tv_complete)
+                scrollView.pageScroll(4)
+            }
+            5->{
+                setText(tv_exit)
+                scrollView.pageScroll(5)
+
+            }
+            6->{
+                setText(tv_shouhou)
+                scrollView.pageScroll(6)
+
             }
         }
     }

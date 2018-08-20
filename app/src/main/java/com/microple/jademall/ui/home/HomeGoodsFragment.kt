@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
+import com.microple.jademall.ui.home.activity.GoodsDetailActivity
 import com.microple.jademall.ui.home.adapter.HomeGoodsAdapter
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import kotlinx.android.synthetic.main.fragment_goods.view.*
@@ -27,5 +28,8 @@ class HomeGoodsFragment : BaseMvpViewFragment() {
         mRootView.recyclerView.layoutManager= LinearLayoutManager(context)
         mAdapter.addData(data)
         mAdapter.notifyDataSetChanged()
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            GoodsDetailActivity.startGoodsDetailActivity(context!!)
+        }
     }
 }

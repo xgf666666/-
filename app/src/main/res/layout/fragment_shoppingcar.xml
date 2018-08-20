@@ -11,6 +11,7 @@
         <include
             layout="@layout/fragment_tool_bar"/>
         <TextView
+            android:id="@+id/tv_bianji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="编辑"
@@ -29,6 +30,7 @@
         android:layout_marginLeft="@dimen/dp_13"
         android:layout_marginRight="@dimen/dp_13"
         android:textSize="@dimen/sp_17"
+        android:layout_marginTop="19dp"
         android:textColor="@color/black_333333"
         />
     <TextView
@@ -43,9 +45,36 @@
         android:layout_marginBottom="21dp"
         android:layout_marginTop="21dp"/>
     <android.support.v4.widget.SlidingPaneLayout
+        android:id="@+id/sl_all"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/left"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.microple.jademall.weight.MyRecyclerView
+                android:id="@+id/cl_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.microple.jademall.weight.MyRecyclerView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.microple.jademall.weight.MyRecyclerView
+                android:id="@+id/cl_right"
+                android:layout_marginLeft="@dimen/dp_13"
+                android:layout_marginRight="@dimen/dp_13"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </com.microple.jademall.weight.MyRecyclerView>
+
+        </LinearLayout>
 
     </android.support.v4.widget.SlidingPaneLayout>
     <RelativeLayout
@@ -67,7 +96,7 @@
         <TextView
             android:id="@+id/tv_submint"
             android:layout_width="116dp"
-            android:layout_height="34dp"
+            android:layout_height="38dp"
             android:text="下单"
             android:layout_marginRight="@dimen/dp_13"
             android:layout_centerVertical="true"
@@ -76,7 +105,6 @@
             android:textColor="@color/white_default"
             android:background="@drawable/bg_sure"
             android:layout_alignParentRight="true"/>
-
     </RelativeLayout>
 
 </LinearLayout>

@@ -6,6 +6,11 @@
     android:orientation="vertical"
     tools:context=".ui.Personal.activity.AllOrderActivity">
     <include layout="@layout/item_title"/>
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:scrollbars="none">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
@@ -13,28 +18,28 @@
 
         <TextView
             android:id="@+id/tv_allOrder"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dp_13"
             android:gravity="center"
             android:text="全部订单"
             android:textColor="@color/green_06A366"
             android:textSize="@dimen/sp_16" />
         <TextView
             android:id="@+id/tv_daishenhe"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="待审核订单"
             android:textSize="@dimen/sp_13"
             android:layout_gravity="center_vertical"
             android:textColor="@color/black_333333"
+            android:layout_marginLeft="29dp"
             android:gravity="center" />
         <TextView
             android:id="@+id/tv_daifahuo"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="29dp"
             android:layout_height="wrap_content"
             android:text="待发货订单"
             android:textSize="@dimen/sp_13"
@@ -43,15 +48,51 @@
             android:gravity="center" />
         <TextView
             android:id="@+id/tv_daishouhuo"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="29dp"
+            android:layout_marginRight="@dimen/dp_13"
             android:layout_height="wrap_content"
             android:text="待收货订单"
             android:textSize="@dimen/sp_13"
             android:layout_gravity="center_vertical"
             android:textColor="@color/black_333333"
             android:gravity="center" />
+        <TextView
+            android:id="@+id/tv_complete"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="29dp"
+            android:layout_height="wrap_content"
+            android:text="已完成订单"
+            android:textSize="@dimen/sp_13"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black_333333"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/tv_exit"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="29dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="已取消订单"
+            android:textSize="@dimen/sp_13"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black_333333"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_shouhou"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="29dp"
+            android:layout_height="wrap_content"
+            android:text="售后订单"
+            android:textSize="@dimen/sp_13"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black_333333"
+            android:gravity="center" />
+
+
     </LinearLayout>
+    </HorizontalScrollView>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

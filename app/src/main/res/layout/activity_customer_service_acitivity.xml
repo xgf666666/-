@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Personal.activity.CustomerServiceAcitivity"
+    android:orientation="vertical">
+    <include layout="@layout/item_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系在线客服"
+            android:drawableTop="@drawable/btn_tel_n"
+            android:drawablePadding="22dp"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+    <View
+        style="@style/LineGray"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拨打客服电话"
+            android:drawableTop="@drawable/btn_supportstaff_n"
+            android:drawablePadding="22dp"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
