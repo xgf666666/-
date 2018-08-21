@@ -26,6 +26,22 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/x"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="糯冰种飘翠福瓜挂件"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="@color/white_default"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginLeft="16dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/global_btn_close_n"/>
+
             </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"

@@ -13,7 +13,11 @@ import com.microple.jademall.R
 import com.microple.jademall.dialog.TextDialog
 import com.microple.jademall.weight.ZoomScrollView
 import kotlinx.android.synthetic.main.activity_goods.*
-
+/**
+ * author: xiaoguagnfei
+ * date: 2018/8/13
+ * describe:商品详情
+ */
 class GoodsDetailActivity : AppCompatActivity() {
     companion object {
         fun startGoodsDetailActivity(context: Context){
@@ -37,6 +41,9 @@ class GoodsDetailActivity : AppCompatActivity() {
         }
         tv_other.setOnClickListener{
             showChangeSexDialogOne()
+        }
+        iv_zoom.setOnClickListener{
+            ImageDetailActivity.startImageDetailActivity(this)
         }
     }
     private fun showChangeSexDialogOne() {

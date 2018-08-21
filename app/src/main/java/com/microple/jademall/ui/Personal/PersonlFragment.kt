@@ -76,6 +76,19 @@ class PersonlFragment : BaseMvpViewFragment() {
                }
            }
         }
+        mSettingAdapter.setOnItemClickListener { adapter, view, position ->
+            when(position){
+                0->{
+                    PersonalSettingActivity.startPersonalSettingActivity(context!!)
+                }
+                1->{
+                    AddressActivity.startAddressActivity(context!!)
+                }
+                2->{
+                    SafeSettingActivity.startSafeSettingActivity(context!!)
+                }
+            }
+        }
         mCommonAdapter.setOnItemClickListener { adapter, view, position ->
             when(position){
                 0->{

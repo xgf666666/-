@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="11dp"
+    android:background="@color/white_default">
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="姚鸿飞  17665662662"
+        android:textColor="@color/black_000000"
+        android:textSize="@dimen/sp_14"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="广东省广州市天河区珠江新城华夏路16号富力盈凯大厦15楼微标杆"
+        android:textColor="@color/black_000000"
+        android:textSize="@dimen/sp_14"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/dp_16"/>
+    <View
+        style="@style/LineGray"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:id="@+id/tv_bianji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编辑"
+            android:drawableLeft="@drawable/btn_site_edit_n"
+            android:textColor="@color/black_000000"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/tv_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:drawableLeft="@drawable/btn_site_del_n"
+            android:textColor="@color/black_000000"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginLeft="31dp"
+            android:layout_toRightOf="@+id/tv_bianji"
+            android:layout_centerVertical="true"/>
+        <CheckBox
+            android:id="@+id/tv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="默认地址"
+            android:button="@null"
+            android:drawableLeft="@drawable/sel_address"
+            android:drawablePadding="10dp"
+            android:textColor="@color/black_000000"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

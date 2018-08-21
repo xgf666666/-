@@ -23,6 +23,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.microple.jademall.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -84,7 +94,13 @@
         <activity android:name=".ui.Personal.activity.CustomerServiceAcitivity" />
         <activity android:name=".ui.Personal.activity.MessageActivity" />
         <activity android:name=".ui.Personal.activity.MessageDetailActivity" />
-        <activity android:name=".ui.Personal.activity.PersonalSettingActivity"></activity>
+        <activity android:name=".ui.Personal.activity.PersonalSettingActivity" />
+        <activity android:name=".ui.home.activity.ImageDetailActivity" />
+        <activity android:name=".ui.Personal.activity.NickNameActivity" />
+        <activity android:name=".ui.Personal.activity.AddressActivity" />
+        <activity android:name=".ui.Personal.activity.EditAddressActivity" />
+        <activity android:name=".ui.Personal.activity.SafeSettingActivity" />
+        <activity android:name=".ui.Personal.activity.PassswordActivity"></activity>
     </application>
 
 </manifest>

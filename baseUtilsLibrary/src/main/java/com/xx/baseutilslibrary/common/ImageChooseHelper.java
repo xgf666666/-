@@ -6,21 +6,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * 图片选择工具
@@ -62,7 +63,6 @@ public class ImageChooseHelper {
     private int compressQuality = 100;//文件压缩比率
     private String dirPath;//文件存储路径
     private String authority;//FileProvider路径配置
-    private Uri mTempUri;//临时图片Uri
 
     private ImageChooseHelper(Activity activity) {
         activityWeakReference = new WeakReference<>(activity);
@@ -108,6 +108,7 @@ public class ImageChooseHelper {
         if (file == null)
             throw new NullPointerException("文件不存在");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Log.i("dffdfd",Build.VERSION.SDK_INT+"中间"+Build.VERSION_CODES.N);
 
             if (TextUtils.isEmpty(authority)) {
                 throw new NullPointerException("Provider路径未配置");
@@ -161,8 +162,8 @@ public class ImageChooseHelper {
         intent.putExtra("showActionIcons", false);
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
         // 指定调用相机拍照后照片的储存路径
-        initFile("photo.jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUri(file));
+//        initFile(System.currentTimeMillis() + ".jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUri(initFile(System.currentTimeMillis() + ".jpg")));
 
         if (fragmentWeakReference != null) {
             fragmentWeakReference.get().startActivityForResult(intent, REQUEST_CODE_PHOTO);
@@ -230,9 +231,6 @@ public class ImageChooseHelper {
      * @param uri 裁剪uri
      */
     private void startPhotoZoom(Uri uri) {
-        if (uri == null) {
-            return;
-        }
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         // crop为true是设置在开启的intent中设置显示的view可以剪裁
@@ -245,14 +243,7 @@ public class ImageChooseHelper {
         // outputX,outputY 是剪裁图片的宽高
         intent.putExtra("outputX", width);
         intent.putExtra("outputY", height);
-
-        //适配小米前
-        // intent.putExtra("return-data", true);
-        //适配小米后
-        mTempUri = Uri.parse("file:///" + dirPath + File.separator + "temp.jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, mTempUri);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-
+        intent.putExtra("return-data", true);
 
         if (fragmentWeakReference != null) {
             fragmentWeakReference.get().startActivityForResult(intent, REQUEST_CODE_CROP);
@@ -296,69 +287,54 @@ public class ImageChooseHelper {
                 }
                 break;
             case REQUEST_CODE_CROP:
-                //适配小米前
-//                if (data == null) {
-//                    return;
-//                }
-//                if (data.getExtras() != null) {
-//                    Bundle bundle = data.getExtras();
-//                    Bitmap photo = bundle.getParcelable("data");
-//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                    if (photo != null) {
-//                        photo.compress(Bitmap.CompressFormat.PNG, compressQuality, baos);
-//                    }
-//
-//                    FileOutputStream fos = null;
-//                    if (mOnFinishChooseAndCropImageListener != null) {
-//
-//                        try {
-//                            if (file != null) {
-//                                file.getParentFile().delete();//删除照片
-//                            }
-//                            //将裁剪出来的Bitmap转换成本地文件
-//                            File file = initFile("image.png");
-//                            fos = new FileOutputStream(file);
-//                            fos.write(baos.toByteArray());
-//                            fos.flush();
-//                            //通知图库有更新
-//                            getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getPath())));
-//
-//                            //裁剪过后返回Bitmap,处理生成文件用来上传
-//                            mOnFinishChooseAndCropImageListener.onFinish(photo, file);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        } finally {
-//                            if (fos != null)
-//                                try {
-//                                    fos.close();
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            if (baos != null)
-//                                try {
-//                                    baos.close();
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//
-//
-//                        }
-//                    }
-//
-//                }
+                if (data == null) {
+                    return;
+                }
+                if (data.getExtras() != null) {
+                    Bundle bundle = data.getExtras();
+                    Bitmap photo = bundle.getParcelable("data");
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    if (photo != null) {
+                        photo.compress(Bitmap.CompressFormat.PNG, compressQuality, baos);
+                    }
 
-                //适配小米后
-                try {
-                    Bitmap photo = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(mTempUri));
-                    File file = new File(new URI(mTempUri.toString()));
-                    //通知图库有更新
-                    getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getPath())));
-                    //裁剪过后返回Bitmap,处理生成文件用来上传
-                    mOnFinishChooseAndCropImageListener.onFinish(photo, file);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
+                    FileOutputStream fos = null;
+                    if (mOnFinishChooseAndCropImageListener != null) {
+
+                        try {
+                            if (file != null) {
+                                file.getParentFile().delete();//删除照片
+                            }
+                            //将裁剪出来的Bitmap转换成本地文件
+                            File file = initFile("image.png");
+                            fos = new FileOutputStream(file);
+                            fos.write(baos.toByteArray());
+                            fos.flush();
+                            //通知图库有更新
+                            getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getPath())));
+
+                            //裁剪过后返回Bitmap,处理生成文件用来上传
+                            mOnFinishChooseAndCropImageListener.onFinish(photo, file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (fos != null)
+                                try {
+                                    fos.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            if (baos != null)
+                                try {
+                                    baos.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                        }
+                    }
+
                 }
                 break;
         }

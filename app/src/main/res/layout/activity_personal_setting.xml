@@ -8,13 +8,14 @@
     android:orientation="vertical">
     <include layout="@layout/item_title"/>
     <RelativeLayout
+        android:id="@+id/rl_name"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="60dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="积分资产"
-            android:textColor="@color/black_333333"
+            android:text="kevin"
+            android:textColor="@color/green_06A366"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:textSize="17sp"
@@ -35,20 +36,17 @@
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/rl_hand"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="70dp">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="积分资产"
-            android:textColor="@color/black_333333"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:textSize="17sp"
             android:layout_marginLeft="@dimen/dp_13"
             android:src="@drawable/img_head_n"/>
         <ImageView
-            android:id="@+id/iv_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

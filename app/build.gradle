@@ -14,7 +14,14 @@ android {
         versionName version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        buildConfigField "boolean", "IS_DEV", "false"
+
+        buildConfigField "String", "DEV_DOMAIN", "\"http://51.goodbooy.cn\""
+
+        buildConfigField "String", "RELEASE_DOMAIN", "\"http://51.goodbooy.cn\""
     }
+
     buildTypes {
         release {
             minifyEnabled false
