@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.home
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
@@ -7,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.microple.jademall.common.Constant
 import com.microple.jademall.R
 import com.microple.jademall.ui.home.adapter.HomeTabAdapter
+import com.weibiaogan.bangbang.common.dpTopx
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import com.xx.baseuilibrary.widget.CustPagerTransformer
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -77,6 +79,11 @@ class HomeFragment : BaseMvpViewFragment(), View.OnClickListener {
         viewPagergGoods.adapter = HomeTabAdapter(this!!.fragmentManager!!, fragments, titles)
         slidingTabLayout.setViewPager(viewPagergGoods)
 
+    }
+     fun setViewPage(height:Int){
+        var lp=viewPagergGoods.layoutParams
+        lp.height=height.dpTopx(context!!)
+        viewPagergGoods.layoutParams=lp
     }
 
     private fun fillViewPager() {

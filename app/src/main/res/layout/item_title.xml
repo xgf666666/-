@@ -18,6 +18,18 @@
         android:textSize="17sp"
         android:textColor="@color/black_000000"
         android:layout_centerInParent="true"/>
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码?"
+        android:textSize="@dimen/sp_13"
+        android:textColor="@color/green_06A366"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/sp_13"
+        android:visibility="gone"/>
+
     <View style="@style/LineGray"
         android:layout_alignParentBottom="true"/>
 

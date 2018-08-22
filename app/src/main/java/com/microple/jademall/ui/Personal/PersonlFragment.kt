@@ -29,11 +29,17 @@ class PersonlFragment : BaseMvpViewFragment() {
     override fun getFragmentLayoutId(): Int = R.layout.fragment_personl
 
     override fun init(view: View?) {
+        iv_setting.setOnClickListener{
+            SafeSettingActivity.startSafeSettingActivity(context!!)
+        }
         //我的订单
         rv_myOrder.layoutManager = LinearLayoutManager(context)
         mOrderAdapter = PersonlOrderAdapter(R.layout.item_personal, PersonOrderBean.createList())
         rv_myOrder.adapter = mOrderAdapter
         rv_myOrder.isNestedScrollingEnabled = false
+        iv_head.setOnClickListener{
+            LoginActivity.startLoginActivity(context!!)
+        }
         //设置
         rv_setting.layoutManager = LinearLayoutManager(context)
         mSettingAdapter = PersonlSettingAdapter(R.layout.item_personal, PersonSettingBean.createList())

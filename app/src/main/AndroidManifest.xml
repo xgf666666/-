@@ -100,7 +100,10 @@
         <activity android:name=".ui.Personal.activity.AddressActivity" />
         <activity android:name=".ui.Personal.activity.EditAddressActivity" />
         <activity android:name=".ui.Personal.activity.SafeSettingActivity" />
-        <activity android:name=".ui.Personal.activity.PassswordActivity"></activity>
+        <activity android:name=".ui.Personal.activity.PassswordActivity" />
+        <activity android:name=".ui.home.activity.ImOrderActivity" />
+        <activity android:name=".ui.Personal.activity.LoginActivity" />
+        <activity android:name=".ui.Personal.activity.ForgetPWActivity"></activity>
     </application>
 
 </manifest>

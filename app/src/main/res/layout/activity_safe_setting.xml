@@ -99,7 +99,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/bnt_home_fill_s"
+            android:src="@drawable/ic_number_n"
             android:layout_marginRight="@dimen/dp_12"
             android:layout_gravity="center_vertical"/>
         <RelativeLayout

@@ -60,7 +60,6 @@
 
         <View style="@style/LineGray"
             android:layout_marginTop="17dp"
-            android:layout_marginRight="14dp"
-            />
+            android:layout_marginRight="14dp" />
     </LinearLayout>
 </RelativeLayout>

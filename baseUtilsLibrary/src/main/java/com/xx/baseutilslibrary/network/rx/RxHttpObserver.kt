@@ -56,7 +56,7 @@ abstract class RxHttpObserver<T> : DefaultObserver<BaseResponseEntity<T>>(), RxH
     }
 
     override fun onNext(responseBean: BaseResponseEntity<T>) {
-        if (responseBean.status == 1) {
+        if (responseBean.status.equals("1")) {
             onCompleted(responseBean.msg, responseBean.data)
         } else {
             //接口返回的错误描述

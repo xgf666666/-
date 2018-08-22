@@ -11,7 +11,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.common.Constant
 import com.microple.jademall.ui.home.activity.GoodsDetailActivity
+import com.microple.jademall.ui.home.activity.ImOrderActivity
 import com.microple.jademall.ui.home.adapter.HomeGoodsAdapter
+import com.microple.jademall.ui.home.adapter.ImOrderAdapter
 import com.microple.jademall.ui.shoppingcar.adapter.LeftAdapter
 import com.microple.jademall.weight.MyRecyclerView
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
@@ -40,6 +42,9 @@ class ShoppingCarFragment : BaseMvpViewFragment(){
                 sl_all.closePane()
             else
                 sl_all.openPane()
+        }
+        tv_submint.setOnClickListener{
+            ImOrderActivity.startImOrderActivity(context!!)
         }
         left()
         right()

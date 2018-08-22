@@ -54,12 +54,13 @@ abstract class XxBaseHttpObserver<T> : Observer<BaseResponseEntity<T>>, RxHelper
     override fun onSubscribe(d: Disposable) {}
 
     override fun onNext(responseBean: BaseResponseEntity<T>) {
-        if (responseBean.status == 1) {
-            onCompleted(responseBean.msg, responseBean.data)
-        } else if (responseBean.status == 2) {   //登录失效
-            ActivityUtils.startActivity(Intent("com.micropole.yibanyou.loginvali"))
-        } else if (responseBean.status == 3) {
-            onError(ApiFaileException(BIND_CELL_PHONE));
+        if (responseBean.status == BaseResponseEntity.SUCCESS) {
+            //正常从接口获取到数据
+            if (responseBean.code == BaseResponseEntity.NEED_COMPLETE_INFO){
+                onCompleted(BaseResponseEntity.NEED_COMPLETE_INFO, responseBean.data)
+            }else{
+                onCompleted(responseBean.msg, responseBean.data)
+            }
         } else {
             //接口返回的错误描述
             onError(responseBean.msg)

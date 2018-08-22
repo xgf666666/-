@@ -20,7 +20,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.xx.baseutilslibrary.network.entity.BaseResponseEntity;
+import com.xx.baseutilslibrary.network.entity.BaseResponseStatusEntity;
 import com.xx.baseutilslibrary.network.exception.ApiFaileException;
+import com.xx.baseutilslibrary.network.exception.TokenInvalidException;
 
 import java.io.IOException;
 
@@ -44,17 +46,17 @@ final class XxGsonResponseBodyConverter<T> implements Converter<ResponseBody, T>
 
             valueString = valueString.replaceAll(":null", ":\"\"");
             Log.e(TAG, valueString);//输出替换后的json数据
-            if (valueString.indexOf("openid") != -1) {
-                //微信
+            BaseResponseStatusEntity baseResponseEntity = gson.fromJson(valueString, BaseResponseStatusEntity.class);
+            if (baseResponseEntity.getStatus().equals(BaseResponseEntity.Companion.getFAILE())) {
+                //错误情况不解析data数据,防止数据成功失败返回数据格式不一致的问题
+                throw new ApiFaileException(baseResponseEntity.getMsg());
+            }else if (baseResponseEntity.getCode().equals("444")) {
+                throw new TokenInvalidException("444");
+            }else if (baseResponseEntity.getCode().equals("40004")){
+                throw new ApiFaileException(baseResponseEntity.getMsg());
+            }
+            else {
                 return adapter.fromJson(valueString);
-            } else {
-                BaseResponseEntity baseResponseEntity = gson.fromJson(valueString, BaseResponseEntity.class);
-                if (baseResponseEntity.getStatus() == 0) {
-                    //错误情况不解析data数据,防止数据成功失败返回数据格式不一致的问题
-                    throw new ApiFaileException(baseResponseEntity.getMsg());
-                } else {
-                    return adapter.fromJson(valueString);
-                }
             }
         } finally {
             value.close();
