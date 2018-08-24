@@ -72,10 +72,10 @@ class PersonlFragment : BaseMvpViewFragment() {
                    NotGoodsOrderActivity.startNotGoodsOrderActivity(context!!)
                }
                3->{
-                   CompleteOrderActivity.startCompleteOrderActivity(context!!)
+//                   CompleteOrderActivity.startCompleteOrderActivity(context!!)
                }
                4->{
-                   CancalOrderActivity.startCancalOrderActivity(context!!)
+//                   CancalOrderActivity.startCancalOrderActivity(context!!)
                }
                5->{
                    CustomerOrderActivity.startCustomerOrderActivity(context!!)

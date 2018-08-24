@@ -16,14 +16,10 @@ import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
-
-    override fun getActivityLayoutId(): Int = R.layout.activity_main
-
-    private var mFragments: Array<Fragment?> = arrayOf(HomeFragment(), null, null, null, null)
-    private val mMenuItemId = arrayOf(R.id.item0, R.id.item1, R.id.item2, R.id.item3, R.id.item4)
-
-    override fun init() {
+    /**
+     * 初始化数据状态
+     */
+    override fun initData() {
         //改变状态字体为深色
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
 
@@ -33,9 +29,20 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
                 .commit()
         BottomNavigationViewUtils.disableShiftMode(bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
-
-
     }
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+    }
+
+
+    override fun getActivityLayoutId(): Int = R.layout.activity_main
+
+    private var mFragments: Array<Fragment?> = arrayOf(HomeFragment(), null, null, null, null)
+    private val mMenuItemId = arrayOf(R.id.item0, R.id.item1, R.id.item2, R.id.item3, R.id.item4)
+
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         menuInflater.inflate(R.menu.navigation_main, menu)

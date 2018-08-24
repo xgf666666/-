@@ -12,10 +12,10 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/14
  * describe:确认售后申请
  */
-class CustomerActivity : AppCompatActivity() {
+class SureCustomerActivity : AppCompatActivity() {
     companion object {
         fun startCustomerActivity(context: Context){
-            val intent = Intent(context,CustomerActivity::class.java)
+            val intent = Intent(context,SureCustomerActivity::class.java)
             context.startActivity(intent)
         }
     }

@@ -15,13 +15,10 @@ import java.util.ArrayList
  * describe:搜索二级分类商品列表
  */
 class SearchSortGoodsActivity : BaseMvpViewActivity(), View.OnClickListener {
-
-    private var isFiltrate = true
-
-    override fun getActivityLayoutId(): Int = R.layout.activity_sort_goods
-
-
-    override fun init() {
+    /**
+     * 初始化数据状态
+     */
+    override fun initData() {
         val fragments = ArrayList<Fragment>()
         val titles = arrayOf("精品翡翠", "冰种翡翠", "任性赌石", "赌石亏光")
         for (i in titles.indices) {
@@ -36,6 +33,18 @@ class SearchSortGoodsActivity : BaseMvpViewActivity(), View.OnClickListener {
         tv_hot.setOnClickListener(this)
         tv_newest.setOnClickListener(this)
     }
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+    }
+
+    private var isFiltrate = true
+
+    override fun getActivityLayoutId(): Int = R.layout.activity_sort_goods
+
+
 
     override fun onClick(v: View?) {
         when (v) {

@@ -13,10 +13,10 @@ import kotlinx.android.synthetic.main.activity_live_details.*
  * describe:直播详情
  */
 class LiveDetailsActivity : BaseMvpViewActivity() {
-
-    override fun getActivityLayoutId(): Int = R.layout.activity_live_details
-
-    override fun init() {
+    /**
+     * 初始化数据状态
+     */
+    override fun initData() {
         title = "直播详情"
         Glide.with(this).load(Constant.item)
                 .apply(RequestOptions()
@@ -27,4 +27,13 @@ class LiveDetailsActivity : BaseMvpViewActivity() {
         tv_liveTime.text = "2018-11-23 12:20"
         tv_liveMessage.text = "J如果你无法简洁的表达你的想法，那只说明你还不够了解它。\n" + " -- 阿尔伯特·爱因斯坦"
     }
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+    }
+
+    override fun getActivityLayoutId(): Int = R.layout.activity_live_details
+
 }

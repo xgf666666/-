@@ -30,7 +30,9 @@
         android:layout_marginRight="@dimen/sp_13"
         android:visibility="gone"/>
 
-    <View style="@style/LineGray"
+    <View
+        android:id="@+id/view_l"
+        style="@style/LineGray"
         android:layout_alignParentBottom="true"/>
 
 

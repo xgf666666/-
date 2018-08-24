@@ -16,9 +16,11 @@
             app:cardElevation="3dp"
             app:cardMaxElevation="3dp"
             app:cardUseCompatPadding="true"
+            android:descendantFocusability="blocksDescendants"
             >
 
             <android.support.v7.widget.RecyclerView
+                android:overScrollMode="never"
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

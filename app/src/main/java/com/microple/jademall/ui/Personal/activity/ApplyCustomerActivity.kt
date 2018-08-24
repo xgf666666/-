@@ -25,10 +25,10 @@ class ApplyCustomerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_customer_list)
         tv_title.text="申请售后"
         ll_jilu.setOnClickListener{
-            CustomerActivity.startCustomerActivity(this)
+            SureCustomerActivity.startCustomerActivity(this)
         }
         ll_shenqing.setOnClickListener{
-            CustomerActivity.startCustomerActivity(this)
+            SureCustomerActivity.startCustomerActivity(this)
         }
     }
 }

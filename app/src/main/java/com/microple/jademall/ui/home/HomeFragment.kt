@@ -3,6 +3,7 @@ package com.microple.jademall.ui.home
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v4.view.ViewPager
 import android.view.View
 import com.bumptech.glide.Glide
 import com.microple.jademall.common.Constant
@@ -12,7 +13,7 @@ import com.weibiaogan.bangbang.common.dpTopx
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import com.xx.baseuilibrary.widget.CustPagerTransformer
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 /**
  * author: linfeng
@@ -78,6 +79,25 @@ class HomeFragment : BaseMvpViewFragment(), View.OnClickListener {
         }
         viewPagergGoods.adapter = HomeTabAdapter(this!!.fragmentManager!!, fragments, titles)
         slidingTabLayout.setViewPager(viewPagergGoods)
+        viewPagergGoods.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                setViewPage((fragments[position] as HomeGoodsFragment).getHieght()+14)
+            }
+
+        })
+        setViewPage(115*10)
+//        (fragments[0] as HomeGoodsFragment).setListener(object : HomeGoodsFragment.ViewListener {
+//            override fun getData(data: ArrayList<String>) {
+//                setViewPage(data.size*115+15)
+//            }
+//        })
 
     }
      fun setViewPage(height:Int){

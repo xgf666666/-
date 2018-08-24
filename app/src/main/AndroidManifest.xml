@@ -59,11 +59,9 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.Personal.activity.AllOrderActivity" />
         <activity android:name=".ui.Personal.activity.OrderDetailActivity" />
-        <activity android:name=".ui.Personal.activity.CustomerActivity" />
+        <activity android:name=".ui.Personal.activity.SureCustomerActivity" />
         <activity android:name=".ui.Personal.activity.NotReviewOrderActivity" />
         <activity android:name=".ui.Personal.activity.NotGoodsOrderActivity" />
-        <activity android:name=".ui.Personal.activity.CompleteOrderActivity" />
-        <activity android:name=".ui.Personal.activity.CancalOrderActivity" />
         <activity android:name=".ui.Personal.activity.CustomerOrderActivity" />
         <activity android:name=".ui.Personal.activity.MyCollectionActivity" />
         <activity android:name=".ui.Personal.activity.MyAppointmentActivity" />

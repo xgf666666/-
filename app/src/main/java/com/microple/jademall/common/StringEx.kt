@@ -8,5 +8,5 @@ fun String.md5Salt():String =
                 .toLowerCase()).toLowerCase()
 fun Int.dpTopx(context: Context):Int{
     var scale = context.getResources().getDisplayMetrics().density
-    return (this * scale + 0.5f) as Int
+    return (this * scale + 0.5f).toInt()
 }

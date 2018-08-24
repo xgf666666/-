@@ -21,19 +21,31 @@ class HomeGoodsFragment : BaseMvpViewFragment() {
     private lateinit var mRootView : View
     private var mAdapter = HomeGoodsAdapter(R.layout.item_goods)
     override fun getFragmentLayoutId(): Int = R.layout.fragment_goods
-
+     var data:ArrayList<String>?=null
+     var viewListener:ViewListener?=null
 
     override fun init(view: View?) {
         mRootView = view!!
-        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+         data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+        if (viewListener!=null)
+            viewListener?.getData(data!!)
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)//setViewPage(115*data.size)
         mRootView.recyclerView.adapter = mAdapter
         mRootView.recyclerView.layoutManager= LinearLayoutManager(context)
-//        recyclerView.isNestedScrollingEnabled = false
-        mAdapter.addData(data)
+        recyclerView.isNestedScrollingEnabled = false
+        mAdapter.addData(data!!)
         mAdapter.notifyDataSetChanged()
         mAdapter.setOnItemClickListener { adapter, view, position ->
             GoodsDetailActivity.startGoodsDetailActivity(context!!)
         }
+    }
+    fun getHieght():Int{
+        return data!!.size*115
+    }
+    public fun setListener(viewListener: ViewListener){
+        this.viewListener=viewListener
+    }
+    public interface ViewListener{
+       fun getData(data:ArrayList<String>)
     }
 }

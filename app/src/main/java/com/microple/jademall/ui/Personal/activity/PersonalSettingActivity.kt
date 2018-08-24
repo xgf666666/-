@@ -54,6 +54,7 @@ class PersonalSettingActivity : AppCompatActivity() {
                 .setSize(120, 120)//裁剪尺寸
                 .setOnFinishChooseAndCropImageListener { bitmap, file ->
                     //                    显示选好得图片
+                    iv_hand.setImageBitmap(bitmap)
                 }
                 .create()
 
@@ -80,5 +81,9 @@ class PersonalSettingActivity : AppCompatActivity() {
                 .rationale { shouldRequest -> shouldRequest.again(true) }
                 .request()
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            imageChooseHelper.onActivityResult(requestCode, resultCode, data)
+    }
+
 
 }

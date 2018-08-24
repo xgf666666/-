@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Personal.activity.CustomerActivity"
+    tools:context=".ui.Personal.activity.SureCustomerActivity"
     android:orientation="vertical"
     android:background="@color/white_default">
     <include layout="@layout/item_title"/>

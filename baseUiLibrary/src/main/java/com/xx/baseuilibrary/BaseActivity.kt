@@ -1,11 +1,10 @@
 package com.xx.baseuilibrary
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import com.xx.baseutilslibrary.status_bar.StatusBarUtils
-import kotlinx.android.synthetic.main.layout_tool_bar.*
-
+import android.widget.ImageButton
+import com.xx.baseutilslibrary.common.XxResourceUtil
 
 /**
  * BaseActivity
@@ -16,18 +15,9 @@ import kotlinx.android.synthetic.main.layout_tool_bar.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    protected lateinit var mContext: Context
+    protected lateinit var mPermissionsManager : PermissionsManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-        StatusBarUtils.apply(this, true)
-        var layoutId = getActivityLayoutId()
-        if (layoutId > 0) {
-            setContentView(getActivityLayoutId())
-            setSupportActionBar(toolBar)
-        }
-        init()
-    }
 
     /**
      * 获取布局资源文件id
@@ -36,10 +26,90 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected abstract fun getActivityLayoutId(): Int
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mContext = this
+        beforeSetContentView()
+        setContentView(getActivityLayoutId())
+        mPermissionsManager= PermissionsManager(this)
+        mPermissionsManager.permissions= returnPermissionArr()
+        mPermissionsManager.setPermissionCallback(MyOnPermissionsCallback())
+        afterSetContentView()
+
+    }
+
+
+
     /**
-     * 初始化
+     * 在设置ContenView之前执行的操作
+     * 需要时复写
      */
-    protected abstract fun init()
+    fun beforeSetContentView() {}
+
+
+    /**
+     * 在设置ContenView之后执行的操作
+     * 需要时复写
+     */
+    protected open fun afterSetContentView() {
+        initData()
+        initEvent()
+
+        //初始化返回按钮
+        val id = XxResourceUtil.getId(mContext, "ib_back")
+        val ibBack = findViewById<ImageButton>(id)
+        ibBack?.setOnClickListener {
+            finish()
+        }
+    }
+
+    /**
+     * 初始化数据状态
+     */
+    protected abstract fun initData()
+
+
+    /**
+     * 初始化事件
+     */
+    protected abstract fun initEvent()
+
+
+    /**
+     * 权限申请结果回调
+     */
+    private inner class MyOnPermissionsCallback : PermissionsManager.OnPermissionsCallback {
+        override fun hasPermissions() {
+            requestPermissionsSuccess()
+        }
+
+        override fun noPermissions() {
+            requestPermissionsFailed()
+        }
+    }
+
+    /**
+     * 有权限
+     */
+    open fun requestPermissionsSuccess() {
+
+    }
+
+    /**
+     * 无权限
+     */
+    open fun requestPermissionsFailed() {
+
+    }
+
+    /**
+     * 子类复写此方法返回需要申请的权限
+     *
+     * @return
+     */
+    open fun returnPermissionArr(): Array<out String>? {
+        return arrayOf<String>()
+    }
 
 
 }

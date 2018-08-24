@@ -7,7 +7,17 @@
     android:orientation="vertical"
     android:paddingLeft="13dp"
     android:paddingRight="13dp">
+    <include
+        layout="@layout/view_loading"
+        android:visibility="gone" />
 
+    <include
+        layout="@layout/view_error"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/view_check_net"
+        android:visibility="gone" />
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_head"
         android:layout_width="34dp"
@@ -16,7 +26,6 @@
         android:layout_marginTop="15dp"
         android:src="@drawable/img_head_n" />
 
-    <!--<include layout="@layout/fragment_tool_bar" />-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,6 +34,7 @@
         android:textSize="24sp"
         />
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -48,16 +58,12 @@
 
             </android.support.v4.view.ViewPager>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="27dp"
-                android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="27dp"
+                    >
                     <com.flyco.tablayout.SlidingTabLayout
                         android:id="@+id/slidingTabLayout"
                         android:layout_width="match_parent"
@@ -116,8 +122,6 @@
                         android:text="最新"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/sp_12" />
-
-
                 </LinearLayout>
 
                 <android.support.v4.view.ViewPager
@@ -127,7 +131,6 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="24dp" />
 
-            </LinearLayout>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

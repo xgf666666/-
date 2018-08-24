@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_title.*
 /**
  * author: xiaoguagnfei
  * date: 2018/8/13
- * describe:账单查询
+ * describe:积分明细
  */
 class BillQueryActivity : AppCompatActivity() {
     companion object {
@@ -26,7 +26,7 @@ class BillQueryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bill_query)
-        tv_title.text="账单查询"
+        tv_title.text="积分明细"
         var adapter=BillQueryAdapter(arrayListOf())
         var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.microple.jademall.R
 import kotlinx.android.synthetic.main.item_title.*
 
@@ -24,5 +25,6 @@ class ForgetPWActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forget_pw)
         tv_title.text="忘记密码"
+        view_l.visibility= View.GONE
     }
 }

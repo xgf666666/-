@@ -17,6 +17,26 @@ import kotlinx.android.synthetic.main.activity_result_goods.*
  * describe:搜索结果商品列表
  */
 class SearchResultGoodsActivity : BaseMvpViewActivity(){
+    /**
+     * 初始化数据状态
+     */
+    override fun initData() {
+
+            var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+            mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = mAdapter
+            mAdapter.addData(data)
+            mAdapter.notifyDataSetChanged()
+            iv_back.setOnClickListener{finish()}
+
+    }
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+    }
 
     private var mAdapter = SearchResultGoodsAdapter(R.layout.item_goods)
 
@@ -28,14 +48,5 @@ class SearchResultGoodsActivity : BaseMvpViewActivity(){
         }
     }
 
-    override fun init() {
-        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = mAdapter
-        mAdapter.addData(data)
-        mAdapter.notifyDataSetChanged()
-        iv_back.setOnClickListener{finish()}
-    }
 
 }

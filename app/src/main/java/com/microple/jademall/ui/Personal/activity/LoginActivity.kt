@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         tv_title.visibility= View.GONE
         tv_right.visibility=View.VISIBLE
+        view_l.visibility=View.GONE
         tv_right.setOnClickListener{
             ForgetPWActivity.startForgetPWActivity(this)
         }
