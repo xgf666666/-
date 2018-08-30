@@ -27,7 +27,7 @@ public class TextDialog extends Dialog implements View.OnClickListener {
     private TextView mTv_cancel;
 
 
-    public TextDialog(@NonNull Context context) {
+    public TextDialog(@NonNull Context context,String text) {
         super(context);
         this.mContext=context;
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -46,15 +46,16 @@ public class TextDialog extends Dialog implements View.OnClickListener {
                 window.setAttributes(attr);
             }
 
-        initView();
+        initView(text);
     }
 
-    private void initView() {
+    private void initView(String text) {
         View view = View.inflate(mContext, R.layout.view_text_dialig, null);
         view.findViewById(R.id.tv_cancel).setOnClickListener(this);
         mTv_title = view.findViewById(R.id.tv_title);
         mTv_content = view.findViewById(R.id.tv_content);
         mTv_cancel = view.findViewById(R.id.tv_cancel);
+        mTv_content.setText(text);
         setContentView(view);
     }
 

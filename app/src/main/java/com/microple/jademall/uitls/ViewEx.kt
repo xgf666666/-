@@ -5,7 +5,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import com.bumptech.glide.request.RequestOptions
+import com.microple.jademall.R
 import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
 
 /**
@@ -13,11 +14,18 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
  * date: 2018/5/7
  * describe:
  */
-fun ImageView.loadImag( url: String, tran: BitmapTransformation? = null, plach: Int = 0, error: Int = 0) {
+  fun ImageView.loadImag( url: String) {
     var urltemp=url
     if (url.length>1&&url[0].equals('/')) {
-        urltemp=Retrofit2Manager.instance.apiConfigProvider?.debugHost+url
+        urltemp=Retrofit2Manager.instance.apiConfigProvider?.releaseHost+url
+    }else{
+        urltemp=url
     }
+    Glide.with(this.context).load(urltemp).apply(RequestOptions()
+            .placeholder(R.drawable.ic_img_default)
+            .error(R.drawable.ic_img_default))
+            .into(this)
+
 //    Glide.with(this.context).load(urltemp).also {
 //        if (tran != null) {
 //            it.transform(tran)

@@ -20,7 +20,8 @@ abstract class BaseMvpPresenter<M, V : BaseMvpView> {
      */
     var isLoading: Boolean? = false
 
-    fun attachView(view: V) {
+    fun attachView(view: BaseMvpView) {
+        view as V
         vWeakReference = WeakReference(view)
     }
 

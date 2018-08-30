@@ -29,7 +29,8 @@ class MerchantEntryActivity : AppCompatActivity() {
             MerchantEntryRecordActivity.startMerchantEntryRecordActivity(this)
         }
         ll_shenqing.setOnClickListener{
-            ApplicationActivity.startApplicationActivity(this)
+//            ApplicationActivity.startApplicationActivity(this)
+            NeedNoteActivity.startNeedNoteActivity(this)
         }
     }
 }

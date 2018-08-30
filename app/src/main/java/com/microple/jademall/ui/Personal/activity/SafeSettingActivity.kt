@@ -33,5 +33,8 @@ class SafeSettingActivity : AppCompatActivity() {
         ll_phone.setOnClickListener{
             PassswordActivity.startPassswordActivity(this,3)
         }
+        iv_back.setOnClickListener{
+            finish()
+        }
     }
 }

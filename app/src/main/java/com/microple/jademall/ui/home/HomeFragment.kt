@@ -1,16 +1,24 @@
 package com.microple.jademall.ui.home
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.microple.jademall.common.Constant
 import com.microple.jademall.R
+import com.microple.jademall.bean.Category
+import com.microple.jademall.bean.FirstImage
+import com.microple.jademall.bean.Goods
 import com.microple.jademall.ui.home.adapter.HomeTabAdapter
-import com.weibiaogan.bangbang.common.dpTopx
-import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
+import com.microple.jademall.ui.home.fragment.BannerFragment
+import com.microple.jademall.ui.home.mvp.contract.HomeContract
+import com.microple.jademall.ui.home.mvp.presenter.HomePresenter
+import com.weibiaogan.bangbang.common.pxtodp
+import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import com.xx.baseuilibrary.widget.CustPagerTransformer
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlin.collections.ArrayList
@@ -20,25 +28,45 @@ import kotlin.collections.ArrayList
  * date: 2018/8/1.
  * describe:首页
  */
-class HomeFragment : BaseMvpViewFragment(), View.OnClickListener {
+class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePresenter>(),HomeContract.View, View.OnClickListener {
+
+
+
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): HomePresenter =HomePresenter()
 
     private var isFiltrate = true
-    private val fragments = ArrayList<BannerFragment>() // 供ViewPager使用
-    private val imageList = arrayOf(Constant.item, Constant.item, Constant.item, Constant.item, Constant.item)
+
     override fun getFragmentLayoutId(): Int = R.layout.fragment_home
 
     override fun init(view: View?) {
         setBackVisibility(false)
         //头像
         Glide.with(context!!).load(Constant.item).into(iv_head)
-        // 3. 填充ViewPager
-        fillViewPager()
-        //商品列表
-        initGoodsData()
+
+        getPresenter().getFirstView()
+        getPresenter().getCategory()
+
+
         tv_filtrate.setOnClickListener(this)
         tv_price.setOnClickListener(this)
         tv_hot.setOnClickListener(this)
         tv_newest.setOnClickListener(this)
+    }
+    //轮播图
+    override fun getFirstView(data: List<FirstImage>) {
+        // 3. 填充ViewPager
+        fillViewPager(data)
+    }
+    //首页一级分类
+    override fun getCategory(data: List<Category>) {
+        if (data.size!=0){
+            initGoodsData(data)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -53,72 +81,59 @@ class HomeFragment : BaseMvpViewFragment(), View.OnClickListener {
                 }
             }
             tv_price -> {
-                tv_price.setTextColor(resources.getColor(R.color.colorMain))
-                tv_hot.setTextColor(resources.getColor(R.color.text_black))
-                tv_newest.setTextColor(resources.getColor(R.color.text_black))
+                setText(tv_price)
+                for (i:Int in 0..fragments.size-1){
+                    (fragments[i] as HomeGoodsFragment).setCat_id("price")
+                }
 
             }
             tv_hot -> {
-                tv_hot.setTextColor(resources.getColor(R.color.colorMain))
-                tv_price.setTextColor(resources.getColor(R.color.text_black))
-                tv_newest.setTextColor(resources.getColor(R.color.text_black))
+                setText(tv_hot)
+                for (i:Int in 0..fragments.size-1){
+                    (fragments[i] as HomeGoodsFragment).setCat_id("hot")
+                }
+
             }
             tv_newest -> {
-                tv_newest.setTextColor(resources.getColor(R.color.colorMain))
-                tv_price.setTextColor(resources.getColor(R.color.text_black))
-                tv_hot.setTextColor(resources.getColor(R.color.text_black))
+                setText(tv_newest)
+                for (i:Int in 0..fragments.size-1){
+                    (fragments[i] as HomeGoodsFragment).setCat_id("new")
+                }
             }
         }
     }
-
-    private fun initGoodsData() {
-        val fragments = ArrayList<Fragment>()
-        val titles = arrayOf("精品翡翠", "冰种翡翠", "任性赌石", "赌石亏光")
-        for (i in titles.indices) {
-            fragments.add(HomeGoodsFragment())
+    val fragments=ArrayList<Fragment>()
+    private fun initGoodsData(data: List<Category>) {
+        for (i in 0..data.size-1) {
+            var fragment= HomeGoodsFragment()
+            var bundle=Bundle()
+            bundle.putInt("cat_id",data[i].cat_id)
+            fragment.arguments=bundle
+            fragments.add(fragment)
         }
-        viewPagergGoods.adapter = HomeTabAdapter(this!!.fragmentManager!!, fragments, titles)
-        slidingTabLayout.setViewPager(viewPagergGoods)
-        viewPagergGoods.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                setViewPage((fragments[position] as HomeGoodsFragment).getHieght()+14)
-            }
-
-        })
-        setViewPage(115*10)
-//        (fragments[0] as HomeGoodsFragment).setListener(object : HomeGoodsFragment.ViewListener {
-//            override fun getData(data: ArrayList<String>) {
-//                setViewPage(data.size*115+15)
-//            }
-//        })
+        viewPagergGoods.adapter = HomeTabAdapter(this!!.fragmentManager!!, fragments, data)
+        slidingTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE)
+        slidingTabLayout.setupWithViewPager(viewPagergGoods)
 
     }
-     fun setViewPage(height:Int){
-        var lp=viewPagergGoods.layoutParams
-        lp.height=height.dpTopx(context!!)
-        viewPagergGoods.layoutParams=lp
-    }
 
-    private fun fillViewPager() {
+    private fun fillViewPager(data:List<FirstImage>) {
         // 1. viewPager添加parallax效果，使用PageTransformer就足够了
+        val fragments = ArrayList<BannerFragment>() // 供ViewPager使用
         viewPager.setPageTransformer(false, CustPagerTransformer(context))
         viewPager.pageMargin = 26
         // 2. viewPager添加adapter
-        for (i in 0..9) {
-            // 预先准备10个fragment
-            fragments.add(BannerFragment())
+        for (i in 0..data.size-1) {
+            var fragment= BannerFragment()
+            var bundle=Bundle()
+            bundle.putString("img",data[i].img)
+            bundle.putInt("banner_id",data[i].banner_id)
+            fragment.arguments=bundle
+            fragments.add(fragment)
         }
         viewPager.adapter = object : FragmentStatePagerAdapter(fragmentManager) {
             override fun getItem(position: Int): Fragment? {
-                val fragment = fragments[position % 10]
-                fragment.setImageUrl(imageList[position % imageList.size])
+                val fragment = fragments[position ]
                 return fragment
             }
 
@@ -127,5 +142,17 @@ class HomeFragment : BaseMvpViewFragment(), View.OnClickListener {
             }
         }
     }
+    fun setText(textView: TextView){
+        tv_newest.setTextColor(resources.getColor(R.color.text_black))
+        tv_price.setTextColor(resources.getColor(R.color.text_black))
+        tv_hot.setTextColor(resources.getColor(R.color.text_black))
+        tv_newest.isEnabled=true
+        tv_price.isEnabled=true
+        tv_hot.isEnabled=true
+        textView.isEnabled=false
+        textView.setTextColor(resources.getColor(R.color.colorMain))
+
+    }
+
 
 }

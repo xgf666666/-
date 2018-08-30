@@ -6,6 +6,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
+import com.microple.jademall.bean.Search
 import com.microple.jademall.common.Constant
 
 /**
@@ -13,13 +14,8 @@ import com.microple.jademall.common.Constant
  * date: 2018/8/7.
  * describe:二级类别
  */
-class SearchSortAdapter (layoutId: Int) : BaseQuickAdapter<Any, BaseViewHolder>(layoutId){
-    override fun convert(helper: BaseViewHolder, item: Any) {
-        Glide.with(mContext).load(Constant.item)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default))
-                .into(helper.getView(R.id.iv_sort) as ImageView)
-        helper.setText(R.id.tv_sort,"翡翠类别")
+class SearchSortAdapter (layoutId: Int) : BaseQuickAdapter<Search.CategorysBean, BaseViewHolder>(layoutId){
+    override fun convert(helper: BaseViewHolder, item: Search.CategorysBean) {
+        helper.setText(R.id.tv_sort,item.name)
     }
 }

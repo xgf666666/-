@@ -1,10 +1,12 @@
 package com.microple.jademall.uitls
 
 import android.content.Context
+import android.content.Intent
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalDialog
 import com.microple.jademall.R
 import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.activity.LoginActivity
 import com.xx.baseuilibrary.BaseActivity
 import com.xx.baseuilibrary.BaseFragment
 import com.xx.baseuilibrary.mvp.BaseMvpView
@@ -70,7 +72,7 @@ fun tokenError(context : Context,msg:String){
     dialog.show()
     dialog.setOnBtnClickL(OnBtnClickL {
         dialog.dismiss()
-//        context.startActivity(Intent(context, LoginActivity::class.java))
+        context.startActivity(Intent(context, LoginActivity::class.java))
     })
 }
 

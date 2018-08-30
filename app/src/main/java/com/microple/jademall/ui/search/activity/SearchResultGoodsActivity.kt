@@ -20,15 +20,17 @@ class SearchResultGoodsActivity : BaseMvpViewActivity(){
     /**
      * 初始化数据状态
      */
+    var name=""
     override fun initData() {
-
-            var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-            mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-            recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = mAdapter
-            mAdapter.addData(data)
-            mAdapter.notifyDataSetChanged()
-            iv_back.setOnClickListener{finish()}
+        name=intent.getStringExtra("name")
+        tv_head.text=name
+        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = mAdapter
+        mAdapter.addData(data)
+        mAdapter.notifyDataSetChanged()
+        iv_back.setOnClickListener{finish()}
 
     }
 
@@ -42,8 +44,9 @@ class SearchResultGoodsActivity : BaseMvpViewActivity(){
 
     override fun getActivityLayoutId(): Int = R.layout.activity_result_goods
     companion object {
-        fun startSearchResultGoodsActivity(context: Context){
+        fun startSearchResultGoodsActivity(context: Context,name:String){
             val intent = Intent(context, SearchResultGoodsActivity::class.java)
+            intent.putExtra("name",name)
             context.startActivity(intent)
         }
     }

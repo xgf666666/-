@@ -1,12 +1,16 @@
 package com.microple.jademall
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import com.microple.jademall.common.App
 import com.microple.jademall.ui.Personal.PersonlFragment
+import com.microple.jademall.ui.Personal.activity.LoginActivity
 import com.microple.jademall.ui.home.HomeFragment
 import com.microple.jademall.ui.live.LiveFragment
 import com.microple.jademall.ui.search.SearchFragment
@@ -21,8 +25,8 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
      */
     override fun initData() {
         //改变状态字体为深色
+        (application as App).addActivity(this)
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-
         supportFragmentManager
                 .beginTransaction()
                 .add(R.id.linearLayout, mFragments[0])
@@ -86,5 +90,12 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
         selectedFragemnt(item.itemId, null)
         return true
     }
+    companion object {
+        fun startMainActivity(context: Context){
+            val intent = Intent(context, MainActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
 
 }

@@ -3,6 +3,7 @@ package com.xx.baseuilibrary
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ImageButton
 import com.xx.baseutilslibrary.common.XxResourceUtil
 
@@ -52,6 +53,7 @@ abstract class BaseActivity : AppCompatActivity() {
      * 需要时复写
      */
     protected open fun afterSetContentView() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         initData()
         initEvent()
 

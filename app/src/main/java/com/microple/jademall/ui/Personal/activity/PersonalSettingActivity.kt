@@ -11,8 +11,13 @@ import android.util.Log
 import com.blankj.utilcode.util.PermissionUtils
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
+import com.microple.jademall.bean.PersonInfo
+import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.mvp.presenter.PersonalSettingPresenter
 import com.microple.jademall.ui.home.activity.ImageDetailActivity
+import com.microple.jademall.uitls.loadImag
 import com.weibiaogan.bangbang.dialog.ChooseImageDialogWrapper
+import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import com.xx.baseutilslibrary.common.ImageChooseHelper
 import kotlinx.android.synthetic.main.activity_personal_setting.*
 import kotlinx.android.synthetic.main.item_title.*
@@ -22,7 +27,52 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/13
  * describe:个人资料设置
  */
-class PersonalSettingActivity : AppCompatActivity() {
+class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>() {
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): PersonalSettingPresenter = PersonalSettingPresenter()
+
+    /**
+     * 获取布局资源文件id
+     *
+     * @return 布局资源文件id
+     */
+    override fun getActivityLayoutId(): Int =R.layout.activity_personal_setting
+
+    /**
+     * 初始化数据状态
+     */
+    override fun initData() {
+        tv_title.text="个人资料设置"
+        initImageChooseHelper()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var info=Constants.getPersonal()
+        tv_name.text=info.user_name
+        iv_hand.loadImag(info.head_img)
+    }
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+        rl_name.setOnClickListener{
+            NickNameActivity.startNickNameActivity(this)
+        }
+        rl_hand.setOnClickListener{
+            showEditAvatarDialog()
+        }
+        iv_back.setOnClickListener{
+            finish()
+        }
+    }
+
     private lateinit var imageChooseHelper: ImageChooseHelper
 
     companion object {
@@ -32,18 +82,6 @@ class PersonalSettingActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_personal_setting)
-        tv_title.text="个人资料设置"
-        initImageChooseHelper()
-        rl_name.setOnClickListener{
-            NickNameActivity.startNickNameActivity(this)
-        }
-        rl_hand.setOnClickListener{
-            showEditAvatarDialog()
-        }
-    }
     private fun initImageChooseHelper(){
         imageChooseHelper = ImageChooseHelper.Builder()
                 .setUpActivity(this)

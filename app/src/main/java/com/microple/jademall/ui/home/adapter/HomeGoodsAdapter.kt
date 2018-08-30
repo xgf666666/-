@@ -6,6 +6,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
+import com.microple.jademall.bean.Goods
 import com.microple.jademall.common.Constant
 
 /**
@@ -13,12 +14,13 @@ import com.microple.jademall.common.Constant
  * date: 2018/8/3.
  * describe:
  */
-class HomeGoodsAdapter(layoutId: Int) : BaseQuickAdapter<Any, BaseViewHolder>(layoutId) {
-    override fun convert(helper: BaseViewHolder, item: Any) {
-        helper.setText(R.id.tv_goodsName, "糯冰种飘翠福瓜挂件")
-        helper.setText(R.id.tv_goodsNum, "ACS322332")
-        helper.setText(R.id.tv_goodsPrice, "￥3980.00")
-        Glide.with(mContext).load(Constant.item)
+class HomeGoodsAdapter(data:List<Goods.GoodsListBean>) : BaseQuickAdapter<Goods.GoodsListBean, BaseViewHolder>(R.layout.item_goods,data) {
+
+    override fun convert(helper: BaseViewHolder, item: Goods.GoodsListBean) {
+        helper.setText(R.id.tv_goodsName, item.goods_name)
+        helper.setText(R.id.tv_goodsNum, item.goods_sn)
+        helper.setText(R.id.tv_goodsPrice, "￥"+item.goods_price)
+        Glide.with(mContext).load(item.goods_img)
                 .apply(RequestOptions()
                         .placeholder(R.drawable.ic_img_default)
                         .error(R.drawable.ic_img_default))

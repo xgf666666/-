@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_default"
     tools:context=".ui.home.activity.GoodsDetailActivity">
     <com.microple.jademall.weight.ZoomScrollView
         android:id="@+id/zoomScrollView"
@@ -27,20 +28,42 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/x"/>
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="糯冰种飘翠福瓜挂件"
                     android:textSize="@dimen/sp_17"
                     android:textColor="@color/white_default"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="16dp" />
+                <TextView
+                    android:id="@+id/tv_tt_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="02362588855"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="@color/white_default"
+                    android:layout_below="@+id/tv_title"
                     android:layout_marginTop="@dimen/dp_12"
                     android:layout_marginLeft="16dp" />
+
                 <ImageView
+                    android:id="@+id/tv_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/global_btn_close_n"/>
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/btn_img_fill_n"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"/>
 
             </RelativeLayout>
                     <RelativeLayout
@@ -56,21 +79,43 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="16dp" />
                         <ImageView
-                            android:id="@+id/iv_mai"
+                            android:id="@+id/iv_share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/bnt_bag_fill_s"
+                            android:src="@drawable/ic_share_tt"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/dp_16"
                             android:layout_centerVertical="true"/>
-                        <ImageView
-                            android:id="@+id/iv_collection"
+                        <CheckBox
+                            android:id="@+id/cb_collection"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/btn_favor_selected"
-                            android:layout_marginRight="60dp"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"/>
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/cb_collection"
+                            android:layout_toLeftOf="@+id/iv_share"
+                            android:button="@null"
+                            android:checked="false"/>
+
+                        <CheckBox
+                            android:id="@+id/cb_car"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/cb_car"
+                            android:layout_toLeftOf="@+id/cb_collection"
+                            android:button="@null"
+                            android:checked="false"/>
+                        <ImageView
+                            android:id="@+id/iv_kefu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_service_n"
+                            android:layout_toLeftOf="@+id/cb_car"
+                            android:layout_marginRight="15dp"
+                            android:layout_centerVertical="true"/>
+
                     </RelativeLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -205,17 +250,18 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="23dp"
                 android:layout_marginBottom="21dp"/>
-            <ImageView
-                android:id="@+id/iv_detail"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
                 android:layout_marginRight="14dp"
-                android:layout_marginLeft="14dp"
-                android:src="@drawable/x"/>
+                android:layout_marginLeft="14dp"/>
 
         </LinearLayout>
 
     </com.microple.jademall.weight.ZoomScrollView>
+    <include layout="@layout/view_loading"
+        android:id="@+id/loading"/>
 
 </RelativeLayout>

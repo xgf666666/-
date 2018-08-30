@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.dialog.BuytypeDialog
@@ -12,6 +13,10 @@ import com.microple.jademall.dialog.PayDialog
 import com.microple.jademall.ui.home.adapter.ImOrderAdapter
 import kotlinx.android.synthetic.main.activity_im_order.*
 import kotlinx.android.synthetic.main.item_title.*
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+
 
 /**
  * author: xiaoguagnfei

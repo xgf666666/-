@@ -32,7 +32,8 @@
             android:hint="请输入验证码"
             android:layout_marginLeft="@dimen/dp_13"
             android:layout_toLeftOf="@+id/tv_getcode"
-            android:background="@null"/>
+            android:background="@null"
+            android:inputType="number"/>
         <TextView
             android:id="@+id/tv_getcode"
             android:layout_width="wrap_content"
@@ -43,8 +44,7 @@
             android:layout_marginTop="29dp"
             android:textSize="17sp"
             android:layout_marginRight="@dimen/dp_13"
-            android:layout_alignParentRight="true"
-            android:inputType="number"/>
+            android:layout_alignParentRight="true"/>
 
         <View
             style="@style/LineGray"
@@ -76,7 +76,7 @@
             android:textColorHint="#BBBBBB"
             android:hint="请输入新密码"
             android:layout_marginLeft="@dimen/dp_13"
-            android:background="@null"/>
+            android:background="@null" />
         <View
             style="@style/LineGray"
             android:layout_marginLeft="@dimen/dp_13"

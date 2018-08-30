@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="25dp"
@@ -48,12 +48,13 @@
             android:textColorHint="#BBBBBB"
             android:hint="请输入手机号"
             android:layout_marginLeft="@dimen/dp_13"
+            android:inputType="number"
             android:background="@null"/>
         <View
             style="@style/LineGray"
             android:layout_marginLeft="@dimen/dp_13"
             android:layout_marginRight="@dimen/dp_13"
-            android:layout_below="@+id/et_password"/>
+            android:layout_below="@+id/et_phone"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,6 +71,7 @@
             android:hint="请输入验证码"
             android:layout_marginLeft="@dimen/dp_13"
             android:layout_toLeftOf="@+id/tv_getcode"
+            android:inputType="number"
             android:background="@null"/>
         <TextView
             android:id="@+id/tv_getcode"
@@ -81,8 +83,7 @@
             android:layout_marginTop="29dp"
             android:textSize="@dimen/sp_14"
             android:layout_marginRight="@dimen/dp_13"
-            android:layout_alignParentRight="true"
-            android:inputType="number"/>
+            android:layout_alignParentRight="true" />
 
         <View
             style="@style/LineGray"
@@ -90,6 +91,18 @@
             android:layout_marginRight="@dimen/dp_13"
             android:layout_below="@+id/et_code"/>
     </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_regster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新用户注册"
+        android:textColor="@color/green_06A366"
+        android:gravity="center"
+        android:layout_gravity="right"
+        android:layout_marginTop="12dp"
+        android:textSize="@dimen/sp_17"
+        android:layout_marginRight="@dimen/dp_13" />
+
     <TextView
         android:id="@+id/tv_submint"
         android:layout_width="138dp"

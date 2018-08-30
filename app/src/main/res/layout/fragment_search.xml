@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_default"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <include
@@ -25,7 +27,8 @@
         android:lines="1"
         android:paddingLeft="10dp"
         android:textColor="@color/text_black"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_14"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,9 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="按分类查找"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/sp_12"
+            android:textColor="@color/green_06A366"
+            android:textSize="@dimen/sp_16"
             android:layout_marginLeft="13dp"
+            android:enabled="false"
 
             />
         <TextView
@@ -48,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="热门关键字"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/sp_13"
             android:textColor="@color/text_black"
             android:layout_marginLeft="25dp"
             />
@@ -57,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="历史关键字"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/sp_13"
             android:textColor="@color/text_black"
             android:layout_marginLeft="25dp"
             />

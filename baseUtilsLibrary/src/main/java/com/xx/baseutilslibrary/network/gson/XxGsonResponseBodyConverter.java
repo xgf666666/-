@@ -43,15 +43,14 @@ final class XxGsonResponseBodyConverter<T> implements Converter<ResponseBody, T>
     public T convert(ResponseBody value) throws IOException {
         try {
             String valueString = value.string();
-
             valueString = valueString.replaceAll(":null", ":\"\"");
             Log.e(TAG, valueString);//输出替换后的json数据
             BaseResponseStatusEntity baseResponseEntity = gson.fromJson(valueString, BaseResponseStatusEntity.class);
             if (baseResponseEntity.getStatus().equals(BaseResponseEntity.Companion.getFAILE())) {
                 //错误情况不解析data数据,防止数据成功失败返回数据格式不一致的问题
                 throw new ApiFaileException(baseResponseEntity.getMsg());
-            }else if (baseResponseEntity.getCode().equals("444")) {
-                throw new TokenInvalidException("444");
+            }else if (baseResponseEntity.getCode().equals("40001")) {
+                throw new TokenInvalidException("40001");
             }else if (baseResponseEntity.getCode().equals("40004")){
                 throw new ApiFaileException(baseResponseEntity.getMsg());
             }

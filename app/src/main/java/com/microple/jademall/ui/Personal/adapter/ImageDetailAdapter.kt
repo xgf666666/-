@@ -1,8 +1,10 @@
 package com.microple.jademall.ui.Personal.adapter
 
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
+import com.microple.jademall.uitls.loadImag
 
 /**
  * author: xiaoguagnfei
@@ -17,5 +19,6 @@ class ImageDetailAdapter(data:List<String>):BaseQuickAdapter<String,BaseViewHold
      * @param item   The item that needs to be displayed.
      */
     override fun convert(helper: BaseViewHolder?, item: String?) {
+        helper?.getView<ImageView>(R.id.image)!!.loadImag(item!!)
     }
 }

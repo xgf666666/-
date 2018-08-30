@@ -4,24 +4,42 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.microple.jademall.R
+import com.microple.jademall.bean.*
 import com.microple.jademall.ui.Personal.adapter.PersonlCommonAdapter
 import com.microple.jademall.ui.Personal.adapter.PersonlHelpAdapter
 import com.microple.jademall.ui.Personal.adapter.PersonlOrderAdapter
 import com.microple.jademall.ui.Personal.adapter.PersonlSettingAdapter
-import com.microple.jademall.bean.PersonCommonBean
-import com.microple.jademall.bean.PersonHelpBean
-import com.microple.jademall.bean.PersonOrderBean
-import com.microple.jademall.bean.PersonSettingBean
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.activity.*
-import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
+import com.microple.jademall.ui.Personal.mvp.contract.PersonalContract
+import com.microple.jademall.ui.Personal.mvp.presenter.PersonalPresenter
+import com.microple.jademall.uitls.loadImag
+import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_personl.*
+import kotlinx.android.synthetic.main.item_login.*
 
 /**
  * author: linfeng
  * date: 2018/8/8.
  * describe:
  */
-class PersonlFragment : BaseMvpViewFragment() {
+class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.View,PersonalPresenter>(),PersonalContract.View {
+    override fun getInfo(personalInfo: PersonInfo) {
+        loading.visibility=View.GONE
+        scrollView.visibility=View.VISIBLE
+        iv_head.loadImag(personalInfo.info.head_img)
+        tv_name.text=personalInfo.info.user_name
+        tv_phone.text=personalInfo.info.phone
+        Constants.putPersonal(personalInfo.info)
+    }
+
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): PersonalPresenter = PersonalPresenter()
+
     private lateinit var mOrderAdapter: PersonlOrderAdapter//我的订单
     private lateinit var mSettingAdapter: PersonlSettingAdapter//设置
     private lateinit var mCommonAdapter: PersonlCommonAdapter//通用功能
@@ -30,16 +48,15 @@ class PersonlFragment : BaseMvpViewFragment() {
 
     override fun init(view: View?) {
         iv_setting.setOnClickListener{
-            SafeSettingActivity.startSafeSettingActivity(context!!)
+            Constants.loginOut()
+
+            LoginActivity.startLoginActivity(context!!)
         }
         //我的订单
         rv_myOrder.layoutManager = LinearLayoutManager(context)
         mOrderAdapter = PersonlOrderAdapter(R.layout.item_personal, PersonOrderBean.createList())
         rv_myOrder.adapter = mOrderAdapter
         rv_myOrder.isNestedScrollingEnabled = false
-        iv_head.setOnClickListener{
-            LoginActivity.startLoginActivity(context!!)
-        }
         //设置
         rv_setting.layoutManager = LinearLayoutManager(context)
         mSettingAdapter = PersonlSettingAdapter(R.layout.item_personal, PersonSettingBean.createList())
@@ -133,10 +150,35 @@ class PersonlFragment : BaseMvpViewFragment() {
                 }
             }
         }
+        tv_login.setOnClickListener{
+            LoginActivity.startLoginActivity(context!!)
+        }
+    }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            if (Constants.isLogin()){
+                Log.i("Constantssss",Constants.getToken())
+                getPresenter().getInfo(Constants.getToken())
+                view_login.visibility=View.GONE
+            }else{
+                view_login.visibility=View.VISIBLE
+            }
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if (!isHidden){
+            if (Constants.isLogin()){
+                Log.i("Constantssss",Constants.getToken())
+                getPresenter().getInfo(Constants.getToken())
+                view_login.visibility=View.GONE
+            }else{
+                view_login.visibility=View.VISIBLE
+            }
 
-
-
+        }
     }
 }

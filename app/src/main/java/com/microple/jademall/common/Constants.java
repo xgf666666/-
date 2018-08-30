@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 
 
 import com.microple.jademall.bean.LoginBean;
+import com.microple.jademall.bean.PersonInfo;
 import com.microple.jademall.bean.UserCenterBean;
 import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager;
 
@@ -18,6 +19,8 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager;
 public class Constants {
     private static final String TAG = "Constants";
     public static final String KEY_SP_TOKEN = "SP_TOKEN";
+    public static final String KEY_SP_PERSON = "SP_Person";
+    public static final String KEY_SP_CODE = "SP_CODE";
     public static final int INTENT_HOME = 0;
     public static final int INTENT_SHOPPING = 2;
     public static final String KEY_INTENT_MAIN = "INTENT_MAIN";
@@ -31,6 +34,7 @@ public class Constants {
     private static final String KEY_SP_HOME = "SP_HOME";//首页数据
     private static final String KEY_SP_IS_FIRST_LOGIN = "SP_IS_FIRST_LOGIN";//是否第一登录
     private static final String KEY_USER_PHONE="SP_USER_PHONE";//手机号
+    private static final String KEY_SP_SEARCH="KEY_SP_SEARCH";//搜索记录
     //滑动关闭Activity
     public static final int ACTIVITY_FINISH_REQUEST_CODE = 10000;
     public static final int ACTIVITY_FINISH_RESULT_CODE = 10001;
@@ -112,19 +116,67 @@ public class Constants {
      *
      * @return
      */
-    public static LoginBean getToken() {
+    public static String getToken() {
         String loginJson = SPUtils.getInstance().getString(KEY_SP_TOKEN);
-        LoginBean loginEntity = new Gson().fromJson(loginJson, LoginBean.class);
-        return loginEntity;
+        return loginJson;
     }
 
     /**
      * 储存token
      *
-     * @param loginEntity
+     * @param
      */
-    public static void putToken(LoginBean loginEntity) {
-        SPUtils.getInstance().put(KEY_SP_TOKEN, new Gson().toJson(loginEntity));
+    public static void putToken(String  token) {
+        SPUtils.getInstance().put(KEY_SP_TOKEN, token);
+    }
+    /**
+     * 储存Personal
+     *
+     * @param
+     */
+    public static void putPersonal(PersonInfo.InfoBean loginEntity) {
+        SPUtils.getInstance().put(KEY_SP_PERSON, new Gson().toJson(loginEntity));
+    }
+    /**
+     * 储存Personal
+     *
+     * @param
+     */
+    public static PersonInfo.InfoBean getPersonal( ) {
+        String per=SPUtils.getInstance().getString(KEY_SP_PERSON);
+        return new Gson().fromJson(per, PersonInfo.InfoBean.class);
+    }
+
+
+    /**
+     * 获取邀请码
+     *
+     * @return
+     */
+    public static String getInviteCode() {
+        String code = SPUtils.getInstance().getString(KEY_SP_CODE);
+        return code;
+    }
+
+    /**
+     * 储存邀请码
+     *
+     * @param
+     */
+    public static void putInviteCode(String  code) {
+        SPUtils.getInstance().put(KEY_SP_CODE, code);
+    }
+    /**
+     * 获取搜索记录
+     */
+    public static String getSearch() {
+        return SPUtils.getInstance().getString(KEY_SP_SEARCH);
+    }
+    /**
+     * 储存搜索记录
+     */
+    public static void putSearch(String search) {
+        SPUtils.getInstance().put(KEY_SP_SEARCH,search);
     }
 
     /**

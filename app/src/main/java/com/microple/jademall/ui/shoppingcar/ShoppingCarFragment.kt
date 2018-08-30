@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
+import com.microple.jademall.bean.Goods
 import com.microple.jademall.common.Constant
 import com.microple.jademall.ui.home.activity.GoodsDetailActivity
 import com.microple.jademall.ui.home.activity.ImOrderActivity
@@ -51,15 +52,15 @@ class ShoppingCarFragment : BaseMvpViewFragment(){
 
     }
     fun right(){
-        RightAdapter= HomeGoodsAdapter(R.layout.item_goods)
+        var data = arrayListOf( "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+        RightAdapter= HomeGoodsAdapter(data as List<Goods.GoodsListBean>)
         RightAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         cl_right.layoutManager= LinearLayoutManager(context)
         cl_right.adapter=RightAdapter
         cl_right.isNestedScrollingEnabled=false
-        var data = arrayListOf( "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         RightAdapter.addData(data)
         RightAdapter.setOnItemClickListener { adapter, view, position ->
-            GoodsDetailActivity.startGoodsDetailActivity(context!!)
+            GoodsDetailActivity.startGoodsDetailActivity(context!!,"")
         }
         cl_right.setOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {

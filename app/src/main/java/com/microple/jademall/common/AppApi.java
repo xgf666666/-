@@ -55,7 +55,7 @@ public class AppApi {
 
             //设置新的Retrofit
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Retrofit2Manager.Companion.getInstance().getApiConfigProvider().getApiBaseUrl())
+                    .baseUrl(Retrofit2Manager.Companion.getInstance().getApiConfigProvider().getDebugHost())
                     .client(okHttpClient)
                     .addConverterFactory(XxGsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

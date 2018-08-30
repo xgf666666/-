@@ -7,7 +7,7 @@ package com.xx.baseuilibrary.mvp
  * Created by 雷小星🍀 on 2017/10/30 15:31.
  */
 
-abstract class BaseMvpActivity<M, V : BaseMvpView, P : BaseMvpPresenter<M, V>> : BaseMvpViewActivity() {
+abstract class BaseMvpActivity<P:BaseMvpPresenter<*,out BaseMvpView> >: BaseMvpViewActivity() {
 
     private var presenter: P? = null
 
@@ -30,7 +30,7 @@ abstract class BaseMvpActivity<M, V : BaseMvpView, P : BaseMvpPresenter<M, V>> :
 
         if (this is BaseMvpView) {
             //依附V
-            presenter!!.attachView(this as V)
+            presenter!!.attachView(this)
         }
         return presenter as P
     }
