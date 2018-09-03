@@ -61,7 +61,8 @@
             android:textColorHint="#BBBBBB"
             android:hint="请输入手机号"
             android:layout_marginLeft="@dimen/dp_13"
-            android:background="@null"/>
+            android:background="@null"
+            android:inputType="number"/>
         <View
             style="@style/LineGray"
             android:layout_marginLeft="@dimen/dp_13"
@@ -82,7 +83,11 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="@dimen/dp_13"
-        android:background="@drawable/bg_edit"/>
+        android:background="@drawable/bg_edit"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/black_333333"
+        android:padding="@dimen/dp_10"
+        android:gravity="top"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"

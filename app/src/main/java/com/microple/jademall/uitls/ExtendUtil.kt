@@ -49,6 +49,8 @@ fun BaseMvpView.showToast(throwable:Throwable){
     } else {
         msg="未知错误" + throwable.message
     }
+    dismissLoadingDialog()
+
     showToast(msg)
 }
 

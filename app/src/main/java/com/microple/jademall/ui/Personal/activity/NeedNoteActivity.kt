@@ -20,7 +20,7 @@ class NeedNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_need_note)
         tv_submint.setOnClickListener {
-            PaySucceefulActivity.startPaySucceefulActivity(this)
+            ApplicationActivity.startApplicationActivity(this)
         }
     }
 }

@@ -7,6 +7,8 @@
     tools:context=".ui.Personal.activity.AskQuestionDetailActivity"
     android:orientation="vertical">
     <include layout="@layout/item_title"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"

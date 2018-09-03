@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.item_login.*
 class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.View,PersonalPresenter>(),PersonalContract.View {
     override fun getInfo(personalInfo: PersonInfo) {
         loading.visibility=View.GONE
-        scrollView.visibility=View.VISIBLE
         iv_head.loadImag(personalInfo.info.head_img)
         tv_name.text=personalInfo.info.user_name
         tv_phone.text=personalInfo.info.phone
@@ -137,7 +136,7 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
         mHelpAdapter.setOnItemClickListener { adapter, view, position ->
             when(position){
                 0->{
-                    AskQuestionActivity.startAskQuestionActivity(context!!)
+                    AskQuestionTypeActivity.startAskQuestionTypeActivity(context!!)
                 }
                 1->{
                     CustomerServiceAcitivity.startCustomerServiceAcitivity(context!!)

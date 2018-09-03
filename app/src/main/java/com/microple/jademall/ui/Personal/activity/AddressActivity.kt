@@ -7,15 +7,97 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
+import com.microple.jademall.bean.Address
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.adapter.AddressAdapter
+import com.microple.jademall.ui.Personal.mvp.contract.AddressContract
+import com.microple.jademall.ui.Personal.mvp.presenter.AddressPresenter
+import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.item_title.*
 import kotlinx.android.synthetic.main.activity_address.*
+import kotlinx.android.synthetic.main.item_address.*
+
 /**
  * author: xiaoguagnfei
  * date: 2018/8/13
  * describe:管理收货地址
  */
-class AddressActivity : AppCompatActivity() {
+class AddressActivity : BaseMvpActivity<AddressPresenter>(),AddressContract.View {
+    override fun setAddress(msg: String) {
+        dismissLoadingDialog()
+        showToast(msg)
+    }
+
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): AddressPresenter = AddressPresenter()
+
+    /**
+     * 获取布局资源文件id
+     *
+     * @return 布局资源文件id
+     */
+    override fun getActivityLayoutId(): Int =R.layout.activity_address
+
+
+    /**
+     * 初始化数据状态
+     */
+    var adapter= AddressAdapter(arrayListOf())
+    override fun initData() {
+        tv_title.text="管理收货地址"
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        recyclerView.layoutManager= LinearLayoutManager(this)
+        recyclerView.adapter=adapter
+        adapter.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.tv_bianji->{
+                    EditAddressActivity.startEditAddressActivity(this,""+(adapter as AddressAdapter).data[position].ua_id)
+                }
+                R.id.tv_del->{
+                    showLoadingDialog()
+                    getPresenter().delAddress(Constants.getToken(),""+(adapter as AddressAdapter).data[position].ua_id)
+                    adapter.remove(position)
+                }
+                R.id.tv_setting->{
+                    showLoadingDialog()
+                    if (tv_setting.isChecked){
+                        tv_setting.setTextColor(resources.getColor(R.color.green_06A366))
+                    }else{
+                        tv_setting.setTextColor(resources.getColor(R.color.black_000000))
+                    }
+                    ( adapter as AddressAdapter).setCheck(position)
+                    getPresenter().settingAddress(Constants.getToken(),""+(adapter as AddressAdapter).data[position].ua_id)
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showLoadingDialog()
+        getPresenter().getAddress(Constants.getToken())
+    }
+
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+        tv_addAddress.setOnClickListener {
+            EditAddressActivity.startEditAddressActivity(this,"")
+        }
+    }
+
+    override fun getAddress(address: Address) {
+        dismissLoadingDialog()
+        adapter.setNewData(address.address)
+
+    }
+
     companion object {
         fun startAddressActivity(context: Context){
             val intent = Intent(context, AddressActivity::class.java)
@@ -23,26 +105,4 @@ class AddressActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_address)
-        tv_title.text="管理收货地址"
-        var adapter= AddressAdapter(arrayListOf())
-        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager= LinearLayoutManager(this)
-        recyclerView.adapter=adapter
-        adapter.addData(data)
-        adapter.setOnItemChildClickListener { adapter, view, position ->
-            when(view.id){
-                R.id.tv_bianji->{
-                    EditAddressActivity.startEditAddressActivity(this)
-                }
-                R.id.tv_del->{
-                    adapter.remove(position)
-                }
-                R.id.tv_setting->{}
-            }
-        }
-    }
 }

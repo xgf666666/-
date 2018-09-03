@@ -57,7 +57,7 @@ class ImageDetailActivity : BaseMvpActivity<ImageDetailPresenter>(),ImageDetailC
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text="图片"
+        tv_title.text="图片详情"
         getPresenter().getImgageDetail(intent.getStringExtra("goods_id"))
 
     }
@@ -66,6 +66,9 @@ class ImageDetailActivity : BaseMvpActivity<ImageDetailPresenter>(),ImageDetailC
      * 初始化事件
      */
     override fun initEvent() {
+        iv_back.setOnClickListener{
+            finish()
+        }
     }
 
     companion object {

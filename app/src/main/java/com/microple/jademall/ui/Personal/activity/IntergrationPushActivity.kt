@@ -5,17 +5,80 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
+import com.microple.jademall.bean.AccountIinfo
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.adapter.IntergrationPushAdapter
-import kotlinx.android.synthetic.main.activity_cancal_order.*
+import com.microple.jademall.ui.Personal.mvp.contract.IntergrationPushContract
+import com.microple.jademall.ui.Personal.mvp.presenter.IntergrationPushPresenter
+import com.microple.jademall.uitls.loadImag
+import com.xx.baseuilibrary.mvp.BaseMvpActivity
+import kotlinx.android.synthetic.main.activity_intergration_push.*
 import kotlinx.android.synthetic.main.item_title.*
 /**
  * author: xiaoguagnfei
  * date: 2018/8/13
  * describe:积分转账
  */
-class IntergrationPushActivity : AppCompatActivity() {
+class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),IntergrationPushContract.View {
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): IntergrationPushPresenter = IntergrationPushPresenter()
+
+    /**
+     * 获取布局资源文件id
+     *
+     * @return 布局资源文件id
+     */
+    override fun getActivityLayoutId(): Int =R.layout.activity_intergration_push
+
+    /**
+     * 初始化数据状态
+     */
+    var adapter=IntergrationPushAdapter(arrayListOf())
+    override fun initData() {
+        tv_title.setText("积分转账")
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        recyclerView.layoutManager= LinearLayoutManager(this)
+        recyclerView.adapter=adapter
+        recyclerView.isNestedScrollingEnabled = false
+        getPresenter().getAccout(Constants.getToken())
+    }
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+        iv_back.setOnClickListener{
+            finish()
+        }
+        tv_sure.setOnClickListener{
+            showLoadingDialog()
+            getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString())
+        }
+
+    }
+
+    override fun getAccout(accoutInfo: AccountIinfo) {
+        iv_head.loadImag(accoutInfo.user_info.head_img)
+        tv_name.text=accoutInfo.user_info.user_name
+        tv_keyong.hint="可用积分"+accoutInfo.user_info.pay_points
+        tv_dongjie.text="冻结积分"+accoutInfo.user_info.frozen_points
+        adapter.setNewData(accoutInfo.record)
+        loading.visibility= View.GONE
+    }
+
+    override fun push() {
+        showToast("转账成功")
+        dismissLoadingDialog()
+        finish()
+    }
+
     companion object {
         fun startIntergrationPushActivity(context: Context){
             val intent = Intent(context,IntergrationPushActivity::class.java)
@@ -23,15 +86,4 @@ class IntergrationPushActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_intergration_push)
-        tv_title.setText("积分转账")
-        var adapter=IntergrationPushAdapter(arrayListOf())
-        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager= LinearLayoutManager(this)
-        recyclerView.adapter=adapter
-        adapter.addData(data)
-    }
 }

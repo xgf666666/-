@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_EFEFF4"
-    android:orientation="vertical">
-    <include layout="@layout/item_title"/>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:background="@color/gray_EFEFF4">
+    <include layout="@layout/item_title"
+        android:id="@+id/ic_title"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="14dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_below="@+id/ic_title"
+            android:layout_above="@+id/tv_addAddress"
+            android:paddingBottom="14dp"
+            android:layout_marginTop="@dimen/dp_10"/>
+    <TextView
+        android:id="@+id/tv_addAddress"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="新增收货地址"
+        android:textSize="17sp"
+        android:textColor="@color/black_0B0827"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_default"/>
 
-</LinearLayout>
+</RelativeLayout>

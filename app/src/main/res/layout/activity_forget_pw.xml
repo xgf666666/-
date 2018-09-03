@@ -22,7 +22,8 @@
             android:textColorHint="#BBBBBB"
             android:hint="输入手机号"
             android:layout_marginLeft="@dimen/dp_13"
-            android:background="@null"/>
+            android:background="@null"
+            android:inputType="number"/>
         <View
             style="@style/LineGray"
             android:layout_marginLeft="@dimen/dp_13"
@@ -44,7 +45,9 @@
             android:hint="验证码"
             android:layout_marginLeft="@dimen/dp_13"
             android:layout_toLeftOf="@+id/tv_getcode"
-            android:background="@null"/>
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="6"/>
         <TextView
             android:id="@+id/tv_getcode"
             android:layout_width="wrap_content"
@@ -77,7 +80,8 @@
             android:textColorHint="#BBBBBB"
             android:hint="新密码"
             android:layout_marginLeft="@dimen/dp_13"
-            android:background="@null"/>
+            android:background="@null"
+            android:inputType="textPassword"/>
         <View
             style="@style/LineGray"
             android:layout_marginLeft="@dimen/dp_13"

@@ -6,6 +6,8 @@ import com.microple.jademall.ui.Personal.mvp.contract.MyAssetContract
 import com.microple.jademall.ui.Personal.mvp.model.AboutMelModel
 import com.microple.jademall.ui.Personal.mvp.model.ForgetPWModel
 import com.microple.jademall.ui.Personal.mvp.model.MyAssetModel
+import com.microple.jademall.uitls.showToast
+import com.weibiaogan.litong.extensions.ui
 
 /**
  * author: xiaoguagnfei
@@ -13,5 +15,14 @@ import com.microple.jademall.ui.Personal.mvp.model.MyAssetModel
  * describe:
  */
 class MyAssetPresenter:MyAssetContract.Presenter() {
+    override fun getMyAssert(token: String) {
+        getModel().getMyAssert(token).ui({
+            getView()?.getMyAssert(it.data!!)
+        },{
+            getView()?.showToast(it)
+        })
+
+    }
+
     override fun createModel(): MyAssetContract.Model =MyAssetModel()
 }

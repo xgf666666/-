@@ -38,9 +38,8 @@ class RegisterPresenter:RegisterContract.Presenter() {
 
 
         getModel().register(phone,phone_code,pwd,pwds,code).ui({
-            if (it.status.equals("1")){
                 getView()?.register()
-            }
+
         },{
             getView()?.showToast(it.message)
         })

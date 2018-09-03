@@ -8,6 +8,8 @@
     android:orientation="vertical"
     tools:context=".ui.Personal.activity.IntergrationDetailActivity">
     <include layout="@layout/item_title"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
     <TextView
         android:id="@+id/tv_shop"
         android:layout_width="match_parent"
@@ -38,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="教育说明"
+            android:text="交易说明"
             android:textColor="@color/black_333333"
             android:gravity="center"
             android:layout_centerVertical="true"

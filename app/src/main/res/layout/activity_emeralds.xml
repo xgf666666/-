@@ -5,8 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white_default"
     tools:context=".ui.Personal.activity.EmeraldsActivity">
     <include layout="@layout/item_title"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,16 +63,12 @@
 
         </LinearLayout>
     </RelativeLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:paddingBottom="14dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

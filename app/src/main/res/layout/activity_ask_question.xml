@@ -6,6 +6,8 @@
     android:background="@color/white_default"
     android:orientation="vertical">
     <include layout="@layout/item_title"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

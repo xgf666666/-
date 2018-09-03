@@ -101,7 +101,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
             et_code.hint="请输入验证码"
             et_code.inputType=InputType.TYPE_CLASS_NUMBER
             et_code.setText("")
-            et_code.transformationMethod= PasswordTransformationMethod.getInstance()
+            et_code.inputType=InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
 
         }
         tv_paswork.setOnClickListener{
@@ -112,9 +112,8 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
             tv_paswork.setTextSize(17f)
             tv_getcode.visibility=View.GONE
             et_code.hint="密码"
-            et_code.inputType=InputType.TYPE_TEXT_VARIATION_PASSWORD
             et_code.setText("")
-            et_code.transformationMethod= HideReturnsTransformationMethod.getInstance()
+            et_code.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
         }
         tv_regster.setOnClickListener {

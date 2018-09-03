@@ -23,7 +23,6 @@ class LoginPresenter:LoginContract.Presenter() {
         }
 
         getModel().getCode(phone).ui({
-            if (it.status.equals("1"))
             getView()?.getCode()
 
         },{

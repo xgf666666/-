@@ -83,9 +83,9 @@
         <activity android:name=".ui.Personal.activity.MerchantEntryRecordActivity" />
         <activity android:name=".ui.Personal.activity.MerchantEntryRecordDetailActivity" />
         <activity android:name=".ui.Personal.activity.PickGoodsActivity" />
+        <activity android:name=".ui.Personal.activity.AskQuestionTypeActivity" />
         <activity android:name=".ui.home.activity.GoodsDetailActivity" />
         <activity android:name=".ui.home.activity.PaySucceefulActivity" />
-        <activity android:name=".ui.home.activity.PayOrderActivity" />
         <activity android:name=".ui.Personal.activity.AskQuestionActivity" />
         <activity android:name=".ui.Personal.activity.AskQuestionDetailActivity" />
         <activity android:name=".ui.Personal.activity.FeedBackActivity" />

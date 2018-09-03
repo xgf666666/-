@@ -8,11 +8,15 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import com.blankj.utilcode.util.EncodeUtils
 import com.blankj.utilcode.util.PermissionUtils
+import com.facebook.stetho.inspector.database.ContentProviderSchema
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
 import com.microple.jademall.bean.PersonInfo
 import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.mvp.contract.PersonalContract
+import com.microple.jademall.ui.Personal.mvp.contract.PersonalSettingContract
 import com.microple.jademall.ui.Personal.mvp.presenter.PersonalSettingPresenter
 import com.microple.jademall.ui.home.activity.ImageDetailActivity
 import com.microple.jademall.uitls.loadImag
@@ -27,7 +31,13 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/13
  * describe:个人资料设置
  */
-class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>() {
+class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>(),PersonalSettingContract.View {
+    override fun setHandImageView(url: String) {
+        showToast("修改成功")
+        dismissLoadingDialog()
+
+    }
+
     /**
      * 创建P层
      *
@@ -47,6 +57,8 @@ class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>() {
      */
     override fun initData() {
         tv_title.text="个人资料设置"
+        var info=Constants.getPersonal()
+        iv_hand.loadImag(info.head_img)
         initImageChooseHelper()
 
     }
@@ -55,7 +67,6 @@ class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>() {
         super.onResume()
         var info=Constants.getPersonal()
         tv_name.text=info.user_name
-        iv_hand.loadImag(info.head_img)
     }
 
     /**
@@ -93,6 +104,8 @@ class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>() {
                 .setOnFinishChooseAndCropImageListener { bitmap, file ->
                     //                    显示选好得图片
                     iv_hand.setImageBitmap(bitmap)
+                    showLoadingDialog()
+                    getPresenter().setHandImageView(Constants.getToken(), EncodeUtils.base64Encode2String(file?.readBytes()))
                 }
                 .create()
 

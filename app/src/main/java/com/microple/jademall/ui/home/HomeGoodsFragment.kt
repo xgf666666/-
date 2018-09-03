@@ -84,6 +84,7 @@ class HomeGoodsFragment : BaseMvpFragment<HomeGoodsContract.Model,HomeGoodsContr
     }
       fun setCat_id(sort:String){
         this.sort=sort
+          current=1
         getPresenter().getGoodList(catId,current,sort)
 
     }

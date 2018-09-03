@@ -7,6 +7,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true">
         <TextView
+            android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="积分资产"
