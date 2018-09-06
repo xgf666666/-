@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.microple.jademall.R
 import kotlinx.android.synthetic.main.activity_safe_setting.*
 import kotlinx.android.synthetic.main.item_title.*
@@ -23,6 +24,7 @@ class SafeSettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_safe_setting)
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         tv_title.text="安全性设置"
         ll_login_password.setOnClickListener{
             PassswordActivity.startPassswordActivity(this,1)

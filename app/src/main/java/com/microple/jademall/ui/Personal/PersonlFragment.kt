@@ -79,19 +79,21 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
         mOrderAdapter.setOnItemClickListener { adapter, view, position ->
            when(position){//我的订单
                0->{
-                   AllOrderActivity.startAllOrderActivity(context!!)
+                   AllOrderActivity.startAllOrderActivity(context!!,0)
                }
                1->{
-                   NotReviewOrderActivity.startNotReviewOrderActivity(context!!)
+                   AllOrderActivity.startAllOrderActivity(context!!,1)
+
                }
                2->{
-                   NotGoodsOrderActivity.startNotGoodsOrderActivity(context!!)
+                   AllOrderActivity.startAllOrderActivity(context!!,3)
                }
                3->{
-//                   CompleteOrderActivity.startCompleteOrderActivity(context!!)
+                   AllOrderActivity.startAllOrderActivity(context!!,4)
                }
                4->{
-//                   CancalOrderActivity.startCancalOrderActivity(context!!)
+                   AllOrderActivity.startAllOrderActivity(context!!,5)
+
                }
                5->{
                    CustomerOrderActivity.startCustomerOrderActivity(context!!)

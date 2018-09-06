@@ -77,7 +77,16 @@ public class GoodsDetail {
         private String height;
         private String width;
         private String thickness;
+        private int is_collect;
         private List<LabelsBean> labels;
+
+        public int getIs_collect() {
+            return is_collect;
+        }
+
+        public void setIs_collect(int is_collect) {
+            this.is_collect = is_collect;
+        }
 
         public int getGoods_id() {
             return goods_id;

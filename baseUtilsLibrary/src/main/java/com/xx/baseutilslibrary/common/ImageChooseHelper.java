@@ -1,6 +1,7 @@
 package com.xx.baseutilslibrary.common;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -25,8 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * 图片选择工具
@@ -82,22 +82,124 @@ public class ImageChooseHelper {
     /**
      * 获取真实图片路径
      *
-     * @param contentUri
+     * @param uri
      * @return
      */
-    public static String getRealPathFromURI(Context context, Uri contentUri) {
-        String res = null;
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-        if (cursor == null) {
-            return "";
+    public static String getRealPathFromURI(Context context, Uri uri) {
+//        String res = null;
+//        String[] proj = {MediaStore.Images.Media.DATA};
+//        Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+//        if (cursor == null) {
+//            return "";
+//        }
+//        if (cursor.moveToFirst()) {
+//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            res = cursor.getString(column_index);
+//        }
+//        cursor.close();
+//        return res;
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+
+//                LogUtils.logInfoStar("isExternalStorageDocument");
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+//                LogUtils.logInfoStar("isDownloadsDocument");
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+//                LogUtils.logInfoStar("isMediaDocument");
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[]{split[1]};
+
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
         }
-        if (cursor.moveToFirst()) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            res = cursor.getString(column_index);
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
         }
-        cursor.close();
-        return res;
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
+    }
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {column};
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
     public Context getContext() {
@@ -245,8 +347,8 @@ public class ImageChooseHelper {
         intent.putExtra("crop", "true");
 
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", width);
-        intent.putExtra("aspectY", height);
+//        intent.putExtra("aspectX", width);
+//        intent.putExtra("aspectY", height);
 
         // outputX,outputY 是剪裁图片的宽高
         intent.putExtra("outputX", width);
@@ -288,6 +390,7 @@ public class ImageChooseHelper {
                     if (listener != null) {
                         //相机，不裁剪,直接返回Uri和照片文件
                         listener.onFinish(getImageContentUri(file), file);
+//                        fileCompress(getImageContentUri(file));
                     }
                 }
                 break;
@@ -302,6 +405,7 @@ public class ImageChooseHelper {
                     if (listener != null) {
                         //不裁剪,直接返回Uri
                         listener.onFinish(data.getData(), new File(getRealPathFromURI(getActivity(), data.getData())));
+//                        fileCompress(data.getData());
                     }
                 }
                 break;
@@ -362,22 +466,120 @@ public class ImageChooseHelper {
                 } else {
                     //适配小米后
                     try {
-                        Bitmap photo = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(mTempUri));
-                        File file = new File(new URI(mTempUri.toString()));
-                        //通知图库有更新
-                        getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getPath())));
-                        //裁剪过后返回Bitmap,处理生成文件用来上传
-                        mOnFinishChooseAndCropImageListener.onFinish(photo, file);
+                        Bitmap photo = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(Uri.parse("file:///" + dirPath + File.separator + "temp.jpg")));
+                       //压缩
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        if (photo != null) {
+                            photo.compress(Bitmap.CompressFormat.PNG, compressQuality, baos);
+                        }
+
+                        FileOutputStream fos = null;
+                        if (mOnFinishChooseAndCropImageListener != null) {
+
+                            try {
+                                if (file != null) {
+                                    file.getParentFile().delete();//删除照片
+                                }
+                                //将裁剪出来的Bitmap转换成本地文件
+                                File file = initFile("image.png");
+                                fos = new FileOutputStream(file);
+                                fos.write(baos.toByteArray());
+                                fos.flush();
+                                //通知图库有更新
+                                getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getPath())));
+
+                                //裁剪过后返回Bitmap,处理生成文件用来上传
+                                mOnFinishChooseAndCropImageListener.onFinish(photo, file);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                if (fos != null)
+                                    try {
+                                        fos.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                if (baos != null)
+                                    try {
+                                        baos.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                            }
+                        }
+                       //压缩
+//
+//                        File file = new File(new URI(mTempUri.toString()));
+//                        //通知图库有更新
+//                        getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getPath())));
+//                        //裁剪过后返回Bitmap,处理生成文件用来上传
+//                        mOnFinishChooseAndCropImageListener.onFinish(photo, file);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
-                    } catch (URISyntaxException e) {
-                        e.printStackTrace();
                     }
+//                    catch (URISyntaxException e) {
+//                        e.printStackTrace();
+//                    }
                 }
 
 
                 break;
         }
+    }
+    /**
+     * 相机相册压缩不裁切返回
+     */
+    public void fileCompress(Uri uri){
+        try {
+            Bitmap photo = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
+            //压缩
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            if (photo != null) {
+                photo.compress(Bitmap.CompressFormat.PNG, compressQuality, baos);
+            }
+            FileOutputStream fos = null;
+            if (listener != null) {
+
+                try {
+                    if (file != null) {
+                        file.getParentFile().delete();//删除照片
+                    }
+                    //将Bitmap转换成本地文件
+                    File file = initFile("image.png");
+                    fos = new FileOutputStream(file);
+                    fos.write(baos.toByteArray());
+                    fos.flush();
+                    //通知图库有更新
+                    getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getPath())));
+
+                    //裁剪过后返回Bitmap,处理生成文件用来上传
+                    listener.onFinish(uri, file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fos != null)
+                        try {
+                            fos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    if (baos != null)
+                        try {
+                            baos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                }
+            }
+
+            //压缩
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

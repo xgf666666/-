@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_default"
-    android:orientation="vertical"
     >
+
     <RelativeLayout
+        android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <include
@@ -23,6 +24,7 @@
             />
     </RelativeLayout>
     <TextView
+        android:layout_below="@+id/ll_title"
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,44 +45,22 @@
         android:textSize="15sp"
         android:textColor="@color/green_06A366"
         android:layout_marginBottom="21dp"
-        android:layout_marginTop="21dp"/>
-    <android.support.v4.widget.SlidingPaneLayout
-        android:id="@+id/sl_all"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <LinearLayout
-            android:id="@+id/left"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.microple.jademall.weight.MyRecyclerView
-                android:id="@+id/cl_left"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </com.microple.jademall.weight.MyRecyclerView>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.microple.jademall.weight.MyRecyclerView
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/tv_content"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/tv_index"
+                android:layout_above="@+id/rl_order"
                 android:id="@+id/cl_right"
                 android:layout_marginLeft="@dimen/dp_13"
                 android:layout_marginRight="@dimen/dp_13"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-            </com.microple.jademall.weight.MyRecyclerView>
-
-        </LinearLayout>
-
-    </android.support.v4.widget.SlidingPaneLayout>
+            </android.support.v7.widget.RecyclerView>
     <RelativeLayout
+        android:id="@+id/rl_order"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_alignParentBottom="true">
         <View
             style="@style/LineGray"/>
         <TextView
@@ -106,5 +86,8 @@
             android:background="@drawable/bg_sure"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
-
-</LinearLayout>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
+    <include layout="@layout/item_login"
+        android:id="@+id/view_login"/>
+</RelativeLayout>

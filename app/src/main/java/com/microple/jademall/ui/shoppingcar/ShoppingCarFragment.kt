@@ -10,25 +10,54 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.Goods
+import com.microple.jademall.bean.Shop
 import com.microple.jademall.common.Constant
+import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.activity.LoginActivity
 import com.microple.jademall.ui.home.activity.GoodsDetailActivity
 import com.microple.jademall.ui.home.activity.ImOrderActivity
 import com.microple.jademall.ui.home.adapter.HomeGoodsAdapter
 import com.microple.jademall.ui.home.adapter.ImOrderAdapter
 import com.microple.jademall.ui.shoppingcar.adapter.LeftAdapter
-import com.microple.jademall.weight.MyRecyclerView
-import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
+import com.microple.jademall.ui.shoppingcar.adapter.ShoppingAdapter
+import com.microple.jademall.ui.shoppingcar.mvp.contract.ShoppingCarContract
+import com.microple.jademall.ui.shoppingcar.mvp.presenter.ShoppingCarPresenter
+import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_shoppingcar.*
+import kotlinx.android.synthetic.main.item_login.*
 
 /**
  * author: linfeng
  * date: 2018/8/8.
  * describe:购物车
  */
-class ShoppingCarFragment : BaseMvpViewFragment(){
-    var right=1
-    var left=0
-    lateinit var RightAdapter:HomeGoodsAdapter
+class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCarContract.View,ShoppingCarPresenter>(),ShoppingCarContract.View{
+   //记录当前删除的位置
+    var current=0
+    override fun shop(shop: Shop) {
+        loading.visibility=View.GONE
+        adapter.setNewData(shop.shopp_info)
+    }
+
+    override fun delShop() {
+        dismissLoadingDialog()
+        adapter.remove(current)
+    }
+
+    override fun updateShop(shop: Shop) {
+        dismissLoadingDialog()
+        adapter.setNewData(shop.shopp_info)
+    }
+
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): ShoppingCarPresenter = ShoppingCarPresenter()
+
+    var index:Int=1
+    var adapter=ShoppingAdapter(arrayListOf())
     override fun getFragmentLayoutId(): Int = R.layout.fragment_shoppingcar
 
     override fun init(view: View?) {
@@ -37,72 +66,63 @@ class ShoppingCarFragment : BaseMvpViewFragment(){
         tv_index.setOnClickListener{
             tv_content.visibility=View.GONE
             tv_index.visibility=View.GONE
+            showLoadingDialog()
+            getPresenter().updateShop(Constants.getToken())
         }
         tv_bianji.setOnClickListener{
-            if (sl_all.isOpen)
-                sl_all.closePane()
-            else
-                sl_all.openPane()
+            adapter.upDateAdapter(index)
+            if (index==1){
+                index=0
+            }else{
+                index=1
+            }
         }
         tv_submint.setOnClickListener{
             ImOrderActivity.startImOrderActivity(context!!)
         }
-        left()
-        right()
-
-    }
-    fun right(){
-        var data = arrayListOf( "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-        RightAdapter= HomeGoodsAdapter(data as List<Goods.GoodsListBean>)
-        RightAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        tv_login.setOnClickListener{
+            LoginActivity.startLoginActivity(context!!)
+        }
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         cl_right.layoutManager= LinearLayoutManager(context)
-        cl_right.adapter=RightAdapter
+        cl_right.adapter=adapter
         cl_right.isNestedScrollingEnabled=false
-        RightAdapter.addData(data)
-        RightAdapter.setOnItemClickListener { adapter, view, position ->
-            GoodsDetailActivity.startGoodsDetailActivity(context!!,"")
+        adapter.setOnItemChildClickListener { adapter, view, position ->
+            if (view.id==R.id.ll_type){
+                current=position
+                showLoadingDialog()
+                getPresenter().delShop(Constants.getToken(),""+(adapter as ShoppingAdapter).data[position].sb_id)
+
+            }else if (view.id==R.id.ll_content){
+                GoodsDetailActivity.startGoodsDetailActivity(context!!,""+(adapter as ShoppingAdapter).data[position].goods_sn)
+            }
         }
-        cl_right.setOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (right!=0)
-                cl_left.scrollBy(dx, dy)
-            }
-
-        })
-        cl_right.setListener(object :MyRecyclerView.TouchListener{
-            override fun setState() {
-                right=1
-                left=0
-            }
-
-        })
-    }
-    fun left(){
-        var adapter= LeftAdapter(arrayListOf())
-        cl_left.layoutManager= LinearLayoutManager(context)
-        cl_left.adapter=adapter
-        cl_left.isNestedScrollingEnabled=false
-        var data = arrayListOf( "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-        adapter.addData(data)
-        adapter.setOnItemClickListener { adapter, view, position ->
-            adapter.remove(position)
-            RightAdapter.remove(position)
-        }
-        cl_left.setOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (left!=0)
-                cl_right.scrollBy(dx, dy)
-            }
-        })
-        cl_left.setListener(object :MyRecyclerView.TouchListener{
-            override fun setState() {
-                left=1
-                right=0
-            }
-
-        })
 
     }
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            if (Constants.isLogin()){
+                Log.i("Constantssss", Constants.getToken())
+                getPresenter().shop(Constants.getToken())
+                view_login.visibility=View.GONE
+            }else{
+                view_login.visibility=View.VISIBLE
+            }
+        }
+    }
+    override fun onResume( ) {
+        super.onResume()
+        if (!isHidden){
+            if (Constants.isLogin()){
+                Log.i("Constantssss", Constants.getToken())
+                getPresenter().shop(Constants.getToken())
+                view_login.visibility=View.GONE
+            }else{
+                view_login.visibility=View.VISIBLE
+            }
+        }
+    }
+
+
 }

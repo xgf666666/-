@@ -34,8 +34,8 @@ class MyAppointmentActivity : AppCompatActivity() {
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
         adapter.addData(data)
-        adapter.setOnItemClickListener { adapter, view, position ->
-            OrderDetailActivity.startOrderDetailActivity(this!!)
-        }
+//        adapter.setOnItemClickListener { adapter, view, position ->
+//            OrderDetailActivity.startOrderDetailActivity(this!!)
+//        }
     }
 }

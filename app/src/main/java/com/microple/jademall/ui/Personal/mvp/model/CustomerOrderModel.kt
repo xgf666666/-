@@ -1,6 +1,10 @@
 package com.microple.jademall.ui.Personal.mvp.model
 
+import com.microple.jademall.bean.Customer
+import com.microple.jademall.common.AppApi
 import com.microple.jademall.ui.Personal.mvp.contract.CustomerOrderContract
+import com.xx.baseutilslibrary.network.entity.BaseResponseEntity
+import io.reactivex.Observable
 
 
 /**
@@ -9,4 +13,5 @@ import com.microple.jademall.ui.Personal.mvp.contract.CustomerOrderContract
  * describe:
  */
 class CustomerOrderModel: CustomerOrderContract.Model {
+    override fun getCustomer(token: String): Observable<BaseResponseEntity<Customer>> =AppApi.Api().getCustomer(token)
 }

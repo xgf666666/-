@@ -119,9 +119,11 @@
         android:layout_marginRight="@dimen/dp_18" />
 
     <RelativeLayout
+        android:id="@+id/rl_reson"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40">
         <TextView
+            android:id="@+id/tv_liyou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="退货理由"
@@ -129,6 +131,17 @@
             android:textSize="@dimen/sp_13"
             android:layout_centerVertical="true"
             android:layout_marginLeft="26dp"/>
+        <TextView
+            android:id="@+id/tv_reson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/sp_13"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/tv_liyou"
+            android:layout_toLeftOf="@+id/iv_go"
+            android:layout_marginRight="7dp"/>
         <ImageView
             android:id="@+id/iv_go"
             android:layout_width="wrap_content"

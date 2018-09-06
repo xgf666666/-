@@ -6,22 +6,20 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
+import com.microple.jademall.bean.Collection
 import com.microple.jademall.common.Constant
+import com.microple.jademall.uitls.loadImag
 
 /**
  * author: xiaoguagnfei
  * date: 2018/8/15
  * describe:
  */
-class MyContectionAdapter(data:List<String>):BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_mycontection) {
-    override fun convert(helper: BaseViewHolder?, item: String?) {
-        helper?.setText(R.id.tv_goodsName, "糯冰种飘翠福瓜挂件")
-        helper?.setText(R.id.tv_goodsNum, "ACS322332")
-        helper?.setText(R.id.tv_goodsPrice, "￥3980.00")
-        Glide.with(mContext).load(Constant.item)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default))
-                .into(helper?.getView(R.id.iv_goodsImage) as ImageView)
+class MyContectionAdapter(data:List<Collection.ListBean>):BaseQuickAdapter<Collection.ListBean,BaseViewHolder>(R.layout.item_mycontection) {
+    override fun convert(helper: BaseViewHolder?, item: Collection.ListBean?) {
+        helper?.setText(R.id.tv_goodsName, item?.goods_name)
+        helper?.setText(R.id.tv_goodsNum, item?.goods_sn)
+        helper?.setText(R.id.tv_goodsPrice, "￥"+item?.add_time)
+        helper?.getView<ImageView>(R.id.iv_goodsImage)?.loadImag(item?.goods_img!!)
     }
 }

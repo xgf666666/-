@@ -156,37 +156,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="身份证"
-                android:textSize="@dimen/sp_15"
-                android:textColor="@color/black_333333"
-                android:layout_marginLeft="23dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="24dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="26dp"
-                android:layout_marginLeft="26dp">
-                <ImageView
-                    android:id="@+id/iv_zheng"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="100dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_img_default"
-                    android:scaleType="fitXY"/>
-                <ImageView
-                    android:id="@+id/iv_fan"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_img_default"
-                    android:scaleType="fitXY"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="行业特殊附件"
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/black_333333"
@@ -220,5 +189,7 @@
         android:drawablePadding="10dp"
         android:textSize="17sp"
         android:layout_marginLeft="@dimen/dp_13"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
 
 </RelativeLayout>

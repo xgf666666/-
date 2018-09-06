@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.home.activity
 
+import android.app.ActionBar
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -22,8 +23,11 @@ import kotlinx.android.synthetic.main.activity_goods.*
 import android.view.WindowManager
 import android.os.Build
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.common.App
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.adapter.ImageDetailAdapter
 
 
@@ -33,10 +37,32 @@ import com.microple.jademall.ui.Personal.adapter.ImageDetailAdapter
  * describe:商品详情
  */
 class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailContract.View {
-    var  labelText:String?=null
+    override fun addShoping() {
+        dismissLoadingDialog()
+        showToast("加入购物袋成功")
+        iv_car.setImageResource(R.drawable.bnt_bag_fill_s)
+        iv_car.isEnabled=false
+    }
+
+    override fun collection(msg: String) {
+        dismissLoadingDialog()
+        if (msg.equals("收藏成功")){
+            iv_collection.setImageResource(R.drawable.btn_favor_selected)
+        }else{
+            iv_collection.setImageResource(R.drawable.btn_favor_normal)
+        }
+        showToast(msg)
+
+    }
+
     var goodsDetail: GoodsDetail?=null
     override fun getLabel(label_desc: String) {
-        labelText=label_desc
+        dismissLoadingDialog()
+        var dialog=TextDialog(this,label_desc)
+        dialog.show()
+        dialog.setOnBtnClickListener {
+            dialog.dismiss()
+        }
     }
 
     override fun getDetail(goodsDetail: GoodsDetail) {
@@ -67,7 +93,11 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
     override fun initData() {
         (application as App).addActivity(this)
         var goods_sn=intent.getStringExtra("goods_sn")
-        getPresenter().getDetail(goods_sn)
+        if (Constants.isLogin()){
+            getPresenter().getDetail(Constants.getToken(),goods_sn)
+        }else{
+            getPresenter().getDetail("",goods_sn)
+        }
         hideStatusBar()
     }
 
@@ -93,13 +123,6 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_sure.setOnClickListener{
             ImOrderActivity.startImOrderActivity(this)
         }
-        tv_jifen.setOnClickListener{
-            var dialog=TextDialog(this,labelText)
-            dialog.show()
-            dialog.setOnBtnClickListener {
-                dialog.dismiss()
-            }
-        }
         tv_other.setOnClickListener{
             showChangeSexDialogOne(data!!)
         }
@@ -111,6 +134,20 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_close.setOnClickListener {
             finish()
         }
+        iv_collection.setOnClickListener{
+            if (Constants.isLogin()){
+                showLoadingDialog()
+                getPresenter().collection(Constants.getToken(),""+goodsDetail?.goods_info?.goods_id)
+            }else{
+                showToast("请先登录")
+            }
+        }
+        iv_car.setOnClickListener{
+            if (Constants.isLogin()){
+                showLoadingDialog()
+                getPresenter().addShoping(Constants.getToken(),""+goodsDetail?.goods_info?.goods_id)
+            }
+        }
     }
 
     companion object {
@@ -121,9 +158,10 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         }
     }
     var data:List<GoodsDetail.OtherSnBean>?=null
+    var goodsDetails:GoodsDetail?=null
     private fun initView(goodsDetail: GoodsDetail) {
         loading.visibility=View.GONE
-        getPresenter().getLabel(""+goodsDetail.goods_info.labels[0].label_id)
+        goodsDetails=goodsDetail
         tv_title.text=goodsDetail.goods_info.goods_name
         tv_tt_number.text=goodsDetail.goods_info.goods_sn
         iv_zoom.loadImag(goodsDetail.goods_info.goods_img)
@@ -133,7 +171,27 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_color.text="颜色："+goodsDetail.goods_info.color
         tv_touming.text="透明度："+goodsDetail.goods_info.transparency
         tv_changdi.text="产地："+goodsDetail.goods_info.origin_place
+        if (goodsDetail.goods_info.is_collect==1){
+            iv_collection.setImageResource(R.drawable.btn_favor_selected)
+        }
         data=goodsDetail.other_sn
+        if (goodsDetail.goods_info.labels.size!=0){
+            for (i in 0..goodsDetail.goods_info.labels.size-1){
+                var textView=TextView(this)
+                var param=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+                param.leftMargin=16
+                textView.text=goodsDetail.goods_info.labels[i].label_name
+                textView.setTextColor(resources.getColor(R.color.white_default))
+                textView.textSize=12f
+                textView.layoutParams=param
+                textView.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_jifen))
+                textView.setOnClickListener{
+                    showLoadingDialog()
+                    getPresenter().getLabel(""+goodsDetail.goods_info.labels[i].label_id)
+                }
+                ll_label.addView(textView)
+            }
+        }
         var imgs=goodsDetail.goods_info.goods_content.split(",")
         var datas=ArrayList<String>()
         if (imgs.size!=0)

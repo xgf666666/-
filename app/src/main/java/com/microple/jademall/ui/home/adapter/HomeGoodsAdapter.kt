@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
 import com.microple.jademall.bean.Goods
 import com.microple.jademall.common.Constant
+import com.microple.jademall.uitls.loadImag
 
 /**
  * author: linfeng
@@ -20,10 +21,6 @@ class HomeGoodsAdapter(data:List<Goods.GoodsListBean>) : BaseQuickAdapter<Goods.
         helper.setText(R.id.tv_goodsName, item.goods_name)
         helper.setText(R.id.tv_goodsNum, item.goods_sn)
         helper.setText(R.id.tv_goodsPrice, "￥"+item.goods_price)
-        Glide.with(mContext).load(item.goods_img)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default))
-                .into(helper.getView(R.id.iv_goodsImage) as ImageView)
+        helper?.getView<ImageView>(R.id.iv_goodsImage).loadImag(item.goods_img)
     }
 }

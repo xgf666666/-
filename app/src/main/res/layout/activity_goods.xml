@@ -86,44 +86,42 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/dp_16"
                             android:layout_centerVertical="true"/>
-                        <CheckBox
-                            android:id="@+id/cb_collection"
+                        <ImageView
+                            android:id="@+id/iv_collection"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
-                            android:background="@drawable/cb_collection"
-                            android:layout_toLeftOf="@+id/iv_share"
-                            android:button="@null"
-                            android:checked="false"/>
+                            android:src="@drawable/btn_favor_normal"
+                            android:layout_toLeftOf="@+id/iv_share" />
 
-                        <CheckBox
-                            android:id="@+id/cb_car"
+                        <ImageView
+                            android:id="@+id/iv_car"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
-                            android:background="@drawable/cb_car"
-                            android:layout_toLeftOf="@+id/cb_collection"
-                            android:button="@null"
-                            android:checked="false"/>
+                            android:src="@drawable/bnt_bag_n"
+                            android:layout_toLeftOf="@+id/iv_collection" />
                         <ImageView
                             android:id="@+id/iv_kefu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_service_n"
-                            android:layout_toLeftOf="@+id/cb_car"
+                            android:layout_toLeftOf="@+id/iv_car"
                             android:layout_marginRight="15dp"
                             android:layout_centerVertical="true"/>
 
                     </RelativeLayout>
                     <LinearLayout
+                        android:id="@+id/ll_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
                         android:layout_marginBottom="17dp"
+                        android:layout_marginLeft="@dimen/dp_13"
                         android:orientation="horizontal">
-                    <TextView
+                  <!--   <TextView
                         android:id="@+id/tv_jifen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -142,7 +140,7 @@
                         android:textColor="@color/white_default"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16dp"
-                        android:background="@drawable/bg_tuihuo"/>
+                        android:background="@drawable/bg_tuihuo"/>-->
                     </LinearLayout>
             <TextView
                 android:id="@+id/tv_type"

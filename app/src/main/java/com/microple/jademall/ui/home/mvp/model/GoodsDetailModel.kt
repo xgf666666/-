@@ -13,7 +13,11 @@ import io.reactivex.Observable
  * describe:
  */
 class GoodsDetailModel: GoodsDetailContract.Model {
+    override fun addShoping(token: String, goods_id: String): Observable<BaseResponseEntity<Any>> =AppApi.Api().addShopping(token,goods_id)
+
+    override fun collection(token: String, goods_id: String) =AppApi.Api().collection(token,goods_id)
+
     override fun getLabel(label_id: String)=AppApi.Api().getLabel(label_id)
 
-    override fun getDetail(goods_sn: String): Observable<BaseResponseEntity<GoodsDetail>> =AppApi.Api().getGoodsDetail(goods_sn)
+    override fun getDetail(token:String,goods_sn: String): Observable<BaseResponseEntity<GoodsDetail>> =AppApi.Api().getGoodsDetail(token,goods_sn)
 }

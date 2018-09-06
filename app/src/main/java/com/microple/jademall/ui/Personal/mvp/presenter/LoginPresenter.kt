@@ -46,6 +46,7 @@ class LoginPresenter:LoginContract.Presenter() {
         getModel().pwLogin(phone,password).ui({
             getView()?.loginSucceful(it.data!!)
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it.message)
         })
 

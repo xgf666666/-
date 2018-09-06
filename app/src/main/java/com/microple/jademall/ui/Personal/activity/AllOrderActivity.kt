@@ -3,14 +3,19 @@ package com.microple.jademall.ui.Personal.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.microple.jademall.R
+import com.microple.jademall.bean.Order
 import com.microple.jademall.ui.Personal.adapter.ViewPagerAdapter
 import com.microple.jademall.ui.Personal.fragment.AllOrderFramgent
+import com.microple.jademall.ui.Personal.mvp.contract.AllOrderContract
+import com.microple.jademall.ui.Personal.mvp.presenter.AllOrderPresenter
+import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_all_order.*
 import kotlinx.android.synthetic.main.item_title.*
 
@@ -19,124 +24,64 @@ import kotlinx.android.synthetic.main.item_title.*
 * date: 2018/8/13
 * describe:我的订单
 */
-class AllOrderActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+class AllOrderActivity : BaseMvpActivity<AllOrderPresenter>(),AllOrderContract.View {
 
-    companion object {
-        fun startAllOrderActivity(context: Context){
-            val intent = Intent(context,AllOrderActivity::class.java)
-            context.startActivity(intent)
-        }
+    override fun getOrder(order: Order) {
+
     }
 
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): AllOrderPresenter = AllOrderPresenter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_all_order)
+    /**
+     * 获取布局资源文件id
+     *
+     * @return 布局资源文件id
+     */
+    override fun getActivityLayoutId(): Int =R.layout.activity_all_order
+
+    /**
+     * 初始化数据状态
+     */
+    override fun initData() {
         tv_title.text="我的订单"
+        var data = arrayListOf("全部订单", "待审核订单", "待发货订单", "待收货订单", "已完成订单", "已取消订单")
         var fragmentManager: FragmentManager =supportFragmentManager
         var fragmentList=ArrayList<Fragment>()
-        fragmentList.add(AllOrderFramgent())
-        fragmentList.add(AllOrderFramgent())
-        fragmentList.add(AllOrderFramgent())
-        fragmentList.add(AllOrderFramgent())
-        fragmentList.add(AllOrderFramgent())
-        fragmentList.add(AllOrderFramgent())
-        fragmentList.add(AllOrderFramgent())
-        var adapter=ViewPagerAdapter(fragmentManager,fragmentList)
+        for (i in 0..data.size-1){
+            var fragment=AllOrderFramgent()
+            var bundle=Bundle()
+            bundle.putInt("index",i)
+            fragment.arguments=bundle
+            fragmentList.add(fragment)
+        }
+
+        var adapter=ViewPagerAdapter(fragmentManager,fragmentList,data)
         viewPager.adapter=adapter
-        viewPager.setOnPageChangeListener(this)
+        tablayout.setupWithViewPager(viewPager)
+        tablayout.setTabMode(TabLayout.MODE_SCROLLABLE)
+        var index=intent.getIntExtra("index",1)
+        viewPager.setCurrentItem(index)
+    }
+
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
         iv_back.setOnClickListener{
             finish()
         }
-        tv_allOrder.setOnClickListener{
-            setText(tv_allOrder)
-            viewPager.setCurrentItem(0)
-        }
-        tv_daishenhe.setOnClickListener{
-            setText(tv_daishenhe)
-            viewPager.setCurrentItem(1)
-        }
-        tv_daifahuo.setOnClickListener{
-            setText(tv_daifahuo)
-            viewPager.setCurrentItem(2)
-        }
-        tv_daishouhuo.setOnClickListener{
-            setText(tv_daishouhuo)
-            viewPager.setCurrentItem(3)
-        }
-        tv_exit.setOnClickListener{
-            setText(tv_exit)
-            viewPager.setCurrentItem(4)
-
-        }
-        tv_complete.setOnClickListener{
-            setText(tv_complete)
-            viewPager.setCurrentItem(5)
-
-        }
-        tv_shouhou.setOnClickListener{
-            setText(tv_shouhou)
-            viewPager.setCurrentItem(6)
-
-        }
-
-    }
-    fun setText(textView:TextView){
-        tv_allOrder.textSize=13f
-        tv_daishenhe.textSize=13f
-        tv_daifahuo.textSize=13f
-        tv_daishouhuo.textSize=13f
-        tv_complete.textSize=13f
-        tv_exit.textSize=13f
-        tv_shouhou.textSize=13f
-        tv_allOrder.setTextColor(resources.getColor(R.color.black_333333))
-        tv_daishenhe.setTextColor(resources.getColor(R.color.black_333333))
-        tv_daifahuo.setTextColor(resources.getColor(R.color.black_333333))
-        tv_daishouhuo.setTextColor(resources.getColor(R.color.black_333333))
-        tv_exit.setTextColor(resources.getColor(R.color.black_333333))
-        tv_shouhou.setTextColor(resources.getColor(R.color.black_333333))
-        tv_complete.setTextColor(resources.getColor(R.color.black_333333))
-        textView.setTextColor(resources.getColor(R.color.green_06A366))
-        textView.textSize=16f
-    }
-    override fun onPageScrollStateChanged(state: Int) {
     }
 
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    }
-
-
-    override fun onPageSelected(position: Int) {
-        when(position){
-            0->{
-                setText(tv_allOrder)
-            }
-            1->{
-                setText(tv_daishenhe)
-
-            }
-            2->{
-                setText(tv_daifahuo)
-            }
-            3->{
-                setText(tv_daishouhuo)
-            }
-            4->{
-                setText(tv_complete)
-                scrollView.pageScroll(4)
-            }
-            5->{
-                setText(tv_exit)
-                scrollView.pageScroll(5)
-
-            }
-            6->{
-                setText(tv_shouhou)
-                scrollView.pageScroll(6)
-
-            }
+    companion object {
+        fun startAllOrderActivity(context: Context,index:Int){
+            val intent = Intent(context,AllOrderActivity::class.java)
+            intent.putExtra("index",index)
+            context.startActivity(intent)
         }
     }
-
 }

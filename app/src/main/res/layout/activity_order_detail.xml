@@ -8,6 +8,7 @@
     android:background="@color/white_default">
     <include layout="@layout/item_title"
         android:id="@+id/title"/>
+
     <ScrollView
         android:id="@+id/sl_all"
         android:layout_above="@+id/rl_bottom"
@@ -237,6 +238,10 @@
                 android:textSize="@dimen/sp_13"
                 android:gravity="center"
                 android:layout_marginLeft="26dp"/>
+            <View
+                style="@style/LineGray"
+                android:layout_marginLeft="@dimen/dp_13"
+                android:layout_marginRight="@dimen/dp_13"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -304,15 +309,16 @@
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:text="取消订单"
-            android:textColor="@color/green_06A366"
+            android:textColor="@color/white_default"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/bg_service"
+            android:background="@drawable/bg_sure"
             android:textSize="@dimen/sp_15"
             android:layout_marginRight="@dimen/dp_13"/>
 
 
     </RelativeLayout>
-
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
 </RelativeLayout>
