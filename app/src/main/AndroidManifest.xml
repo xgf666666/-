@@ -103,7 +103,8 @@
         <activity android:name=".ui.Personal.activity.ForgetPWActivity" />
         <activity android:name=".ui.Personal.activity.RegisterActivity" />
         <activity android:name=".ui.Personal.activity.BindPhoneActivity" />
-        <activity android:name=".ui.Personal.activity.NeedNoteActivity"></activity>
+        <activity android:name=".ui.Personal.activity.NeedNoteActivity" />
+        <activity android:name=".ui.live.activity.LivePlayerActivity"></activity>
     </application>
 
 </manifest>

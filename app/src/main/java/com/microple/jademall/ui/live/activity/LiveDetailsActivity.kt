@@ -26,6 +26,9 @@ class LiveDetailsActivity : BaseMvpViewActivity() {
         tv_liveName.text = "JV2367号切石直播"
         tv_liveTime.text = "2018-11-23 12:20"
         tv_liveMessage.text = "J如果你无法简洁的表达你的想法，那只说明你还不够了解它。\n" + " -- 阿尔伯特·爱因斯坦"
+        iv_player.setOnClickListener{
+                LivePlayerActivity.startLivePlayerActivity(this)
+        }
     }
 
     /**

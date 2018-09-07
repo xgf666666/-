@@ -4,10 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.OrderDetail
 import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.adapter.LogisticalAdapter
 import com.microple.jademall.ui.Personal.mvp.contract.OrderDetailContract
 import com.microple.jademall.ui.Personal.mvp.presenter.OrderDetailPresenter
 import com.microple.jademall.uitls.loadImag
@@ -50,9 +53,14 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
     /**
      * 初始化数据状态
      */
+    var adaptr=LogisticalAdapter(arrayListOf())
     override fun initData() {
         tv_title.text="订单详情"
         getPresenter().getDetail(Constants.getToken(),intent.getStringExtra("order_id"))
+        adaptr.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        recyclerView.layoutManager= LinearLayoutManager(this)
+        recyclerView.isNestedScrollingEnabled=false
+        recyclerView.adapter=adaptr
     }
 
     /**
@@ -113,10 +121,20 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
                 2->{
                     tv_order.text="确认收货"
                     tv_type.text="待收货"
+                    tv_order.text="申请售后"
+                    tv_type.text="已完成"
+                    ll_wuliu.visibility=View.VISIBLE
+                    tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
+                    tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+                    adaptr.setNewData(orderDetail.order_detail.logistics)
                 }
                 3->{
                     tv_order.text="申请售后"
                     tv_type.text="已完成"
+                    ll_wuliu.visibility=View.VISIBLE
+                    tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
+                    tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+                    adaptr.setNewData(orderDetail.order_detail.logistics)
                 }
                 4->{
                     tv_order.visibility= View.GONE

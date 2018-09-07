@@ -1,5 +1,7 @@
 package com.microple.jademall.bean;
 
+import java.util.List;
+
 /**
  * author: xiaoguagnfei
  * date: 2018/9/5
@@ -7,8 +9,9 @@ package com.microple.jademall.bean;
  */
 public class OrderDetail {
 
+
     /**
-     * order_detail : {"order_id":1,"order_sn":"20180815752231","order_status":3,"consignee":"ceshi","mobile":"15915048904","address":"广东省广州市天河区富力盈凯","shipping_no":null,"shipping_name":null,"pay_type":1,"goods_price":"3980.00","shipping_price":"0.00","total_price":"3980.00","add_time":"2018-08-21 15:27:46","shipping_time":null,"confirm_time":null,"user_id":3,"supplier_id":1,"buy_type":0,"logistics":"","supplier_name":"广州微标杆互联网科技有限公司","pay_name":"支付宝支付","label":"积分返还","goods_info":{"goods_id":1,"goods_name":"糯冰种飘翠福瓜挂件","goods_sn":"3h66872","goods_price":"3980.00"}}
+     * order_detail : {"order_id":11,"order_sn":"20180816614523","order_status":2,"consignee":"我也没钱","mobile":"1333333333","address":"房地产那你还广泛的地方好好过哥哥反反复复","shipping_no":"3366006247874","shipping_name":"申通","pay_type":0,"goods_price":"3980.00","shipping_price":null,"total_price":"3980.00","add_time":"2018-09-05 09:20:52","shipping_time":null,"confirm_time":null,"user_id":11,"supplier_id":1,"buy_type":0,"logistics":[{"time":"2018-06-27 17:59:39","ftime":"2018-06-27 17:59:39","context":"快递柜-已签收","location":""},{"time":"2018-06-27 17:03:24","ftime":"2018-06-27 17:03:24","context":"快件派送至快递柜【城市花园小区广场电房对面（原e栈）】，派件员:郭章文(16602097509,)","location":""},{"time":"2018-06-27 14:25:50","ftime":"2018-06-27 14:25:50","context":"广东广州番禺罗家分部-郭章文(16602097509,)-派件中","location":""},{"time":"2018-06-27 13:40:50","ftime":"2018-06-27 13:40:50","context":"已到达-广东广州番禺罗家分部","location":""},{"time":"2018-06-27 12:41:48","ftime":"2018-06-27 12:41:48","context":"已到达-广东广州番禺罗家分部","location":""},{"time":"2018-06-27 12:23:49","ftime":"2018-06-27 12:23:49","context":"广东番禺转运中心-已发往-广东广州番禺罗家分部","location":""},{"time":"2018-06-27 09:01:54","ftime":"2018-06-27 09:01:54","context":"广东广州转运中心-已装袋发往-广东番禺转运中心","location":""},{"time":"2018-06-27 06:37:46","ftime":"2018-06-27 06:37:46","context":"广东深圳罗湖中转部-已装袋发往-广东广州中转部","location":""},{"time":"2018-06-27 03:39:54","ftime":"2018-06-27 03:39:54","context":"广东深圳罗湖中转部-已装袋发往-广东番禺中转部","location":""},{"time":"2018-06-27 03:34:59","ftime":"2018-06-27 03:34:59","context":"广东深圳罗湖中转部-已装袋发往-广东番禺中转部","location":""},{"time":"2018-06-27 03:29:25","ftime":"2018-06-27 03:29:25","context":"广东深圳罗湖中转部-已发往-广东番禺中转部","location":""},{"time":"2018-06-27 03:29:25","ftime":"2018-06-27 03:29:25","context":"广东深圳罗湖中转部-已进行装袋扫描","location":""},{"time":"2018-06-27 03:29:21","ftime":"2018-06-27 03:29:21","context":"广东深圳罗湖中转部-已装袋发往-广东番禺中转部","location":""},{"time":"2018-06-27 00:24:29","ftime":"2018-06-27 00:24:29","context":"罗湖华强北营业点-王正华1-已收件","location":""}],"supplier_name":"广州微标杆互联网科技有限公司","pay_name":"微信支付","label":"积分返还","goods_info":{"goods_id":5,"goods_name":"糯冰种飘翠福瓜挂件","goods_sn":"3k68584","goods_price":"3980.00","goods_img":"/uploads/20180808/1a3c3ec77e6c798ace6b001e5bf3a123.jpg"}}
      */
 
     private OrderDetailBean order_detail;
@@ -23,29 +26,29 @@ public class OrderDetail {
 
     public static class OrderDetailBean {
         /**
-         * order_id : 1
-         * order_sn : 20180815752231
-         * order_status : 3
-         * consignee : ceshi
-         * mobile : 15915048904
-         * address : 广东省广州市天河区富力盈凯
-         * shipping_no : null
-         * shipping_name : null
-         * pay_type : 1
+         * order_id : 11
+         * order_sn : 20180816614523
+         * order_status : 2
+         * consignee : 我也没钱
+         * mobile : 1333333333
+         * address : 房地产那你还广泛的地方好好过哥哥反反复复
+         * shipping_no : 3366006247874
+         * shipping_name : 申通
+         * pay_type : 0
          * goods_price : 3980.00
-         * shipping_price : 0.00
+         * shipping_price : null
          * total_price : 3980.00
-         * add_time : 2018-08-21 15:27:46
+         * add_time : 2018-09-05 09:20:52
          * shipping_time : null
          * confirm_time : null
-         * user_id : 3
+         * user_id : 11
          * supplier_id : 1
          * buy_type : 0
-         * logistics :
+         * logistics : [{"time":"2018-06-27 17:59:39","ftime":"2018-06-27 17:59:39","context":"快递柜-已签收","location":""},{"time":"2018-06-27 17:03:24","ftime":"2018-06-27 17:03:24","context":"快件派送至快递柜【城市花园小区广场电房对面（原e栈）】，派件员:郭章文(16602097509,)","location":""},{"time":"2018-06-27 14:25:50","ftime":"2018-06-27 14:25:50","context":"广东广州番禺罗家分部-郭章文(16602097509,)-派件中","location":""},{"time":"2018-06-27 13:40:50","ftime":"2018-06-27 13:40:50","context":"已到达-广东广州番禺罗家分部","location":""},{"time":"2018-06-27 12:41:48","ftime":"2018-06-27 12:41:48","context":"已到达-广东广州番禺罗家分部","location":""},{"time":"2018-06-27 12:23:49","ftime":"2018-06-27 12:23:49","context":"广东番禺转运中心-已发往-广东广州番禺罗家分部","location":""},{"time":"2018-06-27 09:01:54","ftime":"2018-06-27 09:01:54","context":"广东广州转运中心-已装袋发往-广东番禺转运中心","location":""},{"time":"2018-06-27 06:37:46","ftime":"2018-06-27 06:37:46","context":"广东深圳罗湖中转部-已装袋发往-广东广州中转部","location":""},{"time":"2018-06-27 03:39:54","ftime":"2018-06-27 03:39:54","context":"广东深圳罗湖中转部-已装袋发往-广东番禺中转部","location":""},{"time":"2018-06-27 03:34:59","ftime":"2018-06-27 03:34:59","context":"广东深圳罗湖中转部-已装袋发往-广东番禺中转部","location":""},{"time":"2018-06-27 03:29:25","ftime":"2018-06-27 03:29:25","context":"广东深圳罗湖中转部-已发往-广东番禺中转部","location":""},{"time":"2018-06-27 03:29:25","ftime":"2018-06-27 03:29:25","context":"广东深圳罗湖中转部-已进行装袋扫描","location":""},{"time":"2018-06-27 03:29:21","ftime":"2018-06-27 03:29:21","context":"广东深圳罗湖中转部-已装袋发往-广东番禺中转部","location":""},{"time":"2018-06-27 00:24:29","ftime":"2018-06-27 00:24:29","context":"罗湖华强北营业点-王正华1-已收件","location":""}]
          * supplier_name : 广州微标杆互联网科技有限公司
-         * pay_name : 支付宝支付
+         * pay_name : 微信支付
          * label : 积分返还
-         * goods_info : {"goods_id":1,"goods_name":"糯冰种飘翠福瓜挂件","goods_sn":"3h66872","goods_price":"3980.00"}
+         * goods_info : {"goods_id":5,"goods_name":"糯冰种飘翠福瓜挂件","goods_sn":"3k68584","goods_price":"3980.00","goods_img":"/uploads/20180808/1a3c3ec77e6c798ace6b001e5bf3a123.jpg"}
          */
 
         private int order_id;
@@ -54,11 +57,11 @@ public class OrderDetail {
         private String consignee;
         private String mobile;
         private String address;
-        private Object shipping_no;
-        private Object shipping_name;
+        private String shipping_no;
+        private String shipping_name;
         private int pay_type;
         private String goods_price;
-        private String shipping_price;
+        private Object shipping_price;
         private String total_price;
         private String add_time;
         private Object shipping_time;
@@ -66,11 +69,11 @@ public class OrderDetail {
         private int user_id;
         private int supplier_id;
         private int buy_type;
-        private String logistics;
         private String supplier_name;
         private String pay_name;
         private String label;
         private GoodsInfoBean goods_info;
+        private List<LogisticsBean> logistics;
 
         public int getOrder_id() {
             return order_id;
@@ -120,19 +123,19 @@ public class OrderDetail {
             this.address = address;
         }
 
-        public Object getShipping_no() {
+        public String getShipping_no() {
             return shipping_no;
         }
 
-        public void setShipping_no(Object shipping_no) {
+        public void setShipping_no(String shipping_no) {
             this.shipping_no = shipping_no;
         }
 
-        public Object getShipping_name() {
+        public String getShipping_name() {
             return shipping_name;
         }
 
-        public void setShipping_name(Object shipping_name) {
+        public void setShipping_name(String shipping_name) {
             this.shipping_name = shipping_name;
         }
 
@@ -152,11 +155,11 @@ public class OrderDetail {
             this.goods_price = goods_price;
         }
 
-        public String getShipping_price() {
+        public Object getShipping_price() {
             return shipping_price;
         }
 
-        public void setShipping_price(String shipping_price) {
+        public void setShipping_price(Object shipping_price) {
             this.shipping_price = shipping_price;
         }
 
@@ -216,14 +219,6 @@ public class OrderDetail {
             this.buy_type = buy_type;
         }
 
-        public String getLogistics() {
-            return logistics;
-        }
-
-        public void setLogistics(String logistics) {
-            this.logistics = logistics;
-        }
-
         public String getSupplier_name() {
             return supplier_name;
         }
@@ -256,12 +251,21 @@ public class OrderDetail {
             this.goods_info = goods_info;
         }
 
+        public List<LogisticsBean> getLogistics() {
+            return logistics;
+        }
+
+        public void setLogistics(List<LogisticsBean> logistics) {
+            this.logistics = logistics;
+        }
+
         public static class GoodsInfoBean {
             /**
-             * goods_id : 1
+             * goods_id : 5
              * goods_name : 糯冰种飘翠福瓜挂件
-             * goods_sn : 3h66872
+             * goods_sn : 3k68584
              * goods_price : 3980.00
+             * goods_img : /uploads/20180808/1a3c3ec77e6c798ace6b001e5bf3a123.jpg
              */
 
             private int goods_id;
@@ -269,14 +273,6 @@ public class OrderDetail {
             private String goods_sn;
             private String goods_price;
             private String goods_img;
-
-            public String getGoods_img() {
-                return goods_img;
-            }
-
-            public void setGoods_img(String goods_img) {
-                this.goods_img = goods_img;
-            }
 
             public int getGoods_id() {
                 return goods_id;
@@ -308,6 +304,60 @@ public class OrderDetail {
 
             public void setGoods_price(String goods_price) {
                 this.goods_price = goods_price;
+            }
+
+            public String getGoods_img() {
+                return goods_img;
+            }
+
+            public void setGoods_img(String goods_img) {
+                this.goods_img = goods_img;
+            }
+        }
+
+        public static class LogisticsBean {
+            /**
+             * time : 2018-06-27 17:59:39
+             * ftime : 2018-06-27 17:59:39
+             * context : 快递柜-已签收
+             * location :
+             */
+
+            private String time;
+            private String ftime;
+            private String context;
+            private String location;
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
+
+            public String getFtime() {
+                return ftime;
+            }
+
+            public void setFtime(String ftime) {
+                this.ftime = ftime;
+            }
+
+            public String getContext() {
+                return context;
+            }
+
+            public void setContext(String context) {
+                this.context = context;
+            }
+
+            public String getLocation() {
+                return location;
+            }
+
+            public void setLocation(String location) {
+                this.location = location;
             }
         }
     }
