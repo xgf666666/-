@@ -1,9 +1,9 @@
 package com.microple.jademall.ui.Personal.mvp.presenter
 
-import com.microple.jademall.ui.Personal.mvp.contract.AboutMeContract
 import com.microple.jademall.ui.Personal.mvp.contract.IntergrationGetContract
-import com.microple.jademall.ui.Personal.mvp.model.AboutMelModel
 import com.microple.jademall.ui.Personal.mvp.model.IntergrationGetModel
+import com.microple.jademall.uitls.showToast
+import com.weibiaogan.litong.extensions.ui
 
 /**
  * author: xiaoguagnfei
@@ -11,5 +11,13 @@ import com.microple.jademall.ui.Personal.mvp.model.IntergrationGetModel
  * describe:
  */
 class IntergrationGetPresenter:IntergrationGetContract.Presenter() {
+    override fun getProfit(token: String, ct_id: String, goods_id: String) {
+        getModel().getProfit(token,ct_id,goods_id).ui({
+                getView()?.getProfit(it.data!!)
+        },{
+                getView()?.showToast(it)
+        })
+    }
+
     override fun createModel(): IntergrationGetContract.Model =IntergrationGetModel()
 }

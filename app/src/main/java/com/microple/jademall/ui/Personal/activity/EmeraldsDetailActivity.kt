@@ -64,10 +64,10 @@ class EmeraldsDetailActivity : BaseMvpActivity<EmeraldsDetailPresenter>(),Emeral
      */
     override fun initEvent() {
         tv_shouyi.setOnClickListener{
-            IntergrationGetActivity.startEmeraldsDetailActivity(this)
+            IntergrationGetActivity.startEmeraldsDetailActivity(this,intent.getStringExtra("ct_id"),""+emeraldsDetail?.cabinet?.goods_id)
         }
         tv_tihuo.setOnClickListener{
-            PickGoodsActivity.startPickGoodsActivity(this)
+            PickGoodsActivity.startPickGoodsActivity(this,intent.getStringExtra("ct_id"))
         }
         iv_back.setOnClickListener{
             finish()

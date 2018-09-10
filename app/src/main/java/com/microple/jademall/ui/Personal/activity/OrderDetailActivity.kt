@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
@@ -56,6 +57,7 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
     var adaptr=LogisticalAdapter(arrayListOf())
     override fun initData() {
         tv_title.text="订单详情"
+        Log.i("order_id",""+intent.getStringExtra("order_id"))
         getPresenter().getDetail(Constants.getToken(),intent.getStringExtra("order_id"))
         adaptr.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)

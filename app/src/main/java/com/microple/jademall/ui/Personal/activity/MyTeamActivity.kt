@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
+import com.microple.jademall.bean.Team
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.adapter.TeamAdapter
+import com.microple.jademall.ui.Personal.mvp.contract.MyTeamContract
 import com.microple.jademall.ui.Personal.mvp.presenter.MyTeamPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_my_team.*
@@ -17,7 +20,14 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/13
  * describe:我的团队
  */
-class MyTeamActivity : BaseMvpActivity<MyTeamPresenter>() {
+class MyTeamActivity : BaseMvpActivity<MyTeamPresenter>(),MyTeamContract.View {
+    override fun team(team: Team) {
+        adapter.setNewData(team.user_list)
+        tv_all.text=""+team.total_money
+        tv_number.text=""+team.user_count
+
+    }
+
     /**
      * 创建P层
      *
@@ -35,17 +45,15 @@ class MyTeamActivity : BaseMvpActivity<MyTeamPresenter>() {
     /**
      * 初始化数据状态
      */
+    var adapter= TeamAdapter(arrayListOf())
     override fun initData() {
         tv_title.text="我的团队"
-        var adapter= TeamAdapter(arrayListOf())
+        getPresenter().team(Constants.getToken(),"")
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
-        var data = arrayListOf( "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-        adapter.addData(data)
         adapter.setOnItemClickListener { adapter, view, position ->
-            TeamTwoActivity.startTeamTwoActivity(this)
-
+            TeamTwoActivity.startTeamTwoActivity(this,""+(adapter as TeamAdapter).data[position].user_id)
         }
     }
 
@@ -53,6 +61,9 @@ class MyTeamActivity : BaseMvpActivity<MyTeamPresenter>() {
      * 初始化事件
      */
     override fun initEvent() {
+        iv_back.setOnClickListener{
+            finish()
+        }
     }
 
     companion object {

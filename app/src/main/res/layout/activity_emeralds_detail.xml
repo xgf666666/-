@@ -7,6 +7,8 @@
     tools:context=".ui.Personal.activity.IntergrationGetActivity"
     android:orientation="vertical">
     <include layout="@layout/item_title"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -31,11 +31,14 @@ import com.microple.jademall.bean.Note;
 import com.microple.jademall.bean.Order;
 import com.microple.jademall.bean.OrderDetail;
 import com.microple.jademall.bean.PersonInfo;
+import com.microple.jademall.bean.Pick;
 import com.microple.jademall.bean.PointDetail;
+import com.microple.jademall.bean.Profit;
 import com.microple.jademall.bean.Record;
 import com.microple.jademall.bean.RecordDetail;
 import com.microple.jademall.bean.Search;
 import com.microple.jademall.bean.Shop;
+import com.microple.jademall.bean.Team;
 import com.xx.baseutilslibrary.network.entity.BaseResponseEntity;
 
 
@@ -366,8 +369,25 @@ public interface AppService {
      */
     @POST("shopp/shopp_tips")
     Observable<BaseResponseEntity<Shop>> updateShopping(@Header("token") String token);
+    /**
+     * 我的团队跟二级团队
+     */
+    @FormUrlEncoded
+    @POST("user_center/distribute")
+    Observable<BaseResponseEntity<Team>> team(@Header("token") String token, @Field("user_id") String user_id);
+    /**
+     * 翡翠积分收益
+     */
+    @FormUrlEncoded
+    @POST("user_center/profit")
+    Observable<BaseResponseEntity<Profit>> profit(@Header("token") String token, @Field("ct_id") String ct_id, @Field("goods_id") String goods_id);
 
-
+    /**
+     * 提货
+     */
+    @FormUrlEncoded
+    @POST("user_center/pick_up")
+    Observable<BaseResponseEntity<Pick>> pick(@Header("token") String token, @Field("ct_id") String ct_id);
 
 
 
