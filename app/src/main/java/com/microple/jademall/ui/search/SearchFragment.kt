@@ -1,6 +1,7 @@
 package com.microple.jademall.ui.search
 
 import android.content.Intent
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
 import android.view.View
@@ -57,14 +58,24 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
         }
     }
     override fun init(view: View?) {
-        setTitle("搜索")
-        setHeadImage(Constant.item)
+//        setTitle("搜索")
+//        setHeadImage(Constant.item)
         getPresenter().getSearch()
+        tv_title.text="搜索"
 //        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = mAdapter
         mAdapter.setOnItemClickListener(this)
+        recyclerView.isNestedScrollingEnabled=false
+        scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            if (scrollY>=90){
+                tv_title.visibility=View.VISIBLE
+                tv_title.text="搜索"
+            }else{
+                tv_title.visibility=View.GONE
+            }
+        }
         tv_classify.setOnClickListener{
             setText(tv_classify,1)
         }

@@ -34,7 +34,8 @@ public class ZoomScrollView extends ScrollView {
     /** 最大放大多少像素*/
     private int maxZoom;
     /** 滚动监听*/
-    private ScrollViewListener scrollViewListener = null;
+//    private ScrollViewListener scrollViewListener = null;
+    private MoveViewListener moveViewListener= null;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -84,8 +85,11 @@ public class ZoomScrollView extends ScrollView {
         maxZoom = t.getDimensionPixelOffset(R.styleable.ObservableScrollView_maxZoom,0);
     }
 
-    public void setScrollViewListener(ScrollViewListener scrollViewListener) {
-        this.scrollViewListener = scrollViewListener;
+//    public void setScrollViewListener(ScrollViewListener scrollViewListener) {
+//        this.scrollViewListener = scrollViewListener;
+//    }
+    public void setMoveViewListener(MoveViewListener moveViewListener) {
+        this.moveViewListener = moveViewListener;
     }
 
 
@@ -118,6 +122,10 @@ public class ZoomScrollView extends ScrollView {
                         allScroll = 0;
                     }else if(allScroll > maxZoom){
                         allScroll = maxZoom;
+                    }
+                    if (moveViewListener!=null){
+                        moveViewListener.onMoveScrollChanged(allScroll);
+                        Log.i("allScroll",""+allScroll);
                     }
                     LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) zoomView.getLayoutParams();
                     lp.height = (int) (height + allScroll/2);
@@ -169,13 +177,18 @@ public class ZoomScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int x, int y, int oldx, int oldy) {
         super.onScrollChanged(x, y, oldx, oldy);
-        if (scrollViewListener != null) {
-            scrollViewListener.onScrollChanged(this, x, y, oldx, oldy);
-        }
+//        if (scrollViewListener != null) {
+//            scrollViewListener.onScrollChanged(this, x, y, oldx, oldy);
+//        }
     }
-    public interface ScrollViewListener {
+//    public interface ScrollViewListener {
+//
+//        void onScrollChanged(ZoomScrollView scrollView, int x, int y, int oldx, int oldy);
+//
+//    }
+    public interface MoveViewListener {
 
-        void onScrollChanged(ZoomScrollView scrollView, int x, int y, int oldx, int oldy);
+        void onMoveScrollChanged( int allScroll);
 
     }
 }

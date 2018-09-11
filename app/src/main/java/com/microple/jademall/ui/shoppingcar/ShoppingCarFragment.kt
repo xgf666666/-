@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.shoppingcar
 
+import android.support.v4.widget.NestedScrollView
 import android.support.v4.widget.SlidingPaneLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ import com.microple.jademall.ui.shoppingcar.mvp.contract.ShoppingCarContract
 import com.microple.jademall.ui.shoppingcar.mvp.presenter.ShoppingCarPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_shoppingcar.*
+import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.item_login.*
 
 /**
@@ -61,8 +63,6 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
     override fun getFragmentLayoutId(): Int = R.layout.fragment_shoppingcar
 
     override fun init(view: View?) {
-        setTitle("购物袋")
-        setHeadImage(Constant.item)
         tv_index.setOnClickListener{
             tv_content.visibility=View.GONE
             tv_index.visibility=View.GONE
@@ -82,6 +82,15 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
         }
         tv_login.setOnClickListener{
             LoginActivity.startLoginActivity(context!!)
+        }
+        scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            Log.i("NestedScrollView",""+scrollX+","+scrollY+","+oldScrollX+","+oldScrollY)
+            if (scrollY>=90){
+                tv_title.visibility=View.VISIBLE
+                tv_title.text="购物袋"
+            }else{
+                tv_title.visibility=View.GONE
+            }
         }
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         cl_right.layoutManager= LinearLayoutManager(context)

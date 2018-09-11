@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.xx.baseuilibrary.BaseFragment
 import com.xx.baseuilibrary.R
-import kotlinx.android.synthetic.main.fragment_tool_bar.*
 
 /**
  * BaseMvpViewFragment
@@ -21,42 +20,8 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
  */
 abstract class BaseMvpViewFragment : BaseFragment() {
 
-    /**
-     * 设置标题
-     *
-     * @param title 标题
-     */
-    fun setTitle(title: CharSequence) {
-        toolBar?.title = null
-        tv_title?.text = title
-        setBackVisibility(false)
-    }
 
-    fun setHeadImage(head: String){
-        Glide.with(context!!).load(head).into(iv_head)
 
-    }
-    /**
-     * 设置返回按钮是否可见
-     *
-     * @param visibility
-     */
-    fun setBackVisibility(visibility: Boolean) {
-        if (visibility) {
-            toolBar?.setNavigationIcon(R.mipmap.global_btn_return)
-            toolBar?.setNavigationOnClickListener(View.OnClickListener { activity?.finish() })
-        } else {
-            toolBar?.setNavigationIcon(null)
-        }
-    }
-
-    /**
-     * 设置白色样式标题
-     */
-    fun setWhiteStyleTitle() {
-        toolBar?.setNavigationIcon(R.mipmap.global_btn_return)
-        tv_title?.setTextColor(ContextCompat.getColor(context!!, android.R.color.black))
-    }
 
 
 

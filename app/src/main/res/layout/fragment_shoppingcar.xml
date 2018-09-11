@@ -4,13 +4,33 @@
     android:layout_height="match_parent"
     android:background="@color/white_default"
     >
+    <include
+        layout="@layout/fragment_tool_bar"
+        android:id="@+id/il_title"/>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_order"
+        android:layout_below="@+id/il_title">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include
-            layout="@layout/fragment_tool_bar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购物袋"
+            android:textColor="@color/black_000000"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:textSize="@dimen/sp_24"
+            android:layout_marginRight="14dp"
+            />
+
         <TextView
             android:id="@+id/tv_bianji"
             android:layout_width="wrap_content"
@@ -19,7 +39,7 @@
             android:textColor="@color/colorMain"
             android:textSize="@dimen/sp_14"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="@dimen/dp_12"
             android:layout_marginRight="14dp"
             />
     </RelativeLayout>
@@ -49,13 +69,14 @@
         android:layout_below="@+id/tv_content"/>
             <android.support.v7.widget.RecyclerView
                 android:layout_below="@+id/tv_index"
-                android:layout_above="@+id/rl_order"
                 android:id="@+id/cl_right"
                 android:layout_marginLeft="@dimen/dp_13"
                 android:layout_marginRight="@dimen/dp_13"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
     <RelativeLayout
         android:id="@+id/rl_order"
         android:layout_width="match_parent"
@@ -90,4 +111,5 @@
         android:id="@+id/loading"/>
     <include layout="@layout/item_login"
         android:id="@+id/view_login"/>
+
 </RelativeLayout>

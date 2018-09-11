@@ -44,7 +44,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
     override fun getFragmentLayoutId(): Int = R.layout.fragment_home
 
     override fun init(view: View?) {
-        setBackVisibility(false)
+//        setBackVisibility(false)
         //头像
         Glide.with(context!!).load(Constant.item).into(iv_head)
 

@@ -5,6 +5,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
+import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.BaseFragment
 import kotlinx.android.synthetic.main.fragment_common.*
 
@@ -26,9 +27,7 @@ class BannerFragment :BaseFragment() {
     override fun init(view: View?) {
         val bundle = arguments
         var banner_id=bundle!!.get("banner_id")
-        Glide.with(activity!!).load( bundle!!.get("img")!!)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default)).into(iv_banner)
+        var img=bundle!!.getString("img")!!
+        iv_banner.loadImag(img)
     }
 }

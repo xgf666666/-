@@ -148,6 +148,14 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
                 getPresenter().addShoping(Constants.getToken(),""+goodsDetail?.goods_info?.goods_id)
             }
         }
+        zoomScrollView.setMoveViewListener {
+                if (it==450){
+                    finish()
+                    overridePendingTransition(0,R.anim.translate_out)
+                }
+
+            }
+
     }
 
     companion object {

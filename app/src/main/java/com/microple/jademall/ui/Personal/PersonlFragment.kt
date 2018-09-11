@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.Personal
 
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -50,6 +51,14 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
             Constants.loginOut()
 
             LoginActivity.startLoginActivity(context!!)
+        }
+        scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            if (scrollY>=90){
+                tv_title.visibility=View.VISIBLE
+                tv_title.text="个人中心"
+            }else{
+                tv_title.visibility=View.GONE
+            }
         }
         //我的订单
         rv_myOrder.layoutManager = LinearLayoutManager(context)
