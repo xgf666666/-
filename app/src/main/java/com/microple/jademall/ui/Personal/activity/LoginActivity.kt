@@ -35,6 +35,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
         showToast("登录成功")
         Constants.putInviteCode(login.code)
         Constants.putToken(login.token)
+        Constants.putHeadImg(login.head_img)
         Constants.login()
         finish()
 

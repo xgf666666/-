@@ -24,7 +24,7 @@ class SearchResultGoodsActivity : BaseMvpViewActivity(){
     override fun initData() {
         name=intent.getStringExtra("name")
         tv_head.text=name
-        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+        var data = arrayListOf("", "", "")
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = mAdapter

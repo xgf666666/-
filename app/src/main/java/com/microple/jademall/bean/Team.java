@@ -56,7 +56,7 @@ public class Team {
         private String user_name;
         private String head_img;
         private String phone;
-        private int divide_money;
+        private String divide_money;
 
         public int getUser_id() {
             return user_id;
@@ -90,11 +90,11 @@ public class Team {
             this.phone = phone;
         }
 
-        public int getDivide_money() {
+        public String getDivide_money() {
             return divide_money;
         }
 
-        public void setDivide_money(int divide_money) {
+        public void setDivide_money(String divide_money) {
             this.divide_money = divide_money;
         }
     }

@@ -13,10 +13,12 @@ import com.microple.jademall.R
 import com.microple.jademall.bean.Category
 import com.microple.jademall.bean.FirstImage
 import com.microple.jademall.bean.Goods
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.home.adapter.HomeTabAdapter
 import com.microple.jademall.ui.home.fragment.BannerFragment
 import com.microple.jademall.ui.home.mvp.contract.HomeContract
 import com.microple.jademall.ui.home.mvp.presenter.HomePresenter
+import com.microple.jademall.uitls.loadImag
 import com.weibiaogan.bangbang.common.pxtodp
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import com.xx.baseuilibrary.widget.CustPagerTransformer
@@ -46,8 +48,10 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
     override fun init(view: View?) {
 //        setBackVisibility(false)
         //头像
-        Glide.with(context!!).load(Constant.item).into(iv_head)
-
+//        Glide.with(context!!).load(Constant.item).into(iv_head)
+        if (Constants.isLogin())
+            iv_head.loadImag(Constants.getPersonal().head_img)
+        showLoadingDialog()
         getPresenter().getFirstView()
         getPresenter().getCategory()
 
@@ -61,6 +65,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
     override fun getFirstView(data: List<FirstImage>) {
         // 3. 填充ViewPager
         fillViewPager(data)
+        dismissLoadingDialog()
     }
     //首页一级分类
     override fun getCategory(data: List<Category>) {

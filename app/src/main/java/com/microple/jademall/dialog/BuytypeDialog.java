@@ -77,12 +77,12 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
                     mOnBtnClickListener.cancel(1);
                 }
                 break;
-            case R.id.ll_feicui:
+            case R.id.ll_zhibo:
                 if (mOnBtnClickListener!=null){
                     mOnBtnClickListener.cancel(2);
                 }
                 break;
-            case R.id.ll_zhibo:
+            case R.id.ll_feicui:
                 if (mOnBtnClickListener!=null){
                     mOnBtnClickListener.cancel(3);
                 }

@@ -31,6 +31,7 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
         tv_name.text=personalInfo.info.user_name
         tv_phone.text=personalInfo.info.phone
         Constants.putPersonal(personalInfo.info)
+        Constants.putHeadImg(personalInfo.info.head_img)
     }
 
     /**

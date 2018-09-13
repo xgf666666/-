@@ -10,9 +10,12 @@ import com.microple.jademall.ui.live.adapter.LiveHotAdapter
 import com.microple.jademall.ui.live.adapter.LiveRecommendAdapter
 import com.microple.jademall.ui.live.adapter.LiveReviewAdapter
 import com.microple.jademall.common.Constant
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.live.activity.LiveDetailsActivity
+import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import com.xx.baseuilibrary.widget.DividerListItemDecoration
+
 import kotlinx.android.synthetic.main.fragment_live.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 
@@ -32,6 +35,8 @@ class LiveFragment : BaseMvpViewFragment(),BaseQuickAdapter.OnItemClickListener 
     override fun getFragmentLayoutId(): Int = R.layout.fragment_live
 
     override fun init(view: View?) {
+        if (Constants.isLogin())
+            iv_head.loadImag(Constants.getPersonal().head_img)
 //        setTitle("直播")
 //        setHeadImage(Constant.item)
 //        setBackVisibility(false)

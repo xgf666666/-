@@ -28,6 +28,7 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.activity.LoginActivity
 import com.microple.jademall.ui.Personal.adapter.ImageDetailAdapter
 
 
@@ -56,9 +57,10 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
     }
 
     var goodsDetail: GoodsDetail?=null
-    override fun getLabel(label_desc: String) {
+    override fun getLabel(name:String,label_desc: String) {
         dismissLoadingDialog()
         var dialog=TextDialog(this,label_desc)
+        dialog.setTitle(name,true)
         dialog.show()
         dialog.setOnBtnClickListener {
             dialog.dismiss()
@@ -121,7 +123,10 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
      */
     override fun initEvent() {
         tv_sure.setOnClickListener{
-            ImOrderActivity.startImOrderActivity(this)
+            if (Constants.isLogin())
+            ImOrderActivity.startImOrderActivity(this,"",""+goodsDetails?.goods_info?.goods_id)
+            else
+                LoginActivity.startLoginActivity(this)
         }
         tv_other.setOnClickListener{
             showChangeSexDialogOne(data!!)
@@ -179,6 +184,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_color.text="颜色："+goodsDetail.goods_info.color
         tv_touming.text="透明度："+goodsDetail.goods_info.transparency
         tv_changdi.text="产地："+goodsDetail.goods_info.origin_place
+        tv_price.text="RMB    "+goodsDetail.goods_info.goods_price
         if (goodsDetail.goods_info.is_collect==1){
             iv_collection.setImageResource(R.drawable.btn_favor_selected)
         }
@@ -195,7 +201,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
                 textView.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_jifen))
                 textView.setOnClickListener{
                     showLoadingDialog()
-                    getPresenter().getLabel(""+goodsDetail.goods_info.labels[i].label_id)
+                    getPresenter().getLabel(goodsDetail.goods_info.labels[i].label_name,""+goodsDetail.goods_info.labels[i].label_id)
                 }
                 ll_label.addView(textView)
             }

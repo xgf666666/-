@@ -15,7 +15,7 @@ import io.reactivex.Observable
 interface GoodsDetailContract {
     interface View :BaseMvpView{
        fun getDetail(goodsDetail: GoodsDetail)
-        fun getLabel(label_desc:String)
+        fun getLabel(name:String,label_desc:String)
         fun collection(msg:String)
         fun addShoping()
 
@@ -28,7 +28,7 @@ interface GoodsDetailContract {
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun getDetail(token:String,goods_sn:String)
-        abstract fun getLabel(label_id:String)
+        abstract fun getLabel(name:String,label_id:String)
         abstract fun collection(token:String,goods_id:String)
         abstract fun addShoping(token:String,goods_id:String)
 

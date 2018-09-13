@@ -7,14 +7,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
+import com.microple.jademall.bean.ImOrder
 import com.microple.jademall.common.Constant
+import com.microple.jademall.uitls.loadImag
 
 /**
  * author: xiaoguagnfei
  * date: 2018/8/15
  * describe:
  */
-class ImOrderAdapter(data:List<String>):BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_imadapter,data) {
+class ImOrderAdapter(data:List<ImOrder.OrderBean.GoodsInfoBean>):BaseQuickAdapter<ImOrder.OrderBean.GoodsInfoBean,BaseViewHolder>(R.layout.item_imadapter,data) {
     /**
      * Implement this method and use the helper to adapt the view to the given item.
      *
@@ -26,19 +28,15 @@ class ImOrderAdapter(data:List<String>):BaseQuickAdapter<String,BaseViewHolder>(
         indexs=index
         notifyDataSetChanged()
     }
-    override fun convert(helper: BaseViewHolder?, item: String?) {
-        helper?.setText(R.id.tv_goodsName, "糯冰种飘翠福瓜挂件")
-        helper?.setText(R.id.tv_goodsNum, "ACS322332")
-        helper?.setText(R.id.tv_goodsPrice, "￥3980.00")
-        Glide.with(mContext).load(Constant.item)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default))
-                .into(helper?.getView(R.id.iv_goodsImage) as ImageView)
+    override fun convert(helper: BaseViewHolder?, item: ImOrder.OrderBean.GoodsInfoBean) {
+        helper?.setText(R.id.tv_goodsName, item.goods_name)
+        helper?.setText(R.id.tv_goodsNum, item.goods_sn)
+        helper?.setText(R.id.tv_goodsPrice, "￥"+item.goods_price)
+        helper?.getView<ImageView>(R.id.iv_goodsImage)?.loadImag(item.goods_img)
         if (indexs==1){
-            helper?.getView<SlidingPaneLayout>(R.id.slide).openPane()
+            helper?.getView<SlidingPaneLayout>(R.id.slide)?.openPane()
         }else{
-            helper?.getView<SlidingPaneLayout>(R.id.slide).closePane()
+            helper?.getView<SlidingPaneLayout>(R.id.slide)?.closePane()
         }
         helper?.addOnClickListener(R.id.ll_type)
 

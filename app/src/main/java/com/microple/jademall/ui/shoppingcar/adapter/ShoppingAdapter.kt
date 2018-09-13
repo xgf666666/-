@@ -31,7 +31,7 @@ class ShoppingAdapter(data:List<Shop.ShoppInfoBean>):BaseQuickAdapter<Shop.Shopp
     override fun convert(helper: BaseViewHolder?, item: Shop.ShoppInfoBean?) {
         helper?.setText(R.id.tv_goodsName, item?.goods_name)
         helper?.setText(R.id.tv_goodsNum, item?.goods_sn)
-        helper?.setText(R.id.tv_goodsPrice, item?.goods_sn)
+        helper?.setText(R.id.tv_goodsPrice, ""+item?.goods_price)
         helper?.getView<ImageView>(R.id.iv_goodsImage)?.loadImag(item?.goods_img!!)
         if (indexs==1){
             helper?.getView<SlidingPaneLayout>(R.id.slide)?.openPane()

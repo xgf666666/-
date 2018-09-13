@@ -23,6 +23,7 @@ import com.microple.jademall.ui.shoppingcar.adapter.LeftAdapter
 import com.microple.jademall.ui.shoppingcar.adapter.ShoppingAdapter
 import com.microple.jademall.ui.shoppingcar.mvp.contract.ShoppingCarContract
 import com.microple.jademall.ui.shoppingcar.mvp.presenter.ShoppingCarPresenter
+import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_shoppingcar.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
@@ -36,9 +37,16 @@ import kotlinx.android.synthetic.main.item_login.*
 class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCarContract.View,ShoppingCarPresenter>(),ShoppingCarContract.View{
    //记录当前删除的位置
     var current=0
+    var shop:Shop?=null
     override fun shop(shop: Shop) {
         loading.visibility=View.GONE
+        this.shop=shop
         adapter.setNewData(shop.shopp_info)
+        var price=0.0
+        for (i in 0..shop.shopp_info.size-1){
+            price=price+shop.shopp_info[i].goods_price
+        }
+        tv_price.text="购物袋合计     ￥"+price
     }
 
     override fun delShop() {
@@ -49,6 +57,11 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
     override fun updateShop(shop: Shop) {
         dismissLoadingDialog()
         adapter.setNewData(shop.shopp_info)
+        var price=0.0
+        for (i in 0..shop.shopp_info.size-1){
+            price=price+shop.shopp_info[i].goods_price
+        }
+        tv_price.text="购物袋合计     ￥"+price
     }
 
     /**
@@ -63,6 +76,8 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
     override fun getFragmentLayoutId(): Int = R.layout.fragment_shoppingcar
 
     override fun init(view: View?) {
+        if (Constants.isLogin())
+            iv_head.loadImag(Constants.getPersonal().head_img)
         tv_index.setOnClickListener{
             tv_content.visibility=View.GONE
             tv_index.visibility=View.GONE
@@ -78,7 +93,16 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
             }
         }
         tv_submint.setOnClickListener{
-            ImOrderActivity.startImOrderActivity(context!!)
+            var sb_id=""
+            if (shop?.shopp_info?.size!=0)
+            for (i in 0..shop?.shopp_info!!.size-1){
+                if (i==0){
+                    sb_id=""+shop?.shopp_info!![i].sb_id
+                }else{
+                    sb_id=sb_id+","+shop?.shopp_info!![i].sb_id
+                }
+            }
+            ImOrderActivity.startImOrderActivity(context!!,sb_id,"")
         }
         tv_login.setOnClickListener{
             LoginActivity.startLoginActivity(context!!)

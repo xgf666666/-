@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
@@ -57,6 +58,7 @@ class TeamTwoActivity : BaseMvpActivity<MyTeamPresenter>(),MyTeamContract.View {
     }
 
     override fun team(team: Team) {
+        loading.visibility= View.GONE
         adapter.setNewData(team.user_list)
         tv_all.text=team.total_money
         tv_number.text=""+team.user_count

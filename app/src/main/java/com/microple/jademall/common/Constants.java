@@ -19,6 +19,7 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager;
 public class Constants {
     private static final String TAG = "Constants";
     public static final String KEY_SP_TOKEN = "SP_TOKEN";
+    public static final String KEY_SP_HEAN = "SP_HEAN";
     public static final String KEY_SP_PERSON = "SP_Person";
     public static final String KEY_SP_CODE = "SP_CODE";
     public static final int INTENT_HOME = 0;
@@ -128,6 +129,24 @@ public class Constants {
      */
     public static void putToken(String  token) {
         SPUtils.getInstance().put(KEY_SP_TOKEN, token);
+    }
+    /**
+     * 获取头像
+     *
+     * @return
+     */
+    public static String getHeadImg() {
+        String loginJson = SPUtils.getInstance().getString(KEY_SP_HEAN);
+        return loginJson;
+    }
+
+    /**
+     * 储存头像
+     *
+     * @param
+     */
+    public static void putHeadImg(String  img) {
+        SPUtils.getInstance().put(KEY_SP_HEAN, img);
     }
     /**
      * 储存Personal

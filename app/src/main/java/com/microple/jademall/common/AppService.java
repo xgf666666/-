@@ -20,6 +20,7 @@ import com.microple.jademall.bean.FirstImage;
 import com.microple.jademall.bean.Goods;
 import com.microple.jademall.bean.GoodsDetail;
 import com.microple.jademall.bean.HandImage;
+import com.microple.jademall.bean.ImOrder;
 import com.microple.jademall.bean.Image;
 import com.microple.jademall.bean.ImageDetail;
 import com.microple.jademall.bean.IntergrationDetail;
@@ -388,6 +389,13 @@ public interface AppService {
     @FormUrlEncoded
     @POST("user_center/pick_up")
     Observable<BaseResponseEntity<Pick>> pick(@Header("token") String token, @Field("ct_id") String ct_id);
+
+    /**
+     * 立即下单
+     */
+    @FormUrlEncoded
+    @POST("Order/addOrder")
+    Observable<BaseResponseEntity<ImOrder>> imOrder(@Header("token") String token, @Field("sb_id") String sb_id, @Field("goods_id")String goods_id);
 
 
 

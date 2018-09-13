@@ -48,7 +48,7 @@ public class Shop {
         private int user_id;
         private int goods_id;
         private String goods_sn;
-        private String goods_price;
+        private Float goods_price;
         private String goods_name;
         private String goods_img;
 
@@ -84,11 +84,11 @@ public class Shop {
             this.goods_sn = goods_sn;
         }
 
-        public String getGoods_price() {
+        public Float getGoods_price() {
             return goods_price;
         }
 
-        public void setGoods_price(String goods_price) {
+        public void setGoods_price(Float goods_price) {
             this.goods_price = goods_price;
         }
 

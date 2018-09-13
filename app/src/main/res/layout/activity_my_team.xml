@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".ui.Personal.activity.MyTeamActivity">
     <include layout="@layout/item_title"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

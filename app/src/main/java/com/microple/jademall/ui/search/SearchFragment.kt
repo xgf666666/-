@@ -18,9 +18,11 @@ import com.microple.jademall.ui.search.adapter.SearchSortAdapter
 import com.microple.jademall.ui.search.mvp.contract.SearchContract
 import com.microple.jademall.ui.search.mvp.model.SeachResultGoodsModel
 import com.microple.jademall.ui.search.mvp.presenter.SearchPresenter
+import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_tool_bar.*
 
 /**
  * author: linfeng
@@ -58,10 +60,12 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
         }
     }
     override fun init(view: View?) {
+        if (Constants.isLogin())
+            iv_head.loadImag(Constants.getPersonal().head_img)
+
 //        setTitle("搜索")
 //        setHeadImage(Constant.item)
         getPresenter().getSearch()
-        tv_title.text="搜索"
 //        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(context)

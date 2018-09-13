@@ -25,14 +25,15 @@ class GoodsDetailPresenter:GoodsDetailContract.Presenter() {
         getModel().collection(token,goods_id).ui({
             getView()?.collection(it.msg!!)
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it)
         })
 
     }
 
-    override fun getLabel(label_id: String) {
+    override fun getLabel(name:String,label_id: String) {
         getModel().getLabel(label_id).ui({
-            getView()?.getLabel(it.data?.label?.label_desc!!)
+            getView()?.getLabel(name,it.data?.label?.label_desc!!)
 
         },{
             getView()?.showToast(it.message)
