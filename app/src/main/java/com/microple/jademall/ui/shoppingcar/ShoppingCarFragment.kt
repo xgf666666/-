@@ -23,6 +23,7 @@ import com.microple.jademall.ui.shoppingcar.adapter.LeftAdapter
 import com.microple.jademall.ui.shoppingcar.adapter.ShoppingAdapter
 import com.microple.jademall.ui.shoppingcar.mvp.contract.ShoppingCarContract
 import com.microple.jademall.ui.shoppingcar.mvp.presenter.ShoppingCarPresenter
+import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_shoppingcar.*
@@ -77,7 +78,7 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
 
     override fun init(view: View?) {
         if (Constants.isLogin())
-            iv_head.loadImag(Constants.getPersonal().head_img)
+            iv_head.loadHeadImag(Constants.getPersonal().head_img)
         tv_index.setOnClickListener{
             tv_content.visibility=View.GONE
             tv_index.visibility=View.GONE

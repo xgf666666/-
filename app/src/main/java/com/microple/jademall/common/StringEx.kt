@@ -2,12 +2,11 @@ package com.weibiaogan.bangbang.common
 
 import android.content.Context
 import com.blankj.utilcode.util.EncryptUtils
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 fun String.md5Salt():String =
-        EncryptUtils.encryptMD5ToString(EncryptUtils.encryptMD5ToString(this + "mcjp")
-                .toLowerCase()).toLowerCase()
+        EncryptUtils.encryptMD5ToString(this)
+                .toLowerCase()
 fun Int.pxtodp(context: Context):Int{
     var scale = context.getResources().getDisplayMetrics().density
     return (this * scale + 0.5f).toInt()

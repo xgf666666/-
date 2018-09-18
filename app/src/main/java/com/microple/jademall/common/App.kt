@@ -30,7 +30,7 @@ var activitys=ArrayList<Activity>()
         XxAnyPay.intance.init(this)
         XxAnyPay.intance.wxAppIDProvider = object : WxAppIDProvider {
             override val weChatAppID: String
-                get() = "wx4fc9ff6e5c76f8bc"
+                get() = "wxe13c15b520e07f80"
         }
         Retrofit2Manager.instance.apiConfigProvider = object : JApiConfigProvider {
             override fun getApiRelativePath(): String {
@@ -65,6 +65,10 @@ var activitys=ArrayList<Activity>()
             activitys[i].finish()
         }
    }
+    fun deleteActivity(activity: Activity){
+        if (activitys.contains(activity))
+            activitys.remove(activity)
+    }
 
     private fun UMInit() {
         //极光推送
@@ -72,7 +76,7 @@ var activitys=ArrayList<Activity>()
         JPushInterface.init(this)
 //        //初始化友盟
         UMConfigure.init(this, "5b4c573e8f4a9d233f000140", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "")
-        PlatformConfig.setWeixin("wx4fc9ff6e5c76f8bc", "1be78d3237f24ce3612733bcabae0a5c")
+        PlatformConfig.setWeixin("wxe13c15b520e07f80", "7691edf9f4738cdad68cf33d2df25e62")
         PlatformConfig.setSinaWeibo("4285643628", "0dcfdb9213e48fb0bfd8f7479f208bf8", "http:www.baidu.com")
         PlatformConfig.setQQZone("1106949823", "z4Vw6cLwfxsLIcPw")
     }

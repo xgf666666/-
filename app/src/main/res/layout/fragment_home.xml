@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.design.widget.AppBarLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
-        <!-- 展示的布局标题距离左边14dp-->
-        <android.support.design.widget.CollapsingToolbarLayout
+        android:background="@color/white_default"
+        android:id="@+id/swipeRefreshLayout">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:expandedTitleMarginStart="14dp"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_head"
                     android:layout_width="34dp"
@@ -48,14 +45,6 @@
                     android:paddingRight="36dp"
                     android:paddingStart="36dp">
                 </android.support.v4.view.ViewPager>
-            </LinearLayout>
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,14 +108,25 @@
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white_default"
+                        app:cardCornerRadius="15dp"
+                        app:cardUseCompatPadding="true"
+                        android:descendantFocusability="blocksDescendants"
+                        android:layout_margin="@dimen/dp_13">
+                        <android.support.v7.widget.RecyclerView
+                            android:overScrollMode="never"
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="14dp"/>
+                    </android.support.v7.widget.CardView>
         </LinearLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPagergGoods"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginBottom="15dp" />
-
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

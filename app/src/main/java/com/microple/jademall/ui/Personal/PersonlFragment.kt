@@ -14,6 +14,7 @@ import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.activity.*
 import com.microple.jademall.ui.Personal.mvp.contract.PersonalContract
 import com.microple.jademall.ui.Personal.mvp.presenter.PersonalPresenter
+import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_personl.*
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.item_login.*
 class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.View,PersonalPresenter>(),PersonalContract.View {
     override fun getInfo(personalInfo: PersonInfo) {
         loading.visibility=View.GONE
-        iv_head.loadImag(personalInfo.info.head_img)
+        iv_head.loadHeadImag(personalInfo.info.head_img)
         tv_name.text=personalInfo.info.user_name
         tv_phone.text=personalInfo.info.phone
         Constants.putPersonal(personalInfo.info)

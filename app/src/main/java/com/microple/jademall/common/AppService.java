@@ -31,6 +31,7 @@ import com.microple.jademall.bean.MyMessage;
 import com.microple.jademall.bean.Note;
 import com.microple.jademall.bean.Order;
 import com.microple.jademall.bean.OrderDetail;
+import com.microple.jademall.bean.Pay;
 import com.microple.jademall.bean.PersonInfo;
 import com.microple.jademall.bean.Pick;
 import com.microple.jademall.bean.PointDetail;
@@ -108,6 +109,18 @@ public interface AppService {
     @FormUrlEncoded
     @POST("user_api/login")
     Observable<BaseResponseEntity<Login>> pwLogin(@Field("phone") String phone,@Field("password")String password);
+    /**
+     * 微信登录
+     */
+    @FormUrlEncoded
+    @POST("user_api/wx_login")
+    Observable<BaseResponseEntity<Login>> threeLogin(@Field("openid") String openid);
+    /**
+     * 绑定手机号
+     */
+    @FormUrlEncoded
+    @POST("user_api/bind_phone")
+    Observable<BaseResponseEntity<Login>> bindPhone(@Field("openid") String openid,@Field("phone") String phone,@Field("phone_code") String phone_code,@Field("code") String code,@Field("nickname") String nickname,@Field("head_img") String head_img);
     /**
      * 快捷登录
      */
@@ -396,6 +409,12 @@ public interface AppService {
     @FormUrlEncoded
     @POST("Order/addOrder")
     Observable<BaseResponseEntity<ImOrder>> imOrder(@Header("token") String token, @Field("sb_id") String sb_id, @Field("goods_id")String goods_id);
+    /**
+     * 发起支付
+     */
+    @FormUrlEncoded
+    @POST("pay/pay")
+    Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password);
 
 
 

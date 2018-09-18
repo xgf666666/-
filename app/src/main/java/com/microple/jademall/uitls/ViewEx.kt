@@ -25,18 +25,18 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
             .placeholder(R.drawable.ic_img_default)
             .error(R.drawable.ic_img_default))
             .into(this)
-
-//    Glide.with(this.context).load(urltemp).also {
-//        if (tran != null) {
-//            it.transform(tran)
-//        }
-//        if (plach != 0) {
-//            it.placeholder(plach)
-//        }
-//        if (error != 0) {
-//            it.error(error)
-//        }
-//    }.into(this)
+}
+fun ImageView.loadHeadImag( url: String) {
+    var urltemp=url
+    if (url.length>1&&url[0].equals('/')) {
+        urltemp=Retrofit2Manager.instance.apiConfigProvider?.releaseHost+url
+    }else{
+        urltemp=url
+    }
+    Glide.with(this.context).load(urltemp).apply(RequestOptions()
+            .placeholder(R.drawable.datouxiang_)
+            .error(R.drawable.datouxiang_))
+            .into(this)
 }
 
 

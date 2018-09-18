@@ -189,22 +189,25 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
             iv_collection.setImageResource(R.drawable.btn_favor_selected)
         }
         data=goodsDetail.other_sn
-        if (goodsDetail.goods_info.labels.size!=0){
-            for (i in 0..goodsDetail.goods_info.labels.size-1){
-                var textView=TextView(this)
-                var param=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
-                param.leftMargin=16
-                textView.text=goodsDetail.goods_info.labels[i].label_name
+        if (goodsDetail.goods_info.labels.size!=0) {
+            ll_label.removeAllViews()
+            for (i in 0..goodsDetail.goods_info.labels.size - 1) {
+                if (goodsDetail.goods_info.labels[i] != null){
+                var textView = TextView(this)
+                var param = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                param.leftMargin = 16
+                textView.text = goodsDetail.goods_info.labels[i].label_name
                 textView.setTextColor(resources.getColor(R.color.white_default))
-                textView.textSize=12f
-                textView.layoutParams=param
+                textView.textSize = 12f
+                textView.layoutParams = param
                 textView.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_jifen))
-                textView.setOnClickListener{
+                textView.setOnClickListener {
                     showLoadingDialog()
-                    getPresenter().getLabel(goodsDetail.goods_info.labels[i].label_name,""+goodsDetail.goods_info.labels[i].label_id)
+                    getPresenter().getLabel(goodsDetail.goods_info.labels[i].label_name, "" + goodsDetail.goods_info.labels[i].label_id)
                 }
                 ll_label.addView(textView)
             }
+        }
         }
         var imgs=goodsDetail.goods_info.goods_content.split(",")
         var datas=ArrayList<String>()
@@ -231,7 +234,13 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         dialog.isTitleShow(true)
         dialog.setOnOperItemClickL(object : OnOperItemClickL {
             override fun onOperItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                tv_other.text=data[position].goods_sn
+                tv_tt_number.text=data[position].goods_sn
+                tv_number.text=data[position].goods_sn
+                if (Constants.isLogin()){
+                    getPresenter().getDetail(Constants.getToken(),data[position].goods_sn)
+                }else{
+                    getPresenter().getDetail("",data[position].goods_sn)
+                }
                 dialog.dismiss()
             }
         })

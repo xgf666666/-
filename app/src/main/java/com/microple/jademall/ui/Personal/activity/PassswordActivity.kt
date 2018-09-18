@@ -13,6 +13,9 @@ import com.microple.jademall.ui.Personal.mvp.presenter.PassWorkPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_passsword.*
 import kotlinx.android.synthetic.main.item_title.*
+import android.text.InputFilter
+
+
 
 /**
  * author: xiaoguagnfei
@@ -53,15 +56,15 @@ class PassswordActivity : BaseMvpActivity<PassWorkPresenter>(),PassWorkContract.
             2->{
                 tv_newpasw.text="新交易密码"
                 tv_title.text="设置/修改交易密码"
-                et_password.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-
+                et_password.inputType=InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                val filters = arrayOf<InputFilter>(InputFilter.LengthFilter(6))
+                et_password.filters=filters
             }
             3->{
                 tv_title.text="修改手机号码"
                 tv_newpasw.text="新手机号码"
                 et_password.hint="请输入新手机号码"
                 et_password.inputType=InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
-
             }
         }
 

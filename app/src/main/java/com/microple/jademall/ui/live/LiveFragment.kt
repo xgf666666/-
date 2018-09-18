@@ -12,6 +12,7 @@ import com.microple.jademall.ui.live.adapter.LiveReviewAdapter
 import com.microple.jademall.common.Constant
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.live.activity.LiveDetailsActivity
+import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import com.xx.baseuilibrary.widget.DividerListItemDecoration
@@ -36,7 +37,7 @@ class LiveFragment : BaseMvpViewFragment(),BaseQuickAdapter.OnItemClickListener 
 
     override fun init(view: View?) {
         if (Constants.isLogin())
-            iv_head.loadImag(Constants.getPersonal().head_img)
+            iv_head.loadHeadImag(Constants.getPersonal().head_img)
 //        setTitle("直播")
 //        setHeadImage(Constant.item)
 //        setBackVisibility(false)

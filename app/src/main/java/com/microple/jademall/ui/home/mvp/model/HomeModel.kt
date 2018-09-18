@@ -16,6 +16,8 @@ import io.reactivex.Observable
 class HomeModel: HomeContract.Model {
     override fun getCategory(): Observable<BaseResponseEntity<List<Category>>> =
             AppApi.Api().getCategory()
+    override fun getGoodList(cat_id: Int, page: Int, sort: String): Observable<BaseResponseEntity<Goods>> =
+            AppApi.Api().getGoodList(cat_id,page,sort)
 
 
 

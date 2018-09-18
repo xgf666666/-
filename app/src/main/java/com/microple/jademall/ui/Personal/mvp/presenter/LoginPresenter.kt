@@ -6,6 +6,7 @@ import com.microple.jademall.ui.Personal.mvp.contract.LoginContract
 import com.microple.jademall.ui.Personal.mvp.model.AboutMelModel
 import com.microple.jademall.ui.Personal.mvp.model.LoginModel
 import com.weibiaogan.litong.extensions.ui
+import com.xx.baseutilslibrary.network.exception.ApiFaileException
 
 /**
  * author: xiaoguagnfei
@@ -13,6 +14,16 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class LoginPresenter:LoginContract.Presenter() {
+    override fun threeLogin(openid: String) {
+            getModel().threeLogin(openid).ui({
+                getView()?.loginSucceful(it.data!!)
+            },{
+                if ((it is ApiFaileException)){
+                        getView()?.threeFaid()
+                }
+            })
+    }
+
     override fun getCode(phone: String) {
         if (TextUtils.isEmpty(phone)){
             getView()?.showToast("请输入手机号")

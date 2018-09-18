@@ -31,6 +31,15 @@ class HomePresenter:HomeContract.Presenter() {
             getView()?.showToast(it.message)
         })
     }
+    override fun getGoodList(cat_id: Int, page: Int, sort: String) {
+        getModel().getGoodList(cat_id,page,sort).ui({
+            getView()?.getGoodList(it.data!!)
+
+        },{
+            getView()?.showToast(it.message)
+
+        })
+    }
 
     override fun createModel(): HomeContract.Model =HomeModel()
 }

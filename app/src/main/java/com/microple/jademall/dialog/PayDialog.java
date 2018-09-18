@@ -50,7 +50,7 @@ public class PayDialog extends Dialog implements View.OnClickListener {
         View view = View.inflate(mContext, R.layout.view_pay, null);
         view.findViewById(R.id.ll_jifen).setOnClickListener(this);
         view.findViewById(R.id.ll_alipay).setOnClickListener(this);
-        view.findViewById(R.id.tv_wx).setOnClickListener(this);
+        view.findViewById(R.id.ll_wx).setOnClickListener(this);
         setContentView(view);
     }
 
@@ -66,7 +66,7 @@ public class PayDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.tv_wx:
+            case R.id.ll_wx:
                 if (mOnBtnClickListener!=null){
                     mOnBtnClickListener.cancel(1);
                 }
@@ -76,7 +76,7 @@ public class PayDialog extends Dialog implements View.OnClickListener {
                     mOnBtnClickListener.cancel(2);
                 }
                 break;
-            case R.id.tv_jifen:
+            case R.id.ll_jifen:
                 if (mOnBtnClickListener!=null){
                     mOnBtnClickListener.cancel(3);
                 }

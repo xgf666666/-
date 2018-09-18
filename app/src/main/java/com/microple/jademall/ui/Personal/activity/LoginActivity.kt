@@ -7,7 +7,9 @@ import android.os.Message
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.microple.jademall.MainActivity
 import com.microple.jademall.R
 import com.microple.jademall.bean.Login
@@ -15,6 +17,9 @@ import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.LoginContract
 import com.microple.jademall.ui.Personal.mvp.presenter.LoginPresenter
+import com.umeng.socialize.UMAuthListener
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.bean.SHARE_MEDIA
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.item_title.*
@@ -24,6 +29,11 @@ import kotlinx.android.synthetic.main.item_title.*
  * describe:登录
  */
 class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
+    override fun threeFaid() {
+        BindPhoneActivity.startBindPhoneActivity(this,mOpenId,userImg,userName)
+        finish()
+    }
+
     override fun getCode() {
         showToast("发送成功")
         mHandler.sendEmptyMessage(1)
@@ -103,7 +113,6 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
             et_code.inputType=InputType.TYPE_CLASS_NUMBER
             et_code.setText("")
             et_code.inputType=InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
-
         }
         tv_paswork.setOnClickListener{
             index=2
@@ -121,7 +130,9 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
             RegisterActivity.startRegisterActivity(this)
         }
         tv_wx_login.setOnClickListener {
-            BindPhoneActivity.startBindPhoneActivity(this)
+            showLoadingDialog()
+            UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, authListener)
+
         }
         tv_getcode.setOnClickListener{
             getPresenter().getCode(et_phone.text.toString())
@@ -135,12 +146,69 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
             }
         }
     }
+    var mOpenId = ""
+    var userImg=""
+    var userName=""
+    var authListener: UMAuthListener = object : UMAuthListener {
+        /**
+         * @desc 授权开始的回调
+         * @param platform 平台名称
+         */
+        override fun onStart(platform: SHARE_MEDIA) {
+            //Toast.makeText(mContext, "开始", Toast.LENGTH_LONG).show()
+        }
+
+        /**
+         * @desc 授权成功的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param data 用户资料返回
+         */
+        override fun onComplete(platform: SHARE_MEDIA, action: Int, data: Map<String, String>) {
+            Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show()
+            dismissLoadingDialog()
+            mOpenId = data["openid"]!!
+            userImg=data["profile_image_url"]!!
+            userName=data["name"]!!
+            Log.i("mOpenId",mOpenId)
+            Log.i("userImg",userImg)
+            Log.i("userName",userName)
+            UMShareAPI.get(mContext).deleteOauth(this@LoginActivity,platform,null)
+             getPresenter().threeLogin(mOpenId)
+        }
+
+        /**
+         * @desc 授权失败的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param t 错误原因
+         */
+        override fun onError(platform: SHARE_MEDIA, action: Int, t: Throwable) {
+            dismissLoadingDialog()
+            Toast.makeText(mContext, "失败：" + t.message, Toast.LENGTH_LONG).show()
+        }
+
+        /**
+         * @desc 授权取消的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         */
+        override fun onCancel(platform: SHARE_MEDIA, action: Int) {
+            dismissLoadingDialog()
+            Toast.makeText(mContext, "取消了", Toast.LENGTH_LONG).show()
+        }
+    }
+
 
     companion object {
         fun startLoginActivity(context: Context){
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)
         }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
     }
 
 }

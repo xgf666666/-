@@ -18,6 +18,7 @@ import com.microple.jademall.ui.search.adapter.SearchSortAdapter
 import com.microple.jademall.ui.search.mvp.contract.SearchContract
 import com.microple.jademall.ui.search.mvp.model.SeachResultGoodsModel
 import com.microple.jademall.ui.search.mvp.presenter.SearchPresenter
+import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
@@ -61,7 +62,7 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
     }
     override fun init(view: View?) {
         if (Constants.isLogin())
-            iv_head.loadImag(Constants.getPersonal().head_img)
+            iv_head.loadHeadImag(Constants.getPersonal().head_img)
 
 //        setTitle("搜索")
 //        setHeadImage(Constant.item)

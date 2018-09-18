@@ -17,18 +17,19 @@ interface HomeContract {
     interface View :BaseMvpView{
         fun getFirstView(data:List<FirstImage>)
         fun getCategory(data:List<Category>)
+        fun getGoodList(data:Goods)
 
     }
     interface Model{
         fun getFirstView(): Observable<BaseResponseEntity<List<FirstImage>>>
         fun getCategory(): Observable<BaseResponseEntity<List<Category>>>
-
+        fun getGoodList(cat_id:Int,page:Int,sort:String): Observable<BaseResponseEntity<Goods>>
 
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun getFirstView()
         abstract fun getCategory()
-
+        abstract fun getGoodList(cat_id:Int,page:Int,sort:String)
 
     }
 }

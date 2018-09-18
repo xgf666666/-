@@ -1,10 +1,12 @@
 package com.microple.jademall.ui.home.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
@@ -15,10 +17,21 @@ import kotlinx.android.synthetic.main.activity_im_order.*
 import kotlinx.android.synthetic.main.item_title.*
 import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+import android.widget.TextView
+import com.blankj.utilcode.util.ActivityUtils
+import com.google.gson.Gson
 import com.microple.jademall.bean.ImOrder
+import com.microple.jademall.bean.Pay
+import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.activity.AddressActivity
+import com.microple.jademall.ui.Personal.activity.PassswordActivity
 import com.microple.jademall.ui.home.mvp.contract.ImOrderContract
 import com.microple.jademall.ui.home.mvp.presenter.ImOrderPresenter
+import com.microple.jademall.weight.PwdEditText
+import com.weibiaogan.bangbang.common.md5Salt
+import com.xx.anypay.XxAnyPay
+import com.xx.anypay.XxAnyPayResultCallBack
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 
 
@@ -28,6 +41,29 @@ import com.xx.baseuilibrary.mvp.BaseMvpActivity
  * describe:立即下单
  */
 class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View {
+    override fun pay(pay: Pay) {
+        dismissLoadingDialog()
+        if (indexs==1||indexs==2){
+            XxAnyPay.intance
+                    .openAnyPay(if (indexs == 1) XxAnyPay.XXPAY_WX else XxAnyPay.XXPAY_ALI,if (indexs == 1) Gson().toJson(pay.data) else pay.data.sign, object : XxAnyPayResultCallBack {
+                        override fun onPayFiale(error: String) {
+                            showToast(error)
+                        }
+
+                        override fun onPaySuccess() {
+                            showToast("支付成功")
+                            PaySucceefulActivity.startPaySucceefulActivity(mContext)
+                            finish()
+                        }
+                    })
+
+        }else if (indexs==3){
+            finish()
+            PaySucceefulActivity.startPaySucceefulActivity(mContext)
+        }
+
+    }
+
     /**
      * 创建P层
      *
@@ -49,9 +85,13 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     var you_list= arrayListOf<String>()
     var live_list= arrayListOf<String>()
     var feicui_list= arrayListOf<String>()
+    var you=""
+    var live=""
+    var feicui=""
     override fun initData() {
         tv_title.text="立即下单"
-        getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
+        (application as App).addActivity(this)
+        XxAnyPay.intance.init(this)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         rv_myOrder.layoutManager= LinearLayoutManager(this)
         rv_myOrder.isNestedScrollingEnabled = false
@@ -97,40 +137,37 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                          }
                         if (you_list.size!=0){
                             tv_youji.visibility=View.VISIBLE
-                            var str=""
                             for (i in 0..you_list.size-1){
                                 if (i==0)
-                                    str= you_list[i]
+                                    you= you_list[i]
                                 else
-                                    str=str+"/"+you_list[i]
+                                    you=you+"/"+you_list[i]
                             }
-                            tv_youji.text="邮寄:                "+str
+                            tv_youji.text="邮寄:                "+you
                         }else{
                             tv_youji.visibility=View.GONE
                         }
                         if(live_list.size!=0){
                                 tv_zhibo.visibility=View.VISIBLE
-                                var str=""
                                 for (i in 0..live_list.size-1){
                                     if (i==0)
-                                        str= live_list[i]
+                                        live= live_list[i]
                                     else
-                                        str=str+"/"+live_list[i]
+                                        live=live+"/"+live_list[i]
                                 }
-                                tv_zhibo.text="预约切石直播:"+str
+                                tv_zhibo.text="预约切石直播:"+live
                         }else{
                             tv_zhibo.visibility=View.GONE
                         }
                         if (feicui_list.size!=0){
                             tv_cun.visibility=View.VISIBLE
-                            var str=""
                             for (i in 0..feicui_list.size-1){
                                 if (i==0)
-                                    str= feicui_list[i]
+                                    feicui= feicui_list[i]
                                 else
-                                    str=str+"/"+feicui_list[i]
+                                    feicui=feicui+"/"+feicui_list[i]
                             }
-                            tv_cun.text="存入翡翠柜:    "+str
+                            tv_cun.text="存入翡翠柜:    "+feicui
                         }else{
                             tv_cun.visibility=View.GONE
                         }
@@ -145,19 +182,46 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     /**
      * 初始化事件
      */
+    var indexs=0
     override fun initEvent() {
         tv_submint.setOnClickListener{
             var dialog=PayDialog(this)
-            dialog.show()
-            dialog.setOnBtnClickListener(object : PayDialog.OnBtnClickListener {
-                override fun cancel(index: Int) {
-                    dialog.dismiss()
-                    PaySucceefulActivity.startPaySucceefulActivity(application)
-                }
+            if (you_list.size+live_list.size+feicui_list.size!=adapter.data.size){
+                showToast("请选择购买方式")
+            }else if (order?.order!!.user_address==null){
+                showToast("请添加地址")
+            }else{
+                dialog.show()
+                dialog.setOnBtnClickListener(object : PayDialog.OnBtnClickListener {
+                    override fun cancel(index: Int) {
+                        dialog.dismiss()
 
-            })
+                        when(index){
+                            1->{
+                                indexs=1
+                                showLoadingDialog()
+                                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"1","")
+                            }
+                            2->{
+                                indexs=2
+                                showLoadingDialog()
+                                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"2","")
+
+                            }
+                            3->{
+                                indexs=3
+                                showDialog()
+
+                            }
+                        }
+                    }
+
+                })
+
+            }
+
         }
-        var index:Int=1
+        var index=1
         tv_buy.setOnClickListener{
             adapter.upDateAdapter(index)
             if (index==1){
@@ -169,15 +233,61 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
         iv_back.setOnClickListener{
             finish()
         }
+        rl_address.setOnClickListener {
+            AddressActivity.startAddressActivity(this)
+        }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.i("sb_id",intent.getStringExtra("sb_id"))
+        getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
+    }
+    var order:ImOrder?=null
     override fun imOrder(imOrder: ImOrder) {
         loading.visibility=View.GONE
+        order=imOrder
         adapter.setNewData(imOrder.order.goods_info)
         tv_wuliu.text="物流费用:  ￥"+imOrder.order.shipping_fee
         tv_content.text=imOrder.order.user_address.consigner+"       "+imOrder.order.user_address.phone
-        tv_address.text=imOrder.order.user_address.address
+        if (imOrder.order.user_address==null){
+            add_address.visibility=View.VISIBLE
+        }else{
+            add_address.visibility=View.GONE
+            tv_address.text=imOrder.order.user_address.address
+        }
         tv_price.text="购物袋合计      ￥"+imOrder.order.total_fee
+    }
+    var password:String?=null
+    var dialog:AlertDialog?=null
+    //积分支付
+    fun showDialog() {
+        var view = View.inflate(mContext, R.layout.view_input_pay_psw_dialog, null)
+        var psw_view=view.findViewById<PwdEditText>(R.id.psw_view)
+        var tv_forget_pwd=view.findViewById<TextView>(R.id.tv_forget_pwd)
+        var bt_quxiao=view.findViewById<TextView>(R.id.bt_quxiao)
+        var bt_sure=view.findViewById<TextView>(R.id.bt_sure)
+        bt_quxiao.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        bt_sure.setOnClickListener{
+            if (password!=null&&password?.length==6){
+                showLoadingDialog()
+                dialog!!.dismiss()
+                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"3",password!!.md5Salt())
+            }
+
+        }
+        tv_forget_pwd.setOnClickListener{
+
+            PassswordActivity.startPassswordActivity(this,2)
+        }
+        psw_view.setOnInputFinishListener{
+            password=it
+        }
+        dialog = AlertDialog.Builder(mContext).create()
+        dialog!!.setView(view)
+        dialog!!.show()
     }
 
     companion object {

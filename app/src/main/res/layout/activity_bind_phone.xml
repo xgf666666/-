@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white_default"
     tools:context=".ui.Personal.activity.RegisterActivity">
+    <include layout="@layout/item_title"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,7 +36,8 @@
             android:background="@null"
             android:layout_toRightOf="@+id/tv_phone_biao"
             android:gravity="center_vertical"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:inputType="number"/>
 
         <View
             style="@style/LineGray"
@@ -70,7 +72,8 @@
             android:layout_marginLeft="@dimen/dp_13"
             android:layout_toLeftOf="@+id/tv_getcode"
             android:background="@null"
-            android:layout_toRightOf="@+id/tv_code_biao"/>
+            android:layout_toRightOf="@+id/tv_code_biao"
+            android:inputType="number"/>
         <TextView
             android:id="@+id/tv_getcode"
             android:layout_width="wrap_content"

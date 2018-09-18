@@ -105,6 +105,7 @@
                 android:textSize="@dimen/sp_17"
                 android:textStyle="bold" />
             <RelativeLayout
+                android:id="@+id/rl_address"
                 android:layout_width="match_parent"
                 android:layout_height="104dp"
                 android:orientation="vertical"
@@ -144,6 +145,12 @@
                     android:layout_alignParentRight="true"
                     android:padding="7dp"
                     android:layout_marginRight="15dp"/>
+                <TextView
+                    android:id="@+id/add_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="添加地址"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
 
