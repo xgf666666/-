@@ -1,6 +1,7 @@
 package com.microple.jademall.ui.search.mvp.model
 
 import com.microple.jademall.bean.GoodsDetail
+import com.microple.jademall.bean.SearchResult
 import com.microple.jademall.common.AppApi
 import com.microple.jademall.ui.home.mvp.contract.GoodsDetailContract
 import com.microple.jademall.ui.search.mvp.contract.SearchContract
@@ -15,5 +16,6 @@ import io.reactivex.Observable
  * describe:
  */
 class SeachResultGoodsModel: SearchResultGoodsContract.Model {
+    override fun getResult(keyword: String): Observable<BaseResponseEntity<SearchResult>> =AppApi.Api().getResult(keyword)
 
 }

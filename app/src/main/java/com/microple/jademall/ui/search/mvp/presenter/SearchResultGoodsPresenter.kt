@@ -17,6 +17,13 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class SearchResultGoodsPresenter:SearchResultGoodsContract.Presenter() {
+    override fun getResult(keyword: String) {
+        getModel().getResult(keyword).ui({
+            getView()?.getResult(it.data!!)
+        },{
+            getView()?.showToast(it.message)
+        })
+    }
 
 
     override fun createModel(): SearchResultGoodsContract.Model =SeachResultGoodsModel()

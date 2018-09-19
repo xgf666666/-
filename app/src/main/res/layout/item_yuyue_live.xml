@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white_default"
+    android:foreground="?attr/selectableItemBackground">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您预约的【JV2367】切石直播即将于2小时后开始。"
+        android:textSize="@dimen/sp_16"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="13dp"
+        />
+    <TextView
+        android:id="@+id/tv_liveRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跳转直播间"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/colorMain"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginBottom="@dimen/dp_10"
+
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginRight="@dimen/dp_13"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:background="@color/gray_EFEFF4"/>
+</LinearLayout>

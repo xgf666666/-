@@ -61,13 +61,12 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
         }
     }
     override fun init(view: View?) {
-        if (Constants.isLogin())
+        if (Constants.isLogin()){
             iv_head.loadHeadImag(Constants.getPersonal().head_img)
-
-//        setTitle("搜索")
-//        setHeadImage(Constant.item)
+        }else{
+            iv_head.setImageResource(R.drawable.datouxiang_)
+        }
         getPresenter().getSearch()
-//        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = mAdapter
@@ -152,6 +151,16 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
 
             }
             mAdapter.notifyDataSetChanged()
+        }
+    }
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            if (Constants.isLogin()){
+                iv_head.loadHeadImag(Constants.getPersonal().head_img)
+            }else{
+                iv_head.setImageResource(R.drawable.datouxiang_)
+            }
         }
     }
 

@@ -39,6 +39,7 @@ import com.microple.jademall.bean.Profit;
 import com.microple.jademall.bean.Record;
 import com.microple.jademall.bean.RecordDetail;
 import com.microple.jademall.bean.Search;
+import com.microple.jademall.bean.SearchResult;
 import com.microple.jademall.bean.Shop;
 import com.microple.jademall.bean.Team;
 import com.xx.baseutilslibrary.network.entity.BaseResponseEntity;
@@ -86,6 +87,12 @@ public interface AppService {
     @FormUrlEncoded
     @POST("goods/goods_images")
     Observable<BaseResponseEntity<ImageDetail>> getImageDetail(@Field("goods_id") String goods_id);
+    /**
+     * 搜索
+     */
+    @FormUrlEncoded
+    @POST("search/search")
+    Observable<BaseResponseEntity<SearchResult>> getResult(@Field("keyword") String keyword);
     /**
      * 搜索页面
      */

@@ -25,7 +25,12 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
 
     override fun getOrder(order: Order) {
         loading.visibility=View.GONE
-        adapter.setNewData(order.order_list)
+        if (order.order_list.size==0){
+            tv_tishi.visibility=View.VISIBLE
+        }else{
+            tv_tishi.visibility=View.GONE
+            adapter.setNewData(order.order_list)
+        }
     }
 
     /**

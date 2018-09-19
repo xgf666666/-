@@ -140,8 +140,10 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
                 Log.i("Constantssss", Constants.getToken())
                 getPresenter().shop(Constants.getToken())
                 view_login.visibility=View.GONE
+                iv_head.loadHeadImag(Constants.getPersonal().head_img)
             }else{
                 view_login.visibility=View.VISIBLE
+                iv_head.setImageResource(R.drawable.datouxiang_)
             }
         }
     }
@@ -152,8 +154,10 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
                 Log.i("Constantssss", Constants.getToken())
                 getPresenter().shop(Constants.getToken())
                 view_login.visibility=View.GONE
+                iv_head.loadHeadImag(Constants.getPersonal().head_img)
             }else{
                 view_login.visibility=View.VISIBLE
+                iv_head.setImageResource(R.drawable.datouxiang_)
             }
         }
     }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.microple.jademall.R;
 
 /**
@@ -124,8 +125,8 @@ public class ZoomScrollView extends ScrollView {
                         allScroll = maxZoom;
                     }
                     if (moveViewListener!=null){
-                        moveViewListener.onMoveScrollChanged(allScroll);
-                        Log.i("allScroll",""+allScroll);
+                        moveViewListener.onMoveScrollChanged(ConvertUtils.px2dp(allScroll));
+                        Log.i("allScroll",""+ConvertUtils.px2dp(allScroll));
                     }
                     LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) zoomView.getLayoutParams();
                     lp.height = (int) (height + allScroll/2);

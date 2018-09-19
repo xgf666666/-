@@ -29,7 +29,6 @@ class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContrac
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = mAdapter
-        mAdapter.addData(data)
     }
 
     /**

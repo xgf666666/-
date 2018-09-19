@@ -151,10 +151,12 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
             if (Constants.isLogin()){
                 showLoadingDialog()
                 getPresenter().addShoping(Constants.getToken(),""+goodsDetail?.goods_info?.goods_id)
+            }else{
+                showToast("请先登录")
             }
         }
         zoomScrollView.setMoveViewListener {
-                if (it==450){
+                if (it==150){
                     finish()
                     overridePendingTransition(0,R.anim.translate_out)
                 }

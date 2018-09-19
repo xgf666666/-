@@ -12,6 +12,7 @@ import com.microple.jademall.ui.live.adapter.LiveReviewAdapter
 import com.microple.jademall.common.Constant
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.live.activity.LiveDetailsActivity
+import com.microple.jademall.ui.live.adapter.LiveYuyueAdapter
 import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
@@ -32,17 +33,23 @@ class LiveFragment : BaseMvpViewFragment(),BaseQuickAdapter.OnItemClickListener 
     private var mLiveHotAdapter = LiveHotAdapter(R.layout.item_live_hot)
     private var mLiveReviewAdapter = LiveReviewAdapter(R.layout.item_live_hot)
     private var mLiveRecommendAdapter = LiveRecommendAdapter(R.layout.item_live_recommend)
+    private var liveYuyueAdapter = LiveYuyueAdapter()
 
     override fun getFragmentLayoutId(): Int = R.layout.fragment_live
 
     override fun init(view: View?) {
-        if (Constants.isLogin())
+        if (Constants.isLogin()){
             iv_head.loadHeadImag(Constants.getPersonal().head_img)
-//        setTitle("直播")
-//        setHeadImage(Constant.item)
-//        setBackVisibility(false)
-        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-
+        }else{
+            iv_head.setImageResource(R.drawable.datouxiang_)
+        }
+        var data = arrayListOf( "", "", "", "", "", "", "")
+        //预约
+        liveYuyueAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        rv_yuyueLive.layoutManager=LinearLayoutManager(context)
+        rv_yuyueLive.adapter=liveYuyueAdapter
+        rv_yuyueLive.isNestedScrollingEnabled=false
+        liveYuyueAdapter.addData(data)
         //正在热播
         mLiveHotAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         val layoutHotManager = LinearLayoutManager(context)
@@ -51,7 +58,6 @@ class LiveFragment : BaseMvpViewFragment(),BaseQuickAdapter.OnItemClickListener 
         rv_hotLive.adapter = mLiveHotAdapter
         rv_hotLive.isNestedScrollingEnabled = false
         mLiveHotAdapter.addData(data)
-        mLiveHotAdapter.notifyDataSetChanged()
         mLiveHotAdapter.setOnItemClickListener(this)
 
 
@@ -88,6 +94,17 @@ class LiveFragment : BaseMvpViewFragment(),BaseQuickAdapter.OnItemClickListener 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         startActivity(Intent(context,LiveDetailsActivity::class.java))
     }
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            if (Constants.isLogin()){
+                iv_head.loadHeadImag(Constants.getPersonal().head_img)
+            }else{
+                iv_head.setImageResource(R.drawable.datouxiang_)
+            }
+        }
+    }
+
 }
 
 

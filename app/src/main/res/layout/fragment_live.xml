@@ -26,26 +26,15 @@
                 android:text="直播"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/sp_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_yuyueLive"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="您预约的【JV2367】切石直播即将于2小时后开始。"
-                android:textSize="@dimen/sp_16"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginLeft="13dp"
                 />
-            <TextView
-                android:id="@+id/tv_liveRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="跳转直播间"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/colorMain"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="13dp"
 
-                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
