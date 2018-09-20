@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.home.mvp.contract
 
+import com.microple.jademall.bean.DetailShare
 import com.microple.jademall.bean.GoodsDetail
 import com.microple.jademall.bean.Label
 import com.xx.baseuilibrary.mvp.BaseMvpPresenter
@@ -18,6 +19,8 @@ interface GoodsDetailContract {
         fun getLabel(name:String,label_desc:String)
         fun collection(msg:String)
         fun addShoping()
+        fun detailShare(detailShare: DetailShare)
+
 
     }
     interface Model{
@@ -25,12 +28,14 @@ interface GoodsDetailContract {
         fun getLabel(label_id:String):Observable<BaseResponseEntity<Label>>
         fun collection(token:String,goods_id:String):Observable<BaseResponseEntity<Any>>
         fun addShoping(token:String,goods_id:String):Observable<BaseResponseEntity<Any>>
+        fun detailShare(goods_id:String):Observable<BaseResponseEntity<DetailShare>>
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun getDetail(token:String,goods_sn:String)
         abstract fun getLabel(name:String,label_id:String)
         abstract fun collection(token:String,goods_id:String)
         abstract fun addShoping(token:String,goods_id:String)
+        abstract fun detailShare(goods_id:String)
 
     }
 }

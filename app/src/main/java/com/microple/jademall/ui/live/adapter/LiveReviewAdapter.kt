@@ -6,23 +6,21 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
+import com.microple.jademall.bean.LiveList
 import com.microple.jademall.common.Constant
+import com.microple.jademall.uitls.loadImag
 
 /**
  * author: linfeng
  * date: 2018/8/6.
  * describe:
  */
-class LiveReviewAdapter(layoutId: Int) : BaseQuickAdapter<Any, BaseViewHolder>(layoutId) {
-    override fun convert(helper: BaseViewHolder, item: Any) {
-        Glide.with(mContext).load(Constant.item)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default))
-                .into(helper.getView(R.id.iv_live) as ImageView)
-        helper.setText(R.id.tv_liveName,"JV2367号切石直播")
-        helper.setText(R.id.tv_liveMessage,"如果你无法简洁的表达你的想法，那只说明你还不够了解它。")
-        helper.setText(R.id.tv_liveTime,"2018-11-23 12:11 ~ 12:20")
+class LiveReviewAdapter(layoutId: Int) : BaseQuickAdapter<LiveList.ReplayListBean, BaseViewHolder>(layoutId) {
+    override fun convert(helper: BaseViewHolder, item: LiveList.ReplayListBean) {
+        helper.setText(R.id.tv_liveName,item.video_name)
+        helper.setText(R.id.tv_liveMessage,item.desc)
+        helper.setText(R.id.tv_liveTime,item.start_time+"~"+item.end_time)
+        helper.getView<ImageView>(R.id.iv_live).loadImag(item.cover_img)
     }
 
 }

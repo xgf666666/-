@@ -1,16 +1,26 @@
 package com.microple.jademall.ui.live.activity
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
+import com.microple.jademall.bean.LiveGoods
+import com.microple.jademall.ui.home.activity.GoodsDetailActivity
+import com.microple.jademall.ui.live.adapter.LiveGoodsAdapter
 import com.microple.jademall.ui.live.mvp.contract.LiveGoodsContract
 import com.microple.jademall.ui.live.mvp.presenter.LiveGoodsPresenter
-import com.microple.jademall.ui.search.adapter.SearchResultGoodsAdapter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_live_goods.*
 import kotlinx.android.synthetic.main.item_title.*
 
 class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContract.View {
+    override fun getGoods(liveGoods: LiveGoods) {
+        dismissLoadingDialog()
+        mAdapter.setNewData(liveGoods.goods)
+
+    }
+
     /**
      * 获取布局资源文件id
      *
@@ -21,14 +31,18 @@ class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContrac
     /**
      * 初始化数据状态
      */
-    private var mAdapter = SearchResultGoodsAdapter(R.layout.item_goods)
+    private var mAdapter = LiveGoodsAdapter(R.layout.item_goods)
     override fun initData() {
         tv_title.text="直播间商品"
+        showLoadingDialog()
+        getPresenter().getGoods(intent.getStringExtra("live_id"))
         iv_back.setOnClickListener {finish()}
-        var data = arrayListOf("", "", "")
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = mAdapter
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            GoodsDetailActivity.startGoodsDetailActivity(this,(adapter as LiveGoodsAdapter).data[position].goods_sn)
+        }
     }
 
     /**
@@ -43,5 +57,12 @@ class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContrac
      * @return P层对象
      */
     override fun createPresenter(): LiveGoodsPresenter =LiveGoodsPresenter()
+    companion object {
+        fun startGoodsActivity(context: Context, live_id:String){
+            val intent = Intent(context, LiveGoodsActivity::class.java)
+            intent.putExtra("live_id",live_id)
+            context.startActivity(intent)
+        }
+    }
 
 }

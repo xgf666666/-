@@ -9,6 +9,7 @@ import com.microple.jademall.R
 import com.microple.jademall.bean.SearchResult
 import com.microple.jademall.ui.Personal.activity.AllOrderActivity
 import com.microple.jademall.ui.home.activity.GoodsDetailActivity
+import com.microple.jademall.ui.live.activity.LiveDetailsActivity
 import com.microple.jademall.ui.search.adapter.SeacrhLiveAdapter
 import com.microple.jademall.ui.search.adapter.SearchResultGoodsAdapter
 import com.microple.jademall.ui.search.mvp.contract.SearchResultGoodsContract
@@ -67,7 +68,9 @@ class SearchResultGoodsActivity : BaseMvpActivity<SearchResultGoodsPresenter>(),
         mAdapter.setOnItemClickListener { adapter, view, position ->
             GoodsDetailActivity.startGoodsDetailActivity(this,(adapter as SearchResultGoodsAdapter).data[position].goods_sn)
         }
-
+        liveAdapter.setOnItemClickListener { adapter, view, position ->
+            LiveDetailsActivity.startLiveDetail(this, "" + (adapter as SeacrhLiveAdapter).data[position].live_id)
+        }
     }
 
     /**

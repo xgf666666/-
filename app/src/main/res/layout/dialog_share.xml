@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="197dp"
+        android:background="@drawable/shape_white_side_black_r5">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/sp_17"
+            android:textColor="@color/black_333333"
+            android:textStyle="bold"
+            android:text="选择分享平台"/>
+        <LinearLayout
+            android:layout_below="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp">
+            <ImageView
+                android:id="@+id/iv_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/btn_share_wechat_n"/>
+            <ImageView
+                android:id="@+id/iv_wxpyq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/btn_share_circle_n"
+                android:layout_marginLeft="40dp"/>
+            <ImageView
+                android:id="@+id/iv_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/btn_share_qq_n"
+                android:layout_marginLeft="40dp"/>
+            <ImageView
+                android:id="@+id/iv_weibo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/btn_share_microblog_n"
+                android:layout_marginLeft="40dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_btn"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/blue_007AFF"
+                android:gravity="center"
+                android:textSize="@dimen/sp_17"
+                android:text="关闭"/>
+        </LinearLayout>
+        <View
+            android:id="@+id/view_line"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_C8C7CC"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

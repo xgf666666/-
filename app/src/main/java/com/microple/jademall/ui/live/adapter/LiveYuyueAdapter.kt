@@ -6,6 +6,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
+import com.microple.jademall.bean.LiveList
 import com.microple.jademall.common.Constant
 
 /**
@@ -13,8 +14,8 @@ import com.microple.jademall.common.Constant
  * date: 2018/8/7.
  * describe:
  */
-class LiveYuyueAdapter  : BaseQuickAdapter<Any, BaseViewHolder>(R.layout.item_yuyue_live) {
-    override fun convert(helper: BaseViewHolder, item: Any) {
-
+class LiveYuyueAdapter  : BaseQuickAdapter<LiveList.AppointLiveBean, BaseViewHolder>(R.layout.item_yuyue_live) {
+    override fun convert(helper: BaseViewHolder, item: LiveList.AppointLiveBean) {
+        helper?.setText(R.id.tv_title,item.message)
     }
 }

@@ -9,28 +9,107 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
+import com.microple.jademall.bean.LiveShare
+import com.microple.jademall.dialog.ShareDialog
+import com.microple.jademall.ui.live.mvp.contract.LivePlayerContract
+import com.microple.jademall.ui.live.mvp.presenter.LivePlayerPresenter
 import com.tencent.rtmp.ITXLivePlayListener
 import com.tencent.rtmp.TXLiveBase
 import com.tencent.rtmp.TXLiveConstants
 import com.tencent.rtmp.TXLivePlayer
+import com.umeng.socialize.ShareAction
+import com.umeng.socialize.UMShareListener
+import com.umeng.socialize.bean.SHARE_MEDIA
+import com.umeng.socialize.media.UMImage
+import com.umeng.socialize.media.UMWeb
+import com.umeng.socialize.shareboard.SnsPlatform
+import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_live_player.*
 
-class LivePlayerActivity : AppCompatActivity() {
-    var mLivePlayer:TXLivePlayer?=null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_live_player)
+class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerContract.View {
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+        iv_goods.setOnClickListener {
+            LiveGoodsActivity.startGoodsActivity(this,intent.getStringExtra("live_id"))
+        }
+        iv_share.setOnClickListener {
+            showLoadingDialog()
+            getPresenter().liveShare(intent.getStringExtra("live_id"))
+
+        }
+
+    }
+
+    /**
+     * 创建P层
+     *
+     * @return P层对象
+     */
+    override fun createPresenter(): LivePlayerPresenter = LivePlayerPresenter()
+
+    /**
+     * 获取布局资源文件id
+     *
+     * @return 布局资源文件id
+     */
+    override fun getActivityLayoutId(): Int =R.layout.activity_live_player
+
+
+    /**
+     * 初始化数据状态
+     */
+    override fun initData() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         play()
         hideStatusBar()
+
     }
+
+    override fun liveShare(liveShare: LiveShare) {
+        dismissLoadingDialog()
+        var dialog=ShareDialog(this)
+        dialog.show()
+        dialog.setOnBtnClickListener(object : ShareDialog.OnBtnClickListener {
+            override fun QQShare() {
+                share(SHARE_MEDIA.QQ.toSnsPlatform(),liveShare)
+            }
+
+            override fun weiboShare() {
+                share(SHARE_MEDIA.SINA.toSnsPlatform(),liveShare)
+
+            }
+
+            override fun wxShare() {
+                share(SHARE_MEDIA.WEIXIN.toSnsPlatform(),liveShare)
+
+            }
+
+            override fun wxwcShare() {
+                share(SHARE_MEDIA.WEIXIN_CIRCLE.toSnsPlatform(),liveShare)
+
+            }
+
+            override fun cancel() {
+                dialog.dismiss()
+
+            }
+
+        })
+    }
+
+    var mLivePlayer:TXLivePlayer?=null
+
+
     fun play(){
         val sdkver = TXLiveBase.getSDKVersionStr()
         Log.d("liteavsdk", "liteav sdk version is : $sdkver")
         mLivePlayer=TXLivePlayer(this)
         mLivePlayer?.setPlayerView(video_view)
-        val flvUrl = "rtmp://30381.liveplay.myqcloud.com/live/30381_83c9d76844"
+        val flvUrl = intent.getStringExtra("play_url")//"rtmp://30381.liveplay.myqcloud.com/live/30381_83c9d76844"
         mLivePlayer?.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_RTMP)
         mLivePlayer?.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN)
         mLivePlayer?.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT)
@@ -61,8 +140,10 @@ class LivePlayerActivity : AppCompatActivity() {
         video_view.onDestroy()
     }
     companion object {
-        fun startLivePlayerActivity(context: Context){
+        fun startLivePlayerActivity(context: Context,live_id:String,play_url:String){
             val intent = Intent(context, LivePlayerActivity::class.java)
+            intent.putExtra("live_id",live_id)
+            intent.putExtra("play_url",play_url)
             context.startActivity(intent)
         }
     }
@@ -78,6 +159,39 @@ class LivePlayerActivity : AppCompatActivity() {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
+    }
+    private fun share(platform: SnsPlatform,liveShare: LiveShare){
+        showLoadingDialog()
+        if (liveShare!=null){
+            var web = UMWeb(liveShare?.share?.link)
+            web.setTitle(liveShare?.share?.live_title)
+            web.setThumb( UMImage(this, BuildConfig.DEV_DOMAIN+"/api/"+liveShare?.share?.cover_img))
+            web.setDescription(liveShare?.share?.desc)
+            ShareAction(this)
+                    .withMedia(web)
+                    .setPlatform(platform.mPlatform)
+                    .setCallback(umShareListener).share()
+        }else{
+            showToast("没有分享内容")
+        }
+        dismissLoadingDialog()
+    }
+
+    private var umShareListener= object : UMShareListener {
+        override fun onResult(p0: SHARE_MEDIA?) {
+            showToast("分享成功")
+        }
+
+        override fun onCancel(p0: SHARE_MEDIA?) {
+            showToast("分享取消")
+        }
+
+        override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+            showToast("分享失败")
+        }
+
+        override fun onStart(p0: SHARE_MEDIA?) {
         }
     }
 

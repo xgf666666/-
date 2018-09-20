@@ -83,7 +83,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1106949823" />
+                <data android:scheme="tencent1107787297" />
             </intent-filter>
         </activity>
         //微博分享

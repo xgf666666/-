@@ -6,6 +6,8 @@
     android:orientation="vertical"
     >
     <include layout="@layout/fragment_tool_bar"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"

@@ -1,6 +1,5 @@
 package com.microple.jademall.ui.search
 
-import android.content.Intent
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
@@ -10,18 +9,14 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.Search
-import com.microple.jademall.common.Constant
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.search.activity.SearchResultGoodsActivity
 import com.microple.jademall.ui.search.activity.SearchSortGoodsActivity
 import com.microple.jademall.ui.search.adapter.SearchSortAdapter
 import com.microple.jademall.ui.search.mvp.contract.SearchContract
-import com.microple.jademall.ui.search.mvp.model.SeachResultGoodsModel
 import com.microple.jademall.ui.search.mvp.presenter.SearchPresenter
 import com.microple.jademall.uitls.loadHeadImag
-import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
-import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 

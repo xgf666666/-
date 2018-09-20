@@ -26,10 +26,21 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.microple.jademall.BuildConfig
+import com.microple.jademall.bean.DetailShare
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
+import com.microple.jademall.dialog.ShareDialog
 import com.microple.jademall.ui.Personal.activity.LoginActivity
 import com.microple.jademall.ui.Personal.adapter.ImageDetailAdapter
+import com.umeng.socialize.Config
+import com.umeng.socialize.ShareAction
+import com.umeng.socialize.UMShareListener
+import com.umeng.socialize.bean.SHARE_MEDIA
+import com.umeng.socialize.media.UMImage
+import com.umeng.socialize.media.UMWeb
+import com.umeng.socialize.shareboard.ShareBoardConfig
+import com.umeng.socialize.shareboard.SnsPlatform
 
 
 /**
@@ -38,6 +49,7 @@ import com.microple.jademall.ui.Personal.adapter.ImageDetailAdapter
  * describe:商品详情
  */
 class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailContract.View {
+
     override fun addShoping() {
         dismissLoadingDialog()
         showToast("加入购物袋成功")
@@ -117,6 +129,38 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
     }
+    override fun detailShare(detailShare: DetailShare) {
+        dismissLoadingDialog()
+        this.detailShare=detailShare
+        var dialog=ShareDialog(this)
+        dialog.show()
+        dialog.setOnBtnClickListener(object : ShareDialog.OnBtnClickListener {
+            override fun QQShare() {
+                share(SHARE_MEDIA.QQ.toSnsPlatform())
+            }
+
+            override fun weiboShare() {
+                share(SHARE_MEDIA.SINA.toSnsPlatform())
+
+            }
+
+            override fun wxShare() {
+                share(SHARE_MEDIA.WEIXIN.toSnsPlatform())
+
+            }
+
+            override fun wxwcShare() {
+                share(SHARE_MEDIA.WEIXIN_CIRCLE.toSnsPlatform())
+
+            }
+
+            override fun cancel() {
+                dialog.dismiss()
+
+            }
+
+        })
+    }
 
     /**
      * 初始化事件
@@ -129,7 +173,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
                 LoginActivity.startLoginActivity(this)
         }
         tv_other.setOnClickListener{
-            showChangeSexDialogOne(data!!)
+            showNumber(data!!)
         }
 
         iv_img.setOnClickListener {
@@ -162,7 +206,46 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
                 }
 
             }
+        iv_share.setOnClickListener {
+            showLoadingDialog()
+            getPresenter().detailShare(intent.getStringExtra("goods_sn"))
 
+        }
+
+    }
+    var detailShare: DetailShare?=null
+    private fun share(platform: SnsPlatform){
+        showLoadingDialog()
+        if (detailShare!=null){
+            var web = UMWeb(detailShare?.share?.link)
+            web.setTitle(detailShare?.share?.goods_name)
+            web.setThumb( UMImage(this, BuildConfig.DEV_DOMAIN+"/api/"+detailShare?.share?.goods_img))
+            web.setDescription(detailShare?.share?.goods_sn)
+            ShareAction(this)
+                    .withMedia(web)
+                    .setPlatform(platform.mPlatform)
+                    .setCallback(umShareListener).share()
+        }else{
+            showToast("没有分享内容")
+        }
+        dismissLoadingDialog()
+    }
+
+    private var umShareListener= object : UMShareListener {
+        override fun onResult(p0: SHARE_MEDIA?) {
+            showToast("分享成功")
+        }
+
+        override fun onCancel(p0: SHARE_MEDIA?) {
+            showToast("分享取消")
+        }
+
+        override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+            showToast("分享失败")
+        }
+
+        override fun onStart(p0: SHARE_MEDIA?) {
+        }
     }
 
     companion object {
@@ -224,7 +307,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         recyclerView.adapter=adapter
     }
 
-    private fun showChangeSexDialogOne(data:List<GoodsDetail.OtherSnBean>) {
+    private fun showNumber(data:List<GoodsDetail.OtherSnBean>) {
         val items=Array<String>(data.size,{"12233"})
         for (s in 0 ..(data.size-1)){
             items.set(s,data.get(s).goods_sn)

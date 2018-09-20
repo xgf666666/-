@@ -14,6 +14,7 @@ import com.microple.jademall.bean.Category;
 import com.microple.jademall.bean.Collection;
 import com.microple.jademall.bean.CustiomerDetail;
 import com.microple.jademall.bean.Customer;
+import com.microple.jademall.bean.DetailShare;
 import com.microple.jademall.bean.Emeralds;
 import com.microple.jademall.bean.EmeraldsDetail;
 import com.microple.jademall.bean.FirstImage;
@@ -25,6 +26,11 @@ import com.microple.jademall.bean.Image;
 import com.microple.jademall.bean.ImageDetail;
 import com.microple.jademall.bean.IntergrationDetail;
 import com.microple.jademall.bean.Label;
+import com.microple.jademall.bean.LiveDetail;
+import com.microple.jademall.bean.LiveGoods;
+import com.microple.jademall.bean.LiveList;
+import com.microple.jademall.bean.LiveMessage;
+import com.microple.jademall.bean.LiveShare;
 import com.microple.jademall.bean.Login;
 import com.microple.jademall.bean.MessageDetail;
 import com.microple.jademall.bean.MyMessage;
@@ -422,8 +428,48 @@ public interface AppService {
     @FormUrlEncoded
     @POST("pay/pay")
     Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password);
+    /**
+     * 商品详情分享
+     */
+    @FormUrlEncoded
+    @POST("common/goods_share")
+    Observable<BaseResponseEntity<DetailShare>> detailShare(@Field("goods_sn")String goods_sn);
+    /**
+     * 直播列表
+     */
+    @POST("live/live_list")
+    Observable<BaseResponseEntity<LiveList>> liveList(@Header("token")String token);
+    /**
+     * 直播详情
+     */
+    @FormUrlEncoded
+    @POST("live/live_detail")
+    Observable<BaseResponseEntity<LiveDetail>> liveDetail(@Header("token") String token, @Field("live_id")String live_id);
+    /**
+     * 直播信息
+     */
+    @ FormUrlEncoded
+    @POST("common/live_info")
+    Observable<BaseResponseEntity<LiveMessage>> liveMessage( @Field("live_id")String live_id);
+    /**
+     * 直播间商品
+     */
 
-
+    @FormUrlEncoded
+    @POST("live/live_goods")
+    Observable<BaseResponseEntity<LiveGoods>> liveGoods(@Field("live_id")String live_id);
+    /**
+     * 预约直播
+     */
+    @FormUrlEncoded
+    @POST("user_center/order_live")
+    Observable<BaseResponseEntity<Object>> liveYuyue(@Header("token") String token,@Field("live_id")String live_id);
+    /**
+     * 直播分享
+     */
+    @FormUrlEncoded
+    @POST("common/live_share")
+    Observable<BaseResponseEntity<LiveShare>> liveShare(@Field("live_id")String live_id);
 
 }
 

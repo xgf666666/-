@@ -13,6 +13,14 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class GoodsDetailPresenter:GoodsDetailContract.Presenter() {
+    override fun detailShare(goods_id: String) {
+        getModel().detailShare(goods_id).ui({
+                getView()?.detailShare(it.data!!)
+        },{
+            getView()?.showToast(it.message)
+        })
+    }
+
     override fun addShoping(token: String, goods_id: String) {
         getModel().addShoping(token,goods_id).ui({
             getView()?.addShoping()
