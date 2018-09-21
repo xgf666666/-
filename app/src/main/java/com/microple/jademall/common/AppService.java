@@ -46,6 +46,7 @@ import com.microple.jademall.bean.Record;
 import com.microple.jademall.bean.RecordDetail;
 import com.microple.jademall.bean.Search;
 import com.microple.jademall.bean.SearchResult;
+import com.microple.jademall.bean.Share;
 import com.microple.jademall.bean.Shop;
 import com.microple.jademall.bean.Team;
 import com.xx.baseutilslibrary.network.entity.BaseResponseEntity;
@@ -470,6 +471,12 @@ public interface AppService {
     @FormUrlEncoded
     @POST("common/live_share")
     Observable<BaseResponseEntity<LiveShare>> liveShare(@Field("live_id")String live_id);
+    /**
+     * 直播分享
+     */
+    @POST("user_center/share")
+    Observable<BaseResponseEntity<Share>> myShare(@Header("token") String token);
+
 
 }
 

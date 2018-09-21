@@ -46,6 +46,8 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
         Constants.putInviteCode(login.code)
         Constants.putToken(login.token)
         Constants.putHeadImg(login.head_img)
+        Constants.putImIndent(login.im_identifier)
+        Constants.putImuser(login.im_user_sig)
         Constants.login()
         finish()
 

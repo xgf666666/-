@@ -8,6 +8,17 @@
     tools:context=".ui.Personal.activity.ShareActivity"
     android:orientation="vertical">
     <include layout="@layout/item_title"/>
+    <include layout="@layout/item_loading"
+        android:id="@+id/loading"/>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,44 +80,17 @@
         android:layout_marginRight="@dimen/dp_13"
         android:layout_marginLeft="@dimen/dp_13"
         android:layout_marginTop="@dimen/dp_13"/>
-    <LinearLayout
+    <ImageView
+        android:id="@+id/iv_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:id="@+id/iv_wx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/btn_share_wechat_n"/>
-        <ImageView
-            android:id="@+id/iv_wxpyq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/btn_share_circle_n"
-            android:layout_marginLeft="40dp"/>
-        <ImageView
-            android:id="@+id/iv_qq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/btn_share_qq_n"
-            android:layout_marginLeft="40dp"/>
-        <ImageView
-            android:id="@+id/iv_weibo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/btn_share_microblog_n"
-            android:layout_marginLeft="40dp"/>
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:src="@drawable/btn_share_link_n"
+        android:layout_marginTop="20dp"/>
     <TextView
         android:id="@+id/tv_web"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         android:text="331333"
         android:textColor="@color/black_333333"
         android:layout_gravity="center_horizontal"
@@ -115,7 +99,11 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:background="@drawable/bg_share"
-        android:textSize="17sp" />
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:textSize="17sp"
+        android:layout_marginBottom="20dp"/>
 
-
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

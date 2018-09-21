@@ -220,7 +220,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
             var web = UMWeb(detailShare?.share?.link)
             web.setTitle(detailShare?.share?.goods_name)
             web.setThumb( UMImage(this, BuildConfig.DEV_DOMAIN+"/api/"+detailShare?.share?.goods_img))
-            web.setDescription(detailShare?.share?.goods_sn)
+            web.setDescription(detailShare?.share?.link)
             ShareAction(this)
                     .withMedia(web)
                     .setPlatform(platform.mPlatform)

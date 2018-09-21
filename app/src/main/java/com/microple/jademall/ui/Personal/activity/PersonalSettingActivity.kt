@@ -58,7 +58,7 @@ class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>(),Pers
     override fun initData() {
         tv_title.text="个人资料设置"
         var info=Constants.getPersonal()
-        iv_hand.loadImag(info.head_img)
+//        iv_hand.loadImag(info.head_img)
         initImageChooseHelper()
 
     }

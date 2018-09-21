@@ -23,9 +23,9 @@ android {
         ]
         buildConfigField "boolean", "IS_DEV", "false"
 
-        buildConfigField "String", "DEV_DOMAIN", "\"http://192.168.0.110\""
+        buildConfigField "String", "DEV_DOMAIN", "\"http://feicui.wbgdev.cn\""
 
-        buildConfigField "String", "RELEASE_DOMAIN", "\"http://192.168.0.110\""
+        buildConfigField "String", "RELEASE_DOMAIN", "\"http://feicui.wbgdev.cn\""
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a"

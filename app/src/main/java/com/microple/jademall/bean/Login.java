@@ -15,6 +15,24 @@ public class Login {
     private String token;
     private String code;
     private String head_img;
+    private String im_identifier;
+    private String im_user_sig;
+
+    public String getIm_identifier() {
+        return im_identifier;
+    }
+
+    public void setIm_identifier(String im_identifier) {
+        this.im_identifier = im_identifier;
+    }
+
+    public String getIm_user_sig() {
+        return im_user_sig;
+    }
+
+    public void setIm_user_sig(String im_user_sig) {
+        this.im_user_sig = im_user_sig;
+    }
 
     public String getHead_img() {
         return head_img;

@@ -90,6 +90,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     var feicui=""
     override fun initData() {
         tv_title.text="立即下单"
+        getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
         (application as App).addActivity(this)
         XxAnyPay.intance.init(this)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
@@ -143,7 +144,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                 else
                                     you=you+"/"+you_list[i]
                             }
-                            tv_youji.text="邮寄:                "+you
+                            tv_youji.text="邮寄:   "+you
                         }else{
                             tv_youji.visibility=View.GONE
                         }
@@ -155,7 +156,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                     else
                                         live=live+"/"+live_list[i]
                                 }
-                                tv_zhibo.text="预约切石直播:"+live
+                                tv_zhibo.text="预约切石直播:   "+live
                         }else{
                             tv_zhibo.visibility=View.GONE
                         }
@@ -234,25 +235,27 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
             finish()
         }
         rl_address.setOnClickListener {
-            AddressActivity.startAddressActivity(this)
+//            AddressActivity.startAddressActivity(this)
+            var intent=Intent(this,AddressActivity::class.java)
+            intent.putExtra("flag",1)
+            this.startActivityForResult(intent,2)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.i("sb_id",intent.getStringExtra("sb_id"))
-        getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
-    }
     var order:ImOrder?=null
     override fun imOrder(imOrder: ImOrder) {
         loading.visibility=View.GONE
         order=imOrder
         adapter.setNewData(imOrder.order.goods_info)
         tv_wuliu.text="物流费用:  ￥"+imOrder.order.shipping_fee
-        tv_content.text=imOrder.order.user_address.consigner+"       "+imOrder.order.user_address.phone
-        if (imOrder.order.user_address==null){
+        if (imOrder.order.user_address.address.isNullOrEmpty()){
             add_address.visibility=View.VISIBLE
+            tv_address.visibility=View.GONE
+            tv_content.visibility=View.GONE
         }else{
+            tv_content.visibility=View.VISIBLE
+            tv_address.visibility=View.VISIBLE
+            tv_content.text=imOrder.order.user_address.consigner+"       "+imOrder.order.user_address.phone
             add_address.visibility=View.GONE
             tv_address.text=imOrder.order.user_address.address
         }
@@ -288,6 +291,23 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
         dialog = AlertDialog.Builder(mContext).create()
         dialog!!.setView(view)
         dialog!!.show()
+    }
+        var name=""
+    var phone=""
+    var address=""
+    var id=""
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==2&&resultCode==3){
+            name=data?.getStringExtra("name")!!
+            phone=data?.getStringExtra("phone")
+            address=data?.getStringExtra("address")
+            id=data?.getStringExtra("id")
+            tv_content.text=name+"       "+phone
+            add_address.visibility=View.GONE
+            tv_address.text=address
+            order?.order?.user_address?.ua_id=id
+        }
     }
 
     companion object {

@@ -52,10 +52,22 @@ class AddressActivity : BaseMvpActivity<AddressPresenter>(),AddressContract.View
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
+        adapter.setOnItemClickListener { adapter, view, position ->
+           var flag=intent.getIntExtra("flag",0)
+            if (flag==1){
+                var intent=Intent()
+                intent.putExtra("name",(adapter as AddressAdapter).data[position].consigner)
+                intent.putExtra("phone",(adapter as AddressAdapter).data[position].phone)
+                intent.putExtra("address",(adapter as AddressAdapter).data[position].address)
+                intent.putExtra("id",""+(adapter as AddressAdapter).data[position].ua_id)
+                setResult(3,intent)
+                finish()
+            }
+        }
         adapter.setOnItemChildClickListener { adapter, view, position ->
             when(view.id){
                 R.id.tv_bianji->{
-                    EditAddressActivity.startEditAddressActivity(this,""+(adapter as AddressAdapter).data[position].ua_id)
+                    EditAddressActivity.startEditAddressActivity(this,""+(adapter as AddressAdapter).data[position].ua_id,adapter.data[position].consigner,adapter.data[position].phone,adapter.data[position].address)
                 }
                 R.id.tv_del->{
                     showLoadingDialog()
@@ -88,7 +100,10 @@ class AddressActivity : BaseMvpActivity<AddressPresenter>(),AddressContract.View
      */
     override fun initEvent() {
         tv_addAddress.setOnClickListener {
-            EditAddressActivity.startEditAddressActivity(this,"")
+            EditAddressActivity.startEditAddressActivity(this,"","","","")
+        }
+        iv_back.setOnClickListener{
+            finish()
         }
     }
 

@@ -12,10 +12,12 @@
     <TextView
         android:id="@+id/tv_login"
         android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="需要登录，点击登录"
-        android:textColor="@color/green_default"
-        android:textSize="16sp" />
+        android:layout_width="138dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_sure"
+        android:text="登录"
+        android:textColor="@color/white_default"
+        android:gravity="center"
+        android:textSize="17sp" />
     </LinearLayout>
 </RelativeLayout>

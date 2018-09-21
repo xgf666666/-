@@ -31,24 +31,24 @@ public class ImOrder {
          * user_address : {"ua_id":3,"user_id":3,"consigner":"jk","phone":"15464679655","province":"广东省","city":"广州市","district":"天河区","address":"测试","is_default":1}
          */
 
-        private int total_fee;
-        private int shipping_fee;
+        private String total_fee;
+        private String shipping_fee;
         private UserAddressBean user_address;
         private List<GoodsInfoBean> goods_info;
 
-        public int getTotal_fee() {
+        public String getTotal_fee() {
             return total_fee;
         }
 
-        public void setTotal_fee(int total_fee) {
+        public void setTotal_fee(String total_fee) {
             this.total_fee = total_fee;
         }
 
-        public int getShipping_fee() {
+        public String getShipping_fee() {
             return shipping_fee;
         }
 
-        public void setShipping_fee(int shipping_fee) {
+        public void setShipping_fee(String shipping_fee) {
             this.shipping_fee = shipping_fee;
         }
 
@@ -81,7 +81,7 @@ public class ImOrder {
              * is_default : 1
              */
 
-            private int ua_id;
+            private String ua_id;
             private int user_id;
             private String consigner;
             private String phone;
@@ -91,11 +91,11 @@ public class ImOrder {
             private String address;
             private int is_default;
 
-            public int getUa_id() {
+            public String getUa_id() {
                 return ua_id;
             }
 
-            public void setUa_id(int ua_id) {
+            public void setUa_id(String ua_id) {
                 this.ua_id = ua_id;
             }
 
@@ -173,17 +173,17 @@ public class ImOrder {
              * goods_img : /uploads/20180808/1a3c3ec77e6c798ace6b001e5bf3a123.jpg
              */
 
-            private int goods_id;
+            private String goods_id;
             private String goods_sn;
             private String goods_price;
             private String goods_name;
             private String goods_img;
 
-            public int getGoods_id() {
+            public String getGoods_id() {
                 return goods_id;
             }
 
-            public void setGoods_id(int goods_id) {
+            public void setGoods_id(String goods_id) {
                 this.goods_id = goods_id;
             }
 

@@ -37,5 +37,8 @@ class MyAppointmentActivity : AppCompatActivity() {
 //        adapter.setOnItemClickListener { adapter, view, position ->
 //            OrderDetailActivity.startOrderDetailActivity(this!!)
 //        }
+        iv_back.setOnClickListener{
+            finish()
+        }
     }
 }

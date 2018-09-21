@@ -149,8 +149,11 @@
                     android:id="@+id/add_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="添加地址"
-                    android:visibility="gone"/>
+                    android:text="暂无地址"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp_17"
+                    android:visibility="gone"
+                    />
             </RelativeLayout>
 
 

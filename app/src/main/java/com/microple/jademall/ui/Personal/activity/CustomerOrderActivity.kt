@@ -66,6 +66,7 @@ class CustomerOrderActivity : BaseMvpActivity<CustomerOrderPresenter>(),Customer
      * 初始化事件
      */
     override fun initEvent() {
+        iv_back.setOnClickListener { finish() }
     }
 
     companion object {

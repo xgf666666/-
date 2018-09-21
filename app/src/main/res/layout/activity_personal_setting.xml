@@ -47,7 +47,7 @@
             android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_13"
-            android:src="@drawable/img_head_n"/>
+            android:src="@drawable/datouxiang_"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

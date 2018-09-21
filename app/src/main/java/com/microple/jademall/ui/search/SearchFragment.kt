@@ -57,7 +57,7 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
     }
     override fun init(view: View?) {
         if (Constants.isLogin()){
-            iv_head.loadHeadImag(Constants.getPersonal().head_img)
+            iv_head.loadHeadImag(Constants.getHeadImg())
         }else{
             iv_head.setImageResource(R.drawable.datouxiang_)
         }

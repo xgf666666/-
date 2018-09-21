@@ -28,11 +28,6 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
         //改变状态字体为深色
         (application as App).addActivity(this)
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-        if (Constants.isFirst()){
-            var intent=Intent(this,GuideActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
         supportFragmentManager
                 .beginTransaction()
                 .add(R.id.linearLayout, mFragments[0])

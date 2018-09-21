@@ -26,5 +26,6 @@ class AboutMeActivity : AppCompatActivity() {
         tv_title.text="关于我们"
         var code=this.packageManager.getPackageInfo(this.packageName,0).versionCode
         tv_code.text="版本号:"+code
+        iv_back.setOnClickListener { finish() }
     }
 }

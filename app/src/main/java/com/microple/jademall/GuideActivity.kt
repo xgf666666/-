@@ -1,5 +1,7 @@
 package com.microple.jademall
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
@@ -70,6 +72,12 @@ class GuideActivity : AppCompatActivity() {
             return datas[position]
         }
 
+    }
+    companion object {
+        fun startGuideActivity(context: Context){
+            val intent = Intent(context, GuideActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 
 }

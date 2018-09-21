@@ -31,5 +31,8 @@ class CustomerServiceAcitivity : AppCompatActivity() {
             val it = Intent(Intent.ACTION_DIAL, uri)
             startActivity(it)
         }
+        iv_back.setOnClickListener{
+            finish()
+        }
     }
 }

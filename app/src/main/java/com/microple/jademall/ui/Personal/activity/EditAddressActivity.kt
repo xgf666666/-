@@ -42,6 +42,10 @@ class EditAddressActivity : BaseMvpActivity<EditAddressPresenter>(),EditAddressC
             tv_title.text="增加收货地址"
         }else{
             tv_title.text="编辑收货地址"
+            et_name.setText(intent.getStringExtra("name"))
+            et_phone.setText(intent.getStringExtra("phone"))
+            et_address.setText(intent.getStringExtra("address"))
+
         }
     }
 
@@ -70,9 +74,12 @@ class EditAddressActivity : BaseMvpActivity<EditAddressPresenter>(),EditAddressC
     }
 
     companion object {
-        fun startEditAddressActivity(context: Context,ua_id:String){
+        fun startEditAddressActivity(context: Context,ua_id:String,name:String,phone:String,address:String){
             val intent = Intent(context, EditAddressActivity::class.java)
             intent.putExtra("ua_id",ua_id)
+            intent.putExtra("name",name)
+            intent.putExtra("phone",phone)
+            intent.putExtra("address",address)
             context.startActivity(intent)
         }
     }

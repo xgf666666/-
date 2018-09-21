@@ -54,7 +54,7 @@ public class Pay {
         private String result_code;
         private String prepay_id;
         private String trade_type;
-        private int time;
+        private String time;
 
         public String getReturn_code() {
             return return_code;
@@ -128,11 +128,11 @@ public class Pay {
             this.trade_type = trade_type;
         }
 
-        public int getTime() {
+        public String getTime() {
             return time;
         }
 
-        public void setTime(int time) {
+        public void setTime(String time) {
             this.time = time;
         }
     }

@@ -149,6 +149,43 @@ public class Constants {
         SPUtils.getInstance().put(KEY_SP_HEAN, img);
     }
     /**
+         * 获取im
+         *
+         * @return
+         */
+        public static String getImIndent() {
+            String loginJson = SPUtils.getInstance().getString("im_identifier");
+            return loginJson;
+        }
+
+        /**
+         * 储存im
+         *
+         * @param
+         */
+        public static void putImIndent(String  img) {
+            SPUtils.getInstance().put("im_identifier", img);
+    }
+    /**
+     * 获取im_user_sig
+     *
+     * @return
+     */
+    public static String getImuser() {
+        String loginJson = SPUtils.getInstance().getString("im_user_sig");
+        return loginJson;
+    }
+
+    /**
+     * 储存im_user_sig
+     *
+     * @param
+     */
+    public static void putImuser(String  img) {
+        SPUtils.getInstance().put("im_user_sig", img);
+    }
+
+    /**
      * 储存Personal
      *
      * @param
