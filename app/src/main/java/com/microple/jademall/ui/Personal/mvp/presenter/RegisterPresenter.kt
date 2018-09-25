@@ -41,7 +41,7 @@ class RegisterPresenter:RegisterContract.Presenter() {
             return
         }
         if (pwd!=pwds){
-            getView()?.showToast("请输入相同的密码")
+            getView()?.showToast("确认密码与密码不一致")
             getView()?.dismissLoadingDialog()
             return
 

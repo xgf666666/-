@@ -107,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
-                            android:src="@drawable/bnt_bag_n"
+                            android:src="@drawable/bnt_bag_fill_s"
                             android:layout_toLeftOf="@+id/iv_collection" />
                         <ImageView
                             android:id="@+id/iv_kefu"

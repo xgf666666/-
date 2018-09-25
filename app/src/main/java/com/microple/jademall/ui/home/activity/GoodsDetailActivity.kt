@@ -136,20 +136,27 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         dialog.show()
         dialog.setOnBtnClickListener(object : ShareDialog.OnBtnClickListener {
             override fun QQShare() {
+                showLoadingDialog()
+                dialog.dismiss()
                 share(SHARE_MEDIA.QQ.toSnsPlatform())
             }
 
             override fun weiboShare() {
+                showLoadingDialog()
+                dialog.dismiss()
                 share(SHARE_MEDIA.SINA.toSnsPlatform())
 
             }
 
             override fun wxShare() {
+                showLoadingDialog()
+                dialog.dismiss()
                 share(SHARE_MEDIA.WEIXIN.toSnsPlatform())
-
             }
 
             override fun wxwcShare() {
+                showLoadingDialog()
+                dialog.dismiss()
                 share(SHARE_MEDIA.WEIXIN_CIRCLE.toSnsPlatform())
 
             }
@@ -215,7 +222,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
     }
     var detailShare: DetailShare?=null
     private fun share(platform: SnsPlatform){
-        showLoadingDialog()
+
         if (detailShare!=null){
             var web = UMWeb(detailShare?.share?.link)
             web.setTitle(detailShare?.share?.goods_name)

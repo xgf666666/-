@@ -6,15 +6,19 @@ import android.graphics.Color
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
 import com.microple.jademall.bean.LiveShare
+import com.microple.jademall.common.Constants
 import com.microple.jademall.dialog.ShareDialog
+import com.microple.jademall.ui.live.adapter.MessageAdapter
 import com.microple.jademall.ui.live.mvp.contract.LivePlayerContract
 import com.microple.jademall.ui.live.mvp.presenter.LivePlayerPresenter
+import com.tencent.imsdk.*
 import com.tencent.rtmp.ITXLivePlayListener
 import com.tencent.rtmp.TXLiveBase
 import com.tencent.rtmp.TXLiveConstants
@@ -29,6 +33,7 @@ import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_live_player.*
 
 class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerContract.View {
+    var messageAdapter=MessageAdapter()
     /**
      * 初始化事件
      */
@@ -40,6 +45,24 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
             showLoadingDialog()
             getPresenter().liveShare(intent.getStringExtra("live_id"))
 
+        }
+        et_send.setOnEditorActionListener { view, i, keyEvent ->
+            var textElem=TIMTextElem()
+            textElem.text=view.text.toString()
+            var message=TIMMessage()
+            message.addElement(textElem)
+            var conversation=TIMManager.getInstance().getConversation(TIMConversationType.Group,"")
+            conversation.sendMessage(message, object : TIMValueCallBack<TIMMessage> {
+                override fun onSuccess(p0: TIMMessage?) {
+                    showToast("发送成功")
+                }
+
+                override fun onError(p0: Int, p1: String?) {
+                    showToast("发送失败")
+                }
+
+            })
+            return@setOnEditorActionListener  true
         }
 
     }
@@ -130,6 +153,17 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
             }
 
         })
+        //聊天室
+        if (Constants.isLogin()){
+            rl_message.layoutManager=LinearLayoutManager(this)
+            rl_message.adapter=messageAdapter
+            TIMManager.getInstance().addMessageListener {
+                messageAdapter.setNewData(it)
+                return@addMessageListener true
+            }
+            imLogin()
+        }
+        joinRoom("")
         iv_close.setOnClickListener{
             finish()
         }
@@ -138,6 +172,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         super.onDestroy()
         mLivePlayer?.stopPlay(true)
         video_view.onDestroy()
+        TIMManager.getInstance().logout(null)
     }
     companion object {
         fun startLivePlayerActivity(context: Context,live_id:String,play_url:String){
@@ -176,6 +211,33 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
             showToast("没有分享内容")
         }
         dismissLoadingDialog()
+    }
+    //登录聊天室
+    private fun imLogin(){
+        var timeUser=TIMUserConfig()
+        TIMManager.getInstance().login(Constants.getImIndent(),Constants.getImuser(),timeUser, object : TIMCallBack {
+            override fun onError(code: Int, desc: String?) {
+                //错误码code和错误描述desc，可用于定位请求失败原因
+                //错误码code列表请参见错误码表
+                Log.d("ImLogin", "login failed. code: " + code + " errmsg: " + desc)
+            }
+
+            override fun onSuccess() {
+                showToast("登陆成功")
+            }
+        })
+    }
+    //加入聊天室
+    private fun joinRoom(groupID:String){
+        TIMGroupManager.getInstance().applyJoinGroup(groupID,"", object : TIMCallBack {
+            override fun onError(p0: Int, p1: String?) {
+                Log.i("groupID","加入失败")
+             }
+
+            override fun onSuccess() {
+                Log.i("groupID","加入成功")
+            }
+        })
     }
 
     private var umShareListener= object : UMShareListener {

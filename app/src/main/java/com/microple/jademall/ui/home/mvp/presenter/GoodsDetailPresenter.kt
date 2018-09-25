@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.home.mvp.presenter
 
+import android.util.Log
 import com.microple.jademall.ui.home.mvp.contract.GoodsDetailContract
 import com.microple.jademall.ui.home.mvp.contract.HomeGoodsContract
 import com.microple.jademall.ui.home.mvp.model.GoodsDetailModel
@@ -22,6 +23,7 @@ class GoodsDetailPresenter:GoodsDetailContract.Presenter() {
     }
 
     override fun addShoping(token: String, goods_id: String) {
+        Log.i("goods_id",goods_id)
         getModel().addShoping(token,goods_id).ui({
             getView()?.addShoping()
         },{

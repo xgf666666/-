@@ -63,7 +63,9 @@ class MerchantEntryRecordDetailActivity : BaseMvpActivity<MerchanEntryRecordDeta
         tv_email.text=record.apply_info.email
         tv_phone.text= record.apply_info.phone
         tv_yaoqingren.text=record.apply_info.inviter
+        if (record.apply_info.license!=null)
         iv_yingye.loadImag(record.apply_info.license)
+        if(record.apply_info.attachment!=null)
         iv_fujian.loadImag(record.apply_info.attachment)
     }
 

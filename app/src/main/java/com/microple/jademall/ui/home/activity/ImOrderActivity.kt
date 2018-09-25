@@ -204,9 +204,14 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                 getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"1","")
                             }
                             2->{
-                                indexs=2
-                                showLoadingDialog()
-                                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"2","")
+                                if (add_address.visibility==0){
+                                    showToast("请添加地址")
+                                }else{
+                                    indexs=2
+                                    showLoadingDialog()
+                                    getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"2","")
+                                }
+
 
                             }
                             3->{
@@ -305,10 +310,20 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
             id=data?.getStringExtra("id")
             tv_content.text=name+"       "+phone
             add_address.visibility=View.GONE
+            tv_content.visibility=View.VISIBLE
+            tv_address.visibility=View.VISIBLE
             tv_address.text=address
             order?.order?.user_address?.ua_id=id
+        }else if (requestCode==2&&resultCode==4){
+            id=data?.getStringExtra("id")!!
+            if (id.equals(order?.order!!.user_address.ua_id)){
+                add_address.visibility=View.VISIBLE
+                tv_content.visibility=View.GONE
+                add_address.visibility=View.GONE
+            }
         }
     }
+
 
     companion object {
         fun startImOrderActivity(context: Context,sb_id:String,goods_id:String){

@@ -23,9 +23,18 @@ import kotlinx.android.synthetic.main.item_address.*
  * describe:管理收货地址
  */
 class AddressActivity : BaseMvpActivity<AddressPresenter>(),AddressContract.View {
+    var id=""
     override fun setAddress(msg: String) {
         dismissLoadingDialog()
         showToast(msg)
+//        var flag=intent.getIntExtra("flag",0)
+//        if (flag==1){
+//            var intent=Intent()
+//            intent.putExtra("id",id)
+//            setResult(4,intent)
+//            finish()
+//        }
+
     }
 
     /**
@@ -73,6 +82,7 @@ class AddressActivity : BaseMvpActivity<AddressPresenter>(),AddressContract.View
                     showLoadingDialog()
                     getPresenter().delAddress(Constants.getToken(),""+(adapter as AddressAdapter).data[position].ua_id)
                     adapter.remove(position)
+                    id=""+(adapter as AddressAdapter).data[position].ua_id
                 }
                 R.id.tv_setting->{
                     showLoadingDialog()

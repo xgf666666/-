@@ -45,12 +45,14 @@
             android:src="@drawable/ic_gift_n"
             android:layout_marginLeft="16dp"/>
         <EditText
+            android:id="@+id/et_send"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginLeft="39dp"
             android:layout_marginRight="22dp"
-            android:background="@drawable/bg_live"/>
+            android:background="@drawable/bg_live"
+            android:imeOptions="actionSend"/>
 
     </LinearLayout>
     <android.support.v7.widget.RecyclerView

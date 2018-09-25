@@ -109,7 +109,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -117,7 +118,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <!-- ***********************************直播模块*********************************** -->
         <activity
@@ -185,6 +186,7 @@
         <activity android:name=".ui.live.activity.LivePlayerActivity" />
         <activity android:name=".GuideActivity" />
         <activity android:name=".ui.live.activity.LiveGoodsActivity" />
+        <activity android:name=".ui.home.activity.WebViewActivity"></activity>
     </application>
 
 </manifest>
