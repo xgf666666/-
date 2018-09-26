@@ -39,6 +39,7 @@ class LoginPresenter:LoginContract.Presenter() {
             getView()?.getCode()
 
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it.message)
         })
     }
@@ -90,6 +91,7 @@ class LoginPresenter:LoginContract.Presenter() {
         getModel().codeLogin(phone,phone_code).ui({
             getView()?.loginSucceful(it.data!!)
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it.message)
         })
 

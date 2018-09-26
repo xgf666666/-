@@ -46,6 +46,7 @@ class ForgetPWPresenter:ForgetPWContract.Presenter() {
                 getView()?.setPW()
                 getView()?.showToast(it.msg)
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it)
         })
 
@@ -65,6 +66,7 @@ class ForgetPWPresenter:ForgetPWContract.Presenter() {
                 getView()?.getCode()
                 getView()?.showToast(it.msg)
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it)
         })
     }

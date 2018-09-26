@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.LiveGoods
+import com.microple.jademall.common.App
 import com.microple.jademall.ui.home.activity.GoodsDetailActivity
 import com.microple.jademall.ui.live.adapter.LiveGoodsAdapter
 import com.microple.jademall.ui.live.mvp.contract.LiveGoodsContract
@@ -33,6 +34,7 @@ class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContrac
      */
     private var mAdapter = LiveGoodsAdapter(R.layout.item_goods)
     override fun initData() {
+        (application as App).addActivity(this)
         tv_title.text="直播间商品"
         showLoadingDialog()
         getPresenter().getGoods(intent.getStringExtra("live_id"))
@@ -63,6 +65,10 @@ class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContrac
             intent.putExtra("live_id",live_id)
             context.startActivity(intent)
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
     }
 
 }

@@ -52,14 +52,15 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
 
                         override fun onPaySuccess() {
                             showToast("支付成功")
-                            PaySucceefulActivity.startPaySucceefulActivity(mContext)
+                            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn)
                             finish()
                         }
                     })
 
         }else if (indexs==3){
+            showToast("支付成功")
+            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn)
             finish()
-            PaySucceefulActivity.startPaySucceefulActivity(mContext)
         }
 
     }
@@ -88,6 +89,10 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     var you=""
     var live=""
     var feicui=""
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
+    }
     override fun initData() {
         tv_title.text="立即下单"
         getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
@@ -282,6 +287,8 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
             if (password!=null&&password?.length==6){
                 showLoadingDialog()
                 dialog!!.dismiss()
+                Log.i("user_address",order?.order!!.user_address.ua_id)
+                Log.i("password",password!!.md5Salt())
                 getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"3",password!!.md5Salt())
             }
 
@@ -333,5 +340,6 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
             context.startActivity(intent)
         }
     }
+
 
 }

@@ -338,5 +338,9 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         })
         dialog.show()
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
+    }
 
 }

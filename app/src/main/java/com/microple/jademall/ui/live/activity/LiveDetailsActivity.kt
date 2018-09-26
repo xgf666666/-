@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.microple.jademall.R
 import com.microple.jademall.bean.LiveDetail
+import com.microple.jademall.common.App
 import com.microple.jademall.common.Constant
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.activity.LoginActivity
@@ -48,6 +49,7 @@ class LiveDetailsActivity : BaseMvpActivity<LiveDetailPresenter>(),LiveDetailCon
      */
     override fun initData() {
         title = "直播详情"
+        (application as App).addActivity(this)
         if (Constants.isLogin()){
             getPresenter().getDetail(Constants.getToken(),intent.getStringExtra("live_id"))
         }else{
@@ -85,6 +87,10 @@ class LiveDetailsActivity : BaseMvpActivity<LiveDetailPresenter>(),LiveDetailCon
             intent.putExtra("live_id",live_id)
             context.startActivity(intent)
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
     }
 
 }

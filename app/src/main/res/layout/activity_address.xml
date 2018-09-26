@@ -15,6 +15,16 @@
             android:paddingBottom="14dp"
             android:layout_marginTop="@dimen/dp_10"/>
     <TextView
+        android:id="@+id/tv_tishi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无数据"
+        android:textSize="@dimen/sp_17"
+        android:textColor="@color/black_666666"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+    <TextView
         android:id="@+id/tv_addAddress"
         android:layout_width="match_parent"
         android:layout_height="50dp"

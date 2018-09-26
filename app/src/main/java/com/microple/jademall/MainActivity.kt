@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.ContextMenu
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
+import com.blankj.utilcode.util.ActivityUtils
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.PersonlFragment
@@ -19,6 +21,7 @@ import com.microple.jademall.ui.shoppingcar.ShoppingCarFragment
 import com.microple.jademall.uitls.BottomNavigationViewUtils
 import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     /**
@@ -27,7 +30,7 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
     override fun initData() {
         //改变状态字体为深色
         (application as App).addActivity(this)
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+//        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         supportFragmentManager
                 .beginTransaction()
                 .add(R.id.linearLayout, mFragments[0])
@@ -96,6 +99,35 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
+    }
+    /**
+     * 双击返回桌面
+     */
+    var isExit: Boolean? = false//是否退出登录
+    private fun back2exit() {
+        if (isExit!!) {
+           finish()
+        }
+        isExit = true
+        showToast("再按一次回到桌面")
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                isExit = false
+            }
+
+        }, 1500)
+    }
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            back2exit()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
     }
 
 

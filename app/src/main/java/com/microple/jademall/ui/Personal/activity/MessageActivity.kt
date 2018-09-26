@@ -65,6 +65,9 @@ class MessageActivity : BaseMvpActivity<MessagePresenter>(),MessageContract.View
 
     override fun getMessage(myMessage: MyMessage) {
         loading.visibility= View.GONE
+        if (myMessage.messages.size==0){
+            tv_tishi.visibility=View.VISIBLE
+        }
         adapter.setNewData(myMessage.messages)
     }
 

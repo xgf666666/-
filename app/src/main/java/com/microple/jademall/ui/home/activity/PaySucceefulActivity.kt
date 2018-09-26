@@ -13,8 +13,9 @@ import kotlinx.android.synthetic.main.item_title.*
 
 class PaySucceefulActivity : AppCompatActivity() {
     companion object {
-        fun startPaySucceefulActivity(context: Context){
+        fun startPaySucceefulActivity(context: Context,order_sn:String){
             val intent = Intent(context, PaySucceefulActivity::class.java)
+            intent.putExtra("order_sn",order_sn)
             context.startActivity(intent)
         }
     }
@@ -24,6 +25,7 @@ class PaySucceefulActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pay_succeeful)
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         tv_title.text="支付成功"
+        tv_order.text="订单号：   "+intent.getStringExtra("order_sn")
         tv_back.setOnClickListener {
             (application as App).cleanActivity()
             MainActivity.startMainActivity(this)

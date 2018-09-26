@@ -33,8 +33,8 @@ class ApplicationPresenter:ApplicationContract.Presenter() {
             getView()?.showToast("请输入联系方式")
             getView()?.dismissLoadingDialog()
             return
-        }else if (!inviter.isPhone()){
-            getView()?.showToast("请输入邀请人手机号")
+        }else if (!inviter.isNullOrEmpty()&&!inviter.isPhone()){
+            getView()?.showToast("请输入正确的邀请人")
             getView()?.dismissLoadingDialog()
             return
         }else if (license.isNullOrEmpty()){

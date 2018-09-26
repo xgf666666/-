@@ -52,6 +52,7 @@ class RegisterPresenter:RegisterContract.Presenter() {
                 getView()?.register()
 
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it.message)
         })
     }
@@ -72,6 +73,8 @@ class RegisterPresenter:RegisterContract.Presenter() {
                 getView()?.showToast(it.msg)
             }
         },{
+            getView()?.showToast(it.message)
+            getView()?.dismissLoadingDialog()
         })
     }
 

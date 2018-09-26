@@ -59,6 +59,7 @@ class PassWorkPresenter:PassWorkContract.Presenter() {
             }
 
         },{
+            getView()?.dismissLoadingDialog()
                 getView()?.showToast(it)
         })
 
@@ -87,6 +88,7 @@ class PassWorkPresenter:PassWorkContract.Presenter() {
             }
 
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it)
 
         })
@@ -120,6 +122,7 @@ class PassWorkPresenter:PassWorkContract.Presenter() {
             }
 
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it)
         })
     }

@@ -151,9 +151,9 @@
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp">
                 <TextView
-                    android:layout_width="62dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="邀请人"
+                    android:text="邀请人(选填)"
                     android:textSize="@dimen/sp_15"
                     android:textColor="@color/black_333333"
                     android:gravity="right"

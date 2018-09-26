@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.Address
@@ -81,8 +82,8 @@ class AddressActivity : BaseMvpActivity<AddressPresenter>(),AddressContract.View
                 R.id.tv_del->{
                     showLoadingDialog()
                     getPresenter().delAddress(Constants.getToken(),""+(adapter as AddressAdapter).data[position].ua_id)
-                    adapter.remove(position)
                     id=""+(adapter as AddressAdapter).data[position].ua_id
+                    adapter.remove(position)
                 }
                 R.id.tv_setting->{
                     showLoadingDialog()
@@ -119,6 +120,11 @@ class AddressActivity : BaseMvpActivity<AddressPresenter>(),AddressContract.View
 
     override fun getAddress(address: Address) {
         dismissLoadingDialog()
+        if (address.address.size==0){
+            tv_tishi.visibility=View.VISIBLE
+        }else{
+            tv_tishi.visibility=View.GONE
+        }
         adapter.setNewData(address.address)
 
     }

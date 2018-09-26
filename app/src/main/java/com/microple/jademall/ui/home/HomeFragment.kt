@@ -25,10 +25,12 @@ import com.microple.jademall.bean.FirstImage
 import com.microple.jademall.bean.Goods
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.home.activity.GoodsDetailActivity
+import com.microple.jademall.ui.home.activity.WebViewActivity
 import com.microple.jademall.ui.home.adapter.HomeGoodsAdapter
 import com.microple.jademall.ui.home.fragment.BannerFragment
 import com.microple.jademall.ui.home.mvp.contract.HomeContract
 import com.microple.jademall.ui.home.mvp.presenter.HomePresenter
+import com.microple.jademall.ui.live.activity.LiveDetailsActivity
 import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
@@ -225,6 +227,18 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
                 .setOnItemClickListener{
 
                 }
+        cb_home_top.setOnItemClickListener {
+            if (data[it].is_type==1){
+                WebViewActivity.startLivePlayerActivity(context!!,data[it].url,data[it].name)
+
+            }else if (data[it].is_type==2){
+                GoodsDetailActivity.startGoodsDetailActivity(context!!,data[it].url)
+
+            }else if (data[it].is_type==3){
+                LiveDetailsActivity.startLiveDetail(context!!,data[it].url)
+
+            }
+        }
 
 //        viewPager.adapter = object : FragmentStatePagerAdapter(fragmentManager) {
 //            override fun getItem(position: Int): Fragment? {

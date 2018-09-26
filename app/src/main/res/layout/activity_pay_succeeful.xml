@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/img_win_n"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:layout_gravity="center_horizontal"/>
     <TextView
         android:layout_width="wrap_content"
@@ -39,11 +39,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="订单号：1223344"
-        android:textSize="@dimen/sp_13"
-        android:textColor="@color/black_444444"
+        android:text="由于我们的产品为多渠道销售，我们的工作人员将会尽快为您核查并确认订单，如果订单审核失败，我们将退还您所支付的所有款项，您可以在【个人中心-我的订单-待审核栏目】中查看订单审核状态，再次感谢您对3H翡翠商城的支付！
+"
+        android:textSize="@dimen/sp_15"
+        android:textColor="#999999"
         android:layout_centerVertical="true"
         android:layout_marginTop="33dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_gravity="center_horizontal"
         />
     <TextView

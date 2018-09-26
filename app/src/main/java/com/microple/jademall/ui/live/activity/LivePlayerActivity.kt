@@ -13,6 +13,7 @@ import android.view.WindowManager
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
 import com.microple.jademall.bean.LiveShare
+import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.dialog.ShareDialog
 import com.microple.jademall.ui.live.adapter.MessageAdapter
@@ -87,6 +88,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
      */
     override fun initData() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        (application as App).addActivity(this)
         play()
         hideStatusBar()
 
@@ -173,6 +175,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         mLivePlayer?.stopPlay(true)
         video_view.onDestroy()
         TIMManager.getInstance().logout(null)
+        (application as App).deleteActivity(this)
     }
     companion object {
         fun startLivePlayerActivity(context: Context,live_id:String,play_url:String){

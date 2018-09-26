@@ -27,6 +27,9 @@ import kotlinx.android.synthetic.main.item_title.*
 class CustomerOrderActivity : BaseMvpActivity<CustomerOrderPresenter>(),CustomerOrderContract.View {
     override fun getCustomer(customer: Customer) {
         loading.visibility= View.GONE
+        if (customer.returns.size==0){
+            tv_tishi.visibility=View.VISIBLE
+        }
         adapter.setNewData(customer.returns)
     }
 

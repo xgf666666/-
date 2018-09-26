@@ -55,6 +55,15 @@ public class Pay {
         private String prepay_id;
         private String trade_type;
         private String time;
+        private String order_sn;
+
+        public String getOrder_sn() {
+            return order_sn;
+        }
+
+        public void setOrder_sn(String order_sn) {
+            this.order_sn = order_sn;
+        }
 
         public String getReturn_code() {
             return return_code;

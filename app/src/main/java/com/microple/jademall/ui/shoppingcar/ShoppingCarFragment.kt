@@ -41,28 +41,40 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
     var shop:Shop?=null
     override fun shop(shop: Shop) {
         loading.visibility=View.GONE
+        if (shop.shopp_info.size==0){
+            tv_tishi.visibility=View.VISIBLE
+            tv_index.visibility=View.GONE
+            ll_title.visibility=View.GONE
+        }else{
+            tv_tishi.visibility=View.GONE
+            tv_index.visibility=View.VISIBLE
+            ll_title.visibility=View.VISIBLE
+        }
+
         this.shop=shop
         adapter.setNewData(shop.shopp_info)
-        var price=0.0
-        for (i in 0..shop.shopp_info.size-1){
-            price=price+shop.shopp_info[i].goods_price
-        }
-        tv_price.text="购物袋合计     ￥"+price
+        tv_price.text="购物袋合计     ￥"+shop.total_fee
     }
 
     override fun delShop() {
-        dismissLoadingDialog()
+        getPresenter().updateShop(Constants.getToken())
         adapter.remove(current)
     }
 
     override fun updateShop(shop: Shop) {
         dismissLoadingDialog()
-        adapter.setNewData(shop.shopp_info)
-        var price=0.0
-        for (i in 0..shop.shopp_info.size-1){
-            price=price+shop.shopp_info[i].goods_price
+        if (shop.shopp_info.size==0){
+            tv_tishi.visibility=View.VISIBLE
+            tv_index.visibility=View.GONE
+            ll_title.visibility=View.GONE
+        }else{
+            tv_tishi.visibility=View.GONE
+            tv_index.visibility=View.VISIBLE
+            ll_title.visibility=View.VISIBLE
         }
-        tv_price.text="购物袋合计     ￥"+price
+        adapter.setNewData(shop.shopp_info)
+
+        tv_price.text="购物袋合计     ￥"+shop.total_fee
     }
 
     /**

@@ -33,6 +33,21 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePresenter>(),LiveContract.View{
     override fun liveList(liveList: LiveList) {
         loading.visibility=View.GONE
+        if (liveList.appoint_live.size==0){
+            tv_tishi.visibility=View.VISIBLE
+        }else{
+            tv_tishi.visibility=View.GONE
+        }
+        if (liveList.replay_list.size==0){
+            tv_tishi_two.visibility=View.VISIBLE
+        }else{
+            tv_tishi_two.visibility=View.GONE
+        }
+        if (liveList.reco_live.size==0){
+            tv_tishi_three.visibility=View.VISIBLE
+        }else{
+            tv_tishi_three.visibility=View.GONE
+        }
         liveYuyueAdapter.setNewData(liveList.appoint_live)
         mLiveHotAdapter.setNewData(liveList.live_now)
         mLiveReviewAdapter.setNewData(liveList.replay_list)

@@ -8,6 +8,10 @@
     <include layout="@layout/item_title"/>
     <include layout="@layout/item_loading"
         android:id="@+id/loading"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -15,4 +19,15 @@
             android:layout_marginRight="@dimen/dp_13"
             android:layout_marginLeft="@dimen/dp_13"
           />
+    <TextView
+        android:id="@+id/tv_tishi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无数据"
+        android:textSize="@dimen/sp_17"
+        android:textColor="@color/black_666666"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+    </RelativeLayout>
 </LinearLayout>

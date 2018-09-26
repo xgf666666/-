@@ -33,6 +33,7 @@ import com.microple.jademall.bean.LiveMessage;
 import com.microple.jademall.bean.LiveShare;
 import com.microple.jademall.bean.Login;
 import com.microple.jademall.bean.MessageDetail;
+import com.microple.jademall.bean.MyAppointment;
 import com.microple.jademall.bean.MyMessage;
 import com.microple.jademall.bean.Note;
 import com.microple.jademall.bean.Order;
@@ -46,6 +47,7 @@ import com.microple.jademall.bean.Record;
 import com.microple.jademall.bean.RecordDetail;
 import com.microple.jademall.bean.Search;
 import com.microple.jademall.bean.SearchResult;
+import com.microple.jademall.bean.ServicePhone;
 import com.microple.jademall.bean.Share;
 import com.microple.jademall.bean.Shop;
 import com.microple.jademall.bean.Team;
@@ -476,7 +478,22 @@ public interface AppService {
      */
     @POST("user_center/share")
     Observable<BaseResponseEntity<Share>> myShare(@Header("token") String token);
-
+    /**
+     * 我的预约
+     */
+    @POST("user_center/appointment")
+    Observable<BaseResponseEntity<MyAppointment>> myAppointment(@Header("token") String token);
+    /**
+     * 取消预约
+     */
+    @FormUrlEncoded
+    @POST("user_center/cancel_appointment")
+    Observable<BaseResponseEntity<List<Object>>> exitAppointment(@Header("token") String token,@Field("live_id")String live_id);
+    /**
+     * 客服联系电话
+     */
+    @POST("common/service_phone")
+    Observable<BaseResponseEntity<ServicePhone>> getPhone();
 
 }
 
