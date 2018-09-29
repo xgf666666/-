@@ -27,6 +27,7 @@
         android:layout_marginRight="@dimen/dp_15"
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="25dp"
+        android:lineSpacingExtra="5dp"
         android:padding="@dimen/dp_10"
         />
             <TextView
@@ -37,7 +38,8 @@
                 android:textSize="@dimen/sp_15"
                 android:text="本人已充分阅读，并完全接受以上条例"
                 android:layout_marginTop="50dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
     </ScrollView>

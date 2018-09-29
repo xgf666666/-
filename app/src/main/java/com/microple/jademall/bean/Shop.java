@@ -15,7 +15,16 @@ public class Shop {
      */
 
     private String total_fee;
+    private int is_on_sale;
     private List<ShoppInfoBean> shopp_info;
+
+    public int getIs_on_sale() {
+        return is_on_sale;
+    }
+
+    public void setIs_on_sale(int is_on_sale) {
+        this.is_on_sale = is_on_sale;
+    }
 
     public String getTotal_fee() {
         return total_fee;

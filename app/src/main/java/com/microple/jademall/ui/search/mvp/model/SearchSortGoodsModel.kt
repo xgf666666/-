@@ -2,6 +2,7 @@ package com.microple.jademall.ui.search.mvp.model
 
 import com.microple.jademall.bean.Category
 import com.microple.jademall.bean.GoodsDetail
+import com.microple.jademall.bean.TwoSearch
 import com.microple.jademall.common.AppApi
 import com.microple.jademall.ui.home.mvp.contract.GoodsDetailContract
 import com.microple.jademall.ui.search.mvp.contract.SearchContract
@@ -16,7 +17,7 @@ import io.reactivex.Observable
  * describe:
  */
 class SearchSortGoodsModel: SearchSortGoodsContract.Model {
-    override fun getCategory(): Observable<BaseResponseEntity<List<Category>>> =AppApi.Api().getCategory()
+    override fun getCategory(cat_id:String): Observable<BaseResponseEntity<TwoSearch>> =AppApi.Api().cateSearch(cat_id)
 
 
 }

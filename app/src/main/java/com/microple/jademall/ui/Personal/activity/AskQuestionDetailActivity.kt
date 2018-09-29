@@ -49,6 +49,7 @@ class AskQuestionDetailActivity : BaseMvpActivity<AskQuestionDetailPresenter>(),
 
     override fun getDetail(askDetail: AskDetail) {
         loading.visibility= View.GONE
+        if (askDetail.problem!=null)
         tv_content.text=askDetail.problem.answer
     }
 

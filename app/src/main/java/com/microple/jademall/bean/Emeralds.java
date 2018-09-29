@@ -15,15 +15,15 @@ public class Emeralds {
      * goods_info : [{"goods_id":1,"goods_sn":"3h66872","goods_img":"/uploads/20180808/1a3c3ec77e6c798ace6b001e5bf3a123.jpg"}]
      */
 
-    private int total_price;
+    private String total_price;
     private int goods_num;
     private List<GoodsInfoBean> goods_info;
 
-    public int getTotal_price() {
+    public String getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(int total_price) {
+    public void setTotal_price(String total_price) {
         this.total_price = total_price;
     }
 

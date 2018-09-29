@@ -43,6 +43,9 @@ class SearchResultGoodsActivity : BaseMvpActivity<SearchResultGoodsPresenter>(),
         }else{
             tv_live.visibility=View.GONE
         }
+        if (searchResult.live_list.size==0&&searchResult.goods_list.size==0){
+            tv_tishi.visibility=View.VISIBLE
+        }
     }
 
 

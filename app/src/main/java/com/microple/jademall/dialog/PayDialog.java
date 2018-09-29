@@ -29,7 +29,7 @@ public class PayDialog extends Dialog implements View.OnClickListener {
         this.mContext=context;
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        this.setCanceledOnTouchOutside(false);
+//        this.setCanceledOnTouchOutside(false);
         this.getWindow().setGravity(Gravity.BOTTOM);
         Window window = this.getWindow();
             window.getDecorView().setPadding(0, 0, 0, 0);

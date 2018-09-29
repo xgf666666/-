@@ -71,7 +71,10 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
      */
     override fun onRefresh() {
         current=1
-        getPresenter().getGoodList(catId,current,sort)
+//        getPresenter().getGoodList(catId,current,sort)
+        getPresenter().getFirstView()
+        getPresenter().getCategory()
+
     }
 
     var data:Goods= Goods()
@@ -186,7 +189,11 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
     }
     var mAdapter=HomeGoodsAdapter(arrayListOf())
     private fun initGoodsData(data: List<Category>) {
-        getPresenter().getGoodList(data[0].cat_id,current,sort)
+        if (catId==0){
+            getPresenter().getGoodList(data[0].cat_id,current,sort)
+        }else{
+            getPresenter().getGoodList(catId,current,sort)
+        }
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager= LinearLayoutManager(context)
         recyclerView.isNestedScrollingEnabled=false
@@ -205,19 +212,6 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
     }
 
     private fun fillViewPager(data:List<FirstImage>) {
-        // 1. viewPager添加parallax效果，使用PageTransformer就足够了
-//        val fragments = ArrayList<BannerFragment>() // 供ViewPager使用
-//        viewPager.setPageTransformer(false, CustPagerTransformer(context))
-//        viewPager.pageMargin = 26
-        // 2. viewPager添加adapter
-//        for (i in 0..data.size-1) {
-//            var fragment= BannerFragment()
-//            var bundle=Bundle()
-//            bundle.putString("img",data[i].img)
-//            bundle.putInt("banner_id",data[i].banner_id)
-//            fragment.arguments=bundle
-//            fragments.add(fragment)
-//        }
         cb_home_top.viewPager.pageMargin=26
         cb_home_top.viewPager.clipToPadding=false
         cb_home_top.viewPager.setPaddingRelative(ConvertUtils.dp2px(36f),0,ConvertUtils.dp2px(36f),0)
@@ -239,17 +233,6 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
 
             }
         }
-
-//        viewPager.adapter = object : FragmentStatePagerAdapter(fragmentManager) {
-//            override fun getItem(position: Int): Fragment? {
-//                val fragment = fragments[position ]
-//                return fragment
-//            }
-//
-//            override fun getCount(): Int {
-//                return fragments.size
-//            }
-//        }
     }
     fun setText(textView: TextView){
         tv_newest.setTextColor(resources.getColor(R.color.text_black))

@@ -40,15 +40,21 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
     var current=0
     var shop:Shop?=null
     override fun shop(shop: Shop) {
+        if (shop.is_on_sale==0){
+            tv_content.visibility=View.VISIBLE
+            tv_index.visibility=View.VISIBLE
+        }else{
+            tv_content.visibility=View.GONE
+            tv_index.visibility=View.GONE
+        }
         loading.visibility=View.GONE
         if (shop.shopp_info.size==0){
             tv_tishi.visibility=View.VISIBLE
             tv_index.visibility=View.GONE
-            ll_title.visibility=View.GONE
+            tv_content.visibility=View.GONE
         }else{
             tv_tishi.visibility=View.GONE
-            tv_index.visibility=View.VISIBLE
-            ll_title.visibility=View.VISIBLE
+
         }
 
         this.shop=shop

@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.Personal.mvp.contract
 
+import com.microple.jademall.bean.Pay
 import com.microple.jademall.bean.Pick
 import com.xx.baseuilibrary.mvp.BaseMvpPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpView
@@ -14,13 +15,16 @@ import io.reactivex.Observable
 interface PickGoodsContract {
     interface View :BaseMvpView{
         fun pick(pick:Pick)
+        fun pay(pay: Pay)
 
     }
     interface Model{
         fun pick(token:String,ct_id:String): Observable<BaseResponseEntity<Pick>>
+        fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String,sb_id:String,pick_type:String,ct_id:String  ):Observable<BaseResponseEntity<Pay>>
 
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun pick(token:String,ct_id:String)
+        abstract fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String,sb_id:String,pick_type:String,ct_id:String)
     }
 }

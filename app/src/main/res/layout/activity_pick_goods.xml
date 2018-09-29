@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white_default"
     tools:context=".ui.Personal.activity.PickGoodsActivity">
-    <include layout="@layout/item_title"/>
+   <include layout="@layout/item_title"/>
     <include layout="@layout/item_loading"
         android:id="@+id/loading"/>
     <TextView
@@ -59,6 +59,16 @@
             android:layout_alignParentRight="true"
             android:padding="7dp"
             android:layout_marginRight="15dp"/>
+        <TextView
+            android:id="@+id/add_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="暂无地址"
+            android:gravity="center"
+            android:textSize="@dimen/sp_17"
+            android:visibility="gone"
+            />
+
     </RelativeLayout>
     <View
         style="@style/LineGray"

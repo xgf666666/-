@@ -54,9 +54,9 @@ class Retrofit2Manager {
         get() {
             if (field == null) {
                 this.okHttpClient = OkHttpClient.Builder()
-                        .readTimeout(10, TimeUnit.SECONDS) //读取时超时时间
-                        .writeTimeout(10, TimeUnit.SECONDS) //写入时超时时间
-                        .connectTimeout(15, TimeUnit.SECONDS) //链接超时时间
+                        .readTimeout(20, TimeUnit.SECONDS) //读取时超时时间
+                        .writeTimeout(20, TimeUnit.SECONDS) //写入时超时时间
+                        .connectTimeout(25, TimeUnit.SECONDS) //链接超时时间
                         //.cache(new Cache(new File(ApiConfig.Cache_dir), 1024 * 4))//设置缓存为4M
                         .build()
             }

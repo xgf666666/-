@@ -14,5 +14,5 @@ import io.reactivex.Observable
  */
 class HomeGoodsModel: HomeGoodsContract.Model {
     override fun getGoodList(cat_id: Int, page: Int, sort: String): Observable<BaseResponseEntity<Goods>> =
-            AppApi.Api().getGoodList(cat_id,page,sort)
+            AppApi.Api().twoSearch(""+cat_id,""+page,sort)
 }

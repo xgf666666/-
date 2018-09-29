@@ -44,11 +44,9 @@ class AskQuestionTypeActivity : BaseMvpActivity<AskQuestionTypePresenter>(),AskQ
     override fun initData() {
         tv_title.text="常见问题"
         getPresenter().getType()
-        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
-//        adapter.addData(data)
         adapter.setOnItemClickListener { adapter, view, position ->
             AskQuestionActivity.startAskQuestionActivity(this,""+(adapter as AskQuestionTypeAdapter).data[position].pt_id)
         }

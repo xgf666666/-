@@ -9,6 +9,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.Emeralds
+import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.adapter.EmealdsAdapter
 import com.microple.jademall.ui.Personal.mvp.contract.EmeraldsContract
@@ -43,6 +44,7 @@ class EmeraldsActivity : BaseMvpActivity<EmeraldsPresenter>(),EmeraldsContract.V
     var adapter= EmealdsAdapter(arrayListOf())
     override fun initData() {
         tv_title.text="翡翠柜"
+        (application as App).addActivity(this)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= GridLayoutManager(this,2)
         recyclerView.adapter=adapter
@@ -56,6 +58,10 @@ class EmeraldsActivity : BaseMvpActivity<EmeraldsPresenter>(),EmeraldsContract.V
         super.onResume()
         loading.visibility=View.VISIBLE
         getPresenter().getEmeralds(Constants.getToken())
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
     }
 
     /**

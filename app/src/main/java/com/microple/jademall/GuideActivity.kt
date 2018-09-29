@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -11,11 +14,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.home.fragment.*
 import kotlinx.android.synthetic.main.activity_guide.*
 
 class GuideActivity : AppCompatActivity() {
-    var imgs= arrayListOf(R.drawable.img_guidepage_one,R.drawable.img_guidepage_two,R.drawable.img_guidepage_three,R.drawable.img_guidepage_four,R.drawable.img_guidepage_five)
-    var imgList = arrayListOf<ImageView>()
+    var imgs= arrayListOf(GuideOneFragment(),GuideTwoFragment(),GuideThreeFragment(),GuideFourFragment(),GuideFiveFragment())
     var text:List<TextView>?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,20 +29,8 @@ class GuideActivity : AppCompatActivity() {
 
     private fun initView() {
         Constants.setNotFirst()
-        for (i in 0..imgs.size-1){
-            var imageView=ImageView(this)
-            imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-            imageView.setImageResource(imgs[i])
-            imgList.add(imageView)
-            if (i==4){
-                imageView.setOnClickListener {
-                    MainActivity.startMainActivity(this)
-                    finish()
-                }
-            }
-        }
-        viewPager.adapter=MyPagerAdapter(imgList)
-        viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.adapter=MyPagerAdapter(supportFragmentManager,imgs)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -48,6 +39,24 @@ class GuideActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
+                when(position){
+                    0->{
+                        (imgs[0] as GuideOneFragment).setAnim()
+                    }
+                    1->{
+                        (imgs[1] as GuideTwoFragment).setAnim()
+                    }
+                    2->{
+                        (imgs[2] as GuideThreeFragment).setAnim()
+                    }
+                    3->{
+                        (imgs[3] as GuideFourFragment).setAnim()
+                    }
+                    4->{
+                        (imgs[4] as GuideFiveFragment).setAnim()
+                    }
+
+                }
                 for (i in 0..text!!.size-1){
                     text!![i].setBackground(resources.getDrawable(R.drawable.bg_guide_two))
                 }
@@ -56,21 +65,16 @@ class GuideActivity : AppCompatActivity() {
         })
 
     }
-    class MyPagerAdapter(val datas : List<ImageView>) : PagerAdapter(){
-        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view == `object`
-        }
+    class MyPagerAdapter(fm: FragmentManager, val datas : List<Fragment>) : FragmentPagerAdapter(fm){
+        /**
+         * Return the Fragment associated with a specified position.
+         */
+        override fun getItem(position: Int): Fragment =datas[position]
+
 
         override fun getCount(): Int = datas.size
 
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            container.removeView(`object` as View)
-        }
 
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            container.addView(datas[position])
-            return datas[position]
-        }
 
     }
     companion object {

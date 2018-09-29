@@ -17,8 +17,8 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class SearchSortGoodsPresenter:SearchSortGoodsContract.Presenter() {
-    override fun getCategory() {
-        getModel().getCategory().ui({
+    override fun getCategory(cat_id:String) {
+        getModel().getCategory(cat_id).ui({
             getView()?.getCategory(it.data!!)
         },{
             getView()?.showToast(it.message)

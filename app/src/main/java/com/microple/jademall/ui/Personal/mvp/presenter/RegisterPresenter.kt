@@ -3,6 +3,7 @@ package com.microple.jademall.ui.Personal.mvp.presenter
 import android.text.TextUtils
 import com.microple.jademall.ui.Personal.mvp.contract.RegisterContract
 import com.microple.jademall.ui.Personal.mvp.model.RegisterModel
+import com.weibiaogan.bangbang.common.isPhone
 import com.weibiaogan.litong.extensions.ui
 
 /**
@@ -62,7 +63,7 @@ class RegisterPresenter:RegisterContract.Presenter() {
             getView()?.showToast("请输入手机号")
             getView()?.dismissLoadingDialog()
             return
-        }else if (11!=phone.length){
+        }else if (!phone.isPhone()){
             getView()?.showToast("请输入正确的手机号")
             getView()?.dismissLoadingDialog()
             return

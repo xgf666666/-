@@ -11,6 +11,7 @@ import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalDialog
 import com.microple.jademall.R
 import com.microple.jademall.bean.EmeraldsDetail
+import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.EmeraldsDetailContract
 import com.microple.jademall.ui.Personal.mvp.presenter.EmeraldsDetailPresenter
@@ -50,6 +51,7 @@ class EmeraldsDetailActivity : BaseMvpActivity<EmeraldsDetailPresenter>(),Emeral
      */
     override fun initData() {
         tv_title.text="翡翠柜详情"
+        (application as App).addActivity(this)
         var ct_id=intent.getStringExtra("ct_id")
         getPresenter().getEmeraldsDetail(Constants.getToken(),ct_id)
         Log.i("dddddddd","ct_id"+ct_id)
@@ -80,6 +82,7 @@ class EmeraldsDetailActivity : BaseMvpActivity<EmeraldsDetailPresenter>(),Emeral
     override fun getEmeraldsDetail(emeraldsDetail: EmeraldsDetail) {
         loading.visibility= View.GONE
         this.emeraldsDetail=emeraldsDetail
+        if (emeraldsDetail.cabinet.goods.goods_img!=null)
         iv_goodsImage.loadImag(emeraldsDetail.cabinet.goods.goods_img)
         tv_goodsName.text=emeraldsDetail.cabinet.goods.goods_name
         tv_goodsNum.text=emeraldsDetail.cabinet.goods.goods_sn
@@ -87,6 +90,10 @@ class EmeraldsDetailActivity : BaseMvpActivity<EmeraldsDetailPresenter>(),Emeral
         tv_number.text="订单号         "+emeraldsDetail.cabinet.order_sn
         tv_price.text="购买价格    "+emeraldsDetail.cabinet.order_amount
         tv_fangshi.text="购买方式    "+emeraldsDetail.cabinet.pay_type
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
     }
 
     companion object {

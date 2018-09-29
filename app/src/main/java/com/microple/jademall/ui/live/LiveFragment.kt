@@ -79,7 +79,6 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         }else{
             getPresenter().liveList("")
         }
-        var data = arrayListOf( "", "", "", "", "", "", "")
         //预约
         liveYuyueAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         rv_yuyueLive.layoutManager=LinearLayoutManager(context)

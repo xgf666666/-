@@ -44,6 +44,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     override fun pay(pay: Pay) {
         dismissLoadingDialog()
         if (indexs==1||indexs==2){
+            Log.i("singgg",pay.data.sign)
             XxAnyPay.intance
                     .openAnyPay(if (indexs == 1) XxAnyPay.XXPAY_WX else XxAnyPay.XXPAY_ALI,if (indexs == 1) Gson().toJson(pay.data) else pay.data.sign, object : XxAnyPayResultCallBack {
                         override fun onPayFiale(error: String) {
@@ -106,6 +107,11 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
             var goods=(adapter as ImOrderAdapter).data[position]
             if (view.id==R.id.ll_type){
                 var dialog=BuytypeDialog(this)
+                if (goods.type==2){
+                    dialog.setvisb(2)
+                }else{
+                    dialog.setvisb(1)
+                }
                 dialog.show()
                 dialog.setOnBtnClickListener(object : BuytypeDialog.OnBtnClickListener {
                     override fun cancel(index: Int) {
@@ -206,7 +212,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                             1->{
                                 indexs=1
                                 showLoadingDialog()
-                                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"1","")
+                                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"1","",intent.getStringExtra("sb_id"),"2","")
                             }
                             2->{
                                 if (add_address.visibility==0){
@@ -214,7 +220,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                 }else{
                                     indexs=2
                                     showLoadingDialog()
-                                    getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"2","")
+                                    getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"2","",intent.getStringExtra("sb_id"),"2","")
                                 }
 
 
@@ -277,34 +283,24 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     fun showDialog() {
         var view = View.inflate(mContext, R.layout.view_input_pay_psw_dialog, null)
         var psw_view=view.findViewById<PwdEditText>(R.id.psw_view)
-        var tv_forget_pwd=view.findViewById<TextView>(R.id.tv_forget_pwd)
         var bt_quxiao=view.findViewById<TextView>(R.id.bt_quxiao)
-        var bt_sure=view.findViewById<TextView>(R.id.bt_sure)
+        var tv_price=view.findViewById<TextView>(R.id.tv_price)
+        tv_price.text=order?.order?.total_fee
         bt_quxiao.setOnClickListener{
             dialog!!.dismiss()
         }
-        bt_sure.setOnClickListener{
-            if (password!=null&&password?.length==6){
-                showLoadingDialog()
-                dialog!!.dismiss()
-                Log.i("user_address",order?.order!!.user_address.ua_id)
-                Log.i("password",password!!.md5Salt())
-                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"3",password!!.md5Salt())
-            }
-
-        }
-        tv_forget_pwd.setOnClickListener{
-
-            PassswordActivity.startPassswordActivity(this,2)
-        }
         psw_view.setOnInputFinishListener{
             password=it
+            showDialog()
+            dialog!!.dismiss()
+            getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"3",password!!.md5Salt(),intent.getStringExtra("sb_id"),"2","")
+
         }
         dialog = AlertDialog.Builder(mContext).create()
         dialog!!.setView(view)
         dialog!!.show()
     }
-        var name=""
+    var name=""
     var phone=""
     var address=""
     var id=""

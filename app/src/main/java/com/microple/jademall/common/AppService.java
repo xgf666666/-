@@ -4,6 +4,7 @@ package com.microple.jademall.common;
 
 import android.graphics.Point;
 
+import com.microple.jademall.bean.AboutMe;
 import com.microple.jademall.bean.AccountIinfo;
 import com.microple.jademall.bean.Address;
 import com.microple.jademall.bean.Ask;
@@ -51,6 +52,7 @@ import com.microple.jademall.bean.ServicePhone;
 import com.microple.jademall.bean.Share;
 import com.microple.jademall.bean.Shop;
 import com.microple.jademall.bean.Team;
+import com.microple.jademall.bean.TwoSearch;
 import com.xx.baseutilslibrary.network.entity.BaseResponseEntity;
 
 
@@ -430,7 +432,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("pay/pay")
-    Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password);
+    Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password,@Field("sb_id")String sb_id,@Field("pick_type")String pick_type,@Field("ct_id")String ct_id);
     /**
      * 商品详情分享
      */
@@ -494,6 +496,24 @@ public interface AppService {
      */
     @POST("common/service_phone")
     Observable<BaseResponseEntity<ServicePhone>> getPhone();
+    /**
+     * 关于我们
+     */
+    @POST("common/about_us")
+    Observable<BaseResponseEntity<AboutMe>> aboutMe();
+    /**
+     * 分类搜索
+     */
+    @FormUrlEncoded
+    @POST("search/cateSearch")
+    Observable<BaseResponseEntity<TwoSearch>> cateSearch(@Field("cat_id")String cat_id);
+    /**
+     * 二级分类搜索
+     */
+    @FormUrlEncoded
+    @POST("search/goods_list")
+    Observable<BaseResponseEntity<Goods>> twoSearch(@Field("cat_id")String cat_id,@Field("page")String page,@Field("sort")String sort);
+
 
 }
 

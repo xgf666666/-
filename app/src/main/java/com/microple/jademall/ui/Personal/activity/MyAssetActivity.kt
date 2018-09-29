@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.microple.jademall.R
 import com.microple.jademall.bean.Assert
+import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.MyAssetContract
 import com.microple.jademall.ui.Personal.mvp.presenter.MyAssetPresenter
@@ -37,6 +38,7 @@ class MyAssetActivity : BaseMvpActivity<MyAssetPresenter>(),MyAssetContract.View
      */
     override fun initData() {
         tv_title.text="我的资产"
+        (application as App).addActivity(this)
         getPresenter().getMyAssert(Constants.getToken())
     }
 
@@ -64,6 +66,10 @@ class MyAssetActivity : BaseMvpActivity<MyAssetPresenter>(),MyAssetContract.View
         tv_keyong.text=""+assert.assets.pay_points
         tv_dongjie.text=""+assert.assets.frozen_points
         tv_jinri.text=""+assert.assets.today_points
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
     }
 
     companion object {

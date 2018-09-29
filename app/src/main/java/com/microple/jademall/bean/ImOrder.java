@@ -178,6 +178,15 @@ public class ImOrder {
             private String goods_price;
             private String goods_name;
             private String goods_img;
+            private int type;
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
 
             public String getGoods_id() {
                 return goods_id;

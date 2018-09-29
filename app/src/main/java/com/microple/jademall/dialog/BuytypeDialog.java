@@ -32,7 +32,7 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
         this.mContext=context;
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        this.setCanceledOnTouchOutside(false);
+//        this.setCanceledOnTouchOutside(false);
         this.getWindow().setGravity(Gravity.BOTTOM);
         Window window = this.getWindow();
             window.getDecorView().setPadding(0, 0, 0, 0);
@@ -58,6 +58,12 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
         ll_feicui = view.findViewById(R.id.ll_feicui);
         ll_zhibo = view.findViewById(R.id.ll_zhibo);
         setContentView(view);
+    }
+    public void setvisb(int tyle){
+        if (tyle==2)
+        ll_zhibo.setVisibility(View.VISIBLE);
+        else
+            ll_zhibo.setVisibility(View.GONE);
     }
 
 

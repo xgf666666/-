@@ -79,6 +79,15 @@ public class GoodsDetail {
         private String thickness;
         private int is_collect;
         private List<LabelsBean> labels;
+        private int is_shopp;
+
+        public int getIs_shopp() {
+            return is_shopp;
+        }
+
+        public void setIs_shopp(int is_shopp) {
+            this.is_shopp = is_shopp;
+        }
 
         public int getIs_collect() {
             return is_collect;

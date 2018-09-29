@@ -9,6 +9,7 @@ import com.microple.jademall.R
 import com.microple.jademall.bean.Emeralds
 import com.microple.jademall.common.Constant
 import com.microple.jademall.uitls.loadImag
+import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
 
 /**
  * author: xiaoguagnfei
@@ -22,8 +23,8 @@ class EmealdsAdapter(data:List<Emeralds.GoodsInfoBean>):BaseQuickAdapter<Emerald
      * @param helper A fully initialized helper.
      * @param item   The item that needs to be displayed.
      */
-    override fun convert(helper: BaseViewHolder?, item: Emeralds.GoodsInfoBean?) {
-        helper?.setText(R.id.tv_goodsName,item?.goods_sn)
-        helper?.getView<ImageView>(R.id.iv_hand)?.loadImag(item?.goods_img!!)
+    override fun convert(helper: BaseViewHolder, item: Emeralds.GoodsInfoBean) {
+        helper.setText(R.id.tv_goodsName,item?.goods_sn)
+        helper.getView<ImageView>(R.id.iv_head).loadImag(item.goods_img)
     }
 }

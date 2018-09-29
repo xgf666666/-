@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import com.microple.jademall.R
 import com.microple.jademall.bean.Category
+import com.microple.jademall.bean.TwoSearch
 import com.microple.jademall.ui.home.HomeGoodsFragment
 import com.microple.jademall.ui.home.adapter.HomeTabAdapter
 import com.microple.jademall.ui.search.SortGoodsFragment
@@ -41,7 +42,7 @@ class SearchSortGoodsActivity : BaseMvpActivity<SearchSortGoodsPresenter>(),Sear
             context.startActivity(intent)
         }
     }
-    override fun getCategory(data: List<Category>) {
+    override fun getCategory(data: TwoSearch) {
         initGoodsData(data)
     }
     /**
@@ -51,7 +52,7 @@ class SearchSortGoodsActivity : BaseMvpActivity<SearchSortGoodsPresenter>(),Sear
     var name=""
     val fragments = ArrayList<Fragment>()
     override fun initData() {
-        getPresenter().getCategory()
+        getPresenter().getCategory(""+intent.getIntExtra("cat_id",0))
          cat_id=intent.getIntExtra("cat_id",0)
          name=intent.getStringExtra("name")
         tv_head.text=name
@@ -61,20 +62,20 @@ class SearchSortGoodsActivity : BaseMvpActivity<SearchSortGoodsPresenter>(),Sear
         tv_hot.setOnClickListener(this)
         tv_newest.setOnClickListener(this)
     }
-    private fun initGoodsData(data: List<Category>) {
-        var index=0
-        for (i in 0..data.size-1) {
+    private fun initGoodsData(data: TwoSearch) {
+//        var index=0
+        for (i in 0..data.sec_cates.size-1) {
             var fragment= HomeGoodsFragment()
             var bundle= Bundle()
-            bundle.putInt("cat_id",data[i].cat_id)
+            bundle.putInt("cat_id",data.sec_cates[i].cat_id)
             fragment.arguments=bundle
             fragments.add(fragment)
-            if (data[i].cat_id==cat_id)  index=i
+//            if (data.sec_cates[i].cat_id==cat_id)  index=i
         }
-        viewPager.adapter = HomeTabAdapter(supportFragmentManager, fragments, data)
+        viewPager.adapter = HomeTabAdapter(supportFragmentManager, fragments, data.sec_cates)
         slidingTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE)
         slidingTabLayout.setupWithViewPager(viewPager)
-        viewPager.setCurrentItem(index)
+//        viewPager.setCurrentItem(index)
 
     }
 

@@ -1,6 +1,7 @@
 package com.microple.jademall.uitls
 
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,6 +19,7 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
     var urltemp=url
     if (url.length>1&&url[0].equals('/')) {
         urltemp=Retrofit2Manager.instance.apiConfigProvider?.releaseHost+url
+        Log.i("urltemp",Retrofit2Manager.instance.apiConfigProvider?.releaseHost+url)
     }else{
         urltemp=url
     }

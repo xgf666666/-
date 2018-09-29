@@ -140,13 +140,31 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         mLivePlayer?.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT)
         mLivePlayer?.setPlayListener(object : ITXLivePlayListener {
             override fun onPlayEvent(event: Int, param: Bundle?) {
-                if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT) {
-                    Log.i("TXLiveConstants","网络断开")
-
-                }else if (event == TXLiveConstants.PLAY_EVT_GET_MESSAGE){
-                    Log.i("TXLiveConstants","heheheh")
-                }else{
-                    Log.i("TXLiveConstants","hahahha")
+                when(event){
+                    TXLiveConstants.PLAY_ERR_NET_DISCONNECT->{
+                        loading_progress.visibility=View.VISIBLE
+                        showToast("网络已断开")
+                        Log.i("TXLiveConstants","网络已断开")
+                    }
+                    TXLiveConstants.PLAY_EVT_PLAY_LOADING->{
+                        loading_progress.visibility=View.VISIBLE
+                        Log.i("TXLiveConstants","视频播放再加载")
+                    }
+                    TXLiveConstants.PLAY_EVT_RTMP_STREAM_BEGIN->{
+                        loading_progress.visibility=View.GONE
+                        Log.i("TXLiveConstants","视频播放开始")
+                    }
+                    TXLiveConstants.PLAY_EVT_PLAY_END->{
+                        loading_progress.visibility=View.GONE
+                        tv_jieshu.visibility=View.VISIBLE
+                        Log.i("TXLiveConstants","视频播放结束")
+                    }
+                    TXLiveConstants.PLAY_EVT_CONNECT_SUCC->{
+                        Log.i("TXLiveConstants","已经连接服务器")
+                    }
+                    TXLiveConstants.PLAY_ERR_NET_DISCONNECT->{
+                        mLivePlayer?.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_RTMP)
+                    }
 
                 }
             }
@@ -160,9 +178,10 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
             rl_message.layoutManager=LinearLayoutManager(this)
             rl_message.adapter=messageAdapter
             TIMManager.getInstance().addMessageListener {
-                messageAdapter.setNewData(it)
+                messageAdapter.addData(it)
                 return@addMessageListener true
             }
+            rl_message.scrollToPosition(messageAdapter.getItemCount()-1)
             imLogin()
         }
         joinRoom("")

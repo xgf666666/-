@@ -20,12 +20,12 @@ interface ImOrderContract {
     }
     interface Model{
         fun imOrder(token:String,sb_id:String,goods_id:String): Observable<BaseResponseEntity<ImOrder>>
-        fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String):Observable<BaseResponseEntity<Pay>>
+        fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String,sb_id:String,pick_type:String,ct_id:String  ):Observable<BaseResponseEntity<Pay>>
 
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
        abstract fun imOrder(token:String,sb_id:String,goods_id:String)
-        abstract fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String)
+        abstract fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String,sb_id:String,pick_type:String,ct_id:String)
 
     }
 }

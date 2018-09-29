@@ -270,7 +270,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_title.text=goodsDetail.goods_info.goods_name
         tv_tt_number.text=goodsDetail.goods_info.goods_sn
         iv_zoom.loadImag(goodsDetail.goods_info.goods_img)
-        tv_type.text="类型："+(if (goodsDetail.goods_info.type==0) "原石" else "成品")
+        tv_type.text="类型："+(if (goodsDetail.goods_info.type==2) "原石" else "成品")
         tv_number.text="产品编号："+goodsDetail.goods_info.goods_sn
         tv_chicun.text="尺寸：高"+goodsDetail.goods_info.height+"mm,宽"+goodsDetail.goods_info.width+"mm,厚"+goodsDetail.goods_info.thickness+"mm"
         tv_color.text="颜色："+goodsDetail.goods_info.color
@@ -279,6 +279,10 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_price.text="RMB    "+goodsDetail.goods_info.goods_price
         if (goodsDetail.goods_info.is_collect==1){
             iv_collection.setImageResource(R.drawable.btn_favor_selected)
+        }
+        if (goodsDetail.goods_info.is_shopp==1){
+            iv_car.setImageResource(R.drawable.bnt_bag_fill_s)
+            iv_car.isEnabled=false
         }
         data=goodsDetail.other_sn
         if (goodsDetail.goods_info.labels.size!=0) {

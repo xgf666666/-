@@ -45,8 +45,8 @@ public class AccountIinfo {
         private int user_id;
         private String user_name;
         private String head_img;
-        private int pay_points;
-        private int frozen_points;
+        private String pay_points;
+        private String frozen_points;
 
         public int getUser_id() {
             return user_id;
@@ -72,19 +72,19 @@ public class AccountIinfo {
             this.head_img = head_img;
         }
 
-        public int getPay_points() {
+        public String getPay_points() {
             return pay_points;
         }
 
-        public void setPay_points(int pay_points) {
+        public void setPay_points(String pay_points) {
             this.pay_points = pay_points;
         }
 
-        public int getFrozen_points() {
+        public String getFrozen_points() {
             return frozen_points;
         }
 
-        public void setFrozen_points(int frozen_points) {
+        public void setFrozen_points(String frozen_points) {
             this.frozen_points = frozen_points;
         }
     }
@@ -97,16 +97,16 @@ public class AccountIinfo {
          * phone : 15915048904
          */
 
-        private int to_user;
+        private String to_user;
         private String head_img;
         private String user_name;
         private String phone;
 
-        public int getTo_user() {
+        public String getTo_user() {
             return to_user;
         }
 
-        public void setTo_user(int to_user) {
+        public void setTo_user(String to_user) {
             this.to_user = to_user;
         }
 

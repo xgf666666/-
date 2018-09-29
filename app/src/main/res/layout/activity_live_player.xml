@@ -62,5 +62,20 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="75dp">
     </android.support.v7.widget.RecyclerView>
+    <ProgressBar
+        android:id="@+id/loading_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/tv_jieshu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直播已结束"
+        android:textSize="@dimen/sp_17"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white_default"
+        android:visibility="gone"/>
 
 </RelativeLayout>

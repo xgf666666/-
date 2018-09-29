@@ -71,18 +71,18 @@ public class Pick {
          * is_default : 1
          */
 
-        private int ua_id;
+        private String ua_id;
         private int user_id;
         private String consigner;
         private String phone;
         private String address;
         private int is_default;
 
-        public int getUa_id() {
+        public String getUa_id() {
             return ua_id;
         }
 
-        public void setUa_id(int ua_id) {
+        public void setUa_id(String ua_id) {
             this.ua_id = ua_id;
         }
 

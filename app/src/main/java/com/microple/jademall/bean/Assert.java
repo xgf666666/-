@@ -29,40 +29,40 @@ public class Assert {
          * today_points : 0
          */
 
-        private int total_points;
-        private int pay_points;
-        private int frozen_points;
-        private int today_points;
+        private String total_points;
+        private String pay_points;
+        private String frozen_points;
+        private String today_points;
 
-        public int getTotal_points() {
+        public String getTotal_points() {
             return total_points;
         }
 
-        public void setTotal_points(int total_points) {
+        public void setTotal_points(String total_points) {
             this.total_points = total_points;
         }
 
-        public int getPay_points() {
+        public String getPay_points() {
             return pay_points;
         }
 
-        public void setPay_points(int pay_points) {
+        public void setPay_points(String pay_points) {
             this.pay_points = pay_points;
         }
 
-        public int getFrozen_points() {
+        public String getFrozen_points() {
             return frozen_points;
         }
 
-        public void setFrozen_points(int frozen_points) {
+        public void setFrozen_points(String frozen_points) {
             this.frozen_points = frozen_points;
         }
 
-        public int getToday_points() {
+        public String getToday_points() {
             return today_points;
         }
 
-        public void setToday_points(int today_points) {
+        public void setToday_points(String today_points) {
             this.today_points = today_points;
         }
     }
