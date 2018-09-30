@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Message
+import cn.jpush.android.api.JPushInterface
 import com.microple.jademall.R
 import com.microple.jademall.bean.Login
+import com.microple.jademall.bean.PersonInfo
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.BindPhoneContract
 import com.microple.jademall.ui.Personal.mvp.presenter.BindPhonePresenter
@@ -30,6 +32,21 @@ class BindPhoneActivity : BaseMvpActivity<BindPhonePresenter>(),BindPhoneContrac
             }
         }
     }
+    override fun getInfo(personalInfo: PersonInfo) {
+        Constants.putPersonal(personalInfo.info)
+        Constants.putHeadImg(personalInfo.info.head_img)
+        dismissLoadingDialog()
+        showToast("绑定成功")
+        Constants.login()
+        JPushInterface.setAlias(this,1,""+personalInfo.info.user_id)
+        finish()
+    }
+    override fun bindPhone(login: Login) {
+        Constants.putToken(login.token)
+        Constants.putHeadImg(login.head_img)
+        getPresenter().getInfo(login.token)
+    }
+
     override fun getCode() {
         dismissLoadingDialog()
         mHandler.sendEmptyMessage(1)
@@ -73,15 +90,6 @@ class BindPhoneActivity : BaseMvpActivity<BindPhonePresenter>(),BindPhoneContrac
         }
     }
 
-    override fun bindPhone(login: Login) {
-        dismissLoadingDialog()
-        showToast("绑定成功")
-        Constants.putInviteCode(login.code)
-        Constants.putToken(login.token)
-        Constants.putHeadImg(login.head_img)
-        Constants.login()
-        finish()
-    }
 
     companion object {
         fun startBindPhoneActivity(context: Context,openid:String,userImg:String,userName:String){

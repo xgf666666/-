@@ -1,6 +1,7 @@
 package com.microple.jademall.ui.Personal.mvp.contract
 
 import com.microple.jademall.bean.Login
+import com.microple.jademall.bean.PersonInfo
 import com.xx.baseuilibrary.mvp.BaseMvpPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpView
 import com.xx.baseutilslibrary.network.entity.BaseResponseEntity
@@ -16,6 +17,8 @@ interface LoginContract {
         fun loginSucceful(login:Login)
         fun getCode()
         fun threeFaid()
+        fun getInfo(personalInfo: PersonInfo)
+
 
     }
     interface Model{
@@ -23,6 +26,7 @@ interface LoginContract {
         fun codeLogin(phone:String,phone_code:String):Observable<BaseResponseEntity<Login>>
         fun getCode(phone:String): Observable<BaseResponseEntity<Any>>
         fun threeLogin(openid:String):Observable<BaseResponseEntity<Login>>
+        fun  getInfo(token:String): Observable<BaseResponseEntity<PersonInfo>>
 
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
@@ -30,6 +34,7 @@ interface LoginContract {
         abstract fun codeLogin(phone:String,phone_code:String)
         abstract fun getCode(phone:String)
         abstract fun threeLogin(openid:String)
+        abstract fun getInfo(token: String)
 
     }
 }

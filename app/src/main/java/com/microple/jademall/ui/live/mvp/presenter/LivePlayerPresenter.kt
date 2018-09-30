@@ -17,7 +17,7 @@ class LivePlayerPresenter:LivePlayerContract.Presenter() {
         getModel().liveShare(live_id).ui({
             getView()?.liveShare(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
 

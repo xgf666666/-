@@ -3,6 +3,7 @@ package com.microple.jademall.ui.home.mvp.presenter
 import android.util.Log
 import com.microple.jademall.ui.home.mvp.contract.HomeContract
 import com.microple.jademall.ui.home.mvp.model.HomeModel
+import com.microple.jademall.uitls.showToast
 import com.weibiaogan.litong.extensions.ui
 
 /**
@@ -16,7 +17,7 @@ class HomePresenter:HomeContract.Presenter() {
             getView()?.getCategory(it.data!!)
 
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
 
         })
 
@@ -28,7 +29,7 @@ class HomePresenter:HomeContract.Presenter() {
         getModel().getFirstView().ui({
             getView()?.getFirstView(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
     override fun getGoodList(cat_id: Int, page: Int, sort: String) {
@@ -36,7 +37,7 @@ class HomePresenter:HomeContract.Presenter() {
             getView()?.getGoodList(it.data!!)
 
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
 
         })
     }

@@ -19,7 +19,7 @@ class MyContectionAdapter(data:List<Collection.ListBean>):BaseQuickAdapter<Colle
     override fun convert(helper: BaseViewHolder?, item: Collection.ListBean?) {
         helper?.setText(R.id.tv_goodsName, item?.goods_name)
         helper?.setText(R.id.tv_goodsNum, item?.goods_sn)
-        helper?.setText(R.id.tv_goodsPrice, "￥"+item?.add_time)
+        helper?.setText(R.id.tv_goodsPrice, "￥"+item?.goods_price)
         helper?.getView<ImageView>(R.id.iv_goodsImage)?.loadImag(item?.goods_img!!)
     }
 }

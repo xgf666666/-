@@ -36,6 +36,7 @@ public class Constants {
     private static final String KEY_SP_IS_FIRST_LOGIN = "SP_IS_FIRST_LOGIN";//是否第一登录
     private static final String KEY_USER_PHONE="SP_USER_PHONE";//手机号
     private static final String KEY_SP_SEARCH="KEY_SP_SEARCH";//搜索记录
+    private static final String KEY_UNREAD_MESSAGE = "UNREAD_MESSAGE";//未读消息
     //滑动关闭Activity
     public static final int ACTIVITY_FINISH_REQUEST_CODE = 10000;
     public static final int ACTIVITY_FINISH_RESULT_CODE = 10001;
@@ -175,6 +176,19 @@ public class Constants {
         String loginJson = SPUtils.getInstance().getString("im_user_sig");
         return loginJson;
     }
+    /**
+     * 添加未读消息数量
+     */
+    public static void addUnReadMessage() {
+        SPUtils.getInstance().put(KEY_UNREAD_MESSAGE, getUnReadMessage() + 1);
+    }
+
+    /**
+     * 获取未读消息数量
+     */
+    public static int getUnReadMessage() {
+        return SPUtils.getInstance().getInt(KEY_UNREAD_MESSAGE, 0);
+    }
 
     /**
      * 储存im_user_sig
@@ -209,7 +223,7 @@ public class Constants {
      *
      * @return
      */
-    public static String getInviteCode() {
+    public static String getUserId() {
         String code = SPUtils.getInstance().getString(KEY_SP_CODE);
         return code;
     }
@@ -219,7 +233,7 @@ public class Constants {
      *
      * @param
      */
-    public static void putInviteCode(String  code) {
+    public static void putUserId(String  code) {
         SPUtils.getInstance().put(KEY_SP_CODE, code);
     }
     /**

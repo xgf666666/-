@@ -53,6 +53,8 @@ var activitys=ArrayList<Activity>()
             }
 
         }
+        //全局监听前后台
+        registerActivityLifecycleCallbacks(MyLifecycleHandler())
     }
     fun addActivity(activity: Activity){
        if (!activitys.contains(activity)){
@@ -77,7 +79,7 @@ var activitys=ArrayList<Activity>()
 //        //初始化友盟
         UMConfigure.init(this, "5b4c573e8f4a9d233f000140", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "")
         PlatformConfig.setWeixin("wxe13c15b520e07f80", "7691edf9f4738cdad68cf33d2df25e62")
-        PlatformConfig.setSinaWeibo("4285643628", "0dcfdb9213e48fb0bfd8f7479f208bf8", "http//:www.baidu.com")
+        PlatformConfig.setSinaWeibo("4126164385", "9d210086099b4968457c638ad34d1f00", "http//:www.baidu.com")
 //        PlatformConfig.setSinaWeibo("4285643628", "0dcfdb9213e48fb0bfd8f7479f208bf8", "http:www.baidu.com")
         PlatformConfig.setQQZone("1107787297", "a3xMHkjE3hdRRRsw")
     }

@@ -63,19 +63,16 @@ class SearchSortGoodsActivity : BaseMvpActivity<SearchSortGoodsPresenter>(),Sear
         tv_newest.setOnClickListener(this)
     }
     private fun initGoodsData(data: TwoSearch) {
-//        var index=0
         for (i in 0..data.sec_cates.size-1) {
             var fragment= HomeGoodsFragment()
             var bundle= Bundle()
             bundle.putInt("cat_id",data.sec_cates[i].cat_id)
             fragment.arguments=bundle
             fragments.add(fragment)
-//            if (data.sec_cates[i].cat_id==cat_id)  index=i
         }
         viewPager.adapter = HomeTabAdapter(supportFragmentManager, fragments, data.sec_cates)
         slidingTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE)
         slidingTabLayout.setupWithViewPager(viewPager)
-//        viewPager.setCurrentItem(index)
 
     }
 

@@ -1,6 +1,7 @@
 package com.microple.jademall.ui.Personal.mvp.model
 
 import com.microple.jademall.bean.Login
+import com.microple.jademall.bean.PersonInfo
 import com.microple.jademall.common.AppApi
 import com.microple.jademall.ui.Personal.mvp.contract.AboutMeContract
 import com.microple.jademall.ui.Personal.mvp.contract.BindPhoneContract
@@ -18,4 +19,7 @@ class BindPhoneModel: BindPhoneContract.Model {
 
     override fun bindPhone(openid: String, phone: String, phone_code: String, code: String,nickname	:String,head_img:String): Observable<BaseResponseEntity<Login>> =
             AppApi.Api().bindPhone(openid,phone,phone_code,code,nickname,head_img)
+    override fun getInfo(token: String): Observable<BaseResponseEntity<PersonInfo>> =AppApi.Api().personInfo(token)
+
+
 }

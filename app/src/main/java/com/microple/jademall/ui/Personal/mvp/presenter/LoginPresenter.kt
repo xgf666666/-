@@ -5,6 +5,7 @@ import com.microple.jademall.ui.Personal.mvp.contract.AboutMeContract
 import com.microple.jademall.ui.Personal.mvp.contract.LoginContract
 import com.microple.jademall.ui.Personal.mvp.model.AboutMelModel
 import com.microple.jademall.ui.Personal.mvp.model.LoginModel
+import com.microple.jademall.uitls.showToast
 import com.weibiaogan.litong.extensions.ui
 import com.xx.baseutilslibrary.network.exception.ApiFaileException
 
@@ -96,6 +97,15 @@ class LoginPresenter:LoginContract.Presenter() {
         })
 
     }
+    override fun getInfo(token: String) {
+        getModel().getInfo(token).ui({
+            getView()?.getInfo(it.data!!)
+        },{
+            getView()?.showToast(it)
+        })
+
+    }
+
 
     override fun createModel(): LoginContract.Model =LoginModel()
 }

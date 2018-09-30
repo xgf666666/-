@@ -47,6 +47,10 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
         recyclerView.isNestedScrollingEnabled = false
+    }
+
+    override fun onResume() {
+        super.onResume()
         getPresenter().getAccout(Constants.getToken())
     }
 
@@ -58,16 +62,22 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
             finish()
         }
         tv_sure.setOnClickListener{
-            showLoadingDialog()
-            getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString())
+            if (pay_points.toDouble()<tv_keyong.text.toString().toDouble()){
+                showToast("请输入积分小于可用的")
+
+            }else{
+                showLoadingDialog()
+                getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString())
+            }
         }
 
     }
-
+    var pay_points=""
     override fun getAccout(accoutInfo: AccountIinfo) {
         iv_head.loadImag(accoutInfo.user_info.head_img)
         tv_name.text=accoutInfo.user_info.user_name
         tv_keyong.hint="可用积分"+accoutInfo.user_info.pay_points
+        pay_points=accoutInfo.user_info.pay_points
         tv_dongjie.text="冻结积分"+accoutInfo.user_info.frozen_points
         adapter.setNewData(accoutInfo.record)
         loading.visibility= View.GONE

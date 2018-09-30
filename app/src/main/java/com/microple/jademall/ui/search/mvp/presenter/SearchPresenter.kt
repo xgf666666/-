@@ -2,6 +2,7 @@ package com.microple.jademall.ui.search.mvp.presenter
 
 import com.microple.jademall.ui.search.mvp.contract.SearchContract
 import com.microple.jademall.ui.search.mvp.model.SeachModel
+import com.microple.jademall.uitls.showToast
 import com.weibiaogan.litong.extensions.ui
 
 /**
@@ -14,7 +15,7 @@ class SearchPresenter:SearchContract.Presenter() {
         getModel().getSearch().ui({
             getView()?.getSearch(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
 

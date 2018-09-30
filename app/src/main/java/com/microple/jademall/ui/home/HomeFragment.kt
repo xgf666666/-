@@ -216,7 +216,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
         cb_home_top.viewPager.clipToPadding=false
         cb_home_top.viewPager.setPaddingRelative(ConvertUtils.dp2px(36f),0,ConvertUtils.dp2px(36f),0)
         (cb_home_top as ConvenientBanner<FirstImage>).setPages({ImageHolderView()},data)
-                .startTurning(2000)
+                .startTurning(3000)
                 .setPageTransformer( CustPagerTransformer(context))
                 .setOnItemClickListener{
 

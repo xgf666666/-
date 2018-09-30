@@ -1,6 +1,7 @@
 package com.microple.jademall.ui.Personal.mvp.presenter
 
 import android.text.TextUtils
+import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.IntergrationPushContract
 import com.microple.jademall.ui.Personal.mvp.model.IntergrationPushModel
 import com.microple.jademall.uitls.showToast
@@ -24,10 +25,17 @@ class IntergrationPushPresenter:IntergrationPushContract.Presenter() {
     override fun push(token: String, to_user: String, points: String) {
         if (TextUtils.isEmpty(to_user)){
             getView()?.showToast("请输入对方账号")
+            getView()?.dismissLoadingDialog()
             return
         }
         if (TextUtils.isEmpty(points)){
             getView()?.showToast("请输入转账积分")
+            getView()?.dismissLoadingDialog()
+            return
+        }
+        if (to_user.equals(Constants.getPhone())){
+            getView()?.showToast("不能给自己转哦")
+            getView()?.dismissLoadingDialog()
             return
         }
         getModel().push(token,to_user,points).ui({

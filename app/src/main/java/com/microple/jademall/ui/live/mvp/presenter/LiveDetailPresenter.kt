@@ -23,7 +23,7 @@ class LiveDetailPresenter:LiveDetailContract.Presenter() {
         getModel().getDetail(token,live_id).ui({
             getView()?.getDetail(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
 

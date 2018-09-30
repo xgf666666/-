@@ -16,6 +16,8 @@ import retrofit2.HttpException
 import java.math.BigDecimal
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+
 /**
  * author: HuaiXianZhong
  * date: 2018/7/10
@@ -34,6 +36,8 @@ fun BaseMvpView.showToast(throwable:Throwable){
         //断开网络
     } else if (throwable is SocketTimeoutException) {
         msg="连接服务器超时,请稍后重试"
+    } else if (throwable is UnknownHostException){
+        msg="网络已断开"
     } else if (throwable is ApiFaileException) {
         msg=throwable.message!!//接口请求状态为0的情况
     } else if (throwable is TokenInvalidException) {

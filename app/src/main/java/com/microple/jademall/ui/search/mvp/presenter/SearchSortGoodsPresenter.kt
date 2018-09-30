@@ -9,6 +9,7 @@ import com.microple.jademall.ui.search.mvp.contract.SearchContract
 import com.microple.jademall.ui.search.mvp.contract.SearchSortGoodsContract
 import com.microple.jademall.ui.search.mvp.model.SeachModel
 import com.microple.jademall.ui.search.mvp.model.SearchSortGoodsModel
+import com.microple.jademall.uitls.showToast
 import com.weibiaogan.litong.extensions.ui
 
 /**
@@ -21,7 +22,7 @@ class SearchSortGoodsPresenter:SearchSortGoodsContract.Presenter() {
         getModel().getCategory(cat_id).ui({
             getView()?.getCategory(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
 
     }

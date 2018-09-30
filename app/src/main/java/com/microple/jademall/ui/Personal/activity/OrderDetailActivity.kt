@@ -16,6 +16,7 @@ import com.microple.jademall.ui.Personal.mvp.contract.OrderDetailContract
 import com.microple.jademall.ui.Personal.mvp.presenter.OrderDetailPresenter
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
+import kotlinx.android.synthetic.main.activity_application.*
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import kotlinx.android.synthetic.main.item_title.*
 
@@ -75,13 +76,18 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
                 showLoadingDialog()
                 getPresenter().sureOrder(Constants.getToken(),intent.getStringExtra("order_id"))
             }else if (index==3){
-                ApplyCustomerActivity.startCustomerListActivity(this,intent.getStringExtra("order_id")
-                        , orderDetail!!.order_detail.goods_info.goods_name
-                ,orderDetail!!.order_detail.goods_info.goods_sn
-                ,orderDetail!!.order_detail.goods_info.goods_price
-                ,orderDetail!!.order_detail.goods_info.goods_img
-                ,""+orderDetail!!.order_detail.goods_info.goods_id)
-                finish()
+                if (orderDetail!!.order_detail.is_refund==0) {
+
+                    ApplyCustomerActivity.startCustomerListActivity(this, intent.getStringExtra("order_id")
+                            , orderDetail!!.order_detail.goods_info.goods_name
+                            , orderDetail!!.order_detail.goods_info.goods_sn
+                            , orderDetail!!.order_detail.goods_info.goods_price
+                            , orderDetail!!.order_detail.goods_info.goods_img
+                            , "" + orderDetail!!.order_detail.goods_info.goods_id)
+                    finish()
+                }else{
+                    showToast("你已申请售后")
+                }
             }else{
                 showLoadingDialog()
                 getPresenter().exitOrder(Constants.getToken(),intent.getStringExtra("order_id"))

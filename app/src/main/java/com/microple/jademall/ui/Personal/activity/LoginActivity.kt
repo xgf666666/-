@@ -10,13 +10,16 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import cn.jpush.android.api.JPushInterface
 import com.microple.jademall.MainActivity
 import com.microple.jademall.R
 import com.microple.jademall.bean.Login
+import com.microple.jademall.bean.PersonInfo
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.LoginContract
 import com.microple.jademall.ui.Personal.mvp.presenter.LoginPresenter
+import com.microple.jademall.uitls.loadHeadImag
 import com.umeng.socialize.UMAuthListener
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -33,23 +36,26 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
         BindPhoneActivity.startBindPhoneActivity(this,mOpenId,userImg,userName)
         finish()
     }
+    override fun getInfo(personalInfo: PersonInfo) {
+        Constants.putPersonal(personalInfo.info)
+        Constants.putHeadImg(personalInfo.info.head_img)
+        dismissLoadingDialog()
+        showToast("登录成功")
+        Constants.login()
+        JPushInterface.setAlias(this,1,""+personalInfo.info.user_id)
+        finish()
+    }
 
     override fun getCode() {
         showToast("发送成功")
         mHandler.sendEmptyMessage(1)
     }
     override fun loginSucceful(login: Login) {
-//        (application as App).cleanActivity()
-//        MainActivity.startMainActivity(this)
-        dismissLoadingDialog()
-        showToast("登录成功")
-        Constants.putInviteCode(login.code)
+        getPresenter().getInfo(login.token)
         Constants.putToken(login.token)
         Constants.putHeadImg(login.head_img)
         Constants.putImIndent(login.im_identifier)
         Constants.putImuser(login.im_user_sig)
-        Constants.login()
-        finish()
 
     }
 

@@ -2,6 +2,7 @@ package com.microple.jademall.ui.home.mvp.presenter
 
 import com.microple.jademall.ui.home.mvp.contract.HomeGoodsContract
 import com.microple.jademall.ui.home.mvp.model.HomeGoodsModel
+import com.microple.jademall.uitls.showToast
 import com.weibiaogan.litong.extensions.ui
 
 /**
@@ -16,7 +17,7 @@ class HomeGoodsPresenter:HomeGoodsContract.Presenter() {
             getView()?.getGoodList(it.data!!)
 
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
 
         })
     }

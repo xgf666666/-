@@ -9,6 +9,7 @@ import com.microple.jademall.ui.search.mvp.contract.SearchContract
 import com.microple.jademall.ui.search.mvp.contract.SearchResultGoodsContract
 import com.microple.jademall.ui.search.mvp.model.SeachModel
 import com.microple.jademall.ui.search.mvp.model.SeachResultGoodsModel
+import com.microple.jademall.uitls.showToast
 import com.weibiaogan.litong.extensions.ui
 
 /**
@@ -21,7 +22,7 @@ class SearchResultGoodsPresenter:SearchResultGoodsContract.Presenter() {
         getModel().getResult(keyword).ui({
             getView()?.getResult(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
 

@@ -6,7 +6,9 @@ import com.microple.jademall.ui.home.mvp.contract.HomeGoodsContract
 import com.microple.jademall.ui.home.mvp.model.GoodsDetailModel
 import com.microple.jademall.ui.home.mvp.model.HomeGoodsModel
 import com.microple.jademall.uitls.showToast
+import com.weibiaogan.litong.extensions.loadDefulat
 import com.weibiaogan.litong.extensions.ui
+import com.xx.baseutilslibrary.network.rx.RetryWhenProcess
 
 /**
  * author: xiaoguagnfei
@@ -18,7 +20,7 @@ class GoodsDetailPresenter:GoodsDetailContract.Presenter() {
         getModel().detailShare(goods_id).ui({
                 getView()?.detailShare(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
 
@@ -46,7 +48,7 @@ class GoodsDetailPresenter:GoodsDetailContract.Presenter() {
             getView()?.getLabel(name,it.data?.label?.label_desc!!)
 
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
 
@@ -54,7 +56,7 @@ class GoodsDetailPresenter:GoodsDetailContract.Presenter() {
         getModel().getDetail(token,goods_sn).ui({
                 getView()?.getDetail(it.data!!)
         },{
-            getView()?.showToast(it.message)
+            getView()?.showToast(it)
         })
     }
 

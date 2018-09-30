@@ -74,6 +74,15 @@ public class OrderDetail {
         private String label;
         private GoodsInfoBean goods_info;
         private List<LogisticsBean> logistics;
+        private int is_refund;
+
+        public int getIs_refund() {
+            return is_refund;
+        }
+
+        public void setIs_refund(int is_refund) {
+            this.is_refund = is_refund;
+        }
 
         public int getOrder_id() {
             return order_id;

@@ -3,6 +3,7 @@ package com.microple.jademall.ui.Personal.mvp.presenter
 import android.text.TextUtils
 import com.microple.jademall.ui.Personal.mvp.contract.BindPhoneContract
 import com.microple.jademall.ui.Personal.mvp.model.BindPhoneModel
+import com.microple.jademall.uitls.showToast
 import com.weibiaogan.litong.extensions.ui
 
 /**
@@ -54,6 +55,14 @@ class BindPhonePresenter:BindPhoneContract.Presenter() {
         },{
             getView()?.showToast(it.message)
         })
+    }
+    override fun getInfo(token: String) {
+        getModel().getInfo(token).ui({
+            getView()?.getInfo(it.data!!)
+        },{
+            getView()?.showToast(it)
+        })
+
     }
 
     override fun createModel(): BindPhoneContract.Model =BindPhoneModel()

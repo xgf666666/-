@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.microple.jademall.MainActivity;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -16,8 +19,22 @@ public class JReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
-        if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-            //处理自定义消息
+        Log.i("bundle",bundle.toString());
+        if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())){
+            Log.i("extrassss",""+bundle.getString(JPushInterface.EXTRA_EXTRA));
+
+        }else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())){
+//            getMessage(context,bundle);
+            Intent intent1=new Intent(context, MainActivity.class);
+            context.startActivity(intent1);
         }
+    }
+    private void getMessage(Context context,Bundle bundle){
+        if (MyLifecycleHandler.isApplicationInForeground()){
+            Constants.addUnReadMessage();
+        }else {
+
+        }
+
     }
 }
