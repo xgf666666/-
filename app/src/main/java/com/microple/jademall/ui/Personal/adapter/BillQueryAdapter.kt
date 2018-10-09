@@ -30,6 +30,8 @@ class BillQueryAdapter(data:List<PointBean>):BaseQuickAdapter<PointBean,BaseView
         helper?.setText(R.id.tv_name,item.text)
                 ?.setText(R.id.tv_time,item.add_time)
                 ?.setText(R.id.tv_zichan,item.points_change+"  积分")
+                ?.setText(R.id.tv_month,item.month)
+                ?.setText(R.id.tv_year,item.year)
 
     }
 

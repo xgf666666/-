@@ -52,8 +52,10 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
             tv_tishi.visibility=View.VISIBLE
             tv_index.visibility=View.GONE
             tv_content.visibility=View.GONE
+            tv_bianji.visibility=View.GONE
         }else{
             tv_tishi.visibility=View.GONE
+            tv_bianji.visibility=View.VISIBLE
 
         }
 
@@ -72,11 +74,11 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
         if (shop.shopp_info.size==0){
             tv_tishi.visibility=View.VISIBLE
             tv_index.visibility=View.GONE
-            ll_title.visibility=View.GONE
+            tv_bianji.visibility=View.GONE
         }else{
             tv_tishi.visibility=View.GONE
             tv_index.visibility=View.VISIBLE
-            ll_title.visibility=View.VISIBLE
+            tv_bianji.visibility=View.VISIBLE
         }
         adapter.setNewData(shop.shopp_info)
 
@@ -113,7 +115,8 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
         }
         tv_submint.setOnClickListener{
             var sb_id=""
-            if (shop?.shopp_info?.size!=0)
+            if (shop?.shopp_info?.size!=0){
+
             for (i in 0..shop?.shopp_info!!.size-1){
                 if (i==0){
                     sb_id=""+shop?.shopp_info!![i].sb_id
@@ -122,6 +125,7 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
                 }
             }
             ImOrderActivity.startImOrderActivity(context!!,sb_id,"")
+            }
         }
         tv_login.setOnClickListener{
             LoginActivity.startLoginActivity(context!!)

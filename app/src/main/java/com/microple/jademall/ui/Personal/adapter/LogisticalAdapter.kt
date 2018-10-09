@@ -18,6 +18,7 @@ class LogisticalAdapter(data:List<OrderDetail.OrderDetailBean.LogisticsBean>):Ba
      * @param item   The item that needs to be displayed.
      */
     override fun convert(helper: BaseViewHolder?, item: OrderDetail.OrderDetailBean.LogisticsBean?) {
-        helper?.setText(R.id.ll_content,"【${item?.time}】"+item?.context)
+        helper?.setText(R.id.tv_content,"【${item?.time}】"+item?.context)
+//        helper?.setText(R.id.tv_content,item?.time+item?.context)
     }
 }

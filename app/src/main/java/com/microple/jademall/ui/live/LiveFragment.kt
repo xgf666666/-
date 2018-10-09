@@ -13,6 +13,7 @@ import com.microple.jademall.ui.live.adapter.LiveReviewAdapter
 import com.microple.jademall.common.Constant
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.live.activity.LiveDetailsActivity
+import com.microple.jademall.ui.live.activity.LivePlayerActivity
 import com.microple.jademall.ui.live.adapter.LiveYuyueAdapter
 import com.microple.jademall.ui.live.mvp.contract.LiveContract
 import com.microple.jademall.ui.live.mvp.presenter.LivePresenter
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePresenter>(),LiveContract.View{
     override fun liveList(liveList: LiveList) {
         loading.visibility=View.GONE
-        if (liveList.appoint_live.size==0){
+        if (liveList.live_now.size==0){
             tv_tishi.visibility=View.VISIBLE
         }else{
             tv_tishi.visibility=View.GONE
@@ -94,7 +95,8 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         rv_hotLive.isNestedScrollingEnabled = false
 //        mLiveHotAdapter.addData(data)
         mLiveHotAdapter.setOnItemClickListener { adapter, view, position ->
-            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveHotAdapter).data[position].live_id)
+//            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveHotAdapter).data[position].live_id)
+            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveHotAdapter).data[position].live_id,adapter.data[position].play_url[0])
         }
 
 

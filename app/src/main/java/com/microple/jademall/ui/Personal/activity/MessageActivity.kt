@@ -44,11 +44,9 @@ class MessageActivity : BaseMvpActivity<MessagePresenter>(),MessageContract.View
     override fun initData() {
         tv_title.text="消息列表"
         getPresenter().getMessage(Constants.getToken())
-//        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
-//        adapter.addData(data)
         adapter.setOnItemClickListener { adapter, view, position ->
             MessageDetailActivity.startMessageDetailActivity(this,""+(adapter as MessageAdapter).data[position].msg_id)
         }

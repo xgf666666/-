@@ -27,7 +27,7 @@ class AllOrderAdapter(data:List<Order.OrderListBean>):BaseQuickAdapter<Order.Ord
         helper?.setText(R.id.tv_goodsNum, item?.goods_info?.goods_sn)
         helper?.setText(R.id.tv_goodsPrice, "￥"+item?.goods_info?.goods_price)
         helper?.setText(R.id.tv_type,item?.status_desc)
-        helper?.setText(R.id.tv_time,item?.add_time)
+        helper?.setText(R.id.tv_time,"下单时间:  "+item?.add_time)
         helper?.getView<ImageView>(R.id.iv_goodsImage)?.loadImag(item?.goods_info?.goods_img!!)
     }
 

@@ -19,7 +19,8 @@
             android:text="联系在线客服"
             android:drawableTop="@drawable/btn_tel_n"
             android:drawablePadding="22dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:textColor="@color/black_333333"/>
 
     </RelativeLayout>
     <View
@@ -37,7 +38,8 @@
             android:text="拨打客服电话"
             android:drawableTop="@drawable/btn_supportstaff_n"
             android:drawablePadding="22dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:textColor="@color/black_333333"/>
 
     </RelativeLayout>
 

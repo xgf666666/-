@@ -127,9 +127,8 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
     }
 
     var mLivePlayer:TXLivePlayer?=null
-
-
     fun play(){
+        loading_progress.visibility=View.VISIBLE
         val sdkver = TXLiveBase.getSDKVersionStr()
         Log.d("liteavsdk", "liteav sdk version is : $sdkver")
         mLivePlayer=TXLivePlayer(this)
@@ -140,6 +139,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         mLivePlayer?.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT)
         mLivePlayer?.setPlayListener(object : ITXLivePlayListener {
             override fun onPlayEvent(event: Int, param: Bundle?) {
+                Log.i("eventevent","event"+event)
                 when(event){
                     TXLiveConstants.PLAY_ERR_NET_DISCONNECT->{
                         loading_progress.visibility=View.VISIBLE
@@ -163,7 +163,16 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                         Log.i("TXLiveConstants","已经连接服务器")
                     }
                     TXLiveConstants.PLAY_ERR_NET_DISCONNECT->{
-                        mLivePlayer?.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_RTMP)
+//                        loading_progress.visibility=View.VISIBLE
+
+                    }
+                    TXLiveConstants.PLAY_EVT_PLAY_BEGIN->{
+                        loading_progress.visibility=View.GONE
+                    }
+                    TXLiveConstants.PLAY_WARNING_READ_WRITE_FAIL->{
+                        loading_progress.visibility=View.GONE
+                        tv_jieshu.visibility=View.VISIBLE
+                        tv_jieshu.text="直播未开始"
                     }
 
                 }

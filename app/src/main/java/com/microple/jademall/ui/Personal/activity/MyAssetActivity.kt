@@ -39,7 +39,6 @@ class MyAssetActivity : BaseMvpActivity<MyAssetPresenter>(),MyAssetContract.View
     override fun initData() {
         tv_title.text="我的资产"
         (application as App).addActivity(this)
-        getPresenter().getMyAssert(Constants.getToken())
     }
 
     /**
@@ -66,6 +65,12 @@ class MyAssetActivity : BaseMvpActivity<MyAssetPresenter>(),MyAssetContract.View
         tv_keyong.text=""+assert.assets.pay_points
         tv_dongjie.text=""+assert.assets.frozen_points
         tv_jinri.text=""+assert.assets.today_points
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPresenter().getMyAssert(Constants.getToken())
+
     }
     override fun onDestroy() {
         super.onDestroy()

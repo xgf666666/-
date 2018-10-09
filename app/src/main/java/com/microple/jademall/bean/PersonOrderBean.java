@@ -56,7 +56,7 @@ public class PersonOrderBean {
         data.add(new PersonOrderBean(R.drawable.ic_collectmy_n,"待收货订单", LiveDetailsActivity.class));
         data.add(new PersonOrderBean(R.drawable.ic_completemy_n,"已完成订单", LiveDetailsActivity.class));
         data.add(new PersonOrderBean(R.drawable.ic_cancel_n,"已取消订单", LiveDetailsActivity.class));
-        data.add(new PersonOrderBean(R.drawable.ic_cancel_n,"售后订单", LiveDetailsActivity.class));
+        data.add(new PersonOrderBean(R.drawable.ic_aftersale_n,"售后订单", LiveDetailsActivity.class));
         return data;
     }
 }

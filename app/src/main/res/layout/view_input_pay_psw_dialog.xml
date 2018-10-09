@@ -26,8 +26,8 @@
             android:textSize="@dimen/sp_17"/>
             <TextView
                 android:id="@+id/bt_quxiao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:text="X"
                 android:layout_centerVertical="true"

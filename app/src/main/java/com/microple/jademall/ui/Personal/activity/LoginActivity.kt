@@ -42,6 +42,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
         dismissLoadingDialog()
         showToast("登录成功")
         Constants.login()
+        Log.i("user_id","user_id"+personalInfo.info.user_id)
         JPushInterface.setAlias(this,1,""+personalInfo.info.user_id)
         finish()
     }
@@ -56,7 +57,6 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
         Constants.putHeadImg(login.head_img)
         Constants.putImIndent(login.im_identifier)
         Constants.putImuser(login.im_user_sig)
-
     }
 
     var index=1

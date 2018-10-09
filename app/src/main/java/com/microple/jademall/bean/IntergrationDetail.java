@@ -35,7 +35,7 @@ public class IntergrationDetail {
         private String desc;
         private String add_time;
         private String supplier_name;
-        private int points;
+        private String points;
         private String remark;
 
         public String getPoints_change() {
@@ -70,11 +70,11 @@ public class IntergrationDetail {
             this.supplier_name = supplier_name;
         }
 
-        public int getPoints() {
+        public String getPoints() {
             return points;
         }
 
-        public void setPoints(int points) {
+        public void setPoints(String points) {
             this.points = points;
         }
 

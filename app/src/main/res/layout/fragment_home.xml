@@ -22,9 +22,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3H翡翠商城"
+                    android:text="翡翠原石"
                     android:textColor="@color/text_black"
-                    android:textSize="24sp"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
                     android:layout_marginLeft="@dimen/dp_15"
                     />
              <com.bigkoo.convenientbanner.ConvenientBanner
@@ -32,6 +33,8 @@
                  android:id="@+id/cb_home_top"
                  android:layout_width="match_parent"
                  android:layout_height="160dp"
+                 android:paddingTop="2dp"
+                 android:paddingBottom="2dp"
                  app:canLoop="true"
 
                 >
@@ -120,14 +123,16 @@
                    app:cardCornerRadius="15dp"
                    app:cardUseCompatPadding="true"
                    android:descendantFocusability="blocksDescendants"
-                   android:layout_margin="@dimen/dp_13">
+                   android:layout_marginBottom="@dimen/dp_13"
+                   android:layout_marginLeft="@dimen/dp_13"
+                   android:layout_marginRight="@dimen/dp_13"
+                   android:layout_marginTop="5dp">
                    <android.support.v7.widget.RecyclerView
                        android:overScrollMode="never"
                        android:id="@+id/recyclerView"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:paddingLeft="14dp"
-                       android:paddingTop="14dp"/>
+                       android:paddingLeft="14dp" />
                </android.support.v7.widget.CardView>
    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

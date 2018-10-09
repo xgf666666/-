@@ -58,7 +58,7 @@ class SearchResultGoodsActivity : BaseMvpActivity<SearchResultGoodsPresenter>(),
     override fun initData() {
         name=intent.getStringExtra("name")
         getPresenter().getResult(name)
-        tv_head.text=name
+        tv_head.text="“${name}”"
         tv_live.text="关于“${name}”的直播"
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(this)

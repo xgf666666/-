@@ -25,9 +25,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/sp_17"
+                android:textSize="26dp"
                 android:text="搜索"
                 android:layout_marginLeft="@dimen/sp_15"
+                android:textStyle="bold"
                 android:layout_centerInParent="true"/>
 
     <EditText

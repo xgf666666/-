@@ -6,7 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.microple.jademall.MainActivity;
+import com.microple.jademall.bean.ImageDetail;
+import com.microple.jademall.bean.Notify;
+import com.microple.jademall.ui.home.activity.GoodsDetailActivity;
+import com.microple.jademall.ui.home.activity.ImageDetailActivity;
+import com.microple.jademall.ui.live.activity.LiveDetailsActivity;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -22,19 +28,25 @@ public class JReceiver extends BroadcastReceiver {
         Log.i("bundle",bundle.toString());
         if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())){
             Log.i("extrassss",""+bundle.getString(JPushInterface.EXTRA_EXTRA));
-
         }else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())){
-//            getMessage(context,bundle);
-            Intent intent1=new Intent(context, MainActivity.class);
-            context.startActivity(intent1);
-        }
-    }
-    private void getMessage(Context context,Bundle bundle){
-        if (MyLifecycleHandler.isApplicationInForeground()){
-            Constants.addUnReadMessage();
-        }else {
+            Log.i("extrassss",""+bundle.getString(JPushInterface.EXTRA_EXTRA));
+            Notify notify=new Gson().fromJson(bundle.getString(JPushInterface.EXTRA_EXTRA), Notify.class);
+            if (notify.getType()==2){
+                if (MyLifecycleHandler.isApplicationInForeground()){
+                    GoodsDetailActivity.Companion.startGoodsDetailActivity(context,notify.getType_id());
+                }else {
+                    MainActivity.Companion.startMainActivity(context);
+                    GoodsDetailActivity.Companion.startGoodsDetailActivity(context,notify.getType_id());
 
+                }
+            }else if (notify.getType()==3){
+                if (MyLifecycleHandler.isApplicationInForeground()){
+                    LiveDetailsActivity.Companion.startLiveDetail(context,notify.getType_id());
+                }else {
+                    MainActivity.Companion.startMainActivity(context);
+                    GoodsDetailActivity.Companion.startGoodsDetailActivity(context,notify.getType_id());
+                }
+            }
         }
-
     }
 }

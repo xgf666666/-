@@ -24,6 +24,9 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
 
 
     override fun getOrder(order: Order) {
+        if (sr_swipe.isRefreshing){
+            sr_swipe.isRefreshing=false
+        }
         loading.visibility=View.GONE
         if (order.order_list.size==0){
             tv_tishi.visibility=View.VISIBLE
@@ -90,6 +93,41 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
         recyclerView.adapter=adapter
         adapter.setOnItemClickListener { adapter, view, position ->
             OrderDetailActivity.startOrderDetailActivity(context!!,""+(adapter as AllOrderAdapter).data[position].order_id)
+        }
+        sr_swipe.setOnRefreshListener {
+            when(index){
+            //全部订单
+                0->{
+                    getPresenter().getOrder(Constants.getToken(),"")
+                }
+            //待审核订单
+                1->{
+                    getPresenter().getOrder(Constants.getToken(),"0")
+
+                }
+            //发货订单
+                2->{
+                    getPresenter().getOrder(Constants.getToken(),"1")
+
+                }
+            //收货订单
+                3->{
+                    getPresenter().getOrder(Constants.getToken(),"2")
+
+                }
+            //已完成订单
+                4->{
+                    getPresenter().getOrder(Constants.getToken(),"3")
+
+                }
+            //已取消订单
+                5->{
+                    getPresenter().getOrder(Constants.getToken(),"4")
+
+                }
+
+            }
+
         }
     }
 

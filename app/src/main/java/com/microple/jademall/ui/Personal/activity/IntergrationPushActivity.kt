@@ -65,7 +65,7 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
             if (pay_points.toDouble()<tv_keyong.text.toString().toDouble()){
                 showToast("请输入积分小于可用的")
 
-            }else{
+            }else {
                 showLoadingDialog()
                 getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString())
             }

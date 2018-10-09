@@ -1,6 +1,7 @@
 package com.microple.jademall.ui.Personal.mvp.presenter
 
 import android.text.TextUtils
+import android.util.Log
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.IntergrationPushContract
 import com.microple.jademall.ui.Personal.mvp.model.IntergrationPushModel
@@ -33,7 +34,7 @@ class IntergrationPushPresenter:IntergrationPushContract.Presenter() {
             getView()?.dismissLoadingDialog()
             return
         }
-        if (to_user.equals(Constants.getPhone())){
+        if (to_user.equals(Constants.getPersonal().phone)){
             getView()?.showToast("不能给自己转哦")
             getView()?.dismissLoadingDialog()
             return

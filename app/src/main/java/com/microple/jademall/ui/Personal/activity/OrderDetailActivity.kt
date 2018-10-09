@@ -60,7 +60,7 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
         tv_title.text="订单详情"
         Log.i("order_id",""+intent.getStringExtra("order_id"))
         getPresenter().getDetail(Constants.getToken(),intent.getStringExtra("order_id"))
-        adaptr.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+//        adaptr.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled=false
         recyclerView.adapter=adaptr
@@ -131,18 +131,31 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
                     tv_type.text="待收货"
                     tv_order.text="申请售后"
                     tv_type.text="已完成"
-                    ll_wuliu.visibility=View.VISIBLE
-                    tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
-                    tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
-                    adaptr.setNewData(orderDetail.order_detail.logistics)
+                    if (orderDetail.order_detail.logistics.size!=0){
+                        ll_wuliu.visibility=View.VISIBLE
+                        tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
+                        tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+                        adaptr.setNewData(orderDetail.order_detail.logistics)
+                    }else{
+                        ll_wuliu.visibility=View.GONE
+                    }
+
                 }
                 3->{
                     tv_order.text="申请售后"
                     tv_type.text="已完成"
-                    ll_wuliu.visibility=View.VISIBLE
-                    tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
-                    tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
-                    adaptr.setNewData(orderDetail.order_detail.logistics)
+                    if (orderDetail.order_detail.logistics.size!=0){
+                        ll_wuliu.visibility=View.VISIBLE
+                        tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
+                        tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+                        adaptr.setNewData(orderDetail.order_detail.logistics)
+                    }else{
+                        ll_wuliu.visibility=View.GONE
+                    }
+                    if (orderDetail.order_detail.buy_type!=0){
+                        tv_order.visibility=View.GONE
+                    }
+
                 }
                 4->{
                     tv_order.visibility= View.GONE
