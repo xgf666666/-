@@ -2,7 +2,6 @@ package com.microple.jademall.ui.search.adapter
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
@@ -19,9 +18,8 @@ class SearchGoodsAdapter(layoutId: Int) : BaseQuickAdapter<Any, BaseViewHolder>(
         helper.setText(R.id.tv_goodsNum, "ACS322332")
         helper.setText(R.id.tv_goodsPrice, "￥3980.00")
         Glide.with(mContext).load(Constant.item)
-                .apply(RequestOptions()
                         .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default))
+                        .error(R.drawable.ic_img_default)
                 .into(helper.getView(R.id.iv_goodsImage) as ImageView)
     }
 }

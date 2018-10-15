@@ -14,6 +14,7 @@ import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.adapter.LogisticalAdapter
 import com.microple.jademall.ui.Personal.mvp.contract.OrderDetailContract
 import com.microple.jademall.ui.Personal.mvp.presenter.OrderDetailPresenter
+import com.microple.jademall.ui.home.activity.PaySucceefulActivity
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_application.*
@@ -35,6 +36,7 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
     override fun exitOrder() {
         dismissLoadingDialog()
         showToast("取消成功")
+        PaySucceefulActivity.startPaySucceefulActivity(this,orderDetail?.order_detail?.order_sn!!,2)
         finish()
     }
 
@@ -77,13 +79,12 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
                 getPresenter().sureOrder(Constants.getToken(),intent.getStringExtra("order_id"))
             }else if (index==3){
                 if (orderDetail!!.order_detail.is_refund==0) {
-
-                    ApplyCustomerActivity.startCustomerListActivity(this, intent.getStringExtra("order_id")
-                            , orderDetail!!.order_detail.goods_info.goods_name
-                            , orderDetail!!.order_detail.goods_info.goods_sn
-                            , orderDetail!!.order_detail.goods_info.goods_price
-                            , orderDetail!!.order_detail.goods_info.goods_img
-                            , "" + orderDetail!!.order_detail.goods_info.goods_id)
+                    SureCustomerActivity.startCustomerActivity(this,intent.getStringExtra("order_id")
+                            ,orderDetail!!.order_detail.goods_info.goods_name
+                            ,orderDetail!!.order_detail.goods_info.goods_sn
+                            ,orderDetail!!.order_detail.goods_info.goods_price
+                            ,orderDetail!!.order_detail.goods_info.goods_img
+                            ,"" + orderDetail!!.order_detail.goods_info.goods_id)
                     finish()
                 }else{
                     showToast("你已申请售后")
@@ -119,42 +120,59 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
             tv_address.text="收件地址      "+orderDetail.order_detail.address
             tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
             tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+        if (orderDetail.order_detail.pick_type==1){
+            tv_pick_type.visibility=View.VISIBLE
+            tv_pick_time.visibility=View.VISIBLE
+            tv_pick_service.visibility=View.VISIBLE
+            view_three.visibility=View.VISIBLE
+            view_two.visibility=View.VISIBLE
+            view_one.visibility=View.VISIBLE
+            tv_pick_type.text="提货支付方式     "+orderDetail.order_detail.pick_pay_name
+            tv_pick_service.text=orderDetail.order_detail.service_fee
+            tv_pick_time.text=orderDetail.order_detail.pick_time
+        }
             when(orderDetail.order_detail.order_status){
                 0->{
+                    if (orderDetail.order_detail.pick_type==1){
+                        tv_order.visibility=View.GONE
+                    }
                     tv_type.text="待审核"
+                    ll_wuliu.visibility=View.GONE
                 }
                 1->{
+                    if (orderDetail.order_detail.pick_type==1){
+                        tv_order.visibility=View.GONE
+                    }
                     tv_type.text="待发货"
+                    ll_wuliu.visibility=View.GONE
                 }
                 2->{
                     tv_order.text="确认收货"
                     tv_type.text="待收货"
-                    tv_order.text="申请售后"
-                    tv_type.text="已完成"
+                    tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
+                    tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
                     if (orderDetail.order_detail.logistics.size!=0){
-                        ll_wuliu.visibility=View.VISIBLE
-                        tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
-                        tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+                        recyclerView.visibility=View.VISIBLE
                         adaptr.setNewData(orderDetail.order_detail.logistics)
                     }else{
-                        ll_wuliu.visibility=View.GONE
+                        recyclerView.visibility=View.GONE
                     }
 
                 }
                 3->{
                     tv_order.text="申请售后"
                     tv_type.text="已完成"
+                    tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
+                    tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
                     if (orderDetail.order_detail.logistics.size!=0){
-                        ll_wuliu.visibility=View.VISIBLE
-                        tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
-                        tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+                        recyclerView.visibility=View.VISIBLE
                         adaptr.setNewData(orderDetail.order_detail.logistics)
                     }else{
-                        ll_wuliu.visibility=View.GONE
+                        recyclerView.visibility=View.GONE
                     }
-                    if (orderDetail.order_detail.buy_type!=0){
-                        tv_order.visibility=View.GONE
-                    }
+//                    if (orderDetail.order_detail.buy_type!=0){
+//                        tv_order.visibility=View.GONE
+//                    }
 
                 }
                 4->{

@@ -138,7 +138,7 @@
             android:textColor="@color/black_333333"
             android:textSize="@dimen/sp_13"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/tv_liyou"
             android:layout_toLeftOf="@+id/iv_go"
             android:layout_marginRight="7dp"/>

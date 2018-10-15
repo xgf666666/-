@@ -22,7 +22,7 @@ class NickNamePresenter:NickNameContract.Presenter() {
         getModel().setNickName(token,nickname).ui({
             if (it.status.equals("1"))
                 getView()?.showToast(it.msg)
-            getView()?.setNickName()
+            getView()?.setNickName(it.data!!)
         },{
                 getView()?.showToast(it)
         })

@@ -9,7 +9,6 @@ import com.microple.jademall.R
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.NeedNoteContract
 import com.microple.jademall.ui.Personal.mvp.presenter.NeedNotePresenter
-import com.microple.jademall.ui.home.activity.PaySucceefulActivity
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_need_note.*
 import kotlinx.android.synthetic.main.item_title.*

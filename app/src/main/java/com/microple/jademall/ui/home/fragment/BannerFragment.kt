@@ -2,7 +2,6 @@ package com.microple.jademall.ui.home.fragment
 
 import android.view.View
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
 import com.microple.jademall.uitls.loadImag

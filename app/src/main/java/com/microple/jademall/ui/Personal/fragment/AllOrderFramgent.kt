@@ -11,7 +11,6 @@ import com.microple.jademall.ui.Personal.adapter.AllOrderAdapter
 import com.microple.jademall.ui.Personal.mvp.contract.AllOrderContract
 import com.microple.jademall.ui.Personal.mvp.presenter.AllOrderPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
-import com.xx.baseuilibrary.mvp.BaseMvpViewFragment
 import kotlinx.android.synthetic.main.fragment_allorder.*
 /**
  * author: xiaoguagnfei
@@ -24,16 +23,16 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
 
 
     override fun getOrder(order: Order) {
-        if (sr_swipe.isRefreshing){
-            sr_swipe.isRefreshing=false
+        if (ss_swipe.isRefreshing){
+            ss_swipe.isRefreshing=false
         }
         loading.visibility=View.GONE
         if (order.order_list.size==0){
             tv_tishi.visibility=View.VISIBLE
         }else{
             tv_tishi.visibility=View.GONE
-            adapter.setNewData(order.order_list)
         }
+        adapter.setNewData(order.order_list)
     }
 
     /**
@@ -56,45 +55,13 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
     var index=0
     override fun init(view: View?) {
          index=arguments!!.getInt("index",0)
-        when(index){
-            //全部订单
-            0->{
-                getPresenter().getOrder(Constants.getToken(),"")
-            }
-           //待审核订单
-            1->{
-                getPresenter().getOrder(Constants.getToken(),"0")
-
-            }
-           //发货订单
-            2->{
-                getPresenter().getOrder(Constants.getToken(),"1")
-
-            }
-           //收货订单
-            3->{
-                getPresenter().getOrder(Constants.getToken(),"2")
-
-            }
-           //已完成订单
-            4->{
-                getPresenter().getOrder(Constants.getToken(),"3")
-
-            }
-           //已取消订单
-            5->{
-                getPresenter().getOrder(Constants.getToken(),"4")
-
-            }
-
-        }
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(context)
         recyclerView.adapter=adapter
         adapter.setOnItemClickListener { adapter, view, position ->
             OrderDetailActivity.startOrderDetailActivity(context!!,""+(adapter as AllOrderAdapter).data[position].order_id)
         }
-        sr_swipe.setOnRefreshListener {
+        ss_swipe.setOnRefreshListener {
             when(index){
             //全部订单
                 0->{

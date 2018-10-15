@@ -14,14 +14,99 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:visibility="visible"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="40dp">
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_live_title"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:id="@+id/tv_livetitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxEms="7"
+                android:singleLine="true"
+                android:layout_marginLeft="30dp"
+                android:text="看直播看直看直播看直"
+                android:textSize="12sp"
+                android:textColor="@color/white_default" />
+            <TextView
+                android:id="@+id/tv_renshu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="人观看"
+                android:textSize="10sp"
+                android:textColor="@color/white_default"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/tv_user"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:src="@drawable/datouxiang_"/>
+        <LinearLayout
+            android:id="@+id/guangkan"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:layout_toRightOf="@+id/ll_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cr_one"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/datouxiang_"
+                android:layout_marginLeft="3dp"
+                android:visibility="gone"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cr_two"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/datouxiang_"
+                android:layout_marginLeft="3dp"
+                android:visibility="gone"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cr_three"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/datouxiang_"
+                android:layout_marginLeft="3dp"
+                android:visibility="gone"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cr_four"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/datouxiang_"
+                android:layout_marginLeft="3dp"
+                android:visibility="gone"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cr_five"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/datouxiang_"
+                android:layout_marginLeft="3dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
     <ImageView
         android:id="@+id/iv_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/global_btn_close_n"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginRight="13dp"/>
+        android:layout_marginTop="52dp"
+        android:layout_marginRight="10dp"/>
+
     <ImageView
         android:id="@+id/iv_share"
         android:layout_width="wrap_content"
@@ -34,7 +119,7 @@
     <LinearLayout
         android:id="@+id/ll_send"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="11dp">
@@ -42,23 +127,24 @@
             android:id="@+id/iv_goods"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_gift_n"
+            android:src="@drawable/ic_gift_nn"
             android:layout_marginLeft="16dp"/>
         <EditText
             android:id="@+id/et_send"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="39dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="22dp"
             android:background="@drawable/bg_live"
-            android:imeOptions="actionSend"/>
+            android:imeOptions="actionSend"
+            android:layout_marginBottom="5dp"/>
 
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rl_message"
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="75dp">
     </android.support.v7.widget.RecyclerView>

@@ -15,6 +15,7 @@
         android:layout_marginTop="80dp"
         android:layout_gravity="center_horizontal"/>
     <TextView
+        android:id="@+id/tv_title_c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我们已收到您的支付"
@@ -37,6 +38,7 @@
         android:layout_gravity="center_horizontal"
         />
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="由于我们的产品为多渠道销售，我们的工作人员将会尽快为您核查并确认订单，如果订单审核失败，我们将退还您所支付的所有款项，您可以在【个人中心-我的订单-待审核栏目】中查看订单审核状态，再次感谢您对3H翡翠商城的支付！

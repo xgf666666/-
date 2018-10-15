@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
+import com.microple.jademall.R.id.et_send
 import com.microple.jademall.bean.LiveShare
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
@@ -19,7 +20,16 @@ import com.microple.jademall.dialog.ShareDialog
 import com.microple.jademall.ui.live.adapter.MessageAdapter
 import com.microple.jademall.ui.live.mvp.contract.LivePlayerContract
 import com.microple.jademall.ui.live.mvp.presenter.LivePlayerPresenter
+import com.microple.jademall.uitls.loadHeadImag
+import com.microple.jademall.uitls.loadImag
 import com.tencent.imsdk.*
+import com.tencent.imsdk.ext.group.TIMGroupAssistantListener
+import com.tencent.imsdk.ext.group.TIMGroupCacheInfo
+import com.tencent.imsdk.ext.group.TIMGroupManagerExt
+import com.tencent.imsdk.ext.group.TIMUserConfigGroupExt
+import com.tencent.imsdk.ext.message.TIMUserConfigMsgExt
+import com.tencent.imsdk.ext.sns.TIMFriendshipProxyListener
+import com.tencent.imsdk.ext.sns.TIMUserConfigSnsExt
 import com.tencent.rtmp.ITXLivePlayListener
 import com.tencent.rtmp.TXLiveBase
 import com.tencent.rtmp.TXLiveConstants
@@ -36,39 +46,6 @@ import kotlinx.android.synthetic.main.activity_live_player.*
 class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerContract.View {
     var messageAdapter=MessageAdapter()
     /**
-     * 初始化事件
-     */
-    override fun initEvent() {
-        iv_goods.setOnClickListener {
-            LiveGoodsActivity.startGoodsActivity(this,intent.getStringExtra("live_id"))
-        }
-        iv_share.setOnClickListener {
-            showLoadingDialog()
-            getPresenter().liveShare(intent.getStringExtra("live_id"))
-
-        }
-        et_send.setOnEditorActionListener { view, i, keyEvent ->
-            var textElem=TIMTextElem()
-            textElem.text=view.text.toString()
-            var message=TIMMessage()
-            message.addElement(textElem)
-            var conversation=TIMManager.getInstance().getConversation(TIMConversationType.Group,"")
-            conversation.sendMessage(message, object : TIMValueCallBack<TIMMessage> {
-                override fun onSuccess(p0: TIMMessage?) {
-                    showToast("发送成功")
-                }
-
-                override fun onError(p0: Int, p1: String?) {
-                    showToast("发送失败")
-                }
-
-            })
-            return@setOnEditorActionListener  true
-        }
-
-    }
-
-    /**
      * 创建P层
      *
      * @return P层对象
@@ -81,7 +58,72 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
      * @return 布局资源文件id
      */
     override fun getActivityLayoutId(): Int =R.layout.activity_live_player
+    /**
+     * 初始化事件
+     */
+    override fun initEvent() {
+        iv_goods.setOnClickListener {
+            LiveGoodsActivity.startGoodsActivity(this,intent.getStringExtra("live_id"))
+        }
+        iv_share.setOnClickListener {
+            showLoadingDialog()
+            getPresenter().liveShare(intent.getStringExtra("live_id"))
 
+        }
+        et_send.setOnEditorActionListener { view, i, keyEvent ->
+            Log.i("messagesss",""+keyEvent.action)
+            if (et_send.text.isNullOrEmpty()){
+                    showToast("不能发送空内容")
+            }else{
+            if (keyEvent.action==0){
+                sendMessage(et_send.text.toString(),0)
+            }
+            }
+
+
+            return@setOnEditorActionListener  true
+        }
+
+    }
+    //发送消息
+    private fun sendMessage(message:String,index:Int) {
+        var textElem= TIMTextElem()
+        if (index==0){
+            textElem.text=Constants.getPersonal().user_name+"："+message
+        }else{
+            textElem.text=Constants.getPersonal().user_name+message
+        }
+        var message= TIMMessage()
+        message.addElement(textElem)
+        Log.i("messagesss","发送")
+        var conversation= TIMManager.getInstance().getConversation(TIMConversationType.Group,intent.getStringExtra("group_id"))
+        conversation.sendMessage(message, object : TIMValueCallBack<TIMMessage> {
+            override fun onSuccess(p0: TIMMessage?) {
+                Log.i("messagesss","发送成功")
+                et_send.setText("")
+                messageAdapter.addData(p0!!)
+                rl_message.scrollToPosition(messageAdapter.getItemCount()-1)
+                if (index==2){//退出IM
+                    TIMGroupManager.getInstance().quitGroup(intent.getStringExtra("group_id"), object : TIMCallBack {
+                        override fun onError(p0: Int, p1: String?) {
+                            Log.i("quitGroup","p1"+p0)
+                        }
+
+                        override fun onSuccess() {
+                            Log.i("quitGroup","成功")
+                            TIMManager.getInstance().logout(null)
+                        }
+                    })
+
+                }
+            }
+
+            override fun onError(p0: Int, p1: String?) {
+                showToast("发送失败")
+            }
+
+        })
+    }
 
     /**
      * 初始化数据状态
@@ -94,39 +136,9 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
     }
 
-    override fun liveShare(liveShare: LiveShare) {
-        dismissLoadingDialog()
-        var dialog=ShareDialog(this)
-        dialog.show()
-        dialog.setOnBtnClickListener(object : ShareDialog.OnBtnClickListener {
-            override fun QQShare() {
-                share(SHARE_MEDIA.QQ.toSnsPlatform(),liveShare)
-            }
-
-            override fun weiboShare() {
-                share(SHARE_MEDIA.SINA.toSnsPlatform(),liveShare)
-
-            }
-
-            override fun wxShare() {
-                share(SHARE_MEDIA.WEIXIN.toSnsPlatform(),liveShare)
-
-            }
-
-            override fun wxwcShare() {
-                share(SHARE_MEDIA.WEIXIN_CIRCLE.toSnsPlatform(),liveShare)
-
-            }
-
-            override fun cancel() {
-                dialog.dismiss()
-
-            }
-
-        })
-    }
 
     var mLivePlayer:TXLivePlayer?=null
+    //播放直播
     fun play(){
         loading_progress.visibility=View.VISIBLE
         val sdkver = TXLiveBase.getSDKVersionStr()
@@ -163,11 +175,14 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                         Log.i("TXLiveConstants","已经连接服务器")
                     }
                     TXLiveConstants.PLAY_ERR_NET_DISCONNECT->{
-//                        loading_progress.visibility=View.VISIBLE
+                        loading_progress.visibility=View.GONE
+                        tv_jieshu.text="直播未开始"
+
 
                     }
                     TXLiveConstants.PLAY_EVT_PLAY_BEGIN->{
                         loading_progress.visibility=View.GONE
+                        tv_jieshu.visibility=View.GONE
                     }
                     TXLiveConstants.PLAY_WARNING_READ_WRITE_FAIL->{
                         loading_progress.visibility=View.GONE
@@ -184,32 +199,228 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         })
         //聊天室
         if (Constants.isLogin()){
+            imLogin()
             rl_message.layoutManager=LinearLayoutManager(this)
             rl_message.adapter=messageAdapter
-            TIMManager.getInstance().addMessageListener {
-                messageAdapter.addData(it)
-                return@addMessageListener true
-            }
-            rl_message.scrollToPosition(messageAdapter.getItemCount()-1)
-            imLogin()
         }
-        joinRoom("")
         iv_close.setOnClickListener{
             finish()
         }
     }
+    //登录聊天室
+    private fun imLogin(){
+        var confit= TIMSdkConfig(1400149108)
+        confit.setAccoutType("36862")
+        var init=TIMManager.getInstance().init(this,confit)
+        Log.i("initinit",""+init)
+        tv_user.loadImag(Constants.getHeadImg())
+        tv_livetitle.text=intent.getStringExtra("live_title")
+        if (!init){
+            TIMManager.getInstance().init(this,confit)
+        }
+        setUserCofig()
+        TIMManager.getInstance().addMessageListener {
+            messageAdapter.addData(it)
+            rl_message.scrollToPosition(messageAdapter.getItemCount()-1)
+            for (i in 0..it.size-1){
+                for (y in 0..it[i].elementCount.toInt()-1){
+                    var elem=it[i].getElement(y)
+                    if (elem.type==TIMElemType.Text){
+                        if (!(elem as TIMTextElem).text.contains("：")){
+                            TIMGroupManagerExt.getInstance().getGroupMembers(intent.getStringExtra("group_id"), object : TIMValueCallBack<List<TIMGroupMemberInfo>> {
+                                override fun onError(p0: Int, p1: String?) {
+                                }
+
+                                override fun onSuccess(infoList: List<TIMGroupMemberInfo>?) {
+                                    Log.i("infoList",""+infoList?.size)
+                                    tv_renshu.text=""+infoList?.size!!+"人观看"
+                                    var str_list= arrayListOf<String>()
+                                    if (infoList?.size!!>5){
+                                        for (i in 0..infoList?.size-1){
+                                            if (i>infoList?.size-6){
+                                                str_list.add(infoList[i].user)
+                                            }
+                                        }
+                                    }else{
+                                        for (i in 0..infoList?.size-1){
+                                                str_list.add(infoList[i].user)
+                                            }
+                                    }
+                                    TIMFriendshipManager.getInstance().getUsersProfile(str_list, object : TIMValueCallBack<List<TIMUserProfile>> {
+                                        override fun onError(p0: Int, p1: String?) {
+                                        }
+
+                                        override fun onSuccess(p1: List<TIMUserProfile>?) {
+                                            if (isExit ==1) return
+                                            for (y in 0..guangkan.childCount-1){
+                                                guangkan.getChildAt(y).visibility=View.GONE
+                                            }
+                                            for (i in 0..p1!!.size-1){
+                                                guangkan.getChildAt(i).visibility=View.VISIBLE
+                                                ( guangkan.getChildAt(i) as ImageView).loadHeadImag(p1[i].faceUrl)
+                                            }
+                                        }
+
+
+                                    })
+
+                                }
+                            })
+                        }
+                    }
+                }
+
+        }
+            return@addMessageListener true
+        }
+
+        TIMManager.getInstance().login(Constants.getImIndent(),Constants.getImuser(), object : TIMCallBack {
+            override fun onError(code: Int, desc: String?) {
+                //错误码code和错误描述desc，可用于定位请求失败原因
+                Log.i("ImLogin", "login failed. code: " + code + " errmsg: " + desc)
+            }
+
+            override fun onSuccess() {
+                Log.i("ImLogin", "登录成功")
+
+                joinRoom(intent.getStringExtra("group_id"))
+
+            }
+        })
+    }
+    //加入聊天室
+    private fun joinRoom(groupID:String){
+        TIMGroupManager.getInstance().applyJoinGroup(groupID,"", object : TIMCallBack {
+            override fun onError(p0: Int, p1: String?) {
+                Log.i("groupID","加入失败")
+            }
+
+            override fun onSuccess() {
+                Log.i("groupID","加入成功")
+                sendMessage("加入聊天室",1)
+            }
+        })
+    }
+    //配置用户
+    fun setUserCofig(){
+        var userConfig=TIMUserConfig().setGroupSettings(TIMGroupSettings()).setFriendshipSettings(TIMFriendshipSettings()).setUserStatusListener(object : TIMUserStatusListener {
+            override fun onForceOffline() {
+            }
+
+            override fun onUserSigExpired() {
+            }
+        })
+                .setConnectionListener(object : TIMConnListener {
+                    override fun onWifiNeedAuth(p0: String?) {
+                    }
+
+                    override fun onDisconnected(p0: Int, p1: String?) {
+                    }
+
+                    override fun onConnected() {
+                    }
+                })
+                .setGroupEventListener(object : TIMGroupEventListener {
+                    override fun onGroupTipsEvent(p0: TIMGroupTipsElem?) {
+                    }
+                })
+                .setRefreshListener(object : TIMRefreshListener {
+                    override fun onRefreshConversation(p0: MutableList<TIMConversation>?) {
+                    }
+
+                    override fun onRefresh() {
+                    }
+                    
+                })
+
+        var userConfigs=TIMUserConfigMsgExt(userConfig).enableStorage(false).enableReadReceipt(true)
+        var userConfigss=TIMUserConfigSnsExt(userConfigs).enableFriendshipStorage(true).setFriendshipProxyListener(object : TIMFriendshipProxyListener {
+            override fun OnDelFriends(p0: MutableList<String>?) {
+            }
+
+            override fun OnAddFriends(p0: MutableList<TIMUserProfile>?) {
+            }
+
+            override fun OnFriendProfileUpdate(p0: MutableList<TIMUserProfile>?) {
+            }
+
+            override fun OnAddFriendReqs(p0: MutableList<TIMSNSChangeInfo>?) {
+            }
+        })
+        var userConfitsss= TIMUserConfigGroupExt(userConfigss).enableGroupStorage(true).setGroupAssistantListener(object : TIMGroupAssistantListener {
+            override fun onMemberQuit(p0: String?, p1: MutableList<String>?) {
+            }
+
+            override fun onGroupUpdate(p0: TIMGroupCacheInfo?) {
+            }
+
+            override fun onGroupDelete(p0: String?) {
+            }
+
+            override fun onMemberJoin(p0: String?, p1: MutableList<TIMGroupMemberInfo>?) {
+            }
+
+            override fun onMemberUpdate(p0: String?, p1: MutableList<TIMGroupMemberInfo>?) {
+            }
+
+            override fun onGroupAdd(p0: TIMGroupCacheInfo?) {
+            }
+        })
+        TIMManager.getInstance().userConfig=userConfitsss
+
+    }
+    override fun liveShare(liveShare: LiveShare) {
+        dismissLoadingDialog()
+        var dialog=ShareDialog(this)
+        dialog.show()
+        dialog.setOnBtnClickListener(object : ShareDialog.OnBtnClickListener {
+            override fun QQShare() {
+                share(SHARE_MEDIA.QQ.toSnsPlatform(),liveShare)
+            }
+
+            override fun weiboShare() {
+                share(SHARE_MEDIA.SINA.toSnsPlatform(),liveShare)
+
+            }
+
+            override fun wxShare() {
+                share(SHARE_MEDIA.WEIXIN.toSnsPlatform(),liveShare)
+
+            }
+
+            override fun wxwcShare() {
+                share(SHARE_MEDIA.WEIXIN_CIRCLE.toSnsPlatform(),liveShare)
+
+            }
+
+            override fun cancel() {
+                dialog.dismiss()
+
+            }
+
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sendMessage("离开聊天室",2)
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         mLivePlayer?.stopPlay(true)
         video_view.onDestroy()
-        TIMManager.getInstance().logout(null)
+
         (application as App).deleteActivity(this)
     }
     companion object {
-        fun startLivePlayerActivity(context: Context,live_id:String,play_url:String){
+        fun startLivePlayerActivity(context: Context,live_id:String,play_url:String,group_id:String,live_title:String){
             val intent = Intent(context, LivePlayerActivity::class.java)
             intent.putExtra("live_id",live_id)
             intent.putExtra("play_url",play_url)
+            intent.putExtra("group_id",group_id)
+            intent.putExtra("live_title",live_title)
             context.startActivity(intent)
         }
     }
@@ -243,33 +454,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         }
         dismissLoadingDialog()
     }
-    //登录聊天室
-    private fun imLogin(){
-        var timeUser=TIMUserConfig()
-        TIMManager.getInstance().login(Constants.getImIndent(),Constants.getImuser(),timeUser, object : TIMCallBack {
-            override fun onError(code: Int, desc: String?) {
-                //错误码code和错误描述desc，可用于定位请求失败原因
-                //错误码code列表请参见错误码表
-                Log.d("ImLogin", "login failed. code: " + code + " errmsg: " + desc)
-            }
 
-            override fun onSuccess() {
-                showToast("登陆成功")
-            }
-        })
-    }
-    //加入聊天室
-    private fun joinRoom(groupID:String){
-        TIMGroupManager.getInstance().applyJoinGroup(groupID,"", object : TIMCallBack {
-            override fun onError(p0: Int, p1: String?) {
-                Log.i("groupID","加入失败")
-             }
-
-            override fun onSuccess() {
-                Log.i("groupID","加入成功")
-            }
-        })
-    }
 
     private var umShareListener= object : UMShareListener {
         override fun onResult(p0: SHARE_MEDIA?) {
@@ -286,6 +471,11 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
         override fun onStart(p0: SHARE_MEDIA?) {
         }
+    }
+    var isExit=0
+    override fun onStop() {
+        super.onStop()
+        isExit=1
     }
 
 }

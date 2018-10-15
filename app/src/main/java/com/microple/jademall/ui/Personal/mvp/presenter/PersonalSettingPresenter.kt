@@ -15,7 +15,7 @@ import com.weibiaogan.litong.extensions.ui
 class PersonalSettingPresenter:PersonalSettingContract.Presenter() {
     override fun setHandImageView(token: String, head_img: String) {
         getModel().setHandImageView(token,head_img).ui({
-            getView()?.setHandImageView(it.data!!.img_url)
+            getView()?.setHandImageView(it.data!!)
         },{
             getView()?.showToast(it)
         })

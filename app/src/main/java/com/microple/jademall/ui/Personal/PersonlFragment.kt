@@ -29,7 +29,12 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
     override fun getInfo(personalInfo: PersonInfo) {
         loading.visibility=View.GONE
         iv_head.loadHeadImag(personalInfo.info.head_img)
-        tv_name.text=personalInfo.info.user_name
+        if (personalInfo.info.user_name.isNullOrEmpty()){
+            tv_name.text="请设置昵称"
+
+        }else{
+            tv_name.text=personalInfo.info.user_name
+        }
         tv_phone.text=personalInfo.info.phone
         Constants.putPersonal(personalInfo.info)
         Constants.putHeadImg(personalInfo.info.head_img)

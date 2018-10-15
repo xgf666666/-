@@ -1,1 +1,1 @@
-include ':app', ':baseResLibrary', ':baseUtilsLibrary', ':baseUiLibrary'
+include ':app', ':baseResLibrary', ':baseUtilsLibrary', ':baseUiLibrary',':qrcode'

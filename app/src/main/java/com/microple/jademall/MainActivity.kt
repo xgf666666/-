@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.ContextMenu
 import android.view.KeyEvent
 import android.view.MenuItem
@@ -19,6 +20,8 @@ import com.microple.jademall.ui.live.LiveFragment
 import com.microple.jademall.ui.search.SearchFragment
 import com.microple.jademall.ui.shoppingcar.ShoppingCarFragment
 import com.microple.jademall.uitls.BottomNavigationViewUtils
+import com.tencent.imsdk.TIMManager
+import com.tencent.imsdk.TIMSdkConfig
 import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -37,6 +40,7 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
                 .commit()
         BottomNavigationViewUtils.disableShiftMode(bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
+
     }
 
     /**

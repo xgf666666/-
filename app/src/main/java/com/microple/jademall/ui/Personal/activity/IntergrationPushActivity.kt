@@ -62,23 +62,28 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
             finish()
         }
         tv_sure.setOnClickListener{
-            if (pay_points.toDouble()<tv_keyong.text.toString().toDouble()){
-                showToast("请输入积分小于可用的")
-
-            }else {
+            if (tv_keyong.text.toString().isNullOrEmpty()&&tv_dongjie.text.toString().isNullOrEmpty()){
+                showToast("请输入转账积分")
+            }else if (!tv_keyong.text.isNullOrEmpty()&&pay_points.toDouble()<tv_keyong.text.toString().toDouble()){
+                            showToast("请输入积分小于可用的")
+            } else if (!tv_dongjie.text.isNullOrEmpty()&&pay_dongjie.toDouble()<tv_dongjie.text.toString().toDouble()){
+                    showToast("请输入积分小于可用的")
+            }else{
                 showLoadingDialog()
-                getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString())
+                getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString(),tv_dongjie.text.toString())
             }
         }
 
     }
     var pay_points=""
+    var pay_dongjie=""
     override fun getAccout(accoutInfo: AccountIinfo) {
         iv_head.loadImag(accoutInfo.user_info.head_img)
         tv_name.text=accoutInfo.user_info.user_name
         tv_keyong.hint="可用积分"+accoutInfo.user_info.pay_points
         pay_points=accoutInfo.user_info.pay_points
-        tv_dongjie.text="冻结积分"+accoutInfo.user_info.frozen_points
+        pay_dongjie=accoutInfo.user_info.frozen_points
+        tv_dongjie.hint="冻结积分"+accoutInfo.user_info.frozen_points
         adapter.setNewData(accoutInfo.record)
         loading.visibility= View.GONE
     }

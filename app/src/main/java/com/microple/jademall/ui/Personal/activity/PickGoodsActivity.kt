@@ -3,8 +3,6 @@ package com.microple.jademall.ui.Personal.activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -39,18 +37,19 @@ class PickGoodsActivity : BaseMvpActivity<PickGoodsPresenter>(),PickGoodsContrac
                     .openAnyPay(if (index == 1) XxAnyPay.XXPAY_WX else XxAnyPay.XXPAY_ALI,if (index == 1) Gson().toJson(pay.data) else pay.data.sign, object : XxAnyPayResultCallBack {
                         override fun onPayFiale(error: String) {
                             showToast(error)
+                            dismissLoadingDialog()
                         }
 
                         override fun onPaySuccess() {
                             showToast("支付成功")
-                            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn)
+                            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn,1)
                             finish()
                         }
                     })
 
         }else if (index==3){
             showToast("支付成功")
-            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn)
+            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn,1)
             finish()
         }
 
@@ -75,6 +74,7 @@ class PickGoodsActivity : BaseMvpActivity<PickGoodsPresenter>(),PickGoodsContrac
      */
     override fun initData() {
         tv_title.text="提货"
+        XxAnyPay.intance.init(this)
         (application as App).addActivity(this)
         Log.i("ct_id",intent.getStringExtra("ct_id"))
         getPresenter().pick(Constants.getToken(),intent.getStringExtra("ct_id"))
@@ -93,8 +93,13 @@ class PickGoodsActivity : BaseMvpActivity<PickGoodsPresenter>(),PickGoodsContrac
             this.startActivityForResult(intent,3)
         }
         tv_pay.setOnClickListener{
+            if (pick?.user_address?.ua_id==null){
+                showToast("请添加地址")
+            }else {
+
             var dialog=PayDialog(this)
             dialog.show()
+            dialog.setVis()
             dialog.setOnBtnClickListener {
                 when(it){
                     1->{
@@ -107,12 +112,14 @@ class PickGoodsActivity : BaseMvpActivity<PickGoodsPresenter>(),PickGoodsContrac
                         index=2
                         getPresenter().pay(Constants.getToken(),"","","",pick?.user_address?.ua_id!!,"2","","","1",intent.getStringExtra("ct_id"))
                     }
-                    3->{
-                        index=3
-                        showDialog()
-                    }
+//                    3->{
+//                        index=3
+//                        showDialog()
+//                    }
                 }
             }
+            }
+
         }
     }
     //支付框
@@ -145,16 +152,11 @@ class PickGoodsActivity : BaseMvpActivity<PickGoodsPresenter>(),PickGoodsContrac
         super.onDestroy()
         (application as App).deleteActivity(this)
     }
-
-    override fun onResume() {
-        super.onResume()
-        getPresenter().pick(Constants.getToken(),intent.getStringExtra("ct_id"))
-    }
     var pick: Pick?=null
     override fun pick(pick: Pick) {
         loading.visibility=View.GONE
         this.pick=pick
-        if (pick.user_address==null){
+        if (pick.user_address.ua_id==null){
             add_address.visibility=View.VISIBLE
         }else{
             add_address.visibility=View.GONE

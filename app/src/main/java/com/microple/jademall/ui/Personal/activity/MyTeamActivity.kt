@@ -16,6 +16,9 @@ import com.microple.jademall.ui.Personal.mvp.presenter.MyTeamPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_my_team.*
 import kotlinx.android.synthetic.main.item_title.*
+import java.math.BigDecimal
+import java.text.NumberFormat
+
 /**
  * author: xiaoguagnfei
  * date: 2018/8/13
@@ -25,7 +28,13 @@ class MyTeamActivity : BaseMvpActivity<MyTeamPresenter>(),MyTeamContract.View {
     override fun team(team: Team) {
         loading.visibility= View.GONE
         adapter.setNewData(team.user_list)
-        tv_all.text=""+team.total_money
+        if (!team.total_money.isNullOrEmpty())
+            if (!team.total_money.isNullOrEmpty()){
+                var dd=NumberFormat.getNumberInstance()
+                dd.minimumFractionDigits=2
+                dd.maximumFractionDigits=2
+                tv_all.text=""+dd.format(team.total_money.toDouble())
+            }
         tv_number.text=""+team.user_count
 
     }

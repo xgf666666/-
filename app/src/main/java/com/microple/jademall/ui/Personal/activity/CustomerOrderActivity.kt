@@ -51,7 +51,7 @@ class CustomerOrderActivity : BaseMvpActivity<CustomerOrderPresenter>(),Customer
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text="售后订单"
+        tv_title.text="售后订单列表"
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter

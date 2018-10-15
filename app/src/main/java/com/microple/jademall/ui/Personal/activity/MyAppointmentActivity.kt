@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.item_title.*
 class MyAppointmentActivity : BaseMvpActivity<MyAppointmentPresenter>(),MyAppointmentContract.View {
     override fun exitAppoint(msg: String) {
         showToast(msg)
+        getPresenter().myAppoint(Constants.getToken())
     }
 
     var adapterOne=MyAppointmentAdapter(arrayListOf())

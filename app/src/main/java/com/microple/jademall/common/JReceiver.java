@@ -44,7 +44,7 @@ public class JReceiver extends BroadcastReceiver {
                     LiveDetailsActivity.Companion.startLiveDetail(context,notify.getType_id());
                 }else {
                     MainActivity.Companion.startMainActivity(context);
-                    GoodsDetailActivity.Companion.startGoodsDetailActivity(context,notify.getType_id());
+                    LiveDetailsActivity.Companion.startLiveDetail(context,notify.getType_id());
                 }
             }
         }

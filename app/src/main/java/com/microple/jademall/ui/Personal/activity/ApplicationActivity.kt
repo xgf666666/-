@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import com.blankj.utilcode.util.EncodeUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -66,8 +67,25 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
         }
         tv_submint.setOnClickListener{
             showLoadingDialog()
-            if (!license.isNullOrEmpty()&&!attach.isNullOrEmpty())
-            getPresenter().getImage(license)
+            if (et_gongsi.text.isNullOrEmpty()){
+                showToast("请输入公司名称")
+                dismissLoadingDialog()
+            }else if (et_email.text.isNullOrEmpty()){
+                showToast("请输入邮箱地址")
+                dismissLoadingDialog()
+            }else if (et_phone.text.isNullOrEmpty()){
+                showToast("请输入联系方式")
+                dismissLoadingDialog()
+            }else if (license.isNullOrEmpty()){
+                showToast("请添加营业执照")
+                dismissLoadingDialog()
+            }else if (attach.isNullOrEmpty()){
+                showToast("请添加附件")
+                dismissLoadingDialog()
+            } else {
+                getPresenter().getImage(license)
+            }
+
         }
         rl_yingye.setOnClickListener {
             index=1
@@ -92,6 +110,8 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
             getPresenter().getImage(attach)
         }else{
             attach=image.image_data
+            Log.i("licensess",license)
+            Log.i("attachsss",attach)
             getPresenter().apply(Constants.getToken(),et_gongsi.text.toString(),et_email.text.toString(),
                     et_phone.text.toString(),et_invite.text.toString(),license,attach)
 

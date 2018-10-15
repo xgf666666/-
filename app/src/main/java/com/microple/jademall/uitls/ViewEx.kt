@@ -2,11 +2,9 @@ package com.microple.jademall.uitls
 
 import android.text.Html
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.microple.jademall.R
 import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
 
@@ -23,9 +21,9 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
     }else{
         urltemp=url
     }
-    Glide.with(this.context).load(urltemp).apply(RequestOptions()
+    Glide.with(this.context).load(urltemp)
             .placeholder(R.drawable.ic_img_default)
-            .error(R.drawable.ic_img_default))
+            .error(R.drawable.ic_img_default)
             .into(this)
 }
 fun ImageView.loadHeadImag( url: String) {
@@ -35,9 +33,10 @@ fun ImageView.loadHeadImag( url: String) {
     }else{
         urltemp=url
     }
-    Glide.with(this.context).load(urltemp).apply(RequestOptions()
+    val with = Glide.with(this.context)
+    Glide.with(this.context).load(urltemp)
             .placeholder(R.drawable.datouxiang_)
-            .error(R.drawable.datouxiang_))
+            .error(R.drawable.datouxiang_)
             .into(this)
 }
 

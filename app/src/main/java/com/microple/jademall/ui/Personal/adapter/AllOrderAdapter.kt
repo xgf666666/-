@@ -2,7 +2,6 @@ package com.microple.jademall.ui.Personal.adapter
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.microple.jademall.R
@@ -19,7 +18,7 @@ class AllOrderAdapter(data:List<Order.OrderListBean>):BaseQuickAdapter<Order.Ord
     /**
      * Implement this method and use the helper to adapt the view to the given item.
      *
-     * @param helper A fully initialized helper.
+     * @param helper A fully initialized helper.ffff
      * @param item   The item that needs to be displayed.
      */
     override fun convert(helper: BaseViewHolder?, item: Order.OrderListBean?) {

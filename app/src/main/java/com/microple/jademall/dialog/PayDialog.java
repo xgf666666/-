@@ -45,13 +45,16 @@ public class PayDialog extends Dialog implements View.OnClickListener {
 
         initView();
     }
-
+    View view;
     private void initView() {
-        View view = View.inflate(mContext, R.layout.view_pay, null);
+         view = View.inflate(mContext, R.layout.view_pay, null);
         view.findViewById(R.id.ll_jifen).setOnClickListener(this);
         view.findViewById(R.id.ll_alipay).setOnClickListener(this);
         view.findViewById(R.id.ll_wx).setOnClickListener(this);
         setContentView(view);
+    }
+    public void setVis(){
+        view.findViewById(R.id.ll_jifen).setVisibility(View.GONE);
     }
 
 

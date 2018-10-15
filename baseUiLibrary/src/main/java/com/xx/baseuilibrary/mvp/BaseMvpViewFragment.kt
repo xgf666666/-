@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
-import com.bumptech.glide.Glide
 import com.xx.baseuilibrary.BaseFragment
 import com.xx.baseuilibrary.R
 

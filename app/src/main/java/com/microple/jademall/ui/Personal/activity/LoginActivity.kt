@@ -52,11 +52,11 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
         mHandler.sendEmptyMessage(1)
     }
     override fun loginSucceful(login: Login) {
-        getPresenter().getInfo(login.token)
         Constants.putToken(login.token)
         Constants.putHeadImg(login.head_img)
         Constants.putImIndent(login.im_identifier)
         Constants.putImuser(login.im_user_sig)
+        getPresenter().getInfo(login.token)
     }
 
     var index=1

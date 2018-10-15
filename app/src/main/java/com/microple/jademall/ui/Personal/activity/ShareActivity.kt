@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.github.yoojia.qrcode.qrcode.QRCodeEncoder
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
 import com.microple.jademall.bean.Share
@@ -94,9 +95,10 @@ class ShareActivity : BaseMvpActivity<SharePresenter>(),ShareContract.View {
         this.share=share
         loading.visibility=View.GONE
         tv_head.text=share.share_info.user_name
-        iv_erweima.loadImag(share.share_info.qrcode)
+        iv_head.loadImag(share.share_info.head_img)
         tv_yaoqingma.text=share.share_info.code
         tv_web.text=share.share_info.link
+        iv_erweima.setImageBitmap(QRCodeEncoder.Builder().build().encode(share.share_info.qrcode))
     }
 
     companion object {

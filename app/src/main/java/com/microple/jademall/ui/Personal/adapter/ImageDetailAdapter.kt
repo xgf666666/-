@@ -19,6 +19,10 @@ class ImageDetailAdapter(data:List<String>):BaseQuickAdapter<String,BaseViewHold
      * @param item   The item that needs to be displayed.
      */
     override fun convert(helper: BaseViewHolder?, item: String?) {
+        var layoutParams=helper?.getView<ImageView>(R.id.image)?.layoutParams
+        layoutParams?.height=layoutParams?.width!!
+        helper?.getView<ImageView>(R.id.image)?.layoutParams=layoutParams
         helper?.getView<ImageView>(R.id.image)!!.loadImag(item!!)
+
     }
 }

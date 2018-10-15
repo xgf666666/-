@@ -32,6 +32,7 @@ import com.microple.jademall.bean.LiveGoods;
 import com.microple.jademall.bean.LiveList;
 import com.microple.jademall.bean.LiveMessage;
 import com.microple.jademall.bean.LiveShare;
+import com.microple.jademall.bean.LiveSign;
 import com.microple.jademall.bean.Login;
 import com.microple.jademall.bean.MessageDetail;
 import com.microple.jademall.bean.MyAppointment;
@@ -151,11 +152,11 @@ public interface AppService {
     @POST("user_center/getUserInfo")
     Observable<BaseResponseEntity<PersonInfo>> personInfo( @Header("token") String token);
     /**
-     * 获取个人信息
+     * 修改昵称
      */
     @FormUrlEncoded
     @POST("User_center/set_nickname")
-    Observable<BaseResponseEntity<Object>> setNickName( @Header("token") String token,@Field("nickname")String nickname);
+    Observable<BaseResponseEntity<LiveSign>> setNickName(@Header("token") String token, @Field("nickname")String nickname);
     /**
      * 设置登录密码
      */
@@ -248,11 +249,11 @@ public interface AppService {
     @POST("user_center/account_info")
     Observable<BaseResponseEntity<AccountIinfo>> getAccount(@Header("token") String token);
     /**
-     * 兑换积分
+     * 转账积分
      */
     @FormUrlEncoded
     @POST("user_center/transfer_account")
-    Observable<BaseResponseEntity<Object>> push(@Header("token") String token, @Field("to_user")String to_user,@Field("points")String points);
+    Observable<BaseResponseEntity<Object>> push(@Header("token") String token, @Field("to_user")String to_user,@Field("points")String points,@Field("frozen_points")String frozen_points);
     /**
      * 修改头像
      */
@@ -476,7 +477,7 @@ public interface AppService {
     @POST("common/live_share")
     Observable<BaseResponseEntity<LiveShare>> liveShare(@Field("live_id")String live_id);
     /**
-     * 直播分享
+     * 我的分享
      */
     @POST("user_center/share")
     Observable<BaseResponseEntity<Share>> myShare(@Header("token") String token);

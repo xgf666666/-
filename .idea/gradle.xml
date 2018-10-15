@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/baseResLibrary" />
             <option value="$PROJECT_DIR$/baseUiLibrary" />
             <option value="$PROJECT_DIR$/baseUtilsLibrary" />
+            <option value="$PROJECT_DIR$/qrcode" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

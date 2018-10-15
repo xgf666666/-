@@ -71,9 +71,9 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
      */
     override fun onRefresh() {
         current=1
-//        getPresenter().getGoodList(catId,current,sort)
+        getPresenter().getGoodList(catId,current,sort)
         getPresenter().getFirstView()
-        getPresenter().getCategory()
+//        getPresenter().getCategory()
 
     }
 
@@ -86,14 +86,11 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
         if (swipeRefreshLayout.isRefreshing){
             mAdapter?.setNewData(data.goods_list)
             swipeRefreshLayout.isRefreshing=false
-            mAdapter?.notifyDataSetChanged()
         }else if (mAdapter?.isLoading!!){
             mAdapter?.addData(data.goods_list)
             mAdapter?.loadMoreComplete()
-            mAdapter?.notifyDataSetChanged()
         }else {
             mAdapter?.setNewData(data.goods_list)
-            mAdapter?.notifyDataSetChanged()
         }
         if (data.goods_list.size==0){
             mAdapter?.loadMoreEnd()
@@ -201,6 +198,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
         mAdapter?.setOnLoadMoreListener(this,recyclerView)
         mAdapter?.disableLoadMoreIfNotFullPage()
         swipeRefreshLayout.setOnRefreshListener(this)
+        slidingTabLayout.removeAllTabs()
         for (i in 0..data.size-1){
             slidingTabLayout.addTab(slidingTabLayout.newTab().setText(data[i].name))
         }

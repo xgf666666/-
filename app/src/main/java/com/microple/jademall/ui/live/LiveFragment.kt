@@ -62,7 +62,7 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
      */
     override fun createPresenter(): LivePresenter = LivePresenter()
 
-    private var mLiveHotAdapter = LiveHotAdapter(R.layout.item_live_hot)
+    private var mLiveHotAdapter = LiveHotAdapter(R.layout.item_live_hot)//热播
     private var mLiveReviewAdapter = LiveReviewAdapter(R.layout.item_live_hot)
     private var mLiveRecommendAdapter = LiveRecommendAdapter(R.layout.item_live_recommend)
     private var liveYuyueAdapter = LiveYuyueAdapter()
@@ -71,21 +71,18 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
 
     override fun init(view: View?) {
         if (Constants.isLogin()){
-            iv_head.loadHeadImag(Constants.getHeadImg())
-        }else{
-            iv_head.setImageResource(R.drawable.datouxiang_)
-        }
-        if (Constants.isLogin()){
             getPresenter().liveList(Constants.getToken())
+            iv_head.loadHeadImag(Constants.getPersonal().head_img)
         }else{
             getPresenter().liveList("")
+            iv_head.setImageResource(R.drawable.datouxiang_)
+
         }
         //预约
         liveYuyueAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         rv_yuyueLive.layoutManager=LinearLayoutManager(context)
         rv_yuyueLive.adapter=liveYuyueAdapter
         rv_yuyueLive.isNestedScrollingEnabled=false
-//        liveYuyueAdapter.addData(data)
         //正在热播
         mLiveHotAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         val layoutHotManager = LinearLayoutManager(context)
@@ -93,10 +90,9 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         rv_hotLive.layoutManager = layoutHotManager
         rv_hotLive.adapter = mLiveHotAdapter
         rv_hotLive.isNestedScrollingEnabled = false
-//        mLiveHotAdapter.addData(data)
         mLiveHotAdapter.setOnItemClickListener { adapter, view, position ->
 //            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveHotAdapter).data[position].live_id)
-            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveHotAdapter).data[position].live_id,adapter.data[position].play_url[0])
+            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveHotAdapter).data[position].live_id,adapter.data[position].play_url[0],adapter.data[position].group_id,adapter.data[position].live_title)
         }
 
 
@@ -108,7 +104,6 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         rv_reviewLive.layoutManager = layoutReviewManager
         rv_reviewLive.adapter = mLiveReviewAdapter
         rv_reviewLive.isNestedScrollingEnabled = false
-//        mLiveReviewAdapter.addData(data)
         mLiveReviewAdapter.notifyDataSetChanged()
         mLiveReviewAdapter.setOnItemClickListener { adapter, view, position ->
             LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveReviewAdapter).data[position].lr_id)
@@ -140,9 +135,12 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         super.onHiddenChanged(hidden)
         if (!hidden){
             if (Constants.isLogin()){
+                getPresenter().liveList(Constants.getToken())
                 iv_head.loadHeadImag(Constants.getPersonal().head_img)
             }else{
+                getPresenter().liveList("")
                 iv_head.setImageResource(R.drawable.datouxiang_)
+
             }
         }
     }

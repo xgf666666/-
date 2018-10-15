@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/baseResLibrary/baseResLibrary.iml" filepath="$PROJECT_DIR$/baseResLibrary/baseResLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseUiLibrary/baseUiLibrary.iml" filepath="$PROJECT_DIR$/baseUiLibrary/baseUiLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseUtilsLibrary/baseUtilsLibrary.iml" filepath="$PROJECT_DIR$/baseUtilsLibrary/baseUtilsLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qrcode/qrcode.iml" filepath="$PROJECT_DIR$/qrcode/qrcode.iml" />
     </modules>
   </component>
 </project>

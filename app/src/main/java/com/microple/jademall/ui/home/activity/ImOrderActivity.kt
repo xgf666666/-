@@ -52,15 +52,14 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                         }
 
                         override fun onPaySuccess() {
-                            showToast("支付成功")
-                            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn)
+//                            showToast("支付成功")
+                            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn,1)
                             finish()
                         }
                     })
 
         }else if (indexs==3){
-            showToast("支付成功")
-            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn)
+            PaySucceefulActivity.startPaySucceefulActivity(mContext,pay.data.order_sn,1)
             finish()
         }
 
@@ -96,6 +95,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     }
     override fun initData() {
         tv_title.text="立即下单"
+        Log.i("goodsID",intent.getStringExtra("goods_id"))
         getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
         (application as App).addActivity(this)
         XxAnyPay.intance.init(this)
@@ -116,7 +116,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                 dialog.setOnBtnClickListener(object : BuytypeDialog.OnBtnClickListener {
                     override fun cancel(index: Int) {
                         when(index){
-                            1->{
+                            1->{//邮寄
                                 if (!you_list.contains(goods.goods_sn)){
                                     you_list.add(goods.goods_sn)
                                 }
@@ -126,7 +126,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                     feicui_list.remove(goods.goods_sn)
                                 }
                             }
-                            2->{
+                            2->{//直播
                                 if (!live_list.contains(goods.goods_sn)){
                                     live_list.add(goods.goods_sn)
                                 }
@@ -136,7 +136,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                     feicui_list.remove(goods.goods_sn)
                                 }
                             }
-                            3->{
+                            3->{//存入翡翠柜
                                 if (!feicui_list.contains(goods.goods_sn)){
                                     feicui_list.add(goods.goods_sn)
                                 }
@@ -147,6 +147,9 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                 }
                             }
                          }
+                        you=""
+                        live=""
+                        feicui=""
                         if (you_list.size!=0){
                             tv_youji.visibility=View.VISIBLE
                             for (i in 0..you_list.size-1){
@@ -200,7 +203,8 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
             var dialog=PayDialog(this)
             if (you_list.size+live_list.size+feicui_list.size!=adapter.data.size){
                 showToast("请选择购买方式")
-            }else if (order?.order!!.user_address==null){
+            }
+            else if (order?.order!!.user_address.ua_id==null){
                 showToast("请添加地址")
             }else{
                 dialog.show()
@@ -302,6 +306,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
             password=it
             showDialog()
             dialog!!.dismiss()
+            showLoadingDialog()
             getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"3",password!!.md5Salt(),intent.getStringExtra("sb_id"),"2","")
 
         }

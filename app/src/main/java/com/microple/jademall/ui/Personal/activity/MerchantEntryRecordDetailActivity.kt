@@ -67,6 +67,8 @@ class MerchantEntryRecordDetailActivity : BaseMvpActivity<MerchanEntryRecordDeta
         iv_yingye.loadImag(record.apply_info.license)
         if(record.apply_info.attachment!=null)
         iv_fujian.loadImag(record.apply_info.attachment)
+        tv_title.text=record.apply_info.supplier_name
+        tv_type.text=record.apply_info.status_desc
     }
 
     companion object {

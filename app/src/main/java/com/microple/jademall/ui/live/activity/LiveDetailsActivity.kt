@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.microple.jademall.R
 import com.microple.jademall.bean.LiveDetail
 import com.microple.jademall.common.App
@@ -56,12 +55,11 @@ class LiveDetailsActivity : BaseMvpActivity<LiveDetailPresenter>(),LiveDetailCon
             getPresenter().getDetail("",intent.getStringExtra("live_id"))
         }
         Glide.with(this).load(Constant.item)
-                .apply(RequestOptions()
                         .placeholder(R.drawable.ic_img_default)
-                        .error(R.drawable.ic_img_default))
+                        .error(R.drawable.ic_img_default)
                 .into(iv_live)
         iv_player.setOnClickListener{
-                LivePlayerActivity.startLivePlayerActivity(this,intent.getStringExtra("live_id"),liveDetail?.detail!!.play_url[0]!!)
+                LivePlayerActivity.startLivePlayerActivity(this,intent.getStringExtra("live_id"),liveDetail?.detail!!.play_url[0]!!,"",liveDetail?.detail?.live_title!!)
         }
     }
 

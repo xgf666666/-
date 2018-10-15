@@ -75,6 +75,52 @@ public class OrderDetail {
         private GoodsInfoBean goods_info;
         private List<LogisticsBean> logistics;
         private int is_refund;
+        private int pick_type;
+        private String service_fee;
+        private int pick_pay;
+        private String pick_pay_name;
+        private String pick_time;
+
+
+        public String getPick_time() {
+            return pick_time;
+        }
+
+        public void setPick_time(String pick_time) {
+            this.pick_time = pick_time;
+        }
+
+        public String getService_fee() {
+            return service_fee;
+        }
+
+        public void setService_fee(String service_fee) {
+            this.service_fee = service_fee;
+        }
+
+        public int getPick_pay() {
+            return pick_pay;
+        }
+
+        public void setPick_pay(int pick_pay) {
+            this.pick_pay = pick_pay;
+        }
+
+        public String getPick_pay_name() {
+            return pick_pay_name;
+        }
+
+        public void setPick_pay_name(String pick_pay_name) {
+            this.pick_pay_name = pick_pay_name;
+        }
+
+        public int getPick_type() {
+            return pick_type;
+        }
+
+        public void setPick_type(int pick_type) {
+            this.pick_type = pick_type;
+        }
 
         public int getIs_refund() {
             return is_refund;

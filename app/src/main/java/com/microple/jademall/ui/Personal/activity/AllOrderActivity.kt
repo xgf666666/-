@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.microple.jademall.R
 import com.microple.jademall.bean.Order
+import com.microple.jademall.common.App
 import com.microple.jademall.ui.Personal.adapter.ViewPagerAdapter
 import com.microple.jademall.ui.Personal.fragment.AllOrderFramgent
 import com.microple.jademall.ui.Personal.mvp.contract.AllOrderContract
@@ -48,6 +49,7 @@ class AllOrderActivity : BaseMvpActivity<AllOrderPresenter>(),AllOrderContract.V
      * 初始化数据状态
      */
     override fun initData() {
+        (application as App).addActivity(this)
         tv_title.text="我的订单"
         var data = arrayListOf("全部订单", "待审核订单", "待发货订单", "待收货订单", "已完成订单", "已取消订单")
         var fragmentManager: FragmentManager =supportFragmentManager
@@ -83,5 +85,10 @@ class AllOrderActivity : BaseMvpActivity<AllOrderPresenter>(),AllOrderContract.V
             intent.putExtra("index",index)
             context.startActivity(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (application as App).deleteActivity(this)
     }
 }

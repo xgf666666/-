@@ -16,12 +16,13 @@
         <LinearLayout
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#eeeeee">
             <ImageView
                 android:id="@+id/iv_head"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:scaleType="fitXY"
+                android:layout_height="125dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_img_default"/>
         <TextView
             android:id="@+id/tv_goodsName"

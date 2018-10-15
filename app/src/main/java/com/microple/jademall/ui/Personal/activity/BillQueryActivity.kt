@@ -42,7 +42,7 @@ class BillQueryActivity : BaseMvpActivity<BillQuestPresenter>(),BillQuestContrac
      */
     var adapter=BillQueryAdapter(arrayListOf())
     override fun initData() {
-        tv_title.text="积分明细"
+        tv_title.text="账单查询"
 //        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)

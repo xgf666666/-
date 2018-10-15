@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.facebook.stetho.inspector.database.ContentProviderSchema
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
+import com.microple.jademall.bean.HandImage
 import com.microple.jademall.bean.PersonInfo
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.PersonalContract
@@ -32,9 +33,11 @@ import kotlinx.android.synthetic.main.item_title.*
  * describe:个人资料设置
  */
 class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>(),PersonalSettingContract.View {
-    override fun setHandImageView(url: String) {
+    override fun setHandImageView(handImage: HandImage) {
         showToast("修改成功")
         dismissLoadingDialog()
+        Constants.putImuser(handImage.im_user_sig)
+        Constants.putImIndent(handImage.im_identifier)
 
     }
 
@@ -66,7 +69,11 @@ class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>(),Pers
     override fun onResume() {
         super.onResume()
         var info=Constants.getPersonal()
-        tv_name.text=info.user_name
+        if (info.user_name.isNullOrEmpty()){
+            tv_name.text="请设置昵称"
+        }else{
+            tv_name.text=info.user_name
+        }
     }
 
     /**

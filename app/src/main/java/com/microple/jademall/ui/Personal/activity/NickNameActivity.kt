@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.microple.jademall.R
+import com.microple.jademall.bean.LiveSign
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.mvp.contract.NickNameContract
 import com.microple.jademall.ui.Personal.mvp.presenter.NickNamePresenter
@@ -18,11 +19,13 @@ import kotlinx.android.synthetic.main.item_title.*
  * describe:修改昵称
  */
 class NickNameActivity : BaseMvpActivity<NickNamePresenter>(),NickNameContract.View {
-    override fun setNickName() {
+    override fun setNickName(liveSign: LiveSign) {
         var person=Constants.getPersonal()
         person.user_name=et_name.text.toString()
         Constants.putPersonal(person)
         dismissLoadingDialog()
+        Constants.putImIndent(liveSign.im_identifier)
+        Constants.putImuser(liveSign.im_user_sig)
         finish()
     }
 

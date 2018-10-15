@@ -44,7 +44,7 @@
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="赌东道赌东道赌东道赌东道赌东道赌东道赌东道"
+            android:text="新用户通过分享注册将终生与邀请人绑定，邀请人将会获得被邀请人的充值奖励"
             android:layout_toRightOf="@+id/iv_head"
             android:textColor="@color/black_333333"
             android:textSize="13sp"

@@ -24,7 +24,7 @@ class CustomerAdapter(data:List<Customer.ReturnsBean>):BaseQuickAdapter<Customer
         helper?.setText(R.id.tv_goodsNum, item?.goods?.goods_sn)
         helper?.setText(R.id.tv_goodsPrice, "￥"+item?.goods?.goods_price)
         helper?.setText(R.id.tv_type,item?.status_desc)
-        helper?.setText(R.id.tv_time,item?.add_time)
+        helper?.setText(R.id.tv_time,"下单时间:   "+item?.add_time)
         helper?.getView<ImageView>(R.id.iv_goodsImage)?.loadImag(item?.goods?.goods_img!!)
     }
 }
