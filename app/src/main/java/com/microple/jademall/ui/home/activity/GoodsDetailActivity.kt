@@ -1,12 +1,8 @@
 package com.microple.jademall.ui.home.activity
 
-import android.app.ActionBar
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import com.flyco.dialog.listener.OnOperItemClickL
@@ -17,12 +13,12 @@ import com.microple.jademall.dialog.TextDialog
 import com.microple.jademall.ui.home.mvp.contract.GoodsDetailContract
 import com.microple.jademall.ui.home.mvp.presenter.GoodsDetailPresenter
 import com.microple.jademall.uitls.loadImag
-import com.microple.jademall.weight.ZoomScrollView
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_goods.*
 import android.view.WindowManager
 import android.os.Build
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -33,13 +29,11 @@ import com.microple.jademall.common.Constants
 import com.microple.jademall.dialog.ShareDialog
 import com.microple.jademall.ui.Personal.activity.LoginActivity
 import com.microple.jademall.ui.Personal.adapter.ImageDetailAdapter
-import com.umeng.socialize.Config
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
-import com.umeng.socialize.shareboard.ShareBoardConfig
 import com.umeng.socialize.shareboard.SnsPlatform
 
 
@@ -269,6 +263,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         goodsDetails=goodsDetail
         tv_title.text=goodsDetail.goods_info.goods_name
         tv_tt_number.text=goodsDetail.goods_info.goods_sn
+        Log.i("goodsDetail",goodsDetail.goods_info.goods_img)
         iv_zoom.loadImag(goodsDetail.goods_info.goods_img)
         tv_type.text="类型："+(if (goodsDetail.goods_info.type==2) "原石" else "成品")
         tv_number.text="产品编号："+goodsDetail.goods_info.goods_sn
@@ -276,7 +271,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_color.text="颜色："+goodsDetail.goods_info.color
         tv_touming.text="透明度："+goodsDetail.goods_info.transparency
         tv_changdi.text="产地："+goodsDetail.goods_info.origin_place
-        tv_price.text="RMB    "+goodsDetail.goods_info.goods_price
+        tv_price.text="RMB "+goodsDetail.goods_info.goods_price
         if (goodsDetail.goods_info.is_collect==1){
             iv_collection.setImageResource(R.drawable.btn_favor_selected)
         }

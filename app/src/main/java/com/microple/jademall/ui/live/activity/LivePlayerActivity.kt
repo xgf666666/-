@@ -12,7 +12,6 @@ import android.view.WindowManager
 import android.widget.ImageView
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
-import com.microple.jademall.R.id.et_send
 import com.microple.jademall.bean.LiveShare
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
@@ -21,7 +20,6 @@ import com.microple.jademall.ui.live.adapter.MessageAdapter
 import com.microple.jademall.ui.live.mvp.contract.LivePlayerContract
 import com.microple.jademall.ui.live.mvp.presenter.LivePlayerPresenter
 import com.microple.jademall.uitls.loadHeadImag
-import com.microple.jademall.uitls.loadImag
 import com.tencent.imsdk.*
 import com.tencent.imsdk.ext.group.TIMGroupAssistantListener
 import com.tencent.imsdk.ext.group.TIMGroupCacheInfo
@@ -140,7 +138,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
     var mLivePlayer:TXLivePlayer?=null
     //播放直播
     fun play(){
-        loading_progress.visibility=View.VISIBLE
+//        loading_progress.visibility=View.VISIBLE
         val sdkver = TXLiveBase.getSDKVersionStr()
         Log.d("liteavsdk", "liteav sdk version is : $sdkver")
         mLivePlayer=TXLivePlayer(this)
@@ -154,28 +152,28 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                 Log.i("eventevent","event"+event)
                 when(event){
                     TXLiveConstants.PLAY_ERR_NET_DISCONNECT->{
-                        loading_progress.visibility=View.VISIBLE
+//                        loading_progress.visibility=View.VISIBLE
                         showToast("网络已断开")
                         Log.i("TXLiveConstants","网络已断开")
                     }
                     TXLiveConstants.PLAY_EVT_PLAY_LOADING->{
-                        loading_progress.visibility=View.VISIBLE
+//                        loading_progress.visibility=View.VISIBLE
                         Log.i("TXLiveConstants","视频播放再加载")
                     }
                     TXLiveConstants.PLAY_EVT_RTMP_STREAM_BEGIN->{
-                        loading_progress.visibility=View.GONE
+//                        loading_progress.visibility=View.GONE
                         Log.i("TXLiveConstants","视频播放开始")
                     }
                     TXLiveConstants.PLAY_EVT_PLAY_END->{
                         loading_progress.visibility=View.GONE
-                        tv_jieshu.visibility=View.VISIBLE
+//                        tv_jieshu.visibility=View.VISIBLE
                         Log.i("TXLiveConstants","视频播放结束")
                     }
                     TXLiveConstants.PLAY_EVT_CONNECT_SUCC->{
                         Log.i("TXLiveConstants","已经连接服务器")
                     }
                     TXLiveConstants.PLAY_ERR_NET_DISCONNECT->{
-                        loading_progress.visibility=View.GONE
+//                        loading_progress.visibility=View.GONE
                         tv_jieshu.text="直播未开始"
 
 
@@ -198,11 +196,15 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
         })
         //聊天室
-        if (Constants.isLogin()){
+        if (Constants.isLogin()&&intent.getIntExtra("isRecord",0)==1){
             imLogin()
             rl_message.layoutManager=LinearLayoutManager(this)
             rl_message.adapter=messageAdapter
         }
+        if (intent.getIntExtra("isRecord",0)==2){
+            et_send.visibility=View.GONE
+        }
+
         iv_close.setOnClickListener{
             finish()
         }
@@ -213,7 +215,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         confit.setAccoutType("36862")
         var init=TIMManager.getInstance().init(this,confit)
         Log.i("initinit",""+init)
-        tv_user.loadImag(Constants.getHeadImg())
+        tv_user.loadHeadImag(Constants.getHeadImg())
         tv_livetitle.text=intent.getStringExtra("live_title")
         if (!init){
             TIMManager.getInstance().init(this,confit)
@@ -233,9 +235,9 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
                                 override fun onSuccess(infoList: List<TIMGroupMemberInfo>?) {
                                     Log.i("infoList",""+infoList?.size)
-                                    tv_renshu.text=""+infoList?.size!!+"人观看"
+                                    tv_renshu.text=""+infoList!!.size+"人观看"
                                     var str_list= arrayListOf<String>()
-                                    if (infoList?.size!!>5){
+                                    if (infoList!!.size>5){
                                         for (i in 0..infoList?.size-1){
                                             if (i>infoList?.size-6){
                                                 str_list.add(infoList[i].user)
@@ -246,8 +248,10 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                                                 str_list.add(infoList[i].user)
                                             }
                                     }
+                                    //获取进入IM的人的资料
                                     TIMFriendshipManager.getInstance().getUsersProfile(str_list, object : TIMValueCallBack<List<TIMUserProfile>> {
                                         override fun onError(p0: Int, p1: String?) {
+                                            Log.i("onErrorlive",p1)
                                         }
 
                                         override fun onSuccess(p1: List<TIMUserProfile>?) {
@@ -257,6 +261,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                                             }
                                             for (i in 0..p1!!.size-1){
                                                 guangkan.getChildAt(i).visibility=View.VISIBLE
+                                                Log.i("faceUrl",p1[i].faceUrl)
                                                 ( guangkan.getChildAt(i) as ImageView).loadHeadImag(p1[i].faceUrl)
                                             }
                                         }
@@ -297,7 +302,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
             override fun onSuccess() {
                 Log.i("groupID","加入成功")
-                sendMessage("加入聊天室",1)
+                sendMessage("加入直播间",1)
             }
         })
     }
@@ -369,6 +374,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         TIMManager.getInstance().userConfig=userConfitsss
 
     }
+    //分享
     override fun liveShare(liveShare: LiveShare) {
         dismissLoadingDialog()
         var dialog=ShareDialog(this)
@@ -403,7 +409,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
     override fun onPause() {
         super.onPause()
-        sendMessage("离开聊天室",2)
+        sendMessage("离开直播间",2)
 
     }
 
@@ -415,12 +421,13 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         (application as App).deleteActivity(this)
     }
     companion object {
-        fun startLivePlayerActivity(context: Context,live_id:String,play_url:String,group_id:String,live_title:String){
+        fun startLivePlayerActivity(context: Context,live_id:String,play_url:String,group_id:String,live_title:String,isRecord:Int){
             val intent = Intent(context, LivePlayerActivity::class.java)
             intent.putExtra("live_id",live_id)
             intent.putExtra("play_url",play_url)
             intent.putExtra("group_id",group_id)
             intent.putExtra("live_title",live_title)
+            intent.putExtra("isRecord",isRecord)//标记是否为精彩回顾
             context.startActivity(intent)
         }
     }

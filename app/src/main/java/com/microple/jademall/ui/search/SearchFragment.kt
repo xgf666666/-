@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.microple.jademall.MainActivity
 import com.microple.jademall.R
 import com.microple.jademall.bean.Search
 import com.microple.jademall.common.Constants
@@ -56,6 +57,10 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
         }
     }
     override fun init(view: View?) {
+        iv_head.setOnClickListener {
+            (activity as MainActivity).setSelect(4)
+        }
+
         if (Constants.isLogin()){
             iv_head.loadHeadImag(Constants.getHeadImg())
         }else{

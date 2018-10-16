@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.microple.jademall.MainActivity
 import com.microple.jademall.R
 import com.microple.jademall.bean.Goods
 import com.microple.jademall.bean.Shop
@@ -97,6 +98,10 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
     override fun getFragmentLayoutId(): Int = R.layout.fragment_shoppingcar
 
     override fun init(view: View?) {
+        iv_head.setOnClickListener {
+            (activity as MainActivity).setSelect(4)
+        }
+
         if (Constants.isLogin())
             iv_head.loadHeadImag(Constants.getPersonal().head_img)
         tv_index.setOnClickListener{

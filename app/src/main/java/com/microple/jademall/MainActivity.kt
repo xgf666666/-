@@ -58,6 +58,10 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         menuInflater.inflate(R.menu.navigation_main, menu)
+
+    }
+    public fun setSelect(position: Int){
+        bottomNavigationView.setSelectedItemId(bottomNavigationView.getMenu().getItem(position).getItemId())
     }
 
     /**
@@ -68,6 +72,7 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
             bottomNavigationView.selectedItemId = itemId
         }
         val fragmentTransaction = supportFragmentManager.beginTransaction()
+        Log.i("itemId",""+itemId)
         for (i in mFragments.indices) {
             val fragment = mFragments[i]
             if (mMenuItemId[i] == itemId) {

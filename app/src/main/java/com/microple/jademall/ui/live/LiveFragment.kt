@@ -5,6 +5,7 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.microple.jademall.MainActivity
 import com.microple.jademall.R
 import com.microple.jademall.bean.LiveList
 import com.microple.jademall.ui.live.adapter.LiveHotAdapter
@@ -78,6 +79,9 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
             iv_head.setImageResource(R.drawable.datouxiang_)
 
         }
+        iv_head.setOnClickListener {
+            (activity as MainActivity).setSelect(4)
+        }
         //预约
         liveYuyueAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         rv_yuyueLive.layoutManager=LinearLayoutManager(context)
@@ -92,7 +96,7 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         rv_hotLive.isNestedScrollingEnabled = false
         mLiveHotAdapter.setOnItemClickListener { adapter, view, position ->
 //            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveHotAdapter).data[position].live_id)
-            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveHotAdapter).data[position].live_id,adapter.data[position].play_url[0],adapter.data[position].group_id,adapter.data[position].live_title)
+            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveHotAdapter).data[position].live_id,adapter.data[position].play_url[0],adapter.data[position].group_id,adapter.data[position].live_title,1)
         }
 
 
@@ -106,7 +110,7 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         rv_reviewLive.isNestedScrollingEnabled = false
         mLiveReviewAdapter.notifyDataSetChanged()
         mLiveReviewAdapter.setOnItemClickListener { adapter, view, position ->
-            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveReviewAdapter).data[position].lr_id)
+            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveReviewAdapter).data[position].lr_id,adapter.data[position].video_url,"",adapter.data[position].video_name,2)
         }
 
 

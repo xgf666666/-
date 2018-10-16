@@ -27,10 +27,11 @@ class PaySucceefulActivity : AppCompatActivity() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         if (intent.getIntExtra("index",0)==2){
             tv_title.text="取消成功"
-        }else{
-            tv_title.text="支付成功"
             tv_title_c.text="取消订单成功，货款将原路退回！"
             tv_content.text="我们将退还您所支付的所有款项，再次感谢您对翡翠原石的信任!"
+        }else{
+            tv_title.text="支付成功"
+
         }
         tv_order.text="订单号：   "+intent.getStringExtra("order_sn")
         tv_back.setOnClickListener {

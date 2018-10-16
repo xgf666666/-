@@ -59,6 +59,9 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
 
             LoginActivity.startLoginActivity(context!!)
         }
+        iv_head.setOnClickListener {
+            PersonalSettingActivity.startPersonalSettingActivity(context!!)
+        }
         scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
             if (scrollY>=90){
                 tv_title.visibility=View.VISIBLE

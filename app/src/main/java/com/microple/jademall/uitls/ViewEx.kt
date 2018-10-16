@@ -33,7 +33,6 @@ fun ImageView.loadHeadImag( url: String) {
     }else{
         urltemp=url
     }
-    val with = Glide.with(this.context)
     Glide.with(this.context).load(urltemp)
             .placeholder(R.drawable.datouxiang_)
             .error(R.drawable.datouxiang_)

@@ -239,7 +239,7 @@
                     android:text="选择其他编号"
                     android:textSize="@dimen/sp_15"
                     android:textColor="@color/green_06A366"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_price"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>

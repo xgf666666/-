@@ -23,15 +23,20 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
 
 
     override fun getOrder(order: Order) {
-        if (ss_swipe.isRefreshing){
-            ss_swipe.isRefreshing=false
+        if (ss_swipe!=null){
+            if (ss_swipe.isRefreshing){
+                ss_swipe.isRefreshing=false
+            }
+
         }
+        if (loading!=null&&tv_tishi!=null)
         loading.visibility=View.GONE
         if (order.order_list.size==0){
             tv_tishi.visibility=View.VISIBLE
         }else{
             tv_tishi.visibility=View.GONE
         }
+        if (adapter!=null)
         adapter.setNewData(order.order_list)
     }
 
@@ -62,7 +67,7 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
             OrderDetailActivity.startOrderDetailActivity(context!!,""+(adapter as AllOrderAdapter).data[position].order_id)
         }
         ss_swipe.setOnRefreshListener {
-            when(index){
+            when(index){//判断当前的订单状态
             //全部订单
                 0->{
                     getPresenter().getOrder(Constants.getToken(),"")
@@ -100,13 +105,12 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
 
     override fun onResume() {
         super.onResume()
-        if (!isHidden){
             if (index==0){
                 getPresenter().getOrder(Constants.getToken(),"")
             }else{
                 getPresenter().getOrder(Constants.getToken(),""+(index-1))
             }
 
-        }
     }
+
 }

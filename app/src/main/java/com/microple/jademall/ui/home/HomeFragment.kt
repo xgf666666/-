@@ -19,6 +19,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.Holder
 import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.microple.jademall.MainActivity
 import com.microple.jademall.R
 import com.microple.jademall.bean.Category
 import com.microple.jademall.bean.FirstImage
@@ -81,7 +82,9 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
     var catId:Int=0
     var current:Int=1
     var sort:String=""
+    var desc:String=" asc"//升序：asc 降序：desc
     override fun getGoodList(data: Goods) {
+        dismissLoadingDialog()
         this.data=data
         if (swipeRefreshLayout.isRefreshing){
             mAdapter?.setNewData(data.goods_list)
@@ -126,6 +129,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
         tv_price.setOnClickListener(this)
         tv_hot.setOnClickListener(this)
         tv_newest.setOnClickListener(this)
+        iv_head.setOnClickListener(this)
         scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
             if (scrollY>=90){
                 tv_title.visibility=View.VISIBLE
@@ -166,21 +170,42 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
                 setText(tv_price)
                 current=1
                 sort="price"
-                getPresenter().getGoodList(catId,current,"price")
+                if (!sort.contains("asc")){
+                    sort="price asc"
+                }else{
+                    sort="price desc"
+                }
+                showLoadingDialog()
+                getPresenter().getGoodList(catId,current,sort)
 
             }
             tv_hot -> {
                 setText(tv_hot)
                 current=1
                 sort="hot"
-                getPresenter().getGoodList(catId,current,"hot")
+                if (!sort.contains("asc")){
+                    sort="hot asc"
+                }else{
+                    sort="hot desc"
+                }
+                showLoadingDialog()
+                getPresenter().getGoodList(catId,current,sort)
 
             }
             tv_newest -> {
                 setText(tv_newest)
                 current=1
                 sort="new"
-                getPresenter().getGoodList(catId,current,"new")
+                if (!sort.contains("asc")){
+                    sort="new asc"
+                }else{
+                    sort="new desc"
+                }
+                showLoadingDialog()
+                getPresenter().getGoodList(catId,current,sort)
+            }
+            iv_head->{
+                (activity as MainActivity).setSelect(4)
             }
         }
     }
@@ -236,10 +261,10 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
         tv_newest.setTextColor(resources.getColor(R.color.text_black))
         tv_price.setTextColor(resources.getColor(R.color.text_black))
         tv_hot.setTextColor(resources.getColor(R.color.text_black))
-        tv_newest.isEnabled=true
-        tv_price.isEnabled=true
-        tv_hot.isEnabled=true
-        textView.isEnabled=false
+//        tv_newest.isEnabled=true
+//        tv_price.isEnabled=true
+//        tv_hot.isEnabled=true
+//        textView.isEnabled=false
         textView.setTextColor(resources.getColor(R.color.colorMain))
 
     }

@@ -31,10 +31,10 @@
                 android:id="@+id/tv_livetitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxEms="7"
+                android:maxEms="6"
                 android:singleLine="true"
                 android:layout_marginLeft="30dp"
-                android:text="看直播看直看直播看直"
+                android:layout_marginRight="@dimen/dp_4"
                 android:textSize="12sp"
                 android:textColor="@color/white_default" />
             <TextView
@@ -42,10 +42,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="人观看"
                 android:textSize="10sp"
                 android:textColor="@color/white_default"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="@dimen/dp_4"/>
         </LinearLayout>
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/tv_user"
@@ -138,7 +138,8 @@
             android:layout_marginRight="22dp"
             android:background="@drawable/bg_live"
             android:imeOptions="actionSend"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="10dp"/>
 
     </LinearLayout>
     <android.support.v7.widget.RecyclerView

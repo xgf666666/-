@@ -19,6 +19,7 @@ import com.microple.jademall.ui.Personal.mvp.presenter.AllOrderPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_all_order.*
 import kotlinx.android.synthetic.main.item_title.*
+import java.text.FieldPosition
 
 /**
 * author: xiaoguagnfei
