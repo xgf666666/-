@@ -52,7 +52,7 @@ class LiveDetailsActivity : BaseMvpActivity<LiveDetailPresenter>(),LiveDetailCon
         if (Constants.isLogin()){
             getPresenter().getDetail(Constants.getToken(),intent.getStringExtra("live_id"))
         }else{
-            getPresenter().getDetail("",intent.getStringExtra("live_id"))
+            getPresenter().getDetail("",intent.getStringExtra( "live_id"))
         }
         Glide.with(this).load(Constant.item)
                         .placeholder(R.drawable.ic_img_default)

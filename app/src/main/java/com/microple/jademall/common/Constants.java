@@ -27,6 +27,7 @@ public class Constants {
     public static final String KEY_INTENT_MAIN = "INTENT_MAIN";
     public static final String KEY_INTENT_VIP = "VipID";//Vip详情页传递字段
     public static final String KEY_INTENT_MSG_ID = "msg_id";//消息id
+    public static final String isExit = "isExit";//直播间页面是否退出
     public static final String KEY_DATA = "data";//Intent数据传输字段
     private static final String KEY_SP_USER = "SP_USER";
     private static final String KEY_SP_LOCATION = "SP_LOCATION";//定位信息
@@ -131,6 +132,19 @@ public class Constants {
     public static void putToken(String  token) {
         SPUtils.getInstance().put(KEY_SP_TOKEN, token);
     }
+    /**
+     * 获取isExit
+     *
+     * @return
+     */
+    public static int getIsExit() {
+        int loginJson = SPUtils.getInstance().getInt(isExit,0);
+        return loginJson;
+    }
+    public static void putIsExit(int  exit) {
+        SPUtils.getInstance().put(isExit,exit,true);
+    }
+
     /**
      * 获取头像
      *

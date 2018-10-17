@@ -154,6 +154,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
             initGoodsData(data)
         }
     }
+    var price=0
 
     override fun onClick(v: View?) {
         when (v) {
@@ -169,13 +170,16 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
             tv_price -> {
                 setText(tv_price)
                 current=1
-                sort="price"
-                if (!sort.contains("asc")){
-                    sort="price asc"
+                sort="goods_price"
+                if (price==0){
+                    price=1
+                    sort="goods_price desc"
                 }else{
-                    sort="price desc"
+                    price=0
+                    sort="goods_price asc"
                 }
                 showLoadingDialog()
+                Log.i("goods_pricess",sort)
                 getPresenter().getGoodList(catId,current,sort)
 
             }
@@ -183,11 +187,6 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
                 setText(tv_hot)
                 current=1
                 sort="hot"
-                if (!sort.contains("asc")){
-                    sort="hot asc"
-                }else{
-                    sort="hot desc"
-                }
                 showLoadingDialog()
                 getPresenter().getGoodList(catId,current,sort)
 
@@ -196,11 +195,6 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
                 setText(tv_newest)
                 current=1
                 sort="new"
-                if (!sort.contains("asc")){
-                    sort="new asc"
-                }else{
-                    sort="new desc"
-                }
                 showLoadingDialog()
                 getPresenter().getGoodList(catId,current,sort)
             }

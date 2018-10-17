@@ -88,7 +88,8 @@ class SearchSortGoodsActivity : BaseMvpActivity<SearchSortGoodsPresenter>(),Sear
     override fun getActivityLayoutId(): Int = R.layout.activity_sort_goods
 
 
-
+    var price=0
+    var sort=""
     override fun onClick(v: View?) {
         when (v) {
             iv_back -> finish()
@@ -103,8 +104,16 @@ class SearchSortGoodsActivity : BaseMvpActivity<SearchSortGoodsPresenter>(),Sear
             }
             tv_price -> {
                 setText(tv_price)
+                sort="goods_price"
+                if (price==0){
+                    price=1
+                    sort="goods_price desc"
+                }else{
+                    price=0
+                    sort="goods_price asc"
+                }
                 for (i:Int in 0..fragments.size-1){
-                    (fragments[i] as HomeGoodsFragment).setCat_id("price")
+                    (fragments[i] as HomeGoodsFragment).setCat_id(sort)
                 }
             }
             tv_hot -> {
@@ -127,10 +136,6 @@ class SearchSortGoodsActivity : BaseMvpActivity<SearchSortGoodsPresenter>(),Sear
         tv_newest.setTextColor(resources.getColor(R.color.text_black))
         tv_price.setTextColor(resources.getColor(R.color.text_black))
         tv_hot.setTextColor(resources.getColor(R.color.text_black))
-        tv_newest.isEnabled=true
-        tv_price.isEnabled=true
-        tv_hot.isEnabled=true
-        textView.isEnabled=true
         textView.setTextColor(resources.getColor(R.color.colorMain))
 
     }

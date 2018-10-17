@@ -23,6 +23,7 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
     }
     Glide.with(this.context).load(urltemp)
             .placeholder(R.drawable.ic_img_default)
+            .dontAnimate()
             .error(R.drawable.ic_img_default)
             .into(this)
 }
@@ -34,7 +35,8 @@ fun ImageView.loadHeadImag( url: String) {
         urltemp=url
     }
     Glide.with(this.context).load(urltemp)
-            .placeholder(R.drawable.datouxiang_)
+//            .placeholder(R.drawable.datouxiang_)
+            .dontAnimate()
             .error(R.drawable.datouxiang_)
             .into(this)
 }
@@ -45,17 +47,3 @@ fun TextView.setHtmlText(content: String) {
 }
 
 fun TextView.getTString()=this.text.toString().trim()
-
-
-
-//fun View.setOnPerCheckLoginClickListner(back:(v:View)->Unit){
-//    this.setOnClickListener {
-//        if (com.weibiaogan.bangbang.common.Constants.isLogin()) {
-//            back.invoke(it)
-//        }else{
-//            val intent = android.content.Intent(it.context, com.weibiaogan.bangbang.ui.login.LoginActivity::class.java)
-////            val intent = android.content.Intent(it.context, com.weibiaogan.litong.ui.project.PayCenterActivity::class.java)
-//            it.context.startActivity(intent)
-//        }
-//    }
-//}

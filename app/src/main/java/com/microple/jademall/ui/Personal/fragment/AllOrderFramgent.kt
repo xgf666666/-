@@ -29,15 +29,17 @@ class AllOrderFramgent :BaseMvpFragment<AllOrderContract.Model,AllOrderContract.
             }
 
         }
-        if (loading!=null&&tv_tishi!=null)
-        loading.visibility=View.GONE
-        if (order.order_list.size==0){
-            tv_tishi.visibility=View.VISIBLE
-        }else{
-            tv_tishi.visibility=View.GONE
+        if (loading!=null&&tv_tishi!=null){
+            loading.visibility=View.GONE
+            if (order.order_list.size==0){
+                tv_tishi.visibility=View.VISIBLE
+            }else{
+                tv_tishi.visibility=View.GONE
+            }
+            if (adapter!=null)
+                adapter.setNewData(order.order_list)
         }
-        if (adapter!=null)
-        adapter.setNewData(order.order_list)
+
     }
 
     /**

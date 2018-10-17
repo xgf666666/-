@@ -35,7 +35,6 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
 
     override fun exitOrder() {
         dismissLoadingDialog()
-        showToast("取消成功")
         PaySucceefulActivity.startPaySucceefulActivity(this,orderDetail?.order_detail?.order_sn!!,2)
         finish()
     }

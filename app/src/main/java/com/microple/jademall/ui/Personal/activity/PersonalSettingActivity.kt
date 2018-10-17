@@ -20,6 +20,7 @@ import com.microple.jademall.ui.Personal.mvp.contract.PersonalContract
 import com.microple.jademall.ui.Personal.mvp.contract.PersonalSettingContract
 import com.microple.jademall.ui.Personal.mvp.presenter.PersonalSettingPresenter
 import com.microple.jademall.ui.home.activity.ImageDetailActivity
+import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.weibiaogan.bangbang.dialog.ChooseImageDialogWrapper
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
@@ -61,7 +62,7 @@ class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>(),Pers
     override fun initData() {
         tv_title.text="个人资料设置"
         var info=Constants.getPersonal()
-        iv_hand.loadImag(info.head_img)
+        iv_hand.loadHeadImag(info.head_img)
         initImageChooseHelper()
 
     }

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -102,6 +104,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                 messageAdapter.addData(p0!!)
                 rl_message.scrollToPosition(messageAdapter.getItemCount()-1)
                 if (index==2){//退出IM
+                    TIMManager.getInstance().removeMessageListener(null)
                     TIMGroupManager.getInstance().quitGroup(intent.getStringExtra("group_id"), object : TIMCallBack {
                         override fun onError(p0: Int, p1: String?) {
                             Log.i("quitGroup","p1"+p0)
@@ -127,12 +130,16 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
      * 初始化数据状态
      */
     override fun initData() {
+        Log.i("activitysss",this@LivePlayerActivity.toString())
+        //isExit=0
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         (application as App).addActivity(this)
-        play()
         hideStatusBar()
-
+        Log.i("onErrorlive",""+Constants.getIsExit())
+        Constants.putIsExit(0)
+        play()
     }
+
 
 
     var mLivePlayer:TXLivePlayer?=null
@@ -209,6 +216,11 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
             finish()
         }
     }
+    //接收消息
+    private fun addMessage(){
+        TIMManager.getInstance().addMessageListener(messageListener)
+
+    }
     //登录聊天室
     private fun imLogin(){
         var confit= TIMSdkConfig(1400149108)
@@ -221,63 +233,6 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
             TIMManager.getInstance().init(this,confit)
         }
         setUserCofig()
-        TIMManager.getInstance().addMessageListener {
-            messageAdapter.addData(it)
-            rl_message.scrollToPosition(messageAdapter.getItemCount()-1)
-            for (i in 0..it.size-1){
-                for (y in 0..it[i].elementCount.toInt()-1){
-                    var elem=it[i].getElement(y)
-                    if (elem.type==TIMElemType.Text){
-                        if (!(elem as TIMTextElem).text.contains("：")){
-                            TIMGroupManagerExt.getInstance().getGroupMembers(intent.getStringExtra("group_id"), object : TIMValueCallBack<List<TIMGroupMemberInfo>> {
-                                override fun onError(p0: Int, p1: String?) {
-                                }
-
-                                override fun onSuccess(infoList: List<TIMGroupMemberInfo>?) {
-                                    Log.i("infoList",""+infoList?.size)
-                                    tv_renshu.text=""+infoList!!.size+"人观看"
-                                    var str_list= arrayListOf<String>()
-                                    if (infoList!!.size>5){
-                                        for (i in 0..infoList?.size-1){
-                                            if (i>infoList?.size-6){
-                                                str_list.add(infoList[i].user)
-                                            }
-                                        }
-                                    }else{
-                                        for (i in 0..infoList?.size-1){
-                                                str_list.add(infoList[i].user)
-                                            }
-                                    }
-                                    //获取进入IM的人的资料
-                                    TIMFriendshipManager.getInstance().getUsersProfile(str_list, object : TIMValueCallBack<List<TIMUserProfile>> {
-                                        override fun onError(p0: Int, p1: String?) {
-                                            Log.i("onErrorlive",p1)
-                                        }
-
-                                        override fun onSuccess(p1: List<TIMUserProfile>?) {
-                                            if (isExit ==1) return
-                                            for (y in 0..guangkan.childCount-1){
-                                                guangkan.getChildAt(y).visibility=View.GONE
-                                            }
-                                            for (i in 0..p1!!.size-1){
-                                                guangkan.getChildAt(i).visibility=View.VISIBLE
-                                                Log.i("faceUrl",p1[i].faceUrl)
-                                                ( guangkan.getChildAt(i) as ImageView).loadHeadImag(p1[i].faceUrl)
-                                            }
-                                        }
-
-
-                                    })
-
-                                }
-                            })
-                        }
-                    }
-                }
-
-        }
-            return@addMessageListener true
-        }
 
         TIMManager.getInstance().login(Constants.getImIndent(),Constants.getImuser(), object : TIMCallBack {
             override fun onError(code: Int, desc: String?) {
@@ -287,7 +242,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
             override fun onSuccess() {
                 Log.i("ImLogin", "登录成功")
-
+                addMessage()
                 joinRoom(intent.getStringExtra("group_id"))
 
             }
@@ -302,10 +257,71 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
             override fun onSuccess() {
                 Log.i("groupID","加入成功")
+
                 sendMessage("加入直播间",1)
             }
         })
     }
+    var messageListener:TIMMessageListener= TIMMessageListener {
+            messageAdapter.addData(it)
+            rl_message.scrollToPosition(messageAdapter.getItemCount()-1)
+            Log.i("activitysss",this@LivePlayerActivity.toString())
+            for (i in 0..it.size-1){
+                for (y in 0..it[i].elementCount.toInt()-1){
+                    var elem=it[i].getElement(y)
+                    if (elem.type==TIMElemType.Text){
+                        if (!(elem as TIMTextElem).text.contains("：")){
+                            TIMGroupManagerExt.getInstance().getGroupMembers(intent.getStringExtra("group_id"), object : TIMValueCallBack<List<TIMGroupMemberInfo>> {
+                                override fun onError(p0: Int, p1: String?) {
+                                }
+
+                                override fun onSuccess(infoList: List<TIMGroupMemberInfo>?) {
+                                    Log.i("onErrorlive","成功￥isExit${Constants.getIsExit()}")
+                                    if (isExit == 1) return
+                                    tv_renshu.text="${infoList!!.size}人观看"
+                                    var str_list= arrayListOf<String>()
+                                    if (infoList!!.size>5){
+                                        for (i in 0..infoList?.size-1){
+                                            if (i>infoList?.size-6){
+                                                str_list.add(infoList[i].user)
+                                            }
+                                        }
+                                    }else{
+                                        for (i in 0..infoList?.size-1){
+                                            str_list.add(infoList[i].user)
+                                        }
+                                    }
+                                    Log.i("faceUrl",""+str_list?.size)
+                                    //获取进入IM的人的资料
+                                    TIMFriendshipManager.getInstance().getUsersProfile(str_list, object : TIMValueCallBack<List<TIMUserProfile>> {
+                                        override fun onError(p0: Int, p1: String?) {
+                                        }
+
+                                        override fun onSuccess(p1: List<TIMUserProfile>?) {
+                                            for (y in 0..guangkan.childCount-1){
+                                                guangkan.getChildAt(y).visibility=View.GONE
+                                            }
+                                            for (i in 0..p1!!.size-1){
+                                                guangkan.getChildAt(i).visibility=View.VISIBLE
+                                                Log.i("faceUrl",p1[i].faceUrl)
+                                                ( guangkan.getChildAt(i) as ImageView).loadHeadImag(p1[i].faceUrl)
+
+                                            }
+                                        }
+
+
+                                    })
+
+                                }
+                            })
+                        }
+                    }
+                }
+
+            }
+             true
+        }
+
     //配置用户
     fun setUserCofig(){
         var userConfig=TIMUserConfig().setGroupSettings(TIMGroupSettings()).setFriendshipSettings(TIMFriendshipSettings()).setUserStatusListener(object : TIMUserStatusListener {
@@ -409,16 +425,22 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
     override fun onPause() {
         super.onPause()
+        if(intent.getIntExtra("isRecord",0)==1)
         sendMessage("离开直播间",2)
 
     }
-
+    var isExit=0
     override fun onDestroy() {
         super.onDestroy()
+        Log.i("live_player","onDestroy")
+        Constants.putIsExit(2)
         mLivePlayer?.stopPlay(true)
         video_view.onDestroy()
-
+        isExit=1
+        TIMManager.getInstance().removeMessageListener(messageListener)
         (application as App).deleteActivity(this)
+        Log.i("activitysss",this@LivePlayerActivity.toString())
+
     }
     companion object {
         fun startLivePlayerActivity(context: Context,live_id:String,play_url:String,group_id:String,live_title:String,isRecord:Int){
@@ -479,10 +501,6 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         override fun onStart(p0: SHARE_MEDIA?) {
         }
     }
-    var isExit=0
-    override fun onStop() {
-        super.onStop()
-        isExit=1
-    }
+
 
 }

@@ -22,7 +22,7 @@ class TeamAdapter(data:List<Team.UserListBean>):BaseQuickAdapter<Team.UserListBe
      * @param item   The item that needs to be displayed.
      */
     override fun convert(helper: BaseViewHolder?, item: Team.UserListBean?) {
-        helper?.setText(R.id.tv_name,item?.user_name)
+        helper?.setText(R.id.tv_name,item?.user_name    +"ID"+item?.user_id)
         helper?.setText(R.id.tv_phone,item?.phone)
         helper?.setText(R.id.tv_Price,"产生佣金    "+item?.divide_money)
         helper?.getView<ImageView>(R.id.iv_goodsImage)?.loadImag(item?.head_img!!)
