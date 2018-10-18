@@ -70,11 +70,8 @@ class PersonalSettingActivity : BaseMvpActivity<PersonalSettingPresenter>(),Pers
     override fun onResume() {
         super.onResume()
         var info=Constants.getPersonal()
-        if (info.user_name.isNullOrEmpty()){
-            tv_name.text="请设置昵称"
-        }else{
+
             tv_name.text=info.user_name
-        }
     }
 
     /**

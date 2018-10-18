@@ -17,6 +17,7 @@ import io.reactivex.Observable
  */
 class LivePlayerModel: LivePlayerContract.Model {
     override fun liveShare(live_id: String): Observable<BaseResponseEntity<LiveShare>> =AppApi.Api().liveShare(live_id)
+    override fun getGoods(live_id: String) =AppApi.Api().liveGoods(live_id)
 
 
 }

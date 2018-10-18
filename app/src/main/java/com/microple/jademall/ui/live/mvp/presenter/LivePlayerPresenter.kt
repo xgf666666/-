@@ -13,6 +13,14 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class LivePlayerPresenter:LivePlayerContract.Presenter() {
+    override fun getGoods(live_id: String) {
+        getModel().getGoods(live_id).ui({
+            getView()?.getGoods(it.data!!)
+        },{
+            getView()?.showToast(it)
+        })
+    }
+
     override fun liveShare(live_id: String) {
         getModel().liveShare(live_id).ui({
             getView()?.liveShare(it.data!!)

@@ -88,6 +88,29 @@
             android:layout_marginRight="@dimen/dp_13"
             android:layout_below="@+id/et_password"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_password_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="25dp"
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/sp_15"
+            android:textColor="@color/black_333333"
+            android:textColorHint="#BBBBBB"
+            android:hint="确认密码"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:background="@null"
+            android:inputType="textPassword"/>
+        <View
+            style="@style/LineGray"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_13"
+            android:layout_below="@+id/et_password_sure"/>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_submint"
         android:layout_width="138dp"

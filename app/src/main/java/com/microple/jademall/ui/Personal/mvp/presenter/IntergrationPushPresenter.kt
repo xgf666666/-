@@ -23,14 +23,9 @@ class IntergrationPushPresenter:IntergrationPushContract.Presenter() {
 
     }
 
-    override fun push(token: String, to_user: String, points: String,frozen_points:String) {
+    override fun push(token: String, to_user: String, points: String,frozen_points:String,trade_password:String) {
         if (TextUtils.isEmpty(to_user)){
             getView()?.showToast("请输入对方账号")
-            getView()?.dismissLoadingDialog()
-            return
-        }
-        if (TextUtils.isEmpty(points)){
-            getView()?.showToast("请输入转账积分")
             getView()?.dismissLoadingDialog()
             return
         }
@@ -39,7 +34,7 @@ class IntergrationPushPresenter:IntergrationPushContract.Presenter() {
             getView()?.dismissLoadingDialog()
             return
         }
-        getModel().push(token,to_user,points,frozen_points).ui({
+        getModel().push(token,to_user,points,frozen_points,trade_password).ui({
             getView()?.push()
         },{
             getView()?.showToast(it)

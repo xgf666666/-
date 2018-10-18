@@ -17,7 +17,7 @@ import com.weibiaogan.litong.extensions.ui
  */
 class ForgetPWPresenter:ForgetPWContract.Presenter() {
 
-    override fun setPW(phone: String, phoneCode: String, PW: String) {
+    override fun setPW(phone: String, phoneCode: String, PW: String,surePW:String) {
         if (TextUtils.isEmpty(phone)){
             getView()?.showToast("请输入手机号")
             getView()?.dismissLoadingDialog()
@@ -38,6 +38,11 @@ class ForgetPWPresenter:ForgetPWContract.Presenter() {
         }
         if (TextUtils.isEmpty(PW)||PW.length<6||PW.length>16){
             getView()?.showToast("请输入6到16位密码")
+            getView()?.dismissLoadingDialog()
+            return
+        }
+        if (!PW.equals(surePW)){
+            getView()?.showToast("两次密码输入不相同")
             getView()?.dismissLoadingDialog()
             return
         }

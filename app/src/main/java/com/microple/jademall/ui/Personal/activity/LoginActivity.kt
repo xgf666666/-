@@ -96,7 +96,6 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
      */
     override fun initData() {
         tv_title.visibility= View.GONE
-        tv_right.visibility=View.VISIBLE
         view_l.visibility=View.GONE
     }
 
@@ -121,6 +120,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
             et_code.inputType=InputType.TYPE_CLASS_NUMBER
             et_code.setText("")
             et_code.inputType=InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
+            tv_right.visibility=View.GONE
         }
         tv_paswork.setOnClickListener{
             index=2
@@ -132,7 +132,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
             et_code.hint="密码"
             et_code.setText("")
             et_code.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-
+            tv_right.visibility=View.VISIBLE
         }
         tv_regster.setOnClickListener {
             RegisterActivity.startRegisterActivity(this)

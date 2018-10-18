@@ -64,7 +64,7 @@ class ForgetPWActivity : BaseMvpActivity<ForgetPWPresenter>(),ForgetPWContract.V
     override fun initEvent() {
         tv_submint.setOnClickListener{
             showLoadingDialog()
-            getPresenter().setPW(et_phone.text.toString(),et_code.text.toString(),et_password.text.toString())
+            getPresenter().setPW(et_phone.text.toString(),et_code.text.toString(),et_password.text.toString(),et_password_sure.text.toString())
         }
         tv_getcode.setOnClickListener{
             showLoadingDialog()

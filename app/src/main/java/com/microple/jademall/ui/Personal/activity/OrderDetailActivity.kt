@@ -61,7 +61,6 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
         tv_title.text="订单详情"
         Log.i("order_id",""+intent.getStringExtra("order_id"))
         getPresenter().getDetail(Constants.getToken(),intent.getStringExtra("order_id"))
-//        adaptr.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled=false
         recyclerView.adapter=adaptr
@@ -108,7 +107,7 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
             tv_goodsName.text=orderDetail.order_detail.goods_info.goods_name
             tv_goodsNum.text=orderDetail.order_detail.goods_info.goods_sn
             tv_goodsPrice.text=orderDetail.order_detail.goods_info.goods_price
-            tv_time.text="创建时间      "+orderDetail.order_detail.add_time
+            tv_time.text="下单时间      "+orderDetail.order_detail.add_time
             tv_number.text="产品编号      "+orderDetail.order_detail.goods_info.goods_sn
             tv_orderNumber.text="订单号          "+orderDetail.order_detail.order_sn
             tv_shopName.text="商家名称      "+orderDetail.order_detail.supplier_name
@@ -127,8 +126,8 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
             view_two.visibility=View.VISIBLE
             view_one.visibility=View.VISIBLE
             tv_pick_type.text="提货支付方式     "+orderDetail.order_detail.pick_pay_name
-            tv_pick_service.text=orderDetail.order_detail.service_fee
-            tv_pick_time.text=orderDetail.order_detail.pick_time
+            tv_pick_service.text="服务费         "+orderDetail.order_detail.service_fee+"元"
+            tv_pick_time.text="提货时间    "+orderDetail.order_detail.pick_time
         }
             when(orderDetail.order_detail.order_status){
                 0->{

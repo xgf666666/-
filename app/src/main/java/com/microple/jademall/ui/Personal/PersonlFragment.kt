@@ -4,6 +4,8 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import com.flyco.dialog.listener.OnBtnClickL
+import com.flyco.dialog.widget.NormalDialog
 import com.microple.jademall.R
 import com.microple.jademall.bean.*
 import com.microple.jademall.ui.Personal.adapter.PersonlCommonAdapter
@@ -55,9 +57,24 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
 
     override fun init(view: View?) {
         iv_setting.setOnClickListener{
-            Constants.loginOut()
+            var normalDialog=NormalDialog(context)
+            normalDialog.isTitleShow(false).content("您是否确定退出登录？")
+                    .style(NormalDialog.STYLE_TWO)
+                    .contentTextColor(resources.getColor(R.color.black_333333))
+                    .contentTextSize(17f)
+                    .btnTextSize(14f)
+                      .setCancelable(false)
+            normalDialog.setCanceledOnTouchOutside(false)
+            normalDialog.btnNum(2).btnText("取消","确定")
+                    .btnTextColor(resources.getColor(R.color.color3078EF),resources.getColor(R.color.color3078EF))?.show()
+            normalDialog.setOnBtnClickL(OnBtnClickL {
+                normalDialog.dismiss()
+            }, OnBtnClickL {
+                Constants.loginOut()
+                normalDialog.dismiss()
+                LoginActivity.startLoginActivity(context!!)
+            })
 
-            LoginActivity.startLoginActivity(context!!)
         }
         iv_head.setOnClickListener {
             PersonalSettingActivity.startPersonalSettingActivity(context!!)

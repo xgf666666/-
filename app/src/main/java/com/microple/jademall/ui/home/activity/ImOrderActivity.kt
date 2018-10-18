@@ -21,6 +21,7 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ActivityUtils
 import com.google.gson.Gson
 import com.microple.jademall.bean.ImOrder
+import com.microple.jademall.bean.IsSettingPayPW
 import com.microple.jademall.bean.Pay
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
@@ -41,6 +42,11 @@ import com.xx.baseuilibrary.mvp.BaseMvpActivity
  * describe:立即下单
  */
 class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View {
+    var isSetting=0
+    override fun isSetting(isSettingPayPW: IsSettingPayPW) {
+        isSetting=isSettingPayPW.set_password
+    }
+
     override fun pay(pay: Pay) {
         dismissLoadingDialog()
         if (indexs==1||indexs==2){
@@ -97,6 +103,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
         tv_title.text="立即下单"
         Log.i("goodsID",intent.getStringExtra("goods_id"))
         getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
+       getPresenter().isSetting(Constants.getToken())
         (application as App).addActivity(this)
         XxAnyPay.intance.init(this)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
@@ -231,7 +238,11 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                             }
                             3->{
                                 indexs=3
-                                showDialog()
+                                if (isSetting==1){
+                                    showDialog()
+                                }else{
+                                    PassswordActivity.startPassswordActivity(this@ImOrderActivity,2)
+                                }
 
                             }
                         }
@@ -304,8 +315,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
         }
         psw_view.setOnInputFinishListener{
             password=it
-            showDialog()
-            dialog!!.dismiss()
+//            dialog!!.dismiss()
             showLoadingDialog()
             getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"3",password!!.md5Salt(),intent.getStringExtra("sb_id"),"2","")
 

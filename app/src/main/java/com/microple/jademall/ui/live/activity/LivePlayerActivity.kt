@@ -14,6 +14,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
+import com.microple.jademall.bean.LiveGoods
 import com.microple.jademall.bean.LiveShare
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
@@ -44,6 +45,13 @@ import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_live_player.*
 
 class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerContract.View {
+    override fun getGoods(liveGoods: LiveGoods) {
+        tv_number.text=""+liveGoods.goods.size
+        if (liveGoods.goods.size==0){
+            iv_goods.isEnabled=false
+        }
+    }
+
     var messageAdapter=MessageAdapter()
     /**
      * 创建P层
@@ -62,6 +70,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
      * 初始化事件
      */
     override fun initEvent() {
+        getPresenter().getGoods(intent.getStringExtra("live_id"))
         iv_goods.setOnClickListener {
             LiveGoodsActivity.startGoodsActivity(this,intent.getStringExtra("live_id"))
         }
@@ -120,7 +129,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
             }
 
             override fun onError(p0: Int, p1: String?) {
-                showToast("发送失败")
+//                showToast("发送失败")
             }
 
         })
@@ -151,8 +160,14 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         mLivePlayer=TXLivePlayer(this)
         mLivePlayer?.setPlayerView(video_view)
         val flvUrl = intent.getStringExtra("play_url")//"rtmp://30381.liveplay.myqcloud.com/live/30381_83c9d76844"
-        mLivePlayer?.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_RTMP)
+        if (intent.getIntExtra("isRecord",0)==2){
+            mLivePlayer?.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_FLV)
+        }else{
+            mLivePlayer?.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_RTMP)
+
+        }
         mLivePlayer?.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN)
+
         mLivePlayer?.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT)
         mLivePlayer?.setPlayListener(object : ITXLivePlayListener {
             override fun onPlayEvent(event: Int, param: Bundle?) {
@@ -227,7 +242,8 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         confit.setAccoutType("36862")
         var init=TIMManager.getInstance().init(this,confit)
         Log.i("initinit",""+init)
-        tv_user.loadHeadImag(Constants.getHeadImg())
+        if (intent.getStringExtra("uri")!=null)
+        tv_user.loadHeadImag(intent.getStringExtra("uri"))
         tv_livetitle.text=intent.getStringExtra("live_title")
         if (!init){
             TIMManager.getInstance().init(this,confit)
@@ -443,13 +459,14 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
 
     }
     companion object {
-        fun startLivePlayerActivity(context: Context,live_id:String,play_url:String,group_id:String,live_title:String,isRecord:Int){
+        fun startLivePlayerActivity(context: Context,live_id:String,play_url:String,group_id:String,live_title:String,isRecord:Int,uri:String){
             val intent = Intent(context, LivePlayerActivity::class.java)
             intent.putExtra("live_id",live_id)
             intent.putExtra("play_url",play_url)
             intent.putExtra("group_id",group_id)
             intent.putExtra("live_title",live_title)
             intent.putExtra("isRecord",isRecord)//标记是否为精彩回顾
+            intent.putExtra("uri",uri)
             context.startActivity(intent)
         }
     }

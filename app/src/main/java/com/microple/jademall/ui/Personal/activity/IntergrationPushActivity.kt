@@ -1,11 +1,13 @@
 package com.microple.jademall.ui.Personal.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.AccountIinfo
@@ -14,6 +16,7 @@ import com.microple.jademall.ui.Personal.adapter.IntergrationPushAdapter
 import com.microple.jademall.ui.Personal.mvp.contract.IntergrationPushContract
 import com.microple.jademall.ui.Personal.mvp.presenter.IntergrationPushPresenter
 import com.microple.jademall.uitls.loadImag
+import com.microple.jademall.weight.PwdEditText
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_intergration_push.*
 import kotlinx.android.synthetic.main.item_title.*
@@ -67,10 +70,10 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
             }else if (!tv_keyong.text.isNullOrEmpty()&&pay_points.toDouble()<tv_keyong.text.toString().toDouble()){
                             showToast("请输入积分小于可用的")
             } else if (!tv_dongjie.text.isNullOrEmpty()&&pay_dongjie.toDouble()<tv_dongjie.text.toString().toDouble()){
-                    showToast("请输入积分小于可用的")
+                    showToast("请输入积分小于拥有的")
             }else{
-                showLoadingDialog()
-                getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString(),tv_dongjie.text.toString())
+                showDialog()
+
             }
         }
 
@@ -80,10 +83,10 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
     override fun getAccout(accoutInfo: AccountIinfo) {
         iv_head.loadImag(accoutInfo.user_info.head_img)
         tv_name.text=accoutInfo.user_info.user_name
-        tv_keyong.hint="可用积分"+accoutInfo.user_info.pay_points
+        tv_keyong.hint="可用积分剩余"+accoutInfo.user_info.pay_points
         pay_points=accoutInfo.user_info.pay_points
         pay_dongjie=accoutInfo.user_info.frozen_points
-        tv_dongjie.hint="冻结积分"+accoutInfo.user_info.frozen_points
+        tv_dongjie.hint="冻结积分剩余"+accoutInfo.user_info.frozen_points
         adapter.setNewData(accoutInfo.record)
         loading.visibility= View.GONE
     }
@@ -99,6 +102,25 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
             val intent = Intent(context,IntergrationPushActivity::class.java)
             context.startActivity(intent)
         }
+    }
+    var dialog: AlertDialog?=null
+    fun showDialog() {
+        var view = View.inflate(mContext, R.layout.view_input_pay_psw_dialog, null)
+        var psw_view=view.findViewById<PwdEditText>(R.id.psw_view)
+        var bt_quxiao=view.findViewById<TextView>(R.id.bt_quxiao)
+        var tv_price=view.findViewById<TextView>(R.id.tv_price)
+        tv_price.setText(tv_keyong.text.toString())
+        bt_quxiao.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        psw_view.setOnInputFinishListener{
+            showLoadingDialog()
+            getPresenter().push(Constants.getToken(),et_zhanhao.text.toString(),tv_keyong.text.toString(),tv_dongjie.text.toString(),it)
+
+        }
+        dialog = AlertDialog.Builder(mContext).create()
+        dialog!!.setView(view)
+        dialog!!.show()
     }
 
 }

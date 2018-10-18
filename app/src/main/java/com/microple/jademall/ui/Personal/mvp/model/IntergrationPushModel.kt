@@ -16,5 +16,5 @@ import io.reactivex.Observable
 class IntergrationPushModel: IntergrationPushContract.Model {
     override fun getAccout(token: String): Observable<BaseResponseEntity<AccountIinfo>> =AppApi.Api().getAccount(token)
 
-    override fun push(token: String, to_user: String, points: String,frozen_points:String): Observable<BaseResponseEntity<Any>> =AppApi.Api().push(token,to_user,points,frozen_points)
+    override fun push(token: String, to_user: String, points: String,frozen_points:String,trade_password:String): Observable<BaseResponseEntity<Any>> =AppApi.Api().push(token,to_user,points,frozen_points,trade_password)
 }

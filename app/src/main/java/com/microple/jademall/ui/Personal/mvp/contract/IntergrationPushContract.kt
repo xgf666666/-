@@ -19,12 +19,12 @@ interface IntergrationPushContract {
     }
     interface Model{
         fun getAccout(token:String): Observable<BaseResponseEntity<AccountIinfo>>
-        fun push(token: String,to_user:String,points:String,frozen_points:String):Observable<BaseResponseEntity<Any>>
+        fun push(token: String,to_user:String,points:String,frozen_points:String,trade_password:String):Observable<BaseResponseEntity<Any>>
 
 
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun getAccout(token:String)
-        abstract fun push(token: String,to_user:String,points:String,frozen_points:String)
+        abstract fun push(token: String,to_user:String,points:String,frozen_points:String,trade_password:String)
     }
 }

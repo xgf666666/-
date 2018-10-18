@@ -1,5 +1,6 @@
 package com.microple.jademall.ui.live.mvp.contract
 
+import com.microple.jademall.bean.LiveGoods
 import com.microple.jademall.bean.LiveList
 import com.microple.jademall.bean.LiveShare
 import com.xx.baseuilibrary.mvp.BaseMvpPresenter
@@ -15,12 +16,15 @@ import io.reactivex.Observable
 interface LivePlayerContract {
     interface View :BaseMvpView{
         fun liveShare(liveShare: LiveShare)
+        fun getGoods(liveGoods: LiveGoods)
 
     }
     interface Model{
         fun liveShare(live_id: String): Observable<BaseResponseEntity<LiveShare>>
+        fun getGoods(live_id:String): Observable<BaseResponseEntity<LiveGoods>>
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun liveShare(live_id: String)
+        abstract fun getGoods(live_id:String)
     }
 }

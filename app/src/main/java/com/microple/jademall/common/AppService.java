@@ -26,6 +26,7 @@ import com.microple.jademall.bean.ImOrder;
 import com.microple.jademall.bean.Image;
 import com.microple.jademall.bean.ImageDetail;
 import com.microple.jademall.bean.IntergrationDetail;
+import com.microple.jademall.bean.IsSettingPayPW;
 import com.microple.jademall.bean.Label;
 import com.microple.jademall.bean.LiveDetail;
 import com.microple.jademall.bean.LiveGoods;
@@ -128,6 +129,11 @@ public interface AppService {
     @FormUrlEncoded
     @POST("user_api/login")
     Observable<BaseResponseEntity<Login>> pwLogin(@Field("phone") String phone,@Field("password")String password);
+    /**
+     * 判断是否设置交易密码
+     */
+    @POST("user_center/check_trade_password")
+    Observable<BaseResponseEntity<IsSettingPayPW>> isSettingPayPW(@Header("token") String token);
     /**
      * 微信登录
      */
@@ -253,7 +259,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("user_center/transfer_account")
-    Observable<BaseResponseEntity<Object>> push(@Header("token") String token, @Field("to_user")String to_user,@Field("points")String points,@Field("frozen_points")String frozen_points);
+    Observable<BaseResponseEntity<Object>> push(@Header("token") String token, @Field("to_user")String to_user,@Field("points")String points,@Field("frozen_points")String frozen_points,@Field("trade_password")String trade_password);
     /**
      * 修改头像
      */

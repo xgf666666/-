@@ -21,7 +21,7 @@ interface ForgetPWContract {
         fun getCode(phone: String): Observable<BaseResponseEntity<Any>>
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
-        abstract fun setPW(phone:String,phoneCode:String,PW:String)
+        abstract fun setPW(phone:String,phoneCode:String,PW:String,surePW:String)
         abstract fun getCode(phone: String)
 
     }

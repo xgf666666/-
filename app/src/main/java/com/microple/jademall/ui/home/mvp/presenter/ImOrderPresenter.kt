@@ -11,6 +11,14 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class ImOrderPresenter:ImOrderContract.Presenter() {
+    override fun isSetting(token: String) {
+        getModel().isSetting(token).ui({
+                getView()?.isSetting(it.data!!)
+        },{
+            getView()?.showToast(it)
+        })
+    }
+
     override fun pay(token: String, send: String, live: String, cabinet: String, address_id: String, pay_type: String,trade_password:String,sb_id:String,pick_type:String,ct_id:String) {
         getModel().pay(token,send,live,cabinet,address_id,pay_type,trade_password,sb_id,pick_type,ct_id).ui({
             getView()?.pay(it.data!!)
