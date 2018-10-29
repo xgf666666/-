@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JadeMall.iml" filepath="$PROJECT_DIR$/JadeMall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JadeiteMall_Android.iml" filepath="$PROJECT_DIR$/JadeiteMall_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseResLibrary/baseResLibrary.iml" filepath="$PROJECT_DIR$/baseResLibrary/baseResLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseUiLibrary/baseUiLibrary.iml" filepath="$PROJECT_DIR$/baseUiLibrary/baseUiLibrary.iml" />
