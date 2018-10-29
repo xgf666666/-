@@ -35,6 +35,7 @@ public class Collection {
         private int user_id;
         private int goods_id;
         private int add_time;
+        private int fp_id;
         private String goods_sn;
         private String goods_name;
         private String goods_img;

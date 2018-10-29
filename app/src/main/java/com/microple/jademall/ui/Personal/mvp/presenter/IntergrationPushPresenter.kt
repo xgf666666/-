@@ -14,6 +14,14 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class IntergrationPushPresenter:IntergrationPushContract.Presenter() {
+    override fun pushInfo(token: String, phone: String) {
+        getModel().pushInfo(token,phone).ui({
+            getView()?.pushInfo(it.data!!)
+        },{
+
+        })
+    }
+
     override fun getAccout(token: String) {
         getModel().getAccout(token).ui({
             getView()?.getAccout(it.data!!)

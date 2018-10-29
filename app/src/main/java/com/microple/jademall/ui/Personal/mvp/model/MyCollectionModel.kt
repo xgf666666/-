@@ -14,5 +14,7 @@ import io.reactivex.Observable
  * describe:
  */
 class MyCollectionModel: MyCollectionContract.Model {
+    override fun getzujiList(token: String): Observable<BaseResponseEntity<Collection>> =AppApi.Api().getZujiList(token)
+
     override fun getCollection(token: String): Observable<BaseResponseEntity<Collection>> =AppApi.Api().getCollection(token)
 }

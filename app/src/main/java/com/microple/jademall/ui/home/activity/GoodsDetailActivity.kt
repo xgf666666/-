@@ -3,6 +3,7 @@ package com.microple.jademall.ui.home.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.view.View
 import android.widget.AdapterView
 import com.flyco.dialog.listener.OnOperItemClickL
@@ -17,24 +18,31 @@ import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_goods.*
 import android.view.WindowManager
 import android.os.Build
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.LinearLayout
+import android.widget.MediaController
 import android.widget.TextView
+import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.BuildConfig
 import com.microple.jademall.bean.DetailShare
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.dialog.ShareDialog
+import com.microple.jademall.ui.Personal.activity.CustomerServiceAcitivity
 import com.microple.jademall.ui.Personal.activity.LoginActivity
 import com.microple.jademall.ui.Personal.adapter.ImageDetailAdapter
+import com.microple.jademall.ui.home.adapter.GoodsDetailAdapter
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
 import com.umeng.socialize.shareboard.SnsPlatform
+import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
 
 
 /**
@@ -76,6 +84,9 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
     override fun getDetail(goodsDetail: GoodsDetail) {
         this.goodsDetail=goodsDetail
         initView(goodsDetail)
+        if (Constants.isLogin()){
+            getPresenter().getziji(Constants.getToken(),""+goodsDetail.goods_info.goods_id)
+        }
 
     }
 
@@ -107,6 +118,7 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
             getPresenter().getDetail("",goods_sn)
         }
         hideStatusBar()
+
     }
 
     //只透明状态栏
@@ -173,7 +185,16 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
             else
                 LoginActivity.startLoginActivity(this)
         }
+        tv_sures.setOnClickListener{
+            if (Constants.isLogin())
+                ImOrderActivity.startImOrderActivity(this,"",""+goodsDetails?.goods_info?.goods_id)
+            else
+                LoginActivity.startLoginActivity(this)
+        }
         tv_other.setOnClickListener{
+            showNumber(data!!)
+        }
+        tv_others.setOnClickListener{
             showNumber(data!!)
         }
 
@@ -200,13 +221,25 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
                 showToast("请先登录")
             }
         }
+        iv_kefu.setOnClickListener {
+            CustomerServiceAcitivity.startCustomerServiceAcitivity(this)
+        }
         zoomScrollView.setMoveViewListener {
+
                 if (it==150){
                     finish()
                     overridePendingTransition(0,R.anim.translate_out)
                 }
 
             }
+        zoomScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            Log.i("zoomScrollView","zoomScrollView"+ConvertUtils.px2dp(scrollY.toFloat()) )
+            if (ConvertUtils.px2dp(scrollY.toFloat())>650){
+                ll_order.visibility=View.VISIBLE
+            }else{
+                ll_order.visibility=View.GONE
+            }
+        }
         iv_share.setOnClickListener {
             showLoadingDialog()
             getPresenter().detailShare(intent.getStringExtra("goods_sn"))
@@ -272,6 +305,41 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         tv_touming.text="透明度："+goodsDetail.goods_info.transparency
         tv_changdi.text="产地："+goodsDetail.goods_info.origin_place
         tv_price.text="RMB "+goodsDetail.goods_info.goods_price
+        tv_prices.text="RMB "+goodsDetail.goods_info.goods_price
+        tv_weigth.text="重量:  "+goodsDetail.goods_info.weight+"g"
+        if (!goodsDetail.goods_info.goods_video.isNullOrEmpty()){
+            video_view.visibility=View.VISIBLE
+            iv_zoom.visibility=View.GONE
+            var mediaController=MediaController(this)
+            mediaController.visibility=View.GONE
+            video_view.setVideoURI(Uri.parse(Retrofit2Manager.instance.apiConfigProvider?.releaseHost+goodsDetail.goods_info.goods_video))
+            video_view.setMediaController(mediaController)
+            mediaController.setMediaPlayer(video_view)
+            video_view.requestFocus()
+            video_view.start()
+            video_view.setOnCompletionListener {
+                iv_player.visibility=View.VISIBLE
+            }
+            iv_player.setOnClickListener {
+                iv_player.visibility=View.GONE
+                    video_view.start()
+            }
+            video_view.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                    if (video_view.isPlaying){
+                        iv_player.visibility=View.VISIBLE
+                        video_view.pause()
+                    }
+
+                    return false
+                }
+                
+            })
+        }
+        if (goodsDetail.goods_info.is_on_sale==0){
+            tv_sure.text="已下架"
+            tv_sure.isEnabled=false
+        }
         if (goodsDetail.goods_info.is_collect==1){
             iv_collection.setImageResource(R.drawable.btn_favor_selected)
         }
@@ -311,6 +379,16 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         recyclerView.isNestedScrollingEnabled=false
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
+        if (goodsDetail.recomend_goods.size==0){
+            tv_tuijian.visibility=View.GONE
+        }
+        var recomendAdapter=GoodsDetailAdapter(goodsDetail.recomend_goods)
+        rv_recomend.isNestedScrollingEnabled=false
+        rv_recomend.layoutManager=LinearLayoutManager(this)
+        rv_recomend.adapter=recomendAdapter
+        recomendAdapter.setOnItemClickListener { adapter, view, position ->
+            GoodsDetailActivity.startGoodsDetailActivity(this,(adapter as GoodsDetailAdapter).data[position].goods_sn)
+        }
     }
 
     private fun showNumber(data:List<GoodsDetail.OtherSnBean>) {

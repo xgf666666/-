@@ -14,6 +14,8 @@ import io.reactivex.Observable
  * describe:
  */
 class GoodsDetailModel: GoodsDetailContract.Model {
+    override fun getzuji(token: String,goods_id:String): Observable<BaseResponseEntity<Any>> =AppApi.Api().getZuji(token,goods_id)
+
     override fun detailShare(goods_id: String): Observable<BaseResponseEntity<DetailShare>> =AppApi.Api().detailShare(goods_id)
 
     override fun addShoping(token: String, goods_id: String): Observable<BaseResponseEntity<Any>> =AppApi.Api().addShopping(token,goods_id)

@@ -31,7 +31,7 @@ class BindPhonePresenter:BindPhoneContract.Presenter() {
         })
     }
 
-    override fun bindPhone(openid: String, phone: String, phone_code: String, code: String,nickname	:String,head_img:String) {
+    override fun bindPhone(openid: String, phone: String, phone_code: String, code: String,nickname	:String,head_img:String,is_bind:String) {
         if (TextUtils.isEmpty(phone)){
             getView()?.showToast("请输入手机号")
             getView()?.dismissLoadingDialog()
@@ -50,9 +50,11 @@ class BindPhonePresenter:BindPhoneContract.Presenter() {
             getView()?.dismissLoadingDialog()
             return
         }
-        getModel().bindPhone(openid,phone,phone_code,code,nickname,head_img).ui({
+        getModel().bindPhone(openid,phone,phone_code,code,nickname,head_img,is_bind).ui({
+            getView()?.dismissLoadingDialog()
             getView()?.bindPhone(it.data!!)
         },{
+            getView()?.dismissLoadingDialog()
             getView()?.showToast(it.message)
         })
     }

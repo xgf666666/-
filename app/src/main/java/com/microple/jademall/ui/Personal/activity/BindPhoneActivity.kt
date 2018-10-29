@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Message
 import cn.jpush.android.api.JPushInterface
+import com.flyco.dialog.listener.OnBtnClickL
+import com.flyco.dialog.widget.NormalDialog
 import com.microple.jademall.R
 import com.microple.jademall.bean.Login
 import com.microple.jademall.bean.PersonInfo
@@ -17,6 +19,7 @@ import kotlinx.android.synthetic.main.item_title.*
 
 class BindPhoneActivity : BaseMvpActivity<BindPhonePresenter>(),BindPhoneContract.View {
     private var time = 60//验证码时间
+    var index=0//判断是否第一次请求banding接口
     private var mHandler : Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -42,9 +45,14 @@ class BindPhoneActivity : BaseMvpActivity<BindPhonePresenter>(),BindPhoneContrac
         finish()
     }
     override fun bindPhone(login: Login) {
-        Constants.putToken(login.token)
-        Constants.putHeadImg(login.head_img)
-        getPresenter().getInfo(login.token)
+        if (login.is_phone.equals("1")){
+            showBindDialog()
+        }else{
+            Constants.putToken(login.token)
+            Constants.putHeadImg(login.head_img)
+            getPresenter().getInfo(login.token)
+        }
+
     }
 
     override fun getCode() {
@@ -82,12 +90,38 @@ class BindPhoneActivity : BaseMvpActivity<BindPhonePresenter>(),BindPhoneContrac
         }
         tv_submint.setOnClickListener {
             showLoadingDialog()
-            getPresenter().bindPhone(intent.getStringExtra("openid"),et_phone.text.toString(),et_code.text.toString(),et_code_invite.text.toString(),intent.getStringExtra("userName"),intent.getStringExtra("userImg"))
+            index=1
+            getPresenter().bindPhone(intent.getStringExtra("openid"),et_phone.text.toString(),et_code.text.toString(),et_code_invite.text.toString(),intent.getStringExtra("userName"),intent.getStringExtra("userImg"),"")
         }
         tv_getcode.setOnClickListener{
             showLoadingDialog()
             getPresenter().getCode(et_phone.text.toString())
         }
+    }
+    fun showBindDialog(){
+            var normalDialog= NormalDialog(this)
+            normalDialog.isTitleShow(true).title("绑定手机").titleLineColor(resources.getColor(R.color.black_333333))
+                    .titleTextSize(18f)
+                    .titleTextColor(resources.getColor(R.color.black_333333))
+
+                    .content("您的手机已经注册过，是否继续绑定？")
+                    .style(NormalDialog.STYLE_TWO)
+                    .contentTextColor(resources.getColor(R.color.black_333333))
+                    .contentTextSize(16f)
+                    .btnTextSize(14f)
+                    .setCancelable(false)
+            normalDialog.setCanceledOnTouchOutside(false)
+            normalDialog.btnNum(2).btnText("取消","确定")
+                    .btnTextColor(resources.getColor(R.color.color3078EF),resources.getColor(R.color.color3078EF))?.show()
+            normalDialog.setOnBtnClickL(OnBtnClickL {
+                normalDialog.dismiss()
+            }, OnBtnClickL {
+                normalDialog.dismiss()
+                showLoadingDialog()
+                getPresenter().bindPhone(intent.getStringExtra("openid"),et_phone.text.toString(),et_code.text.toString(),et_code_invite.text.toString(),intent.getStringExtra("userName"),intent.getStringExtra("userImg"),"1")
+            })
+
+
     }
 
 

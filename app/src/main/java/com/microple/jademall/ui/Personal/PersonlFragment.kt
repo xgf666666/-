@@ -20,7 +20,6 @@ import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_personl.*
-import kotlinx.android.synthetic.main.item_login.*
 
 /**
  * author: linfeng
@@ -110,9 +109,17 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
         rv_help.adapter = mHelpAdapter
         rv_help.isNestedScrollingEnabled = false
         iv_message.setOnClickListener{
-            MessageActivity.startMessageActivity(context!!)
+            if (Constants.isLogin()){
+                MessageActivity.startMessageActivity(context!!)
+            }else{
+                LoginActivity.startLoginActivity(context!!)
+            }
         }
         mOrderAdapter.setOnItemClickListener { adapter, view, position ->
+          if (!Constants.isLogin()){
+              LoginActivity.startLoginActivity(context!!)
+              return@setOnItemClickListener
+          }
            when(position){//我的订单
                0->{
                    AllOrderActivity.startAllOrderActivity(context!!,0)
@@ -137,6 +144,10 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
            }
         }
         mSettingAdapter.setOnItemClickListener { adapter, view, position ->
+            if (!Constants.isLogin()){
+                LoginActivity.startLoginActivity(context!!)
+                return@setOnItemClickListener
+            }
             when(position){
                 0->{
                     PersonalSettingActivity.startPersonalSettingActivity(context!!)
@@ -150,28 +161,39 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
             }
         }
         mCommonAdapter.setOnItemClickListener { adapter, view, position ->
+            if (!Constants.isLogin()){
+                LoginActivity.startLoginActivity(context!!)
+                return@setOnItemClickListener
+            }
             when(position){
                 0->{
-                    MyCollectionActivity.startMyCollectionActivity(context!!)
+                    MyCollectionActivity.startMyCollectionActivity(context!!,1)
                 }
                 1->{
-                    MyAppointmentActivity.startMyAppointmentActivity(context!!)
+                    MyCollectionActivity.startMyCollectionActivity(context!!,2)
                 }
                 2->{
-                    MyAssetActivity.startMyAssetActivity(context!!)
+                    MyAppointmentActivity.startMyAppointmentActivity(context!!)
                 }
                 3->{
-                    ShareActivity.startShareActivityMerchantEntryActivity(context!!)
+                    MyAssetActivity.startMyAssetActivity(context!!)
                 }
                 4->{
-                    MyTeamActivity.startMyTeamActivity(context!!)
+                    ShareActivity.startShareActivityMerchantEntryActivity(context!!)
                 }
                 5->{
+                    MyTeamActivity.startMyTeamActivity(context!!)
+                }
+                6->{
                     MerchantEntryActivity.startMerchantEntryActivity(context!!)
                 }
             }
         }
         mHelpAdapter.setOnItemClickListener { adapter, view, position ->
+            if (!Constants.isLogin()){
+                LoginActivity.startLoginActivity(context!!)
+                return@setOnItemClickListener
+            }
             when(position){
                 0->{
                     AskQuestionTypeActivity.startAskQuestionTypeActivity(context!!)
@@ -190,6 +212,7 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
         tv_login.setOnClickListener{
             LoginActivity.startLoginActivity(context!!)
         }
+        ll_login.setOnClickListener {  }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -198,9 +221,9 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
             if (Constants.isLogin()){
                 Log.i("Constantssss",Constants.getToken())
                 getPresenter().getInfo(Constants.getToken())
-                view_login.visibility=View.GONE
+                ll_login.visibility=View.GONE
             }else{
-                view_login.visibility=View.VISIBLE
+                ll_login.visibility=View.VISIBLE
             }
         }
     }
@@ -211,9 +234,10 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
             if (Constants.isLogin()){
                 Log.i("Constantssss",Constants.getToken())
                 getPresenter().getInfo(Constants.getToken())
-                view_login.visibility=View.GONE
+                ll_login.visibility=View.GONE
             }else{
-                view_login.visibility=View.VISIBLE
+                ll_login.visibility=View.VISIBLE
+                loading.visibility=View.GONE
             }
 
         }

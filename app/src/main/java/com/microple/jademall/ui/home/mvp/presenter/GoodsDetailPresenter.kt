@@ -16,6 +16,14 @@ import com.xx.baseutilslibrary.network.rx.RetryWhenProcess
  * describe:
  */
 class GoodsDetailPresenter:GoodsDetailContract.Presenter() {
+    override fun getziji(token: String, goods_id: String) {
+        getModel().getzuji(token,goods_id).ui({
+//            getView()?.showToast(it.msg)
+        },{
+//            getView()?.showToast(it.message)
+        })
+    }
+
     override fun detailShare(goods_id: String) {
         getModel().detailShare(goods_id).ui({
                 getView()?.detailShare(it.data!!)

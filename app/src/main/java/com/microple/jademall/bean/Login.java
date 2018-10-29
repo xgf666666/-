@@ -17,6 +17,15 @@ public class Login {
     private String head_img;
     private String im_identifier;
     private String im_user_sig;
+    private String is_phone;
+
+    public String getIs_phone() {
+        return is_phone;
+    }
+
+    public void setIs_phone(String is_phone) {
+        this.is_phone = is_phone;
+    }
 
     public String getIm_identifier() {
         return im_identifier;

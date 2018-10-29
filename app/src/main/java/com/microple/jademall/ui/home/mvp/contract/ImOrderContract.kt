@@ -2,6 +2,7 @@ package com.microple.jademall.ui.home.mvp.contract
 
 import com.microple.jademall.bean.ImOrder
 import com.microple.jademall.bean.IsSettingPayPW
+import com.microple.jademall.bean.OrderInfo
 import com.microple.jademall.bean.Pay
 import com.xx.baseuilibrary.mvp.BaseMvpPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpView
@@ -18,16 +19,19 @@ interface ImOrderContract {
         fun imOrder(imOrder:ImOrder)
         fun pay(pay:Pay)
         fun isSetting(isSettingPayPW: IsSettingPayPW)
+        fun getOrderInfo(orderInfo: OrderInfo)
 
     }
     interface Model{
         fun imOrder(token:String,sb_id:String,goods_id:String): Observable<BaseResponseEntity<ImOrder>>
         fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String,sb_id:String,pick_type:String,ct_id:String  ):Observable<BaseResponseEntity<Pay>>
         fun isSetting(token: String): Observable<BaseResponseEntity<IsSettingPayPW>>
+        fun getOrderInfo(token: String,send:String,live:String,cabinet:String): Observable<BaseResponseEntity<OrderInfo>>
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
        abstract fun imOrder(token:String,sb_id:String,goods_id:String)
         abstract fun pay(token:String,send:String,live:String,cabinet:String,address_id:String,pay_type:String,trade_password:String,sb_id:String,pick_type:String,ct_id:String)
         abstract fun isSetting(token:String)
+        abstract fun getOrderInfo(token: String,send:String,live:String,cabinet:String)
     }
 }

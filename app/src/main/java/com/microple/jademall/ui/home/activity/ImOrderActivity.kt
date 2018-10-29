@@ -22,6 +22,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.google.gson.Gson
 import com.microple.jademall.bean.ImOrder
 import com.microple.jademall.bean.IsSettingPayPW
+import com.microple.jademall.bean.OrderInfo
 import com.microple.jademall.bean.Pay
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
@@ -42,6 +43,13 @@ import com.xx.baseuilibrary.mvp.BaseMvpActivity
  * describe:立即下单
  */
 class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View {
+    var orderInfo:OrderInfo?=null
+    override fun getOrderInfo(orderInfo: OrderInfo) {
+        this.orderInfo=orderInfo
+        tv_wuliu.text="物流费用:  ￥"+orderInfo.shipping_fee
+        tv_price.text="合计      ￥"+orderInfo.total_fee
+    }
+
     var isSetting=0
     override fun isSetting(isSettingPayPW: IsSettingPayPW) {
         isSetting=isSettingPayPW.set_password
@@ -103,7 +111,6 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
         tv_title.text="立即下单"
         Log.i("goodsID",intent.getStringExtra("goods_id"))
         getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
-       getPresenter().isSetting(Constants.getToken())
         (application as App).addActivity(this)
         XxAnyPay.intance.init(this)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
@@ -194,11 +201,18 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                             tv_cun.visibility=View.GONE
                         }
                         dialog.dismiss()
+                        getPresenter().getOrderInfo(Constants.getToken(),you,live,feicui)
                     }
 
                 })
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPresenter().isSetting(Constants.getToken())
+
     }
 
     /**
@@ -309,7 +323,11 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
         var psw_view=view.findViewById<PwdEditText>(R.id.psw_view)
         var bt_quxiao=view.findViewById<TextView>(R.id.bt_quxiao)
         var tv_price=view.findViewById<TextView>(R.id.tv_price)
-        tv_price.text=order?.order?.total_fee
+        if (orderInfo==null){
+            tv_price.text=order?.order?.total_fee
+        }else{
+            tv_price.text=orderInfo?.total_fee
+        }
         bt_quxiao.setOnClickListener{
             dialog!!.dismiss()
         }

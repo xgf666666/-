@@ -5,21 +5,21 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Bundle
 import android.os.Environment
+import android.os.PersistableBundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import com.blankj.utilcode.util.EncodeUtils
-import com.blankj.utilcode.util.PermissionUtils
-import com.microple.jademall.BuildConfig
 import com.microple.jademall.R
 import com.microple.jademall.bean.Image
 import com.microple.jademall.common.Constants
+import com.microple.jademall.dialog.PhoteDialog
 import com.microple.jademall.ui.Personal.mvp.contract.ApplicationContract
 import com.microple.jademall.ui.Personal.mvp.presenter.ApplicationPresenter
-import com.weibiaogan.bangbang.dialog.ChooseImageDialogWrapper
+import com.microple.jademall.weight.ImageChooseHelper
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
-import com.xx.baseutilslibrary.common.ImageChooseHelper
 import kotlinx.android.synthetic.main.activity_application.*
 import kotlinx.android.synthetic.main.item_title.*
 import java.io.File
@@ -55,7 +55,6 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
      */
     override fun initData() {
         tv_title.text="商家入驻"
-        initImageChooseHelper()
     }
 
     /**
@@ -69,9 +68,6 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
             showLoadingDialog()
             if (et_gongsi.text.isNullOrEmpty()){
                 showToast("请输入公司名称")
-                dismissLoadingDialog()
-            }else if (et_email.text.isNullOrEmpty()){
-                showToast("请输入邮箱地址")
                 dismissLoadingDialog()
             }else if (et_phone.text.isNullOrEmpty()){
                 showToast("请输入联系方式")
@@ -125,55 +121,57 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
             context.startActivity(intent)
         }
     }
-    private lateinit var imageChooseHelper: ImageChooseHelper
-    private fun initImageChooseHelper(){
-        imageChooseHelper = ImageChooseHelper.Builder()
-                .setUpActivity(this)
-                .setAuthority("${BuildConfig.APPLICATION_ID}.fileprovider")//设置文件提供者
-                .setDirPath(Environment.getExternalStorageDirectory().absolutePath + "/" + BuildConfig.APPLICATION_ID)//设置文件存储路径
-                .isCrop(false)//开启裁剪
-                .setCompressQuality(100)//压缩质量[1,100]
-                .setSize(200, 180)//裁剪尺寸
-                .setOnFinishChooseImageListener{ uri: Uri?, file: File? ->
-                    var  bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri)
-                    if (index==1){
-                        license= EncodeUtils.base64Encode2String(file?.readBytes())
-                        iv_yingye.setImageBitmap(bitmap)
-                        iv_add_yingye.visibility= View.GONE
-                    }else if (index==2){
-                        attach= EncodeUtils.base64Encode2String(file?.readBytes())
-                        iv_fujian.setImageBitmap(bitmap)
-                        iv_add_fujian.visibility=View.GONE
-                    }
 
-                }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        imageChooseHelper = ImageChooseHelper(this,{
+            if (index==1){
+                license= EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
+                iv_yingye.setImageURI(Uri.fromFile(File(it.compressPath)))
+                iv_add_yingye.visibility=View.GONE
+            }else{
+                attach=EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
+                iv_fujian.setImageURI(Uri.fromFile(File(it.compressPath)))
+                iv_add_fujian.visibility=View.GONE
+            }
 
-                .create()
+        })
 
+        imageChooseHelper.takePhoto.onCreate(savedInstanceState)
     }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        imageChooseHelper.takePhoto.onSaveInstanceState(outState)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        imageChooseHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+    private lateinit var imageChooseHelper: ImageChooseHelper
     /**
      * 显示修改头像弹窗
      */
     private fun showEditAvatarDialog() {
-        //选图弹窗
-        //请求相机和内存读取权限
-        PermissionUtils.permission(Manifest.permission.CAMERA, Manifest.permission_group.STORAGE)
-                .callback(object : PermissionUtils.SimpleCallback {
-                    override fun onGranted() {
-                        //被给予权限,调起选图弹窗
-                        ChooseImageDialogWrapper(imageChooseHelper)
-                                .showChooseImage()
-                    }
 
-                    override fun onDenied() {
-                        //被拒绝
-//                        showToast("拒绝给予权限会导致该功能不能正常使用")
-                    }
-                })
-                .rationale { shouldRequest -> shouldRequest.again(true) }
-                .request()
+        var photoDialog=PhoteDialog(this)
+        photoDialog.show()
+        photoDialog.setOnBtnClickListener {
+            if (it==1){
+                photoDialog.dismiss()
+            }else if (it==2){//相册
+                imageChooseHelper.selectPicker()
+                photoDialog.dismiss()
+
+            }else {
+                imageChooseHelper.takePhoto()
+                photoDialog.dismiss()
+
+            }
+        }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        imageChooseHelper.onActivityResult(requestCode, resultCode, data)
+        imageChooseHelper.takePhoto.onActivityResult(requestCode, resultCode, data)
     }
 }

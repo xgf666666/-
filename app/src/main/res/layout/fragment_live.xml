@@ -6,7 +6,7 @@
     android:orientation="vertical"
     >
     <include layout="@layout/fragment_tool_bar"/>
-    <include layout="@layout/item_loading"
+     <include layout="@layout/item_loading"
         android:id="@+id/loading"/>
 
     <android.support.v4.widget.NestedScrollView
@@ -44,7 +44,6 @@
                 android:text="正在热播"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_black"
-                android:layout_marginTop="37dp"
                 android:layout_marginLeft="13dp"
                 />
             <RelativeLayout
@@ -71,37 +70,7 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="精彩回顾"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/text_black"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="13dp"
 
-                />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_reviewLive"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginLeft="13dp" />
-            <TextView
-                android:id="@+id/tv_tishi_two"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:text="暂无数据"
-                android:textSize="@dimen/sp_17"
-                android:textColor="@color/black_666666"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:visibility="gone"
-                />
-            </RelativeLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                android:layout_marginBottom="36dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="13dp"
                 android:minHeight="5dp" />
                 <TextView
@@ -133,7 +102,37 @@
                     android:gravity="center"
                     android:visibility="gone" />
             </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="精彩回顾"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_black"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="13dp"
 
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_reviewLive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginLeft="13dp" />
+                <TextView
+                    android:id="@+id/tv_tishi_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:text="暂无数据"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="@color/black_666666"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

@@ -34,11 +34,12 @@
                 android:id="@+id/tv_submint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blue_007AFF"
+                android:textColor="@color/white_default"
                 android:textSize="@dimen/sp_15"
                 android:text="本人已充分阅读，并完全接受以上条例"
                 android:layout_marginTop="50dp"
                 android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_sure"
                 android:layout_marginBottom="20dp"/>
 
         </LinearLayout>

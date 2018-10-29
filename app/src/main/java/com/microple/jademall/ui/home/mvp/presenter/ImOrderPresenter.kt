@@ -11,6 +11,14 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class ImOrderPresenter:ImOrderContract.Presenter() {
+    override fun getOrderInfo(token: String, send: String, live: String, cabinet: String) {
+        getModel().getOrderInfo(token,send,live,cabinet).ui({
+            getView()?.getOrderInfo(it.data!!)
+        },{
+            getView()?.showToast(it)
+        })
+    }
+
     override fun isSetting(token: String) {
         getModel().isSetting(token).ui({
                 getView()?.isSetting(it.data!!)

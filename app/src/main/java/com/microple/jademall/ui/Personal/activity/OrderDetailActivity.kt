@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.flyco.dialog.listener.OnBtnClickL
+import com.flyco.dialog.widget.NormalDialog
 import com.microple.jademall.R
 import com.microple.jademall.bean.OrderDetail
 import com.microple.jademall.common.Constants
@@ -88,8 +90,8 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
                     showToast("你已申请售后")
                 }
             }else{
-                showLoadingDialog()
-                getPresenter().exitOrder(Constants.getToken(),intent.getStringExtra("order_id"))
+                showDailog()
+
             }
         }
         tv_kefu.setOnClickListener{
@@ -118,6 +120,18 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
             tv_address.text="收件地址      "+orderDetail.order_detail.address
             tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
             tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name
+        tv_wuliufeiyong.text="物流费用      "+orderDetail.order_detail.shipping_price+"元"
+        tv_all_feiyong.text="总支付费用    "+orderDetail.order_detail.total_price+"元"
+        if (orderDetail.order_detail.buy_type==0){
+            tv_send_type.text="购买方式    邮寄"
+        }else if (orderDetail.order_detail.buy_type==1){
+            tv_send_type.text="购买方式    预约切石直播"
+        }else{
+            tv_send_type.text="购买方式    存入翡翠柜"
+        }
+        if (orderDetail.order_detail.shipping_no.isNullOrEmpty()){
+            ll_wuliu.visibility=View.GONE
+        }
         if (orderDetail.order_detail.pick_type==1){
             tv_pick_type.visibility=View.VISIBLE
             tv_pick_time.visibility=View.VISIBLE
@@ -181,6 +195,28 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
 
 
         }
+    }
+    //取消订单谈窗
+    fun showDailog(){
+            var normalDialog= NormalDialog(this)
+            normalDialog.isTitleShow(true).title("取消订单").titleTextColor(R.color.green_06A366).titleTextSize(20f).content("您确定取消当前订单？")
+                    .style(NormalDialog.STYLE_TWO)
+                    .contentTextColor(resources.getColor(R.color.black_333333))
+                    .contentTextSize(17f)
+                    .btnTextSize(14f)
+                    .setCancelable(false)
+            normalDialog.setCanceledOnTouchOutside(false)
+            normalDialog.btnNum(2).btnText("取消","确定")
+                    .btnTextColor(resources.getColor(R.color.green_06A366),resources.getColor(R.color.green_06A366))?.show()
+            normalDialog.setOnBtnClickL(OnBtnClickL {
+                normalDialog.dismiss()
+            }, OnBtnClickL {
+                normalDialog.dismiss()
+                showLoadingDialog()
+                getPresenter().exitOrder(Constants.getToken(),intent.getStringExtra("order_id"))
+            })
+
+
     }
 
 

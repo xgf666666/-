@@ -13,6 +13,14 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class MyCollectionPresenter:MyCollectionContract.Presenter() {
+    override fun getzujiList(token: String) {
+        getModel().getzujiList(token).ui({
+            getView()?.getCollection(it.data!!)
+        },{
+            getView()?.showToast(it)
+        })
+    }
+
     override fun getCollection(token: String) {
         getModel().getCollection(token).ui({
             getView()?.getCollection(it.data!!)

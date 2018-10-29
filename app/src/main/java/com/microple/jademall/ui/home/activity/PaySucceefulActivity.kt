@@ -26,9 +26,9 @@ class PaySucceefulActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pay_succeeful)
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         if (intent.getIntExtra("index",0)==2){
-            tv_title.text="取消成功"
-            tv_title_c.text="取消订单成功，货款将原路退回！"
-            tv_content.text="我们将退还您所支付的所有款项，再次感谢您对翡翠原石的信任!"
+            tv_title.text="取消订单"
+            tv_title_c.text="您的订单已提交审核!"
+            tv_content.text="我们会将您的订单提交审核，审核通过后退还您所支付的所有款项，审核失败订单将返回原状态，再次感谢您对翡翠原石的信任！"
         }else{
             tv_title.text="支付成功"
 

@@ -25,10 +25,6 @@ class ApplicationPresenter:ApplicationContract.Presenter() {
             getView()?.showToast("请输入公司名称")
             getView()?.dismissLoadingDialog()
             return
-        }else if (email.isNullOrEmpty()){
-            getView()?.showToast("请输入邮箱地址")
-            getView()?.dismissLoadingDialog()
-            return
         }else if (phone.isNullOrEmpty()){
             getView()?.showToast("请输入联系方式")
             getView()?.dismissLoadingDialog()

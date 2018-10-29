@@ -45,7 +45,14 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenter>(),MyCollecti
      */
     override fun initData() {
         tv_title.text="我的收藏"
-        getPresenter().getCollection(Constants.getToken())
+        if (intent.getIntExtra("index",0)==1){
+            tv_title.text="我的收藏"
+            getPresenter().getCollection(Constants.getToken())
+
+        }else{
+            tv_title.text="我的足迹"
+            getPresenter().getzujiList(Constants.getToken())
+        }
 //        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
@@ -71,8 +78,9 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenter>(),MyCollecti
     }
 
     companion object {
-        fun startMyCollectionActivity(context: Context){
+        fun startMyCollectionActivity(context: Context,index:Int){
             val intent = Intent(context,MyCollectionActivity::class.java)
+            intent.putExtra("index",index)
             context.startActivity(intent)
         }
     }

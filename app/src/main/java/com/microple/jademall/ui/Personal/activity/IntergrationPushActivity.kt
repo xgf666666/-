@@ -6,17 +6,22 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.bean.AccountIinfo
+import com.microple.jademall.bean.UserInfo
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.adapter.IntergrationPushAdapter
 import com.microple.jademall.ui.Personal.mvp.contract.IntergrationPushContract
 import com.microple.jademall.ui.Personal.mvp.presenter.IntergrationPushPresenter
+import com.microple.jademall.uitls.loadHeadImag
 import com.microple.jademall.uitls.loadImag
 import com.microple.jademall.weight.PwdEditText
+import com.weibiaogan.bangbang.common.isPhone
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_intergration_push.*
 import kotlinx.android.synthetic.main.item_title.*
@@ -26,6 +31,11 @@ import kotlinx.android.synthetic.main.item_title.*
  * describe:积分转账
  */
 class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),IntergrationPushContract.View {
+    override fun pushInfo(userInfo: UserInfo) {
+        iv_head.loadImag(userInfo.head_img)
+        tv_name.text=userInfo.user_name
+    }
+
     /**
      * 创建P层
      *
@@ -46,16 +56,18 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
     var adapter=IntergrationPushAdapter(arrayListOf())
     override fun initData() {
         tv_title.setText("积分转账")
+        getPresenter().getAccout(Constants.getToken())
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter=adapter
         recyclerView.isNestedScrollingEnabled = false
+        adapter.setOnItemClickListener { adapter, view, position ->
+            et_zhanhao.setText((adapter as IntergrationPushAdapter).data[position].phone)
+            tv_name.text=(adapter as IntergrationPushAdapter).data[position].to_user
+            iv_head.loadHeadImag((adapter as IntergrationPushAdapter).data[position].head_img)
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getPresenter().getAccout(Constants.getToken())
-    }
 
     /**
      * 初始化事件
@@ -76,13 +88,28 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
 
             }
         }
+        et_zhanhao.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (et_zhanhao.text.toString().isPhone()){
+                    getPresenter().pushInfo(Constants.getToken(),et_zhanhao.text.toString())
+                }
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+        })
 
     }
     var pay_points=""
     var pay_dongjie=""
     override fun getAccout(accoutInfo: AccountIinfo) {
-        iv_head.loadImag(accoutInfo.user_info.head_img)
-        tv_name.text=accoutInfo.user_info.user_name
+//        iv_head.loadImag(accoutInfo.user_info.head_img)
+//        tv_name.text=accoutInfo.user_info.user_name
         tv_keyong.hint="可用积分剩余"+accoutInfo.user_info.pay_points
         pay_points=accoutInfo.user_info.pay_points
         pay_dongjie=accoutInfo.user_info.frozen_points
@@ -109,7 +136,16 @@ class IntergrationPushActivity : BaseMvpActivity<IntergrationPushPresenter>(),In
         var psw_view=view.findViewById<PwdEditText>(R.id.psw_view)
         var bt_quxiao=view.findViewById<TextView>(R.id.bt_quxiao)
         var tv_price=view.findViewById<TextView>(R.id.tv_price)
-        tv_price.setText(tv_keyong.text.toString())
+        var price=0.00
+        if (tv_keyong.text.toString().isNullOrEmpty()){
+            price=tv_dongjie.text.toString().toDouble()
+        }else if(tv_dongjie.text.toString().isNullOrEmpty()){
+            price=tv_keyong.text.toString().toDouble()
+        }else{
+            price=tv_dongjie.text.toString().toDouble()+tv_keyong.text.toString().toDouble()
+        }
+
+        tv_price.setText(""+price)
         bt_quxiao.setOnClickListener{
             dialog!!.dismiss()
         }

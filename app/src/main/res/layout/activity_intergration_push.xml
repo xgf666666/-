@@ -7,7 +7,7 @@
     tools:context=".ui.Personal.activity.IntergrationPushActivity"
     android:orientation="vertical">
     <include layout="@layout/item_title"/>
-    <include layout="@layout/item_loading"
+     <include layout="@layout/item_loading"
         android:id="@+id/loading"/>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                     android:layout_height="@dimen/dp_40"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_14"
-                    android:src="@drawable/img_head_n" />
+                    android:src="@drawable/datouxiang_" />
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -37,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:text="kewen"
                     android:textColor="@color/green_06A366"
                     android:textSize="@dimen/sp_15" />
 
@@ -67,15 +66,28 @@
                     android:layout_marginLeft="@dimen/dp_13"
                     android:layout_marginRight="@dimen/dp_13"
                     android:layout_marginTop="11dp" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_13"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="积分"
-                    android:textColor="@color/green_06A366"
-                    android:textSize="@dimen/sp_17" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="积分"
+                        android:textColor="@color/green_06A366"
+                        android:textSize="@dimen/sp_17" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="可用积分"
+                        android:textColor="@color/black_333333"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
 
                 <EditText
                     android:id="@+id/tv_keyong"
@@ -102,8 +114,8 @@
                     android:layout_marginLeft="@dimen/dp_13"
                     android:layout_marginTop="@dimen/dp_10"
                     android:text="冻结积分"
-                    android:textColor="@color/black_666666"
-                    android:textSize="@dimen/sp_13" />
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/sp_14" />
 
                 <EditText
                     android:id="@+id/tv_dongjie"

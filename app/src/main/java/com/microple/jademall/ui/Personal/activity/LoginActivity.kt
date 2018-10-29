@@ -173,7 +173,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(),LoginContract.View {
          * @param data 用户资料返回
          */
         override fun onComplete(platform: SHARE_MEDIA, action: Int, data: Map<String, String>) {
-            Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show()
+//            Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show()
             dismissLoadingDialog()
             mOpenId = data["openid"]!!
             userImg=data["profile_image_url"]!!

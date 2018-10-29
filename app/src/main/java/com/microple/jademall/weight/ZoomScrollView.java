@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,7 +22,7 @@ import com.microple.jademall.R;
  * date: 2018/8/17
  * describe:
  */
-public class ZoomScrollView extends ScrollView {
+public class ZoomScrollView extends NestedScrollView {
 
     private View zoomView;
     /** 记录上次事件的Y轴*/
@@ -68,11 +69,11 @@ public class ZoomScrollView extends ScrollView {
         init(attrs);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ZoomScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs);
-    }
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//    public ZoomScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+//        super(context, attrs, defStyleAttr, defStyleRes);
+//        init(attrs);
+//    }
 
     @Override
     protected void onFinishInflate() {
@@ -114,6 +115,7 @@ public class ZoomScrollView extends ScrollView {
                 final float y = event.getY();
                 final float diff, absDiff;
                 diff = y - mLastMotionY;
+                Log.i("absDiff",""+ConvertUtils.px2dp(y));
                 mLastMotionY = y;
                 absDiff = Math.abs(diff);
                 if(allScroll >= 0 && absDiff > 1){

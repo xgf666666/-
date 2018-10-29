@@ -15,13 +15,16 @@ interface MyCollectionContract {
     interface View :BaseMvpView{
         fun getCollection(collection:Collection)
 
+
     }
     interface Model{
         fun getCollection(token:String): Observable<BaseResponseEntity<Collection>>
+        fun getzujiList(token: String):Observable<BaseResponseEntity<Collection>>
 
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun getCollection(token: String)
+        abstract fun getzujiList(token: String)
 
     }
 }

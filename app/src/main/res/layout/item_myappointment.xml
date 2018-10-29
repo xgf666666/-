@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
+   <!--  <RelativeLayout
         android:id="@+id/ll_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,11 +15,11 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_18"
             android:textColor="@color/black_333333"
-            android:text="近期开始"
+            android:text="所有预约"
             android:layout_marginLeft="@dimen/dp_13"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:visibility="gone"/>
+            />
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="5dp"
             android:layout_alignBottom="@+id/tv_start"
             android:visibility="gone"/>
-    </RelativeLayout>
+    </RelativeLayout>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

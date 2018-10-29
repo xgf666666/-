@@ -93,8 +93,16 @@ class MyAppointmentActivity : BaseMvpActivity<MyAppointmentPresenter>(),MyAppoin
 
     override fun myAppoint(myAppointment: MyAppointment) {
         loading.visibility=View.GONE
+        if (myAppointment.recent_appoint.size==0){
+            tv_tishiOne.visibility=View.VISIBLE
+        }
+        if (myAppointment.all_appoint.size==0){
+            tv_tishitwo.visibility=View.VISIBLE
+        }
         if (myAppointment.recent_appoint.size==0&&myAppointment.all_appoint.size==0){
             tv_tishi.visibility=View.VISIBLE
+            tv_tishitwo.visibility=View.GONE
+            tv_tishiOne.visibility=View.GONE
         }else{
             tv_tishi.visibility=View.GONE
         }

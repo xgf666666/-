@@ -41,6 +41,7 @@ import com.microple.jademall.bean.MyMessage;
 import com.microple.jademall.bean.Note;
 import com.microple.jademall.bean.Order;
 import com.microple.jademall.bean.OrderDetail;
+import com.microple.jademall.bean.OrderInfo;
 import com.microple.jademall.bean.Pay;
 import com.microple.jademall.bean.PersonInfo;
 import com.microple.jademall.bean.Pick;
@@ -55,6 +56,7 @@ import com.microple.jademall.bean.Share;
 import com.microple.jademall.bean.Shop;
 import com.microple.jademall.bean.Team;
 import com.microple.jademall.bean.TwoSearch;
+import com.microple.jademall.bean.UserInfo;
 import com.xx.baseutilslibrary.network.entity.BaseResponseEntity;
 
 
@@ -145,7 +147,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("user_api/bind_phone")
-    Observable<BaseResponseEntity<Login>> bindPhone(@Field("openid") String openid,@Field("phone") String phone,@Field("phone_code") String phone_code,@Field("code") String code,@Field("nickname") String nickname,@Field("head_img") String head_img);
+    Observable<BaseResponseEntity<Login>> bindPhone(@Field("openid") String openid,@Field("phone") String phone,@Field("phone_code") String phone_code,@Field("code") String code,@Field("nickname") String nickname,@Field("head_img") String head_img,@Field("is_bind") String is_bind);
     /**
      * 快捷登录
      */
@@ -249,6 +251,12 @@ public interface AppService {
     @FormUrlEncoded
     @POST("user_center/exchange")
     Observable<BaseResponseEntity<Object>> exchange(@Header("token") String token, @Field("ct_id")String ct_id);
+    /**
+     * 获取转账用户信息
+     */
+    @FormUrlEncoded
+    @POST("user_center/user_account")
+    Observable<BaseResponseEntity<UserInfo>> getAccountInfo(@Header("token") String token, @Field("phone") String phone);
     /**
      * 积分转账
      */
@@ -521,8 +529,26 @@ public interface AppService {
     @POST("search/goods_list")
     Observable<BaseResponseEntity<Goods>> twoSearch(@Field("cat_id")String cat_id,@Field("page")String page,@Field("sort")String sort);
 
+    /**
+     * 下单信息
+     */
+    @FormUrlEncoded
+    @POST("order/order_info")
+    Observable<BaseResponseEntity<OrderInfo>> getOrderInfo(@Header("token") String token,@Field("send")String send,@Field("live") String live,@Field("cabinet")String cabinet);
+    /**
+     * 浏览足迹
+     */
+    @FormUrlEncoded
+    @POST("goods/browse_goods")
+    Observable<BaseResponseEntity<Object>> getZuji(@Header("token") String token,@Field("goods_id")String goods_id);
+     /**
+        * 足迹列表
+     */
+    @POST("user_center/foot_print")
+    Observable<BaseResponseEntity<Collection>> getZujiList(@Header("token") String token);
 
 }
+
 
 
 

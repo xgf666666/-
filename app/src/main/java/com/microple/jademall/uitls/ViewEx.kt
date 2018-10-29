@@ -22,9 +22,9 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
         urltemp=url
     }
     Glide.with(this.context).load(urltemp)
-            .placeholder(R.drawable.ic_img_default)
+            .placeholder(R.drawable.img_product_booth)
             .dontAnimate()
-            .error(R.drawable.ic_img_default)
+            .error(R.drawable.img_product_booth)
             .into(this)
 }
 fun ImageView.loadHeadImag( url: String) {

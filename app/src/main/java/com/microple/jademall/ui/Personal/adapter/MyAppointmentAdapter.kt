@@ -14,10 +14,10 @@ import com.microple.jademall.bean.MyAppointment
 class MyAppointmentAdapter(data:List<MyAppointment.RecentAppointBean>):BaseQuickAdapter<MyAppointment.RecentAppointBean,BaseViewHolder>(R.layout.item_myappointment,data) {
 
     override fun convert(helper: BaseViewHolder?, item: MyAppointment.RecentAppointBean) {
-        if (helper?.adapterPosition==0){
-            helper?.getView<TextView>(R.id.tv_start).visibility=View.VISIBLE
-            helper?.setText(R.id.tv_start,"全部预约")
-        }
+//        if (helper?.adapterPosition==0){
+//            helper?.getView<TextView>(R.id.tv_start).visibility=View.VISIBLE
+//            helper?.setText(R.id.tv_start,"近期开始")
+//        }
         helper?.setText(R.id.tv_name,item.live_title)
                 ?.setText(R.id.tv_time_zhibo,item.start_time)
                 ?.setText(R.id.tv_content,item.desc)

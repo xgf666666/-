@@ -97,8 +97,10 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
     //发送消息
     private fun sendMessage(message:String,index:Int) {
         var textElem= TIMTextElem()
-        if (index==0){
+        if (index==0){//平常信息
             textElem.text=Constants.getPersonal().user_name+"："+message
+        }else if (index==1){
+            textElem.text="欢迎"+Constants.getPersonal().user_name+message
         }else{
             textElem.text=Constants.getPersonal().user_name+message
         }
@@ -287,6 +289,10 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                     var elem=it[i].getElement(y)
                     if (elem.type==TIMElemType.Text){
                         if (!(elem as TIMTextElem).text.contains("：")){
+                            if ((elem as TIMTextElem).text.contains("加入直播间")){
+                                tv_message.text=elem.text
+                                ll_message.visibility=View.VISIBLE
+                            }
                             TIMGroupManagerExt.getInstance().getGroupMembers(intent.getStringExtra("group_id"), object : TIMValueCallBack<List<TIMGroupMemberInfo>> {
                                 override fun onError(p0: Int, p1: String?) {
                                 }
@@ -319,8 +325,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
                                             }
                                             for (i in 0..p1!!.size-1){
                                                 guangkan.getChildAt(i).visibility=View.VISIBLE
-                                                Log.i("faceUrl",p1[i].faceUrl)
-                                                ( guangkan.getChildAt(i) as ImageView).loadHeadImag(p1[i].faceUrl)
+                                                ( guangkan.getChildAt(i) as ImageView).loadHeadImag(p1[p1!!.size-1-i].faceUrl)
 
                                             }
                                         }
