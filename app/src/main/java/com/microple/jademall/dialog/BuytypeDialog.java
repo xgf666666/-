@@ -24,7 +24,7 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
     private Context mContext;
     private LinearLayout ll_zhibo;
     private LinearLayout ll_feicui;
-    private LinearLayout ll_youji;
+    private LinearLayout ll_youji,ll_one,ll_two,ll_five;
 
 
     public BuytypeDialog(@NonNull Context context) {
@@ -57,13 +57,27 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
         ll_youji = view.findViewById(R.id.ll_youji);
         ll_feicui = view.findViewById(R.id.ll_feicui);
         ll_zhibo = view.findViewById(R.id.ll_zhibo);
+        ll_one=view.findViewById(R.id.ll_one);
+        ll_two=view.findViewById(R.id.ll_two);
+        ll_five=view.findViewById(R.id.ll_five);
+        ll_one.setOnClickListener(this);
+        ll_two.setOnClickListener(this);
+        ll_five.setOnClickListener(this);
         setContentView(view);
     }
     public void setvisb(int tyle){
-        if (tyle==2)
-        ll_zhibo.setVisibility(View.VISIBLE);
-        else
+        if (tyle==2){
+            ll_zhibo.setVisibility(View.VISIBLE);
+            ll_one.setVisibility(View.VISIBLE);
+            ll_two.setVisibility(View.VISIBLE);
+            ll_five.setVisibility(View.GONE);
+        } else{
             ll_zhibo.setVisibility(View.GONE);
+            ll_one.setVisibility(View.GONE);
+            ll_two.setVisibility(View.GONE);
+            ll_five.setVisibility(View.VISIBLE);
+        }
+
     }
 
 
@@ -93,6 +107,21 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
                     mOnBtnClickListener.cancel(3);
                 }
                 break;
+            case R.id.ll_one:
+                if (mOnBtnClickListener!=null){
+                    mOnBtnClickListener.cancel(4);
+                }
+                break;
+            case R.id.ll_two:
+                if (mOnBtnClickListener!=null){
+                    mOnBtnClickListener.cancel(5);
+                }
+                break;
+            case  R.id.ll_five:
+                if (mOnBtnClickListener!=null){
+                    mOnBtnClickListener.cancel(6);
+                }
+
         }
     }
 

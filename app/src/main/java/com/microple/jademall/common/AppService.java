@@ -19,6 +19,7 @@ import com.microple.jademall.bean.DetailShare;
 import com.microple.jademall.bean.Emeralds;
 import com.microple.jademall.bean.EmeraldsDetail;
 import com.microple.jademall.bean.FirstImage;
+import com.microple.jademall.bean.Follow;
 import com.microple.jademall.bean.Goods;
 import com.microple.jademall.bean.GoodsDetail;
 import com.microple.jademall.bean.HandImage;
@@ -447,7 +448,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("pay/pay")
-    Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password,@Field("sb_id")String sb_id,@Field("pick_type")String pick_type,@Field("ct_id")String ct_id);
+    Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password,@Field("sb_id")String sb_id,@Field("incr_type1")String incr_type1,@Field("incr_type2")String incr_type2 ,@Field("incr_type3")String incr_type3);
     /**
      * 商品详情分享
      */
@@ -495,6 +496,18 @@ public interface AppService {
      */
     @POST("user_center/share")
     Observable<BaseResponseEntity<Share>> myShare(@Header("token") String token);
+    /**
+     * 关注商家
+     */
+    @FormUrlEncoded
+    @POST("user_center/follow_supplier")
+    Observable<BaseResponseEntity<Object>> follow(@Header("token") String token ,@Field("supplier_id")String supplier_id);
+    /**
+     * 判断是否已关注
+     */
+    @FormUrlEncoded
+    @POST("live/check_follow")
+    Observable<BaseResponseEntity<Follow>> isFollow(@Header("token") String token , @Field("supplier_id")String supplier_id);
     /**
      * 我的预约
      */

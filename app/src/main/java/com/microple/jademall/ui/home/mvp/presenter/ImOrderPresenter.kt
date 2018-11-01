@@ -27,8 +27,8 @@ class ImOrderPresenter:ImOrderContract.Presenter() {
         })
     }
 
-    override fun pay(token: String, send: String, live: String, cabinet: String, address_id: String, pay_type: String,trade_password:String,sb_id:String,pick_type:String,ct_id:String) {
-        getModel().pay(token,send,live,cabinet,address_id,pay_type,trade_password,sb_id,pick_type,ct_id).ui({
+    override fun pay(token: String, send: String, live: String, cabinet: String, address_id: String, pay_type: String,trade_password:String,sb_id:String,incr_type1:String,incr_type2:String,incr_type3:String) {
+        getModel().pay(token,send,live,cabinet,address_id,pay_type,trade_password,sb_id,incr_type1,incr_type2,incr_type3).ui({
             getView()?.pay(it.data!!)
         },{
             getView()?.showToast(it)

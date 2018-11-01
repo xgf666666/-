@@ -22,14 +22,14 @@
         android:layout_marginTop="40dp">
         <LinearLayout
             android:id="@+id/ll_content"
-            android:layout_width="wrap_content"
+            android:layout_width="145dp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_live_title"
             android:orientation="vertical"
             android:layout_marginLeft="10dp">
             <TextView
                 android:id="@+id/tv_livetitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxEms="6"
                 android:singleLine="true"
@@ -37,15 +37,33 @@
                 android:layout_marginRight="@dimen/dp_4"
                 android:textSize="12sp"
                 android:textColor="@color/white_default" />
-            <TextView
-                android:id="@+id/tv_renshu"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:textSize="10sp"
-                android:textColor="@color/white_default"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="@dimen/dp_4"/>
+                android:layout_marginLeft="30dp">
+                <TextView
+                    android:id="@+id/tv_renshu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="@color/white_default"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="@dimen/dp_4"
+                    android:layout_toLeftOf="@+id/tv_follow"
+                    />
+                <TextView
+                    android:id="@+id/tv_follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="@color/white_default"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="@dimen/dp_4"
+                    android:text="关注"
+                    android:background="@drawable/bg_follow"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
         </LinearLayout>
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/tv_user"
@@ -65,35 +83,40 @@
                 android:layout_height="30dp"
                 android:src="@drawable/datouxiang_"
                 android:layout_marginLeft="3dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                />
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cr_two"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/datouxiang_"
                 android:layout_marginLeft="3dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                />
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cr_three"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/datouxiang_"
                 android:layout_marginLeft="3dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                />
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cr_four"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/datouxiang_"
                 android:layout_marginLeft="3dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                />
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cr_five"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/datouxiang_"
                 android:layout_marginLeft="3dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 

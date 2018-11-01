@@ -21,8 +21,8 @@ class ImOrderModel: ImOrderContract.Model {
 
     override fun isSetting(token: String): Observable<BaseResponseEntity<IsSettingPayPW>> =AppApi.Api().isSettingPayPW(token)
 
-    override fun pay(token: String, send: String, live: String, cabinet: String, address_id: String, pay_type: String,trade_password:String,sb_id:String,pick_type:String,ct_id:String): Observable<BaseResponseEntity<Pay>> =
-            AppApi.Api().pay(token,send,live,cabinet,address_id,pay_type,trade_password,sb_id,pick_type,ct_id)
+    override fun pay(token: String, send: String, live: String, cabinet: String, address_id: String, pay_type: String,trade_password:String,sb_id:String,incr_type1:String,incr_type2:String,incr_type3:String): Observable<BaseResponseEntity<Pay>> =
+            AppApi.Api().pay(token,send,live,cabinet,address_id,pay_type,trade_password,sb_id,incr_type1,incr_type2,incr_type3)
 
     override fun imOrder(token: String, sb_id: String, goods_id: String): Observable<BaseResponseEntity<ImOrder>> =
             AppApi.Api().imOrder(token,sb_id,goods_id)

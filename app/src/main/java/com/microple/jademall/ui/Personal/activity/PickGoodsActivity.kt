@@ -93,6 +93,10 @@ class PickGoodsActivity : BaseMvpActivity<PickGoodsPresenter>(),PickGoodsContrac
             this.startActivityForResult(intent,3)
         }
         tv_pay.setOnClickListener{
+            if (pick?.cut_status==0){
+                showToast("未切石，不能提货")
+                return@setOnClickListener
+            }
             if (pick?.user_address?.ua_id==null){
                 showToast("请添加地址")
             }else {
@@ -167,7 +171,8 @@ class PickGoodsActivity : BaseMvpActivity<PickGoodsPresenter>(),PickGoodsContrac
         tv_number.text=pick.goods_sn
         tv_stye.text=pick.type
         tv_beizhu.text=pick.remark
-        tv_fuwufei.text="￥"+pick.service_fee
+        tv_fuwufei.text="￥${pick.service_fee}元"
+        tv_yunfei.text="￥${pick.freight_price}元"
     }
     var name=""
     var phone=""
