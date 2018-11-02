@@ -324,7 +324,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("user_center/enter_apply")
-    Observable<BaseResponseEntity<Object>> apply(@Header("token") String token, @Field("supplier_name") String supplier_name,@Field("email")String email,@Field("phone")String phone,@Field("inviter")String inviter,@Field("license") String license,@Field("attach")String attach);
+    Observable<BaseResponseEntity<Object>> apply(@Header("token") String token, @Field("company_name") String company_name,@Field("email")String email,@Field("phone")String phone,@Field("inviter")String inviter,@Field("license") String license,@Field("attach")String attach,@Field("supplier_name")String supplier_name,@Field("head_img")String head_img,@Field("intro") String intro);
     /**
      * 意见反馈
      */
@@ -448,7 +448,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("pay/pay")
-    Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password,@Field("sb_id")String sb_id,@Field("incr_type1")String incr_type1,@Field("incr_type2")String incr_type2 ,@Field("incr_type3")String incr_type3);
+    Observable<BaseResponseEntity<Pay>> pay(@Header("token") String token, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("address_id")String address_id,@Field("pay_type") String pay_type,@Field("trade_password")String trade_password,@Field("sb_id")String sb_id,@Field("incr_type1")String incr_type1,@Field("incr_type2")String incr_type2 ,@Field("incr_type3")String incr_type3,@Field("freight_pay") String freight_pay);
     /**
      * 商品详情分享
      */
@@ -547,7 +547,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("order/order_info")
-    Observable<BaseResponseEntity<OrderInfo>> getOrderInfo(@Header("token") String token,@Field("send")String send,@Field("live") String live,@Field("cabinet")String cabinet);
+    Observable<BaseResponseEntity<OrderInfo>> getOrderInfo(@Header("token") String token,@Field("send")String send,@Field("live") String live,@Field("cabinet")String cabinet,@Field("incr_type1")String incr_type1,@Field("incr_type2")String incr_type2,@Field("incr_type3")String incr_type3,@Field("freight_pay")String freight_pay);
     /**
      * 浏览足迹
      */
@@ -559,7 +559,12 @@ public interface AppService {
      */
     @POST("user_center/foot_print")
     Observable<BaseResponseEntity<Collection>> getZujiList(@Header("token") String token);
-
+    /**
+     * 提货支付
+     */
+    @FormUrlEncoded
+    @POST("pick_pay/pick_pay")
+    Observable<BaseResponseEntity<Pay>> getPick(@Header("token") String token,@Field("pay_type")String pay_type,@Field("address_id")String address_id,@Field("cabinet_id")String cabinet_id,@Field("shipping_pay")String shipping_pay);
 }
 
 
