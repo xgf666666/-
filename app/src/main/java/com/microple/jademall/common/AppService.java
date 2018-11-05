@@ -23,6 +23,7 @@ import com.microple.jademall.bean.Follow;
 import com.microple.jademall.bean.Goods;
 import com.microple.jademall.bean.GoodsDetail;
 import com.microple.jademall.bean.HandImage;
+import com.microple.jademall.bean.IgRecord;
 import com.microple.jademall.bean.ImOrder;
 import com.microple.jademall.bean.Image;
 import com.microple.jademall.bean.ImageDetail;
@@ -268,7 +269,7 @@ public interface AppService {
      */
     @FormUrlEncoded
     @POST("user_center/transfer_account")
-    Observable<BaseResponseEntity<Object>> push(@Header("token") String token, @Field("to_user")String to_user,@Field("points")String points,@Field("frozen_points")String frozen_points,@Field("trade_password")String trade_password);
+    Observable<BaseResponseEntity<Object>> push(@Header("token") String token, @Field("to_user")String to_user,@Field("points")String points,@Field("fp_id")String fp_id,@Field("trade_password")String trade_password);
     /**
      * 修改头像
      */
@@ -565,7 +566,15 @@ public interface AppService {
     @FormUrlEncoded
     @POST("pick_pay/pick_pay")
     Observable<BaseResponseEntity<Pay>> getPick(@Header("token") String token,@Field("pay_type")String pay_type,@Field("address_id")String address_id,@Field("cabinet_id")String cabinet_id,@Field("shipping_pay")String shipping_pay);
+    /**
+     * 冻积分记录
+     */
+    @POST("user_center/frozen_points_info")
+    Observable<BaseResponseEntity<IgRecord>> igRecord(@Header("token") String token);
+
+
 }
+
 
 
 

@@ -18,6 +18,7 @@ import com.microple.jademall.bean.LiveShare
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.dialog.ShareDialog
+import com.microple.jademall.ui.Personal.activity.CustomerServiceAcitivity
 import com.microple.jademall.ui.live.adapter.MessageAdapter
 import com.microple.jademall.ui.live.mvp.contract.LivePlayerContract
 import com.microple.jademall.ui.live.mvp.presenter.LivePlayerPresenter
@@ -109,6 +110,9 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         tv_follow.setOnClickListener {
             getPresenter().follow(Constants.getToken(),intent.getStringExtra("supplier_id"))
         }
+        iv_service.setOnClickListener {
+            CustomerServiceAcitivity.startCustomerServiceAcitivity(this)
+        }
 
     }
     //发送消息
@@ -168,7 +172,7 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
         if (Constants.isLogin()){
             getPresenter().isFollow(Constants.getToken(),intent.getStringExtra("supplier_id"))
         }else{
-//            tv_follow.visibility=View.GONE
+            tv_follow.visibility=View.GONE
         }
         play()
     }
