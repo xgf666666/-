@@ -2,7 +2,6 @@ package com.microple.jademall.ui.Personal.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import com.microple.jademall.R
 import com.microple.jademall.bean.Assert

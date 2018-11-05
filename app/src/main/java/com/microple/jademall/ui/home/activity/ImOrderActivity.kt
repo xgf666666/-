@@ -119,7 +119,6 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     }
     override fun initData() {
         tv_title.text="立即下单"
-        Log.i("goodsID",intent.getStringExtra("goods_id"))
         getPresenter().imOrder(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("goods_id"))
         (application as App).addActivity(this)
         XxAnyPay.intance.init(this)
@@ -429,6 +428,9 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                     PassswordActivity.startPassswordActivity(this@ImOrderActivity,2)
                                 }
 
+                            }
+                            4->{//他人代付
+                                DaifuActivity.startDaifuActivity(mContext,intent.getStringExtra("sb_id"),you,youdao,live,feicui,oneYear,twoYear,fiveYear,order?.order?.user_address?.ua_id!!)
                             }
                         }
                     }

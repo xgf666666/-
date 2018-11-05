@@ -11,6 +11,7 @@ import com.microple.jademall.bean.Ask;
 import com.microple.jademall.bean.AskDetail;
 import com.microple.jademall.bean.AskType;
 import com.microple.jademall.bean.Assert;
+import com.microple.jademall.bean.Attention;
 import com.microple.jademall.bean.Category;
 import com.microple.jademall.bean.Collection;
 import com.microple.jademall.bean.CustiomerDetail;
@@ -571,8 +572,17 @@ public interface AppService {
      */
     @POST("user_center/frozen_points_info")
     Observable<BaseResponseEntity<IgRecord>> igRecord(@Header("token") String token);
-
-
+    /**
+     * 关注列表
+     */
+    @POST("user_center/frozen_points_info")
+    Observable<BaseResponseEntity<Attention>> getAttention(@Header("token") String token);
+    /**
+     * 他人代付
+     */
+    @FormUrlEncoded
+    @POST("other_pay/other_pay")
+    Observable<BaseResponseEntity<Object>> daifu(@Header("token") String token,@Field("sb_id")String sb_id, @Field("send") String send, @Field("freight_pay")String freight_pay,@Field("live")String live,@Field("cabinet")String cabinet,@Field("incr_type1")String incr_type1,@Field("incr_type2")String incr_type2 ,@Field("incr_type3")String incr_type3,@Field("address_id")String address_id,@Field("phone") String phone,@Field("pay_msg")String pay_msg);
 }
 
 

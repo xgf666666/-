@@ -120,11 +120,11 @@
         <service
             android:name="com.tencent.qalsdk.service.QalService"
             android:exported="true"
-            android:process=":QALSERVICE"></service>
+            android:process=":QALSERVICE" />
         <service
             android:name="com.tencent.qalsdk.service.QalAssistService"
             android:exported="false"
-            android:process=":QALSERVICE"></service>
+            android:process=":QALSERVICE" />
 
         <!-- 【必须】 离线消息广播接收器 -->
         <receiver
@@ -234,7 +234,9 @@
         <activity android:name=".GuideActivity" />
         <activity android:name=".ui.live.activity.LiveGoodsActivity" />
         <activity android:name=".ui.home.activity.WebViewActivity" />
-        <activity android:name=".ui.Personal.activity.IgRecordActivity"></activity>
+        <activity android:name=".ui.Personal.activity.IgRecordActivity" />
+        <activity android:name=".ui.Personal.activity.MyAttentionActivity" />
+        <activity android:name=".ui.home.activity.DaifuActivity"></activity>
     </application>
 
 </manifest>
