@@ -236,7 +236,9 @@
         <activity android:name=".ui.home.activity.WebViewActivity" />
         <activity android:name=".ui.Personal.activity.IgRecordActivity" />
         <activity android:name=".ui.Personal.activity.MyAttentionActivity" />
-        <activity android:name=".ui.home.activity.DaifuActivity"></activity>
+        <activity android:name=".ui.home.activity.DaifuActivity" />
+        <activity android:name=".ui.Personal.activity.OtherPayActivity" />
+        <activity android:name=".ui.Personal.activity.MyAttentionDetailActivity"></activity>
     </application>
 
 </manifest>

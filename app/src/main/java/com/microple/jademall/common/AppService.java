@@ -16,6 +16,7 @@ import com.microple.jademall.bean.Category;
 import com.microple.jademall.bean.Collection;
 import com.microple.jademall.bean.CustiomerDetail;
 import com.microple.jademall.bean.Customer;
+import com.microple.jademall.bean.Daifu;
 import com.microple.jademall.bean.DetailShare;
 import com.microple.jademall.bean.Emeralds;
 import com.microple.jademall.bean.EmeraldsDetail;
@@ -30,6 +31,7 @@ import com.microple.jademall.bean.Image;
 import com.microple.jademall.bean.ImageDetail;
 import com.microple.jademall.bean.IntergrationDetail;
 import com.microple.jademall.bean.IsSettingPayPW;
+import com.microple.jademall.bean.JifenDetail;
 import com.microple.jademall.bean.Label;
 import com.microple.jademall.bean.LiveDetail;
 import com.microple.jademall.bean.LiveGoods;
@@ -575,7 +577,7 @@ public interface AppService {
     /**
      * 关注列表
      */
-    @POST("user_center/frozen_points_info")
+    @POST("user_center/follow_list")
     Observable<BaseResponseEntity<Attention>> getAttention(@Header("token") String token);
     /**
      * 他人代付
@@ -583,6 +585,37 @@ public interface AppService {
     @FormUrlEncoded
     @POST("other_pay/other_pay")
     Observable<BaseResponseEntity<Object>> daifu(@Header("token") String token,@Field("sb_id")String sb_id, @Field("send") String send, @Field("freight_pay")String freight_pay,@Field("live")String live,@Field("cabinet")String cabinet,@Field("incr_type1")String incr_type1,@Field("incr_type2")String incr_type2 ,@Field("incr_type3")String incr_type3,@Field("address_id")String address_id,@Field("phone") String phone,@Field("pay_msg")String pay_msg);
+    /**
+     * 代付支付
+     */
+    @FormUrlEncoded
+    @POST("pay/pay")
+    Observable<BaseResponseEntity<Pay>> otherPay(@Header("token") String token,@Field("pay_type") String pay_type,@Field("sb_id")String sb_id, @Field("send") String send, @Field("live")String live,@Field("cabinet")String cabinet,@Field("freight_pay") String freight_pay,@Field("incr_type1")String incr_type1,@Field("incr_type2")String incr_type2 ,@Field("incr_type3")String incr_type3,@Field("address_id")String address_id,@Field("userId")String userId,@Field("trade_password")String trade_password);
+    /**
+     * 历史代付
+     */
+    @POST("other_pay/history_pay")
+    Observable<BaseResponseEntity<Daifu>> getHistory(@Header("token") String token);
+    /**
+     * 积分柜
+     */
+    @POST("user_center/increment")
+    Observable<BaseResponseEntity<Emeralds>> getjifen(@Header("token") String token);
+    /**
+     * 积分柜详情
+     */
+    @FormUrlEncoded
+    @POST("user_center/increment_detail")
+    Observable<BaseResponseEntity<JifenDetail>> getjifenDetail(@Header("token") String token, @Field("incr_id")String incr_id);
+
+    /**
+     * 积分兑换（积分柜）
+     */
+    @FormUrlEncoded
+    @POST("user_center/exchange_points")
+    Observable<BaseResponseEntity<Object>> getjifenEx(@Header("token") String token,@Field("incr_id")String incr_id);
+
+
 }
 
 

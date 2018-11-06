@@ -4,15 +4,33 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import com.microple.jademall.R
+import com.microple.jademall.bean.Daifu
+import com.microple.jademall.bean.UserInfo
 import com.microple.jademall.common.Constants
+import com.microple.jademall.ui.Personal.adapter.DaifuAdapter
 import com.microple.jademall.ui.home.mvp.contract.DaifuContract
 import com.microple.jademall.ui.home.mvp.presenter.DaifuPresenter
+import com.microple.jademall.uitls.loadHeadImag
+import com.microple.jademall.uitls.loadImag
+import com.weibiaogan.bangbang.common.isPhone
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_daifu.*
 import kotlinx.android.synthetic.main.item_title.*
 
 class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
+    override fun pushInfo(userInfo: UserInfo) {
+        iv_head.loadHeadImag(userInfo.head_img)
+        tv_name.text=userInfo.user_name
+    }
+
+    override fun history(daifu: Daifu) {
+        adapter.setNewData(daifu.record)
+    }
+
     override fun daifu() {
         showToast("代付请求发送成功！")
     }
@@ -34,8 +52,18 @@ class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
     /**
      * 初始化数据状态
      */
+    var adapter=DaifuAdapter(arrayListOf())
     override fun initData() {
         tv_title.text="他人代付"
+        rc_daifu.layoutManager=LinearLayoutManager(this)
+        rc_daifu.adapter=adapter
+        getPresenter().history(Constants.getToken())
+        adapter.setOnItemClickListener { adapter, view, position ->
+            et_zhanhao.setText((adapter as DaifuAdapter).data[position].pay_user_phone)
+            tv_name.text=adapter.data[position].user_name
+            iv_head.loadHeadImag(adapter.data[position].head_img)
+        }
+
     }
 
     /**
@@ -57,6 +85,22 @@ class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
                     intent.getStringExtra("incr_type1"),intent.getStringExtra("incr_type2"),intent.getStringExtra("incr_type3"),
                     intent.getStringExtra("address_id"),et_zhanhao.text.toString(),tv_message.text.toString())
         }
+        et_zhanhao.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (et_zhanhao.text.toString().isPhone()){
+                    getPresenter().pushInfo(Constants.getToken(),et_zhanhao.text.toString())
+                }
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+        })
+
     }
     companion object {
         fun startDaifuActivity(context: Context, sb_id:String, send:String,freight_pay:String,live:String,cabinet:String,incr_type1:String,incr_type2:String,incr_type3:String,address_id:String){

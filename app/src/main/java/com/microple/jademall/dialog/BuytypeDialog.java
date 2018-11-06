@@ -62,9 +62,9 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
         ll_five=view.findViewById(R.id.ll_five);
         ll_youji_dao=view.findViewById(R.id.ll_youji_dao);
         ll_one.setOnClickListener(this);
+        ll_youji_dao.setOnClickListener(this);
         ll_two.setOnClickListener(this);
         ll_five.setOnClickListener(this);
-        ll_youji_dao.setOnClickListener(this);
         setContentView(view);
     }
     public void setvisb(int tyle){
@@ -125,10 +125,12 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
                 if (mOnBtnClickListener!=null){
                     mOnBtnClickListener.cancel(6);
                 }
+                break;
             case R.id.ll_youji_dao:
                     if (mOnBtnClickListener!=null){
                         mOnBtnClickListener.cancel(7);
                     }
+                break;
 
         }
     }

@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Personal.activity.MyAttentionActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.Personal.activity.MyAttentionDetailActivity">
     <include layout="@layout/item_title"/>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_attention"
+        android:id="@+id/rc_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-
 </LinearLayout>

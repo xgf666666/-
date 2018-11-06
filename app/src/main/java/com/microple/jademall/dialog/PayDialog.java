@@ -59,6 +59,10 @@ public class PayDialog extends Dialog implements View.OnClickListener {
         view.findViewById(R.id.ll_daifu).setVisibility(View.GONE);
 
     }
+    public void setDaifuVis(){
+        view.findViewById(R.id.ll_daifu).setVisibility(View.GONE);
+
+    }
 
 
 

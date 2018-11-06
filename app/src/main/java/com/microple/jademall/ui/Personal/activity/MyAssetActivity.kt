@@ -51,7 +51,10 @@ class MyAssetActivity : BaseMvpActivity<MyAssetPresenter>(),MyAssetContract.View
             IntergrationPushActivity.startIntergrationPushActivity(this)
         }
         tv_feicui.setOnClickListener{
-            EmeraldsActivity.startEmeraldsActivity(this)
+            EmeraldsActivity.startEmeraldsActivity(this,1)
+        }
+        tv_jifen.setOnClickListener {
+            EmeraldsActivity.startEmeraldsActivity(this,2)
         }
         iv_back.setOnClickListener{
             finish()

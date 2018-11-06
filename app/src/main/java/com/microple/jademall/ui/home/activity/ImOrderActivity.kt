@@ -366,12 +366,18 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                 tv_youji_dao.text="邮寄(运费到付):    "+youdao
                             }
 
+                        }else{
+                            tv_youji_dao.visibility=View.GONE
                         }
 
                         dialog.dismiss()
                         Log.i("you",you)
                         Log.i("live",live)
+                        Log.i("oneYear",oneYear)
+                        Log.i("twoYear",twoYear)
+                        Log.i("fiveYear",fiveYear+fiveYear_llist.size)
                         Log.i("feicui",feicui)
+                        Log.i("youdao",youdao+youdao_list.size)
                         getPresenter().getOrderInfo(Constants.getToken(),you,live,feicui,oneYear,twoYear,fiveYear,youdao)
                     }
 
