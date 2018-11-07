@@ -3,8 +3,6 @@ package com.microple.jademall.ui.home.activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -15,15 +13,9 @@ import com.microple.jademall.dialog.PayDialog
 import com.microple.jademall.ui.home.adapter.ImOrderAdapter
 import kotlinx.android.synthetic.main.activity_im_order.*
 import kotlinx.android.synthetic.main.item_title.*
-import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.widget.TextView
-import com.blankj.utilcode.util.ActivityUtils
 import com.google.gson.Gson
-import com.microple.jademall.bean.ImOrder
-import com.microple.jademall.bean.IsSettingPayPW
-import com.microple.jademall.bean.OrderInfo
-import com.microple.jademall.bean.Pay
+import com.microple.jademall.bean.*
 import com.microple.jademall.common.App
 import com.microple.jademall.common.Constants
 import com.microple.jademall.ui.Personal.activity.AddressActivity
@@ -43,6 +35,58 @@ import com.xx.baseuilibrary.mvp.BaseMvpActivity
  * describe:立即下单
  */
 class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View {
+    override fun getPayTyle(payTyle: PayTyle) {//得到支付方式
+        var dialog=PayDialog(this)
+//        var str=payTyle.pay_type.split(",")
+        for (i in 1..4){
+            if(!payTyle.pay_type.contains("${i}")){
+                dialog.setGone(i)
+            }
+        }
+        dialog.show()
+        dialog.setOnBtnClickListener(object : PayDialog.OnBtnClickListener {
+            override fun cancel(index: Int) {
+                dialog.dismiss()
+
+                when(index){
+                    1->{
+                        indexs=1
+                        showLoadingDialog()
+                        getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"1","",intent.getStringExtra("sb_id"),oneYear,twoYear,fiveYear,youdao)
+                    }
+                    2->{
+                        if (add_address.visibility==View.VISIBLE){
+                            showToast("请添加地址")
+                        }else{
+                            indexs=2
+                            showLoadingDialog()
+                            getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"2","",intent.getStringExtra("sb_id"),oneYear,twoYear,fiveYear,youdao)
+                        }
+
+
+                    }
+                    3->{
+                        indexs=3
+                        if (isSetting==1){
+                            showDialog()
+                        }else{
+                            PassswordActivity.startPassswordActivity(this@ImOrderActivity,2)
+                        }
+
+                    }
+                    4->{//他人代付
+                        DaifuActivity.startDaifuActivity(mContext,intent.getStringExtra("sb_id"),you,youdao,live,feicui,oneYear,twoYear,fiveYear,order?.order?.user_address?.ua_id!!)
+                    }
+                }
+            }
+
+        })
+    }
+
+    override fun getBuyTyle(buyTyle: BuyTyle) {
+
+    }
+
     var orderInfo:OrderInfo?=null
     override fun getOrderInfo(orderInfo: OrderInfo) {
         this.orderInfo=orderInfo
@@ -398,50 +442,14 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     var indexs=0
     override fun initEvent() {
         tv_submint.setOnClickListener{
-            var dialog=PayDialog(this)
+
             if (you_list.size+live_list.size+feicui_list.size+oneYear_list.size+twoYear_list.size+fiveYear_llist.size+youdao_list.size!=adapter.data.size){
                 showToast("请选择购买方式")
             } else if (order?.order!!.user_address.ua_id==null){
                 showToast("请添加地址")
             }else{
-                dialog.show()
-                dialog.setOnBtnClickListener(object : PayDialog.OnBtnClickListener {
-                    override fun cancel(index: Int) {
-                        dialog.dismiss()
+                getPresenter().getPayTyle(Constants.getToken(),"1")
 
-                        when(index){
-                            1->{
-                                indexs=1
-                                showLoadingDialog()
-                                getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"1","",intent.getStringExtra("sb_id"),oneYear,twoYear,fiveYear,youdao)
-                            }
-                            2->{
-                                if (add_address.visibility==View.VISIBLE){
-                                    showToast("请添加地址")
-                                }else{
-                                    indexs=2
-                                    showLoadingDialog()
-                                    getPresenter().pay(Constants.getToken(),you,live,feicui,""+order?.order!!.user_address.ua_id,"2","",intent.getStringExtra("sb_id"),oneYear,twoYear,fiveYear,youdao)
-                                }
-
-
-                            }
-                            3->{
-                                indexs=3
-                                if (isSetting==1){
-                                    showDialog()
-                                }else{
-                                    PassswordActivity.startPassswordActivity(this@ImOrderActivity,2)
-                                }
-
-                            }
-                            4->{//他人代付
-                                DaifuActivity.startDaifuActivity(mContext,intent.getStringExtra("sb_id"),you,youdao,live,feicui,oneYear,twoYear,fiveYear,order?.order?.user_address?.ua_id!!)
-                            }
-                        }
-                    }
-
-                })
 
             }
 
