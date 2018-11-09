@@ -100,12 +100,10 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                 str=str+",${buyTyle.buy_type[i].bt_id+1}"
             }
         }
-        Log.i("strsss",str)
             for (i in 1..7){
                 if (!str.contains("${i}")){
                     dialog.setGone(i)
                 }
-                Log.i("contains","${i}")
             }
             dialog.show()
             dialog.setOnBtnClickListener(object : BuytypeDialog.OnBtnClickListener {
@@ -125,8 +123,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                                 twoYear_list.remove(goods.goods_sn)
                             }else if (fiveYear_llist.contains(goods.goods_sn)){
                                 fiveYear_llist.remove(goods.goods_sn)
-                            }
-                            else if (youdao_list.contains(goods.goods_sn)){
+                            }else if (youdao_list.contains(goods.goods_sn)){
                                 youdao_list.remove(goods.goods_sn)
                             }
                         }
@@ -343,13 +340,6 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
                     }
 
                     dialog.dismiss()
-                    Log.i("you",you)
-                    Log.i("live",live)
-                    Log.i("oneYear",oneYear)
-                    Log.i("twoYear",twoYear)
-                    Log.i("fiveYear",fiveYear+fiveYear_llist.size)
-                    Log.i("feicui",feicui)
-                    Log.i("youdao",youdao+youdao_list.size)
                     getPresenter().getOrderInfo(Constants.getToken(),you,live,feicui,oneYear,twoYear,fiveYear,youdao)
                 }
 

@@ -69,22 +69,22 @@ public class BuytypeDialog extends Dialog implements View.OnClickListener {
         LinearLayout ll=view.findViewById(R.id.ll_buy);
                 ll.getChildAt(index).setVisibility(View.GONE);
     }
-    public void setvisb(int tyle){
-        if (tyle==2){
-            ll_zhibo.setVisibility(View.VISIBLE);
-            ll_one.setVisibility(View.VISIBLE);
-            ll_two.setVisibility(View.VISIBLE);
-            ll_five.setVisibility(View.GONE);
-            ll_feicui.setVisibility(View.VISIBLE);
-        } else{
-            ll_zhibo.setVisibility(View.GONE);
-            ll_one.setVisibility(View.GONE);
-            ll_two.setVisibility(View.GONE);
-            ll_five.setVisibility(View.VISIBLE);
-            ll_feicui.setVisibility(View.GONE);
-        }
-
-    }
+//    public void setvisb(int tyle){
+//        if (tyle==2){
+//            ll_zhibo.setVisibility(View.VISIBLE);
+//            ll_one.setVisibility(View.VISIBLE);
+//            ll_two.setVisibility(View.VISIBLE);
+//            ll_five.setVisibility(View.GONE);
+//            ll_feicui.setVisibility(View.VISIBLE);
+//        } else{
+//            ll_zhibo.setVisibility(View.GONE);
+//            ll_one.setVisibility(View.GONE);
+//            ll_two.setVisibility(View.GONE);
+//            ll_five.setVisibility(View.VISIBLE);
+//            ll_feicui.setVisibility(View.GONE);
+//        }
+//
+//    }
 
 
 
