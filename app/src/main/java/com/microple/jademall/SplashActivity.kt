@@ -4,11 +4,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import com.microple.jademall.common.Constants
-import com.tencent.imsdk.TIMManager
-import com.tencent.imsdk.TIMSdkConfig
-
+/**
+ * author: xiaoguangfei
+ * date: 2018/8/6.
+ * describe:欢迎页
+ */
 class SplashActivity : AppCompatActivity() {
     private var mHandler : Handler = object : Handler() {
         override fun handleMessage(msg: Message) {

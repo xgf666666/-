@@ -43,7 +43,11 @@ import com.umeng.socialize.media.UMWeb
 import com.umeng.socialize.shareboard.SnsPlatform
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_live_player.*
-
+/**
+ * author: xiaoguangfei
+ * date: 2018/11/3.
+ * describe: 直播页面
+ */
 class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerContract.View {
     override fun isFollow(follow: Follow) {
         Log.i("isFollow",""+follow.is_follow)
@@ -183,8 +187,8 @@ class LivePlayerActivity : BaseMvpActivity<LivePlayerPresenter>(),LivePlayerCont
     //播放直播
     fun play(){
 //        loading_progress.visibility=View.VISIBLE
-        val sdkver = TXLiveBase.getSDKVersionStr()
-        Log.d("liteavsdk", "liteav sdk version is : $sdkver")
+//        val sdkver = TXLiveBase.getSDKVersionStr()
+//        Log.d("liteavsdk", "liteav sdk version is : $sdkver")
         mLivePlayer=TXLivePlayer(this)
         mLivePlayer?.setPlayerView(video_view)
         val flvUrl = intent.getStringExtra("play_url")//"rtmp://30381.liveplay.myqcloud.com/live/30381_83c9d76844"

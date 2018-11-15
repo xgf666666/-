@@ -33,7 +33,7 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
     override fun shop(shop: Shop) {
         if (shop.is_on_sale==0){
             tv_content.visibility=View.VISIBLE
-            tv_index.visibility=View.VISIBLE
+             tv_index.visibility=View.VISIBLE
         }else{
             tv_content.visibility=View.GONE
             tv_index.visibility=View.GONE
@@ -119,7 +119,13 @@ class ShoppingCarFragment : BaseMvpFragment<ShoppingCarContract.Model,ShoppingCa
                     sb_id=sb_id+","+shop?.shopp_info!![i].sb_id
                 }
             }
-            ImOrderActivity.startImOrderActivity(context!!,sb_id,"")
+                if(sb_id.isNullOrEmpty()){
+                    showToast("请添加商品")
+                }else{
+                    ImOrderActivity.startImOrderActivity(context!!,sb_id,"")
+                }
+            }else{
+                showToast("请添加商品")
             }
         }
         tv_login.setOnClickListener{

@@ -14,7 +14,11 @@ import com.microple.jademall.ui.live.mvp.presenter.LiveGoodsPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_live_goods.*
 import kotlinx.android.synthetic.main.item_title.*
-
+/**
+ * author: xiaoguangfei
+ * date: 2018/11/3.
+ * describe: 直播商品页面
+ */
 class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContract.View {
     override fun getGoods(liveGoods: LiveGoods) {
         dismissLoadingDialog()

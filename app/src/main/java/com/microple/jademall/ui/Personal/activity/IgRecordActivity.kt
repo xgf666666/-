@@ -10,7 +10,11 @@ import com.microple.jademall.ui.Personal.mvp.model.IgRecordPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_ig_record.*
 import kotlinx.android.synthetic.main.item_title.*
-
+/**
+ * author: xiaoguangfei
+ * date: 2018/11/3.
+ * describe: 冻结积分记录页面
+ */
 class IgRecordActivity : BaseMvpActivity<IgRecordPresenter>(),IgRecordContract.View {
     override fun igRecord(igRecord: IgRecord) {
         igRecordAdapter.setNewData(igRecord.frozen_info)

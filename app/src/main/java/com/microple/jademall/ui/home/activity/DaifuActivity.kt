@@ -20,7 +20,11 @@ import com.weibiaogan.bangbang.common.isPhone
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_daifu.*
 import kotlinx.android.synthetic.main.item_title.*
-
+/**
+ * author: xiaoguangfei
+ * date: 2018/11/3.
+ * describe: 代付页面
+ */
 class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
     override fun pushInfo(userInfo: UserInfo) {
         iv_head.loadHeadImag(userInfo.head_img)

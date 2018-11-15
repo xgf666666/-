@@ -10,7 +10,11 @@ import com.microple.jademall.R
 import com.microple.jademall.common.App
 import kotlinx.android.synthetic.main.activity_pay_succeeful.*
 import kotlinx.android.synthetic.main.item_title.*
-
+/**
+ * author: xiaoguangfei
+ * date: 2018/11/3.
+ * describe: 支付成功页面
+ */
 class PaySucceefulActivity : AppCompatActivity() {
     companion object {
         fun startPaySucceefulActivity(context: Context,order_sn:String,index:Int){

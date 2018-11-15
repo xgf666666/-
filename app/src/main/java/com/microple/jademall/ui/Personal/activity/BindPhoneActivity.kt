@@ -16,7 +16,11 @@ import com.microple.jademall.ui.Personal.mvp.presenter.BindPhonePresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_bind_phone.*
 import kotlinx.android.synthetic.main.item_title.*
-
+/**
+ * author: xiaoguangfei
+ * date: 2018/11/3.
+ * describe: 售后订单详情
+ */
 class BindPhoneActivity : BaseMvpActivity<BindPhonePresenter>(),BindPhoneContract.View {
     private var time = 60//验证码时间
     var index=0//判断是否第一次请求banding接口

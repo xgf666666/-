@@ -25,7 +25,11 @@ import com.tencent.imsdk.TIMSdkConfig
 import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-
+/**
+ * author: linfeng
+ * date: 2018/8/6.
+ * describe:主页
+ */
 class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     /**
      * 初始化数据状态
