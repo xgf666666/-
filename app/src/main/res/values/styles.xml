@@ -11,7 +11,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/colorTransparent</item>
-        <item name="android:background">@drawable/start</item>
+
     </style>
 
     <!--灰色横线样式-->

@@ -364,7 +364,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(),ImOrderContract.View
     override fun pay(pay: Pay) {
         dismissLoadingDialog()
         if (indexs==1||indexs==2){
-            Log.i("singgg",pay.data.sign)
+            Log.i("singgg",pay.data.toString())
             XxAnyPay.intance
                     .openAnyPay(if (indexs == 1) XxAnyPay.XXPAY_WX else XxAnyPay.XXPAY_ALI,if (indexs == 1) Gson().toJson(pay.data) else pay.data.sign, object : XxAnyPayResultCallBack {
                         override fun onPayFiale(error: String) {

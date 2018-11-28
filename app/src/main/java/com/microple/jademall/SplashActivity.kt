@@ -1,5 +1,6 @@
 package com.microple.jademall
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +11,7 @@ import com.microple.jademall.common.Constants
  * date: 2018/8/6.
  * describe:欢迎页
  */
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : Activity() {
     private var mHandler : Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -28,8 +29,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-
         mHandler.sendEmptyMessageDelayed(1,2000)
     }
 }
