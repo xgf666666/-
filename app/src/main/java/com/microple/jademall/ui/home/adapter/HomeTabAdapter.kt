@@ -18,7 +18,7 @@ class HomeTabAdapter(fm: FragmentManager, var fragmentList: List<Fragment>, var 
     override fun getPageTitle(position: Int): CharSequence? = titles[position].name
 
     override fun getItem(position: Int): Fragment {
-        return  fragmentList[position] as HomeGoodsFragment
+        return fragmentList[position] as HomeGoodsFragment
     }
 
     override fun getCount(): Int = fragmentList.size

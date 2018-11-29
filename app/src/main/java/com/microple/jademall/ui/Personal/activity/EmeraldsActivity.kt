@@ -22,8 +22,8 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/13
  * describe:翡翠柜
  */
-class EmeraldsActivity : BaseMvpActivity<EmeraldsPresenter>(),EmeraldsContract.View {
-    var index=1//1代表翡翠柜，2代表积分柜
+class EmeraldsActivity : BaseMvpActivity<EmeraldsPresenter>(), EmeraldsContract.View {
+    var index = 1//1代表翡翠柜，2代表积分柜
     /**
      * 创建P层
      *
@@ -36,37 +36,39 @@ class EmeraldsActivity : BaseMvpActivity<EmeraldsPresenter>(),EmeraldsContract.V
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_emeralds
+    override fun getActivityLayoutId(): Int = R.layout.activity_emeralds
 
     /**
      * 初始化数据状态
      */
-    var adapter= EmealdsAdapter(arrayListOf())
+    var adapter = EmealdsAdapter(arrayListOf())
+
     override fun initData() {
-        index=intent.getIntExtra("index",index)
-        if (index==1){
-            tv_title.text="翡翠柜"
-        }else{
-            tv_title.text="积分柜"
+        index = intent.getIntExtra("index", index)
+        if (index == 1) {
+            tv_title.text = "翡翠柜"
+        } else {
+            tv_title.text = "积分柜"
         }
         (application as App).addActivity(this)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager= GridLayoutManager(this,2)
-        recyclerView.adapter=adapter
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = adapter
         adapter.setOnItemClickListener { adapter, view, position ->
-            EmeraldsDetailActivity.startOrderDetailActivity(this,""+(adapter as EmealdsAdapter).data[position].ct_id,(adapter as EmealdsAdapter).data[position].incr_id,index)
+            EmeraldsDetailActivity.startOrderDetailActivity(this, "" + (adapter as EmealdsAdapter).data[position].ct_id, (adapter as EmealdsAdapter).data[position].incr_id, index)
         }
 
     }
 
     override fun onResume() {
         super.onResume()
-        loading.visibility=View.VISIBLE
-        if (index==1)
-        getPresenter().getEmeralds(Constants.getToken())
+        loading.visibility = View.VISIBLE
+        if (index == 1)
+            getPresenter().getEmeralds(Constants.getToken())
         else
             getPresenter().getjifen(Constants.getToken())
     }
+
     override fun onDestroy() {
         super.onDestroy()
         (application as App).deleteActivity(this)
@@ -76,23 +78,23 @@ class EmeraldsActivity : BaseMvpActivity<EmeraldsPresenter>(),EmeraldsContract.V
      * 初始化事件
      */
     override fun initEvent() {
-        iv_back.setOnClickListener{
+        iv_back.setOnClickListener {
             finish()
         }
     }
 
     override fun getEmeralds(emeralds: Emeralds) {
-        loading.visibility= View.GONE
-        tv_all.text=""+emeralds.total_price
-        tv_number.text=""+emeralds.goods_num
+        loading.visibility = View.GONE
+        tv_all.text = "" + emeralds.total_price
+        tv_number.text = "" + emeralds.goods_num
         adapter.setNewData(emeralds.goods_info)
 
     }
 
     companion object {
-        fun startEmeraldsActivity(context: Context,index:Int){
-            val intent = Intent(context,EmeraldsActivity::class.java)
-            intent.putExtra("index",index)
+        fun startEmeraldsActivity(context: Context, index: Int) {
+            val intent = Intent(context, EmeraldsActivity::class.java)
+            intent.putExtra("index", index)
             context.startActivity(intent)
         }
     }

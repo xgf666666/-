@@ -17,12 +17,13 @@ import com.microple.jademall.ui.Personal.mvp.presenter.BillQuestPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_bill_query.*
 import kotlinx.android.synthetic.main.item_title.*
+
 /**
  * author: xiaoguagnfei
  * date: 2018/8/13
  * describe:积分明细
  */
-class BillQueryActivity : BaseMvpActivity<BillQuestPresenter>(),BillQuestContract.View {
+class BillQueryActivity : BaseMvpActivity<BillQuestPresenter>(), BillQuestContract.View {
     /**
      * 创建P层
      *
@@ -35,21 +36,22 @@ class BillQueryActivity : BaseMvpActivity<BillQuestPresenter>(),BillQuestContrac
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_bill_query
+    override fun getActivityLayoutId(): Int = R.layout.activity_bill_query
 
     /**
      * 初始化数据状态
      */
-    var adapter=BillQueryAdapter(arrayListOf())
+    var adapter = BillQueryAdapter(arrayListOf())
+
     override fun initData() {
-        tv_title.text="账单查询"
+        tv_title.text = "账单查询"
 //        var data = arrayListOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager= LinearLayoutManager(this)
-        recyclerView.adapter=adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 //        adapter.addData(data)
         adapter.setOnItemClickListener { adapter, view, position ->
-            IntergrationDetailActivity.startIntergrationDetailActivity(this,""+(adapter as BillQueryAdapter).data[position].up_id)
+            IntergrationDetailActivity.startIntergrationDetailActivity(this, "" + (adapter as BillQueryAdapter).data[position].up_id)
         }
         getPresenter().getPoint(Constants.getToken())
     }
@@ -58,53 +60,53 @@ class BillQueryActivity : BaseMvpActivity<BillQuestPresenter>(),BillQuestContrac
      * 初始化事件
      */
     override fun initEvent() {
-        iv_back.setOnClickListener{
+        iv_back.setOnClickListener {
             finish()
         }
 
     }
 
     override fun getPoint(pointDetail: PointDetail) {
-        var data=ArrayList<PointBean>()
-        if (pointDetail.user_point.size!=0)
-        for (i in 0..pointDetail.user_point.size-1){
-            if (pointDetail.user_point[i].list.size!=0)
-            for (y in 0..pointDetail.user_point[i].list.size-1){
-                if (y==0){
-                    var pointBean=PointBean()
-                    pointBean.year=pointDetail.user_point[i].year
-                    pointBean.month=pointDetail.user_point[i].month
-                    pointBean.has=true
-                    pointBean.up_id=pointDetail.user_point[i].list[y].up_id
-                    pointBean.user_id=pointDetail.user_point[i].list[y].user_id
-                    pointBean.type=pointDetail.user_point[i].list[y].type
-                    pointBean.points=pointDetail.user_point[i].list[y].points
-                    pointBean.text=pointDetail.user_point[i].list[y].text
-                    pointBean.add_time=pointDetail.user_point[i].list[y].add_time
-                    pointBean.order_sn=pointDetail.user_point[i].list[y].order_sn
-                    pointBean.points_change=pointDetail.user_point[i].list[y].points_change
-                    data.add(pointBean)
-                }else{
-                    var pointBean=PointBean()
-                    pointBean.up_id=pointDetail.user_point[i].list[y].up_id
-                    pointBean.user_id=pointDetail.user_point[i].list[y].user_id
-                    pointBean.type=pointDetail.user_point[i].list[y].type
-                    pointBean.points=pointDetail.user_point[i].list[y].points
-                    pointBean.text=pointDetail.user_point[i].list[y].text
-                    pointBean.add_time=pointDetail.user_point[i].list[y].add_time
-                    pointBean.order_sn=pointDetail.user_point[i].list[y].order_sn
-                    pointBean.points_change=pointDetail.user_point[i].list[y].points_change
-                    data.add(pointBean)
-                }
+        var data = ArrayList<PointBean>()
+        if (pointDetail.user_point.size != 0)
+            for (i in 0..pointDetail.user_point.size - 1) {
+                if (pointDetail.user_point[i].list.size != 0)
+                    for (y in 0..pointDetail.user_point[i].list.size - 1) {
+                        if (y == 0) {
+                            var pointBean = PointBean()
+                            pointBean.year = pointDetail.user_point[i].year
+                            pointBean.month = pointDetail.user_point[i].month
+                            pointBean.has = true
+                            pointBean.up_id = pointDetail.user_point[i].list[y].up_id
+                            pointBean.user_id = pointDetail.user_point[i].list[y].user_id
+                            pointBean.type = pointDetail.user_point[i].list[y].type
+                            pointBean.points = pointDetail.user_point[i].list[y].points
+                            pointBean.text = pointDetail.user_point[i].list[y].text
+                            pointBean.add_time = pointDetail.user_point[i].list[y].add_time
+                            pointBean.order_sn = pointDetail.user_point[i].list[y].order_sn
+                            pointBean.points_change = pointDetail.user_point[i].list[y].points_change
+                            data.add(pointBean)
+                        } else {
+                            var pointBean = PointBean()
+                            pointBean.up_id = pointDetail.user_point[i].list[y].up_id
+                            pointBean.user_id = pointDetail.user_point[i].list[y].user_id
+                            pointBean.type = pointDetail.user_point[i].list[y].type
+                            pointBean.points = pointDetail.user_point[i].list[y].points
+                            pointBean.text = pointDetail.user_point[i].list[y].text
+                            pointBean.add_time = pointDetail.user_point[i].list[y].add_time
+                            pointBean.order_sn = pointDetail.user_point[i].list[y].order_sn
+                            pointBean.points_change = pointDetail.user_point[i].list[y].points_change
+                            data.add(pointBean)
+                        }
+                    }
             }
-        }
-        loading.visibility= View.GONE
+        loading.visibility = View.GONE
         adapter.setNewData(data)
     }
 
     companion object {
-        fun startBillQueryActivity(context: Context){
-            val intent = Intent(context,BillQueryActivity::class.java)
+        fun startBillQueryActivity(context: Context) {
+            val intent = Intent(context, BillQueryActivity::class.java)
             context.startActivity(intent)
         }
     }

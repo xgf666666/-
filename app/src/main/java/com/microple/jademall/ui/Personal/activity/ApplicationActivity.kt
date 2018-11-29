@@ -24,14 +24,14 @@ import java.io.File
  * date: 2018/8/13
  * describe:商家入驻申请
  */
-class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationContract.View {
+class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(), ApplicationContract.View {
 
 
-    var license=""//营业执照
-    var attach=""//附件
-    var simage=""//商家头像
-    var index=0
-    var flag=0
+    var license = ""//营业执照
+    var attach = ""//附件
+    var simage = ""//商家头像
+    var index = 0
+    var flag = 0
     /**
      * 创建P层
      *
@@ -44,40 +44,40 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_application
+    override fun getActivityLayoutId(): Int = R.layout.activity_application
 
     /**
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text="商家入驻"
+        tv_title.text = "商家入驻"
     }
 
     /**
      * 初始化事件
      */
     override fun initEvent() {
-        iv_back.setOnClickListener{
+        iv_back.setOnClickListener {
             finish()
         }
-        tv_submint.setOnClickListener{
+        tv_submint.setOnClickListener {
             showLoadingDialog()
-            if (et_gongsi.text.isNullOrEmpty()){
+            if (et_gongsi.text.isNullOrEmpty()) {
                 showToast("请输入公司名称")
                 dismissLoadingDialog()
-            }else if (et_phone.text.isNullOrEmpty()){
+            } else if (et_phone.text.isNullOrEmpty()) {
                 showToast("请输入联系方式")
                 dismissLoadingDialog()
-            }else if (et_sname.text.isNullOrEmpty()){
+            } else if (et_sname.text.isNullOrEmpty()) {
                 showToast("请输入商家名称")
                 dismissLoadingDialog()
-            }else if (simage.isNullOrEmpty()){
+            } else if (simage.isNullOrEmpty()) {
                 showToast("请添加商家头像")
                 dismissLoadingDialog()
-            }else if (license.isNullOrEmpty()){
+            } else if (license.isNullOrEmpty()) {
                 showToast("请添加营业执照")
                 dismissLoadingDialog()
-            }else if (attach.isNullOrEmpty()){
+            } else if (attach.isNullOrEmpty()) {
                 showToast("请添加附件")
                 dismissLoadingDialog()
             } else {
@@ -86,16 +86,16 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
 
         }
         rl_yingye.setOnClickListener {
-            index=1
+            index = 1
             showEditAvatarDialog()
         }
 
-        rl_fujian.setOnClickListener{
-            index=2
+        rl_fujian.setOnClickListener {
+            index = 2
             showEditAvatarDialog()
         }
         rl_sImage.setOnClickListener {
-            index=3
+            index = 3
             showEditAvatarDialog()
         }
     }
@@ -105,47 +105,49 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
         showToast(msg)
         finish()
     }
+
     override fun getImage(image: Image) {
-        if (flag==0){
+        if (flag == 0) {
             flag++
-            license=image.image_data
+            license = image.image_data
             getPresenter().getImage(attach)
-        }else if (flag==1){
+        } else if (flag == 1) {
             flag++
-            attach=image.image_data
+            attach = image.image_data
             getPresenter().getImage(simage)
-        }else{
-            Log.i("licensess",license)
-            Log.i("attachsss",attach)
-            simage=image.image_data
-            getPresenter().apply(Constants.getToken(),et_gongsi.text.toString(),et_email.text.toString(),
-                    et_phone.text.toString(),et_invite.text.toString(),license,attach,et_sname.text.toString(),simage,tv_content.text.toString())
+        } else {
+            Log.i("licensess", license)
+            Log.i("attachsss", attach)
+            simage = image.image_data
+            getPresenter().apply(Constants.getToken(), et_gongsi.text.toString(), et_email.text.toString(),
+                    et_phone.text.toString(), et_invite.text.toString(), license, attach, et_sname.text.toString(), simage, tv_content.text.toString())
 
         }
 
 
     }
+
     companion object {
-        fun startApplicationActivity(context: Context){
-            val intent = Intent(context,ApplicationActivity::class.java)
+        fun startApplicationActivity(context: Context) {
+            val intent = Intent(context, ApplicationActivity::class.java)
             context.startActivity(intent)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imageChooseHelper = ImageChooseHelper(this,{
-            if (index==1){
-                license= EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
+        imageChooseHelper = ImageChooseHelper(this, {
+            if (index == 1) {
+                license = EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
                 iv_yingye.setImageURI(Uri.fromFile(File(it.compressPath)))
-                iv_add_yingye.visibility=View.GONE
-            }else if (index==2){
-                attach=EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
+                iv_add_yingye.visibility = View.GONE
+            } else if (index == 2) {
+                attach = EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
                 iv_fujian.setImageURI(Uri.fromFile(File(it.compressPath)))
-                iv_add_fujian.visibility=View.GONE
-            }else{
-                simage=EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
-                iv_add_sImage.visibility=View.GONE
+                iv_add_fujian.visibility = View.GONE
+            } else {
+                simage = EncodeUtils.base64Encode2String(File(it.compressPath).readBytes())
+                iv_add_sImage.visibility = View.GONE
                 iv_sImage.setImageURI(Uri.fromFile(File(it.compressPath)))
             }
 
@@ -163,28 +165,30 @@ class ApplicationActivity : BaseMvpActivity<ApplicationPresenter>(),ApplicationC
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         imageChooseHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
     private lateinit var imageChooseHelper: ImageChooseHelper
     /**
      * 显示修改头像弹窗
      */
     private fun showEditAvatarDialog() {
 
-        var photoDialog=PhoteDialog(this)
+        var photoDialog = PhoteDialog(this)
         photoDialog.show()
         photoDialog.setOnBtnClickListener {
-            if (it==1){
+            if (it == 1) {
                 photoDialog.dismiss()
-            }else if (it==2){//相册
+            } else if (it == 2) {//相册
                 imageChooseHelper.selectPicker()
                 photoDialog.dismiss()
 
-            }else {
+            } else {
                 imageChooseHelper.takePhoto()
                 photoDialog.dismiss()
 
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         imageChooseHelper.takePhoto.onActivityResult(requestCode, resultCode, data)
     }

@@ -14,12 +14,13 @@ import com.microple.jademall.ui.live.mvp.presenter.LiveGoodsPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_live_goods.*
 import kotlinx.android.synthetic.main.item_title.*
+
 /**
  * author: xiaoguangfei
  * date: 2018/11/3.
  * describe: 直播商品页面
  */
-class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContract.View {
+class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(), LiveGoodsContract.View {
     override fun getGoods(liveGoods: LiveGoods) {
         dismissLoadingDialog()
         mAdapter.setNewData(liveGoods.goods)
@@ -31,23 +32,24 @@ class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContrac
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_live_goods
+    override fun getActivityLayoutId(): Int = R.layout.activity_live_goods
 
     /**
      * 初始化数据状态
      */
     private var mAdapter = LiveGoodsAdapter(R.layout.item_goods)
+
     override fun initData() {
         (application as App).addActivity(this)
-        tv_title.text="直播间商品"
+        tv_title.text = "直播间商品"
         showLoadingDialog()
         getPresenter().getGoods(intent.getStringExtra("live_id"))
-        iv_back.setOnClickListener {finish()}
+        iv_back.setOnClickListener { finish() }
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            GoodsDetailActivity.startGoodsDetailActivity(this,(adapter as LiveGoodsAdapter).data[position].goods_sn)
+            GoodsDetailActivity.startGoodsDetailActivity(this, (adapter as LiveGoodsAdapter).data[position].goods_sn)
         }
     }
 
@@ -62,14 +64,16 @@ class LiveGoodsActivity : BaseMvpActivity<LiveGoodsPresenter>(),LiveGoodsContrac
      *
      * @return P层对象
      */
-    override fun createPresenter(): LiveGoodsPresenter =LiveGoodsPresenter()
+    override fun createPresenter(): LiveGoodsPresenter = LiveGoodsPresenter()
+
     companion object {
-        fun startGoodsActivity(context: Context, live_id:String){
+        fun startGoodsActivity(context: Context, live_id: String) {
             val intent = Intent(context, LiveGoodsActivity::class.java)
-            intent.putExtra("live_id",live_id)
+            intent.putExtra("live_id", live_id)
             context.startActivity(intent)
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         (application as App).deleteActivity(this)

@@ -52,7 +52,7 @@ public class PersonOrderBean {
         List<PersonOrderBean> data = new ArrayList<>();
         data.add(new PersonOrderBean(R.drawable.ic_allmy_n, "全部订单", LiveDetailsActivity.class));
         data.add(new PersonOrderBean(R.drawable.ic_auditmy_n,"待审核订单", LiveDetailsActivity.class));
-//        data.add(new PersonOrderBean(R.mipmap.ic_paymentmy_n,"待付款订单", LiveDetailsActivity.class));
+        data.add(new PersonOrderBean(R.drawable.btn_my_unshipped,"待发货订单", LiveDetailsActivity.class));
         data.add(new PersonOrderBean(R.drawable.ic_collectmy_n,"待收货订单", LiveDetailsActivity.class));
         data.add(new PersonOrderBean(R.drawable.ic_completemy_n,"已完成订单", LiveDetailsActivity.class));
         data.add(new PersonOrderBean(R.drawable.ic_cancel_n,"已取消订单", LiveDetailsActivity.class));

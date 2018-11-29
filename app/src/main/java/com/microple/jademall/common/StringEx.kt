@@ -4,15 +4,17 @@ import android.content.Context
 import com.blankj.utilcode.util.EncryptUtils
 import java.util.regex.Pattern
 
-fun String.md5Salt():String =
+fun String.md5Salt(): String =
         EncryptUtils.encryptMD5ToString(this)
                 .toLowerCase()
-fun Int.pxtodp(context: Context):Int{
+
+fun Int.pxtodp(context: Context): Int {
     var scale = context.getResources().getDisplayMetrics().density
     return (this * scale + 0.5f).toInt()
 
 }
-fun String.isPhone():Boolean{
+
+fun String.isPhone(): Boolean {
     // ^ 匹配输入字符串开始的位置
     // \d 匹配一个或多个数字，其中 \ 要转义，所以是 \\d
     // $ 匹配输入字符串结尾的位置

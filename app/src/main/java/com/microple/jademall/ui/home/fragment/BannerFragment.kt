@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_common.*
  * date: 2018/8/27
  * describe:
  */
-class BannerFragment :BaseFragment() {
+class BannerFragment : BaseFragment() {
     /**
      * 获取Fragment的布局资源文件id
      */
@@ -25,8 +25,8 @@ class BannerFragment :BaseFragment() {
      */
     override fun init(view: View?) {
         val bundle = arguments
-        var banner_id=bundle!!.get("banner_id")
-        var img=bundle!!.getString("img")!!
+        var banner_id = bundle!!.get("banner_id")
+        var img = bundle!!.getString("img")!!
         iv_banner.loadImag(img)
     }
 }

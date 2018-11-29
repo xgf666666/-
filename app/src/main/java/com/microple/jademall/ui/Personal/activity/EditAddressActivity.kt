@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/13
  * describe:新增编辑收货地址
  */
-class EditAddressActivity : BaseMvpActivity<EditAddressPresenter>(),EditAddressContract.View {
+class EditAddressActivity : BaseMvpActivity<EditAddressPresenter>(), EditAddressContract.View {
 
     /**
      * 创建P层
@@ -31,17 +31,17 @@ class EditAddressActivity : BaseMvpActivity<EditAddressPresenter>(),EditAddressC
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_edit_address
+    override fun getActivityLayoutId(): Int = R.layout.activity_edit_address
 
     /**
      * 初始化数据状态
      */
     override fun initData() {
-        Log.i("ua_id",intent.getStringExtra("ua_id"))
-        if (intent.getStringExtra("ua_id").isNullOrEmpty()){
-            tv_title.text="增加收货地址"
-        }else{
-            tv_title.text="编辑收货地址"
+        Log.i("ua_id", intent.getStringExtra("ua_id"))
+        if (intent.getStringExtra("ua_id").isNullOrEmpty()) {
+            tv_title.text = "增加收货地址"
+        } else {
+            tv_title.text = "编辑收货地址"
             et_name.setText(intent.getStringExtra("name"))
             et_phone.setText(intent.getStringExtra("phone"))
             et_address.setText(intent.getStringExtra("address"))
@@ -53,16 +53,16 @@ class EditAddressActivity : BaseMvpActivity<EditAddressPresenter>(),EditAddressC
      * 初始化事件
      */
     override fun initEvent() {
-        iv_back.setOnClickListener{
+        iv_back.setOnClickListener {
             finish()
         }
-        tv_edit.setOnClickListener{
+        tv_edit.setOnClickListener {
             showLoadingDialog()
-            if (intent.getStringExtra("ua_id").isNullOrEmpty()){
-                getPresenter().addEdit(Constants.getToken(),et_name.text.toString(),et_phone.text.toString(),et_address.text.toString())
+            if (intent.getStringExtra("ua_id").isNullOrEmpty()) {
+                getPresenter().addEdit(Constants.getToken(), et_name.text.toString(), et_phone.text.toString(), et_address.text.toString())
 
-            }else{
-                getPresenter().setEdit(Constants.getToken(),intent.getStringExtra("ua_id"),et_name.text.toString(),et_phone.text.toString(),et_address.text.toString())
+            } else {
+                getPresenter().setEdit(Constants.getToken(), intent.getStringExtra("ua_id"), et_name.text.toString(), et_phone.text.toString(), et_address.text.toString())
             }
         }
     }
@@ -74,12 +74,12 @@ class EditAddressActivity : BaseMvpActivity<EditAddressPresenter>(),EditAddressC
     }
 
     companion object {
-        fun startEditAddressActivity(context: Context,ua_id:String,name:String,phone:String,address:String){
+        fun startEditAddressActivity(context: Context, ua_id: String, name: String, phone: String, address: String) {
             val intent = Intent(context, EditAddressActivity::class.java)
-            intent.putExtra("ua_id",ua_id)
-            intent.putExtra("name",name)
-            intent.putExtra("phone",phone)
-            intent.putExtra("address",address)
+            intent.putExtra("ua_id", ua_id)
+            intent.putExtra("name", name)
+            intent.putExtra("phone", phone)
+            intent.putExtra("address", address)
             context.startActivity(intent)
         }
     }

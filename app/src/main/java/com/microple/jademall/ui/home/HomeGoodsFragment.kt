@@ -14,78 +14,83 @@ import com.microple.jademall.ui.home.mvp.contract.HomeGoodsContract
 import com.microple.jademall.ui.home.mvp.presenter.HomeGoodsPresenter
 import com.xx.baseuilibrary.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_goods.*
+
 /**
  * author: linfeng
  * date: 2018/8/3.
  * describe:
  */
-class HomeGoodsFragment : BaseMvpFragment<HomeGoodsContract.Model,HomeGoodsContract.View,HomeGoodsPresenter>(),HomeGoodsContract.View, BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+class HomeGoodsFragment : BaseMvpFragment<HomeGoodsContract.Model, HomeGoodsContract.View, HomeGoodsPresenter>(), HomeGoodsContract.View, BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     /**
      * 创建P层
      *
      * @return P层对象
      */
-    var catId:Int=0
-    var current:Int=1
-    var sort:String=""
+    var catId: Int = 0
+    var current: Int = 1
+    var sort: String = ""
     override fun createPresenter(): HomeGoodsPresenter = HomeGoodsPresenter()
 
     override fun getFragmentLayoutId(): Int = R.layout.fragment_goods
-    var data:Goods= Goods()
-    var mAdapter:HomeGoodsAdapter?=null
+    var data: Goods = Goods()
+    var mAdapter: HomeGoodsAdapter? = null
     override fun init(view: View?) {
-        var bundle=arguments
-        catId=bundle!!.getInt("cat_id")
-         mAdapter = HomeGoodsAdapter(arrayListOf())
+        var bundle = arguments
+        catId = bundle!!.getInt("cat_id")
+        mAdapter = HomeGoodsAdapter(arrayListOf())
         recyclerView.adapter = mAdapter
-        recyclerView.layoutManager= LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         mAdapter?.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        mAdapter?.setOnLoadMoreListener(this,recyclerView)
+        mAdapter?.setOnLoadMoreListener(this, recyclerView)
         mAdapter?.disableLoadMoreIfNotFullPage()
         swipeRefreshLayout.setOnRefreshListener(this)
         mAdapter?.setOnItemClickListener { adapter, view, position ->
-            GoodsDetailActivity.startGoodsDetailActivity(context!!,(adapter as HomeGoodsAdapter).data[position].goods_sn)
+            GoodsDetailActivity.startGoodsDetailActivity(context!!, (adapter as HomeGoodsAdapter).data[position].goods_sn)
         }
-        getPresenter().getGoodList(catId,current,sort)
+        getPresenter().getGoodList(catId, current, sort)
 
     }
+
     //首页商品列表返回值
-    override fun getGoodList(data:Goods) {
-        this.data=data
-        if (swipeRefreshLayout.isRefreshing){
+    override fun getGoodList(data: Goods) {
+        this.data = data
+        if (swipeRefreshLayout.isRefreshing) {
             mAdapter?.setNewData(data.goods_list)
-            swipeRefreshLayout.isRefreshing=false
+            swipeRefreshLayout.isRefreshing = false
             mAdapter?.notifyDataSetChanged()
-        }else if (mAdapter?.isLoading!!){
+        } else if (mAdapter?.isLoading!!) {
             mAdapter?.addData(data.goods_list)
             mAdapter?.loadMoreComplete()
             mAdapter?.notifyDataSetChanged()
-        }else {
+        } else {
             mAdapter?.setNewData(data.goods_list)
             mAdapter?.notifyDataSetChanged()
         }
-        if (data.goods_list.size==0){
+        if (data.goods_list.size == 0) {
             mAdapter?.loadMoreEnd()
         }
-        Log.i("currentssss","current"+current)
+        Log.i("currentssss", "current" + current)
 
     }
+
     //上拉加载
     override fun onLoadMoreRequested() {
         current++
-        getPresenter().getGoodList(catId,current,sort)
+        getPresenter().getGoodList(catId, current, sort)
     }
+
     /***
     下拉刷新
      */
     override fun onRefresh() {
-        current=1
-        getPresenter().getGoodList(catId,current,sort)
+        current = 1
+        getPresenter().getGoodList(catId, current, sort)
     }
-      fun setCat_id(sort:String){
-        this.sort=sort
-          current=1
-        getPresenter().getGoodList(catId,current,sort)
+
+    fun setCat_id(sort: String) {
+        this.sort = sort
+        current = 1
+        getPresenter().getGoodList(catId, current, sort)
 
     }
 }

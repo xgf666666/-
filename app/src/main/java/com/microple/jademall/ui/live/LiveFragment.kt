@@ -32,23 +32,23 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
  * date: 2018/8/6.
  * describe:直播
  */
-class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePresenter>(),LiveContract.View{
+class LiveFragment : BaseMvpFragment<LiveContract.Model, LiveContract.View, LivePresenter>(), LiveContract.View {
     override fun liveList(liveList: LiveList) {
-        loading.visibility=View.GONE
-        if (liveList.live_now.size==0){
-            tv_tishi.visibility=View.VISIBLE
-        }else{
-            tv_tishi.visibility=View.GONE
+        loading.visibility = View.GONE
+        if (liveList.live_now.size == 0) {
+            tv_tishi.visibility = View.VISIBLE
+        } else {
+            tv_tishi.visibility = View.GONE
         }
-        if (liveList.replay_list.size==0){
-            tv_tishi_two.visibility=View.VISIBLE
-        }else{
-            tv_tishi_two.visibility=View.GONE
+        if (liveList.replay_list.size == 0) {
+            tv_tishi_two.visibility = View.VISIBLE
+        } else {
+            tv_tishi_two.visibility = View.GONE
         }
-        if (liveList.reco_live.size==0){
-            tv_tishi_three.visibility=View.VISIBLE
-        }else{
-            tv_tishi_three.visibility=View.GONE
+        if (liveList.reco_live.size == 0) {
+            tv_tishi_three.visibility = View.VISIBLE
+        } else {
+            tv_tishi_three.visibility = View.GONE
         }
         liveYuyueAdapter.setNewData(liveList.appoint_live)
         mLiveHotAdapter.setNewData(liveList.live_now)
@@ -71,10 +71,10 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
     override fun getFragmentLayoutId(): Int = R.layout.fragment_live
 
     override fun init(view: View?) {
-        if (Constants.isLogin()){
+        if (Constants.isLogin()) {
             getPresenter().liveList(Constants.getToken())
             iv_head.loadHeadImag(Constants.getPersonal().head_img)
-        }else{
+        } else {
             getPresenter().liveList("")
             iv_head.setImageResource(R.drawable.datouxiang_)
 
@@ -84,9 +84,9 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         }
         //预约
         liveYuyueAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        rv_yuyueLive.layoutManager=LinearLayoutManager(context)
-        rv_yuyueLive.adapter=liveYuyueAdapter
-        rv_yuyueLive.isNestedScrollingEnabled=false
+        rv_yuyueLive.layoutManager = LinearLayoutManager(context)
+        rv_yuyueLive.adapter = liveYuyueAdapter
+        rv_yuyueLive.isNestedScrollingEnabled = false
         //正在热播
         mLiveHotAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         val layoutHotManager = LinearLayoutManager(context)
@@ -95,10 +95,9 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         rv_hotLive.adapter = mLiveHotAdapter
         rv_hotLive.isNestedScrollingEnabled = false
         mLiveHotAdapter.setOnItemClickListener { adapter, view, position ->
-//            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveHotAdapter).data[position].live_id)
-            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveHotAdapter).data[position].live_id,adapter.data[position].play_url[0],adapter.data[position].group_id,adapter.data[position].live_title,1,adapter.data[position].cover_img,""+adapter.data[position].supplier_id)
+            //            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveHotAdapter).data[position].live_id)
+            LivePlayerActivity.startLivePlayerActivity(context!!, "" + (adapter as LiveHotAdapter).data[position].live_id, adapter.data[position].play_url[0], adapter.data[position].group_id, adapter.data[position].live_title, 1, adapter.data[position].cover_img, "" + adapter.data[position].supplier_id)
         }
-
 
 
         //精彩回顾
@@ -110,7 +109,7 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         rv_reviewLive.isNestedScrollingEnabled = false
         mLiveReviewAdapter.notifyDataSetChanged()
         mLiveReviewAdapter.setOnItemClickListener { adapter, view, position ->
-            LivePlayerActivity.startLivePlayerActivity(context!!,""+(adapter as LiveReviewAdapter).data[position].lr_id,adapter.data[position].video_url,"",adapter.data[position].video_name,2,adapter.data[position].cover_img,""+adapter.data[position].supplier_id)
+            LivePlayerActivity.startLivePlayerActivity(context!!, "" + (adapter as LiveReviewAdapter).data[position].lr_id, adapter.data[position].video_url, "", adapter.data[position].video_name, 2, adapter.data[position].cover_img, "" + adapter.data[position].supplier_id)
         }
 
 
@@ -118,30 +117,31 @@ class LiveFragment : BaseMvpFragment<LiveContract.Model,LiveContract.View,LivePr
         mLiveRecommendAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         rv_recommendLive.layoutManager = LinearLayoutManager(context)
         rv_recommendLive.isNestedScrollingEnabled = false
-        rv_recommendLive.addItemDecoration(DividerListItemDecoration(context,R.drawable.divider_gray,false,true))
+        rv_recommendLive.addItemDecoration(DividerListItemDecoration(context, R.drawable.divider_gray, false, true))
         rv_recommendLive.adapter = mLiveRecommendAdapter
 //        mLiveRecommendAdapter.addData(data)
         mLiveRecommendAdapter.notifyDataSetChanged()
         mLiveRecommendAdapter.setOnItemClickListener { adapter, view, position ->
-            LiveDetailsActivity.startLiveDetail(context!!,""+(adapter as LiveRecommendAdapter).data[position].live_id)
+            LiveDetailsActivity.startLiveDetail(context!!, "" + (adapter as LiveRecommendAdapter).data[position].live_id)
         }
         scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            if (scrollY>=90){
-                tv_title.visibility=View.VISIBLE
-                tv_title.text="直播"
-            }else{
-                tv_title.visibility=View.GONE
+            if (scrollY >= 90) {
+                tv_title.visibility = View.VISIBLE
+                tv_title.text = "直播"
+            } else {
+                tv_title.visibility = View.GONE
             }
         }
 
     }
+
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!hidden){
-            if (Constants.isLogin()){
+        if (!hidden) {
+            if (Constants.isLogin()) {
                 getPresenter().liveList(Constants.getToken())
                 iv_head.loadHeadImag(Constants.getPersonal().head_img)
-            }else{
+            } else {
                 getPresenter().liveList("")
                 iv_head.setImageResource(R.drawable.datouxiang_)
 

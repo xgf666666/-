@@ -25,6 +25,7 @@ import com.tencent.imsdk.TIMSdkConfig
 import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+
 /**
  * author: linfeng
  * date: 2018/8/6.
@@ -64,7 +65,8 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
         menuInflater.inflate(R.menu.navigation_main, menu)
 
     }
-    public fun setSelect(position: Int){
+
+    public fun setSelect(position: Int) {
         bottomNavigationView.setSelectedItemId(bottomNavigationView.getMenu().getItem(position).getItemId())
     }
 
@@ -76,7 +78,7 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
             bottomNavigationView.selectedItemId = itemId
         }
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        Log.i("itemId",""+itemId)
+        Log.i("itemId", "" + itemId)
         for (i in mFragments.indices) {
             val fragment = mFragments[i]
             if (mMenuItemId[i] == itemId) {
@@ -107,19 +109,22 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
         selectedFragemnt(item.itemId, null)
         return true
     }
+
     companion object {
-        fun startMainActivity(context: Context){
+        fun startMainActivity(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
     }
+
     /**
      * 双击返回桌面
      */
     var isExit: Boolean? = false//是否退出登录
+
     private fun back2exit() {
         if (isExit!!) {
-           finish()
+            finish()
         }
         isExit = true
         showToast("再按一次回到桌面")
@@ -130,6 +135,7 @@ class MainActivity : BaseMvpViewActivity(), BottomNavigationView.OnNavigationIte
 
         }, 1500)
     }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             back2exit()

@@ -11,22 +11,22 @@ import kotlinx.android.synthetic.main.fragment_guide_one.*
  * date: 2018/9/28
  * describe:
  */
-class GuideOneFragment:BaseMvpViewFragment() {
+class GuideOneFragment : BaseMvpViewFragment() {
     /**
      * 初始化
      */
     override fun init(view: View?) {
 
     }
-    public fun setAnim(){
-        var anim_img= AnimationUtils.loadAnimation(context,R.anim.guide_img)
-        anim_img.fillAfter=true
-        var anim_txt=AnimationUtils.loadAnimation(context,R.anim.guide_tex)
-        anim_txt.fillAfter=true
+
+    public fun setAnim() {
+        var anim_img = AnimationUtils.loadAnimation(context, R.anim.guide_img)
+        anim_img.fillAfter = true
+        var anim_txt = AnimationUtils.loadAnimation(context, R.anim.guide_tex)
+        anim_txt.fillAfter = true
         iv_img.startAnimation(anim_img)
         tv_title.startAnimation(anim_txt)
     }
-
 
 
     /**

@@ -12,7 +12,7 @@ class WebViewActivity : BaseMvpViewActivity() {
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text=intent.getStringExtra("name")
+        tv_title.text = intent.getStringExtra("name")
         webView.loadUrl(intent.getStringExtra("url"))
     }
 
@@ -28,13 +28,13 @@ class WebViewActivity : BaseMvpViewActivity() {
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_web_view
+    override fun getActivityLayoutId(): Int = R.layout.activity_web_view
 
     companion object {
-        fun startLivePlayerActivity(context: Context,url:String,name:String){
+        fun startLivePlayerActivity(context: Context, url: String, name: String) {
             val intent = Intent(context, WebViewActivity::class.java)
-            intent.putExtra("url",url)
-            intent.putExtra("name",name)
+            intent.putExtra("url", url)
+            intent.putExtra("name", name)
             context.startActivity(intent)
         }
     }

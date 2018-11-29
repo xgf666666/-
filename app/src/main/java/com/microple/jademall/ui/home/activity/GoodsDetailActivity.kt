@@ -50,31 +50,31 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
  * date: 2018/8/13
  * describe:商品详情
  */
-class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailContract.View {
+class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(), GoodsDetailContract.View {
 
     override fun addShoping() {
         dismissLoadingDialog()
         showToast("加入购物袋成功")
         iv_car.setImageResource(R.drawable.bnt_bag_fill_s)
-        iv_car.isEnabled=false
+        iv_car.isEnabled = false
     }
 
     override fun collection(msg: String) {
         dismissLoadingDialog()
-        if (msg.equals("收藏成功")){
+        if (msg.equals("收藏成功")) {
             iv_collection.setImageResource(R.drawable.btn_favor_selected)
-        }else{
+        } else {
             iv_collection.setImageResource(R.drawable.btn_favor_normal)
         }
         showToast(msg)
 
     }
 
-    var goodsDetail: GoodsDetail?=null
-    override fun getLabel(name:String,label_desc: String) {
+    var goodsDetail: GoodsDetail? = null
+    override fun getLabel(name: String, label_desc: String) {
         dismissLoadingDialog()
-        var dialog=TextDialog(this,label_desc)
-        dialog.setTitle(name,true)
+        var dialog = TextDialog(this, label_desc)
+        dialog.setTitle(name, true)
         dialog.show()
         dialog.setOnBtnClickListener {
             dialog.dismiss()
@@ -82,14 +82,13 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
     }
 
     override fun getDetail(goodsDetail: GoodsDetail) {
-        this.goodsDetail=goodsDetail
+        this.goodsDetail = goodsDetail
         initView(goodsDetail)
-        if (Constants.isLogin()){
-            getPresenter().getziji(Constants.getToken(),""+goodsDetail.goods_info.goods_id)
+        if (Constants.isLogin()) {
+            getPresenter().getziji(Constants.getToken(), "" + goodsDetail.goods_info.goods_id)
         }
 
     }
-
 
 
     /**
@@ -104,19 +103,19 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_goods
+    override fun getActivityLayoutId(): Int = R.layout.activity_goods
 
     /**
      * 初始化数据状态
      */
     override fun initData() {
         (application as App).addActivity(this)
-        var goods_sn=intent.getStringExtra("goods_sn")
-        Log.i("goods_snddd",goods_sn)
-        if (Constants.isLogin()){
-            getPresenter().getDetail(Constants.getToken(),goods_sn)
-        }else{
-            getPresenter().getDetail("",goods_sn)
+        var goods_sn = intent.getStringExtra("goods_sn")
+        Log.i("goods_snddd", goods_sn)
+        if (Constants.isLogin()) {
+            getPresenter().getDetail(Constants.getToken(), goods_sn)
+        } else {
+            getPresenter().getDetail("", goods_sn)
         }
         hideStatusBar()
 
@@ -136,10 +135,11 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
     }
+
     override fun detailShare(detailShare: DetailShare) {
         dismissLoadingDialog()
-        this.detailShare=detailShare
-        var dialog=ShareDialog(this)
+        this.detailShare = detailShare
+        var dialog = ShareDialog(this)
         dialog.show()
         dialog.setOnBtnClickListener(object : ShareDialog.OnBtnClickListener {
             override fun QQShare() {
@@ -180,45 +180,45 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
      * 初始化事件
      */
     override fun initEvent() {
-        tv_sure.setOnClickListener{
+        tv_sure.setOnClickListener {
             if (Constants.isLogin())
-            ImOrderActivity.startImOrderActivity(this,"",""+goodsDetails?.goods_info?.goods_id)
+                ImOrderActivity.startImOrderActivity(this, "", "" + goodsDetails?.goods_info?.goods_id)
             else
                 LoginActivity.startLoginActivity(this)
         }
-        tv_sures.setOnClickListener{
+        tv_sures.setOnClickListener {
             if (Constants.isLogin())
-                ImOrderActivity.startImOrderActivity(this,"",""+goodsDetails?.goods_info?.goods_id)
+                ImOrderActivity.startImOrderActivity(this, "", "" + goodsDetails?.goods_info?.goods_id)
             else
                 LoginActivity.startLoginActivity(this)
         }
-        tv_other.setOnClickListener{
+        tv_other.setOnClickListener {
             showNumber(data!!)
         }
-        tv_others.setOnClickListener{
+        tv_others.setOnClickListener {
             showNumber(data!!)
         }
 
         iv_img.setOnClickListener {
-            if (goodsDetail!=null)
-            ImageDetailActivity.startImageDetailActivity(this,""+goodsDetail?.goods_info?.goods_id!!)
+            if (goodsDetail != null)
+                ImageDetailActivity.startImageDetailActivity(this, "" + goodsDetail?.goods_info?.goods_id!!)
         }
         tv_close.setOnClickListener {
             finish()
         }
-        iv_collection.setOnClickListener{
-            if (Constants.isLogin()){
+        iv_collection.setOnClickListener {
+            if (Constants.isLogin()) {
                 showLoadingDialog()
-                getPresenter().collection(Constants.getToken(),""+goodsDetail?.goods_info?.goods_id)
-            }else{
+                getPresenter().collection(Constants.getToken(), "" + goodsDetail?.goods_info?.goods_id)
+            } else {
                 LoginActivity.startLoginActivity(this)
             }
         }
-        iv_car.setOnClickListener{
-            if (Constants.isLogin()){
+        iv_car.setOnClickListener {
+            if (Constants.isLogin()) {
                 showLoadingDialog()
-                    getPresenter().addShoping(Constants.getToken(),""+goodsDetail?.goods_info?.goods_id)
-            }else{
+                getPresenter().addShoping(Constants.getToken(), "" + goodsDetail?.goods_info?.goods_id)
+            } else {
                 LoginActivity.startLoginActivity(this)
             }
         }
@@ -227,18 +227,18 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         }
         zoomScrollView.setMoveViewListener {
 
-                if (it==150){
-                    finish()
-                    overridePendingTransition(0,R.anim.translate_out)
-                }
-
+            if (it == 150) {
+                finish()
+                overridePendingTransition(0, R.anim.translate_out)
             }
+
+        }
         zoomScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            Log.i("zoomScrollView","zoomScrollView"+ConvertUtils.px2dp(scrollY.toFloat()) )
-            if (ConvertUtils.px2dp(scrollY.toFloat())>650){
-                ll_order.visibility=View.VISIBLE
-            }else{
-                ll_order.visibility=View.GONE
+            Log.i("zoomScrollView", "zoomScrollView" + ConvertUtils.px2dp(scrollY.toFloat()))
+            if (ConvertUtils.px2dp(scrollY.toFloat()) > 650) {
+                ll_order.visibility = View.VISIBLE
+            } else {
+                ll_order.visibility = View.GONE
             }
         }
         iv_share.setOnClickListener {
@@ -248,25 +248,26 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         }
 
     }
-    var detailShare: DetailShare?=null
-    private fun share(platform: SnsPlatform){
 
-        if (detailShare!=null){
+    var detailShare: DetailShare? = null
+    private fun share(platform: SnsPlatform) {
+
+        if (detailShare != null) {
             var web = UMWeb(detailShare?.share?.link)
             web.setTitle(detailShare?.share?.goods_name)
-            web.setThumb( UMImage(this, BuildConfig.DEV_DOMAIN+"/api/"+detailShare?.share?.goods_img))
+            web.setThumb(UMImage(this, BuildConfig.DEV_DOMAIN + "/api/" + detailShare?.share?.goods_img))
             web.setDescription(detailShare?.share?.link)
             ShareAction(this)
                     .withMedia(web)
                     .setPlatform(platform.mPlatform)
                     .setCallback(umShareListener).share()
-        }else{
+        } else {
             showToast("没有分享内容")
         }
         dismissLoadingDialog()
     }
 
-    private var umShareListener= object : UMShareListener {
+    private var umShareListener = object : UMShareListener {
         override fun onResult(p0: SHARE_MEDIA?) {
             showToast("分享成功")
         }
@@ -284,118 +285,119 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
     }
 
     companion object {
-        fun startGoodsDetailActivity(context: Context,goods_sn:String){
+        fun startGoodsDetailActivity(context: Context, goods_sn: String) {
             val intent = Intent(context, GoodsDetailActivity::class.java)
-            intent.putExtra("goods_sn",goods_sn)
+            intent.putExtra("goods_sn", goods_sn)
             context.startActivity(intent)
         }
     }
-    var data:List<GoodsDetail.OtherSnBean>?=null
-    var goodsDetails:GoodsDetail?=null
+
+    var data: List<GoodsDetail.OtherSnBean>? = null
+    var goodsDetails: GoodsDetail? = null
     private fun initView(goodsDetail: GoodsDetail) {
-        loading.visibility=View.GONE
-        goodsDetails=goodsDetail
-        tv_title.text=goodsDetail.goods_info.goods_name
-        tv_tt_number.text=goodsDetail.goods_info.goods_sn
-        Log.i("goodsDetail",goodsDetail.goods_info.goods_img)
+        loading.visibility = View.GONE
+        goodsDetails = goodsDetail
+        tv_title.text = goodsDetail.goods_info.goods_name
+        tv_tt_number.text = goodsDetail.goods_info.goods_sn
+        Log.i("goodsDetail", goodsDetail.goods_info.goods_img)
         iv_zoom.loadImag(goodsDetail.goods_info.goods_img)
-        tv_type.text="类型："+(if (goodsDetail.goods_info.type==2) "原石" else "成品")
-        tv_number.text="产品编号："+goodsDetail.goods_info.goods_sn
-        tv_chicun.text="尺寸：高"+goodsDetail.goods_info.height+"mm,宽"+goodsDetail.goods_info.width+"mm,厚"+goodsDetail.goods_info.thickness+"mm"
-        tv_color.text="颜色："+goodsDetail.goods_info.color
-        tv_touming.text="透明度："+goodsDetail.goods_info.transparency
-        tv_changdi.text="产地："+goodsDetail.goods_info.origin_place
-        tv_price.text="RMB "+goodsDetail.goods_info.goods_price
-        tv_prices.text="RMB "+goodsDetail.goods_info.goods_price
-        tv_weigth.text="重量:  "+goodsDetail.goods_info.weight+"g"
-        if (!goodsDetail.goods_info.goods_video.isNullOrEmpty()){
-            video_view.visibility=View.VISIBLE
-            iv_zoom.visibility=View.GONE
-            var mediaController=MediaController(this)
-            mediaController.visibility=View.GONE
-            video_view.setVideoURI(Uri.parse(Retrofit2Manager.instance.apiConfigProvider?.releaseHost+goodsDetail.goods_info.goods_video))
+        tv_type.text = "类型：" + (if (goodsDetail.goods_info.type == 2) "原石" else "成品")
+        tv_number.text = "产品编号：" + goodsDetail.goods_info.goods_sn
+        tv_chicun.text = "尺寸：高" + goodsDetail.goods_info.height + "mm,宽" + goodsDetail.goods_info.width + "mm,厚" + goodsDetail.goods_info.thickness + "mm"
+        tv_color.text = "颜色：" + goodsDetail.goods_info.color
+        tv_touming.text = "透明度：" + goodsDetail.goods_info.transparency
+        tv_changdi.text = "产地：" + goodsDetail.goods_info.origin_place
+        tv_price.text = "RMB " + goodsDetail.goods_info.goods_price
+        tv_prices.text = "RMB " + goodsDetail.goods_info.goods_price
+        tv_weigth.text = "重量:  " + goodsDetail.goods_info.weight + "g"
+        if (!goodsDetail.goods_info.goods_video.isNullOrEmpty()) {
+            video_view.visibility = View.VISIBLE
+            iv_zoom.visibility = View.GONE
+            var mediaController = MediaController(this)
+            mediaController.visibility = View.GONE
+            video_view.setVideoURI(Uri.parse(Retrofit2Manager.instance.apiConfigProvider?.releaseHost + goodsDetail.goods_info.goods_video))
             video_view.setMediaController(mediaController)
             mediaController.setMediaPlayer(video_view)
             video_view.requestFocus()
             video_view.start()
             video_view.setOnCompletionListener {
-                iv_player.visibility=View.VISIBLE
+                iv_player.visibility = View.VISIBLE
             }
             iv_player.setOnClickListener {
-                iv_player.visibility=View.GONE
-                    video_view.start()
+                iv_player.visibility = View.GONE
+                video_view.start()
             }
             video_view.setOnTouchListener(object : View.OnTouchListener {
                 override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-                    if (video_view.isPlaying){
-                        iv_player.visibility=View.VISIBLE
+                    if (video_view.isPlaying) {
+                        iv_player.visibility = View.VISIBLE
                         video_view.pause()
                     }
 
                     return false
                 }
-                
+
             })
         }
-        if (goodsDetail.goods_info.is_on_sale==0){
-            tv_sure.text="已下架"
-            tv_sure.isEnabled=false
+        if (goodsDetail.goods_info.is_on_sale == 0) {
+            tv_sure.text = "已下架"
+            tv_sure.isEnabled = false
         }
-        if (goodsDetail.goods_info.is_collect==1){
+        if (goodsDetail.goods_info.is_collect == 1) {
             iv_collection.setImageResource(R.drawable.btn_favor_selected)
         }
-        if (goodsDetail.goods_info.is_shopp==1){
+        if (goodsDetail.goods_info.is_shopp == 1) {
             iv_car.setImageResource(R.drawable.bnt_bag_fill_s)
-            iv_car.isEnabled=false
+            iv_car.isEnabled = false
         }
-        data=goodsDetail.other_sn
-        if (goodsDetail.goods_info.labels.size!=0) {
+        data = goodsDetail.other_sn
+        if (goodsDetail.goods_info.labels.size != 0) {
             ll_label.removeAllViews()
             for (i in 0..goodsDetail.goods_info.labels.size - 1) {
-                if (goodsDetail.goods_info.labels[i] != null){
-                var textView = TextView(this)
-                var param = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                param.leftMargin = 16
-                textView.text = goodsDetail.goods_info.labels[i].label_name
-                textView.setTextColor(resources.getColor(R.color.white_default))
-                textView.textSize = 12f
-                textView.layoutParams = param
-                textView.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_jifen))
-                textView.setOnClickListener {
-                    showLoadingDialog()
-                    getPresenter().getLabel(goodsDetail.goods_info.labels[i].label_name, "" + goodsDetail.goods_info.labels[i].label_id)
+                if (goodsDetail.goods_info.labels[i] != null) {
+                    var textView = TextView(this)
+                    var param = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                    param.leftMargin = 16
+                    textView.text = goodsDetail.goods_info.labels[i].label_name
+                    textView.setTextColor(resources.getColor(R.color.white_default))
+                    textView.textSize = 12f
+                    textView.layoutParams = param
+                    textView.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_jifen))
+                    textView.setOnClickListener {
+                        showLoadingDialog()
+                        getPresenter().getLabel(goodsDetail.goods_info.labels[i].label_name, "" + goodsDetail.goods_info.labels[i].label_id)
+                    }
+                    ll_label.addView(textView)
                 }
-                ll_label.addView(textView)
             }
         }
-        }
-        var imgs=goodsDetail.goods_info.goods_content.split(",")
-        var datas=ArrayList<String>()
-        if (imgs.size!=0)
-        for ( i in 0..imgs.size-1){
-            datas?.add(imgs[i])
-        }
-        var adapter= ImageDetailAdapter(datas as List<String>)
+        var imgs = goodsDetail.goods_info.goods_content.split(",")
+        var datas = ArrayList<String>()
+        if (imgs.size != 0)
+            for (i in 0..imgs.size - 1) {
+                datas?.add(imgs[i])
+            }
+        var adapter = ImageDetailAdapter(datas as List<String>)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.isNestedScrollingEnabled=false
-        recyclerView.layoutManager= LinearLayoutManager(this)
-        recyclerView.adapter=adapter
-        if (goodsDetail.recomend_goods.size==0){
-            tv_tuijian.visibility=View.GONE
+        recyclerView.isNestedScrollingEnabled = false
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        if (goodsDetail.recomend_goods.size == 0) {
+            tv_tuijian.visibility = View.GONE
         }
-        var recomendAdapter=GoodsDetailAdapter(goodsDetail.recomend_goods)
-        rv_recomend.isNestedScrollingEnabled=false
-        rv_recomend.layoutManager=LinearLayoutManager(this)
-        rv_recomend.adapter=recomendAdapter
+        var recomendAdapter = GoodsDetailAdapter(goodsDetail.recomend_goods)
+        rv_recomend.isNestedScrollingEnabled = false
+        rv_recomend.layoutManager = LinearLayoutManager(this)
+        rv_recomend.adapter = recomendAdapter
         recomendAdapter.setOnItemClickListener { adapter, view, position ->
-            GoodsDetailActivity.startGoodsDetailActivity(this,(adapter as GoodsDetailAdapter).data[position].goods_sn)
+            GoodsDetailActivity.startGoodsDetailActivity(this, (adapter as GoodsDetailAdapter).data[position].goods_sn)
         }
     }
 
-    private fun showNumber(data:List<GoodsDetail.OtherSnBean>) {
-        val items=Array<String>(data.size,{"12233"})
-        for (s in 0 ..(data.size-1)){
-            items.set(s,data.get(s).goods_sn)
+    private fun showNumber(data: List<GoodsDetail.OtherSnBean>) {
+        val items = Array<String>(data.size, { "12233" })
+        for (s in 0..(data.size - 1)) {
+            items.set(s, data.get(s).goods_sn)
         }
 
         val dialog = ActionSheetDialog(this, items, null).isTitleShow(false)
@@ -404,18 +406,19 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(),GoodsDetailC
         dialog.isTitleShow(true)
         dialog.setOnOperItemClickL(object : OnOperItemClickL {
             override fun onOperItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                tv_tt_number.text=data[position].goods_sn
-                tv_number.text=data[position].goods_sn
-                if (Constants.isLogin()){
-                    getPresenter().getDetail(Constants.getToken(),data[position].goods_sn)
-                }else{
-                    getPresenter().getDetail("",data[position].goods_sn)
+                tv_tt_number.text = data[position].goods_sn
+                tv_number.text = data[position].goods_sn
+                if (Constants.isLogin()) {
+                    getPresenter().getDetail(Constants.getToken(), data[position].goods_sn)
+                } else {
+                    getPresenter().getDetail("", data[position].goods_sn)
                 }
                 dialog.dismiss()
             }
         })
         dialog.show()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         (application as App).deleteActivity(this)

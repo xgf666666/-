@@ -20,15 +20,16 @@ import com.weibiaogan.bangbang.common.isPhone
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_daifu.*
 import kotlinx.android.synthetic.main.item_title.*
+
 /**
  * author: xiaoguangfei
  * date: 2018/11/3.
  * describe: 代付页面
  */
-class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
+class DaifuActivity : BaseMvpActivity<DaifuPresenter>(), DaifuContract.View {
     override fun pushInfo(userInfo: UserInfo) {
         iv_head.loadHeadImag(userInfo.head_img)
-        tv_name.text=userInfo.user_name
+        tv_name.text = userInfo.user_name
     }
 
     override fun history(daifu: Daifu) {
@@ -44,27 +45,28 @@ class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
      *
      * @return P层对象
      */
-    override fun createPresenter(): DaifuPresenter= DaifuPresenter()
+    override fun createPresenter(): DaifuPresenter = DaifuPresenter()
 
     /**
      * 获取布局资源文件id
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_daifu
+    override fun getActivityLayoutId(): Int = R.layout.activity_daifu
 
     /**
      * 初始化数据状态
      */
-    var adapter=DaifuAdapter(arrayListOf())
+    var adapter = DaifuAdapter(arrayListOf())
+
     override fun initData() {
-        tv_title.text="他人代付"
-        rc_daifu.layoutManager=LinearLayoutManager(this)
-        rc_daifu.adapter=adapter
+        tv_title.text = "他人代付"
+        rc_daifu.layoutManager = LinearLayoutManager(this)
+        rc_daifu.adapter = adapter
         getPresenter().history(Constants.getToken())
         adapter.setOnItemClickListener { adapter, view, position ->
             et_zhanhao.setText((adapter as DaifuAdapter).data[position].pay_user_phone)
-            tv_name.text=adapter.data[position].user_name
+            tv_name.text = adapter.data[position].user_name
             iv_head.loadHeadImag(adapter.data[position].head_img)
         }
 
@@ -76,23 +78,23 @@ class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
     override fun initEvent() {
         iv_back.setOnClickListener { finish() }
         tv_sure.setOnClickListener {
-            if (et_zhanhao.text.isNullOrEmpty()){
+            if (et_zhanhao.text.isNullOrEmpty()) {
                 showToast("请输入对方账号")
                 return@setOnClickListener
             }
-            if (tv_message.text.isNullOrEmpty()){
+            if (tv_message.text.isNullOrEmpty()) {
                 showToast("请输入代付消息")
                 return@setOnClickListener
             }
-            getPresenter().daifu(Constants.getToken(),intent.getStringExtra("sb_id"),intent.getStringExtra("send"),
-                    intent.getStringExtra("freight_pay"),intent.getStringExtra("live"),intent.getStringExtra("cabinet"),
-                    intent.getStringExtra("incr_type1"),intent.getStringExtra("incr_type2"),intent.getStringExtra("incr_type3"),
-                    intent.getStringExtra("address_id"),et_zhanhao.text.toString(),tv_message.text.toString())
+            getPresenter().daifu(Constants.getToken(), intent.getStringExtra("sb_id"), intent.getStringExtra("send"),
+                    intent.getStringExtra("freight_pay"), intent.getStringExtra("live"), intent.getStringExtra("cabinet"),
+                    intent.getStringExtra("incr_type1"), intent.getStringExtra("incr_type2"), intent.getStringExtra("incr_type3"),
+                    intent.getStringExtra("address_id"), et_zhanhao.text.toString(), tv_message.text.toString())
         }
         et_zhanhao.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if (et_zhanhao.text.toString().isPhone()){
-                    getPresenter().pushInfo(Constants.getToken(),et_zhanhao.text.toString())
+                if (et_zhanhao.text.toString().isPhone()) {
+                    getPresenter().pushInfo(Constants.getToken(), et_zhanhao.text.toString())
                 }
 
             }
@@ -106,18 +108,19 @@ class DaifuActivity : BaseMvpActivity<DaifuPresenter>(),DaifuContract.View {
         })
 
     }
+
     companion object {
-        fun startDaifuActivity(context: Context, sb_id:String, send:String,freight_pay:String,live:String,cabinet:String,incr_type1:String,incr_type2:String,incr_type3:String,address_id:String){
+        fun startDaifuActivity(context: Context, sb_id: String, send: String, freight_pay: String, live: String, cabinet: String, incr_type1: String, incr_type2: String, incr_type3: String, address_id: String) {
             val intent = Intent(context, DaifuActivity::class.java)
-            intent.putExtra("sb_id",sb_id)
-            intent.putExtra("send",send)
-            intent.putExtra("freight_pay",freight_pay)
-            intent.putExtra("live",live)
-            intent.putExtra("cabinet",cabinet)
-            intent.putExtra("incr_type1",incr_type1)
-            intent.putExtra("incr_type2",incr_type2)
-            intent.putExtra("incr_type3",incr_type3)
-            intent.putExtra("address_id",address_id)
+            intent.putExtra("sb_id", sb_id)
+            intent.putExtra("send", send)
+            intent.putExtra("freight_pay", freight_pay)
+            intent.putExtra("live", live)
+            intent.putExtra("cabinet", cabinet)
+            intent.putExtra("incr_type1", incr_type1)
+            intent.putExtra("incr_type2", incr_type2)
+            intent.putExtra("incr_type3", incr_type3)
+            intent.putExtra("address_id", address_id)
             context.startActivity(intent)
         }
     }

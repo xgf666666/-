@@ -22,21 +22,21 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/13
  * describe:商品详情图片
  */
-class ImageDetailActivity : BaseMvpActivity<ImageDetailPresenter>(),ImageDetailContract.View {
-    var data:ArrayList<String>?=null
+class ImageDetailActivity : BaseMvpActivity<ImageDetailPresenter>(), ImageDetailContract.View {
+    var data: ArrayList<String>? = null
     override fun getImageDetail(goods_content: String) {
-        var imgs=goods_content.split(",")
-        data=ArrayList<String>()
-        if (imgs.size!=0)
-        for ( i in 0..imgs.size-1){
-            data?.add(imgs[i])
-        }
-        var adapter= ImageDetailAdapter(data as List<String>)
+        var imgs = goods_content.split(",")
+        data = ArrayList<String>()
+        if (imgs.size != 0)
+            for (i in 0..imgs.size - 1) {
+                data?.add(imgs[i])
+            }
+        var adapter = ImageDetailAdapter(data as List<String>)
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager= LinearLayoutManager(this)
-        recyclerView.adapter=adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
-        loading.visibility= View.GONE
+        loading.visibility = View.GONE
     }
 
     /**
@@ -51,13 +51,13 @@ class ImageDetailActivity : BaseMvpActivity<ImageDetailPresenter>(),ImageDetailC
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_image_detail
+    override fun getActivityLayoutId(): Int = R.layout.activity_image_detail
 
     /**
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text="图片详情"
+        tv_title.text = "图片详情"
         getPresenter().getImgageDetail(intent.getStringExtra("goods_id"))
 
     }
@@ -66,15 +66,15 @@ class ImageDetailActivity : BaseMvpActivity<ImageDetailPresenter>(),ImageDetailC
      * 初始化事件
      */
     override fun initEvent() {
-        iv_back.setOnClickListener{
+        iv_back.setOnClickListener {
             finish()
         }
     }
 
     companion object {
-        fun startImageDetailActivity(context: Context,goods_id:String){
+        fun startImageDetailActivity(context: Context, goods_id: String) {
             val intent = Intent(context, ImageDetailActivity::class.java)
-            intent.putExtra("goods_id",goods_id)
+            intent.putExtra("goods_id", goods_id)
             context.startActivity(intent)
         }
     }

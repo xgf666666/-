@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_guide_five.*
  * date: 2018/9/28
  * describe:
  */
-class GuideFiveFragment:BaseMvpViewFragment() {
+class GuideFiveFragment : BaseMvpViewFragment() {
     /**
      * 获取Fragment的布局资源文件id
      */
@@ -29,11 +29,11 @@ class GuideFiveFragment:BaseMvpViewFragment() {
 
     }
 
-    public fun setAnim(){
-        var anim_img= AnimationUtils.loadAnimation(context,R.anim.guide_img)
-        anim_img.fillAfter=true
-        var anim_txt=AnimationUtils.loadAnimation(context,R.anim.guide_tex)
-        anim_txt.fillAfter=true
+    public fun setAnim() {
+        var anim_img = AnimationUtils.loadAnimation(context, R.anim.guide_img)
+        anim_img.fillAfter = true
+        var anim_txt = AnimationUtils.loadAnimation(context, R.anim.guide_tex)
+        anim_txt.fillAfter = true
         iv_img.startAnimation(anim_img)
         tv_title.startAnimation(anim_txt)
     }

@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_title.*
  * date: 2018/8/13
  * describe:常见问题详情
  */
-class AskQuestionDetailActivity : BaseMvpActivity<AskQuestionDetailPresenter>(),AskQuestionDetailContract.View {
+class AskQuestionDetailActivity : BaseMvpActivity<AskQuestionDetailPresenter>(), AskQuestionDetailContract.View {
     /**
      * 创建P层
      *
@@ -29,13 +29,13 @@ class AskQuestionDetailActivity : BaseMvpActivity<AskQuestionDetailPresenter>(),
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_ask_question_detail
+    override fun getActivityLayoutId(): Int = R.layout.activity_ask_question_detail
 
     /**
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text=intent.getStringExtra("content")
+        tv_title.text = intent.getStringExtra("content")
         getPresenter().getDetail(intent.getStringExtra("pt_id"))
     }
 
@@ -43,21 +43,21 @@ class AskQuestionDetailActivity : BaseMvpActivity<AskQuestionDetailPresenter>(),
      * 初始化事件
      */
     override fun initEvent() {
-        iv_back.setOnClickListener{finish()}
+        iv_back.setOnClickListener { finish() }
 
     }
 
     override fun getDetail(askDetail: AskDetail) {
-        loading.visibility= View.GONE
-        if (askDetail.problem!=null)
-        tv_content.text=askDetail.problem.answer
+        loading.visibility = View.GONE
+        if (askDetail.problem != null)
+            tv_content.text = askDetail.problem.answer
     }
 
     companion object {
-        fun startAskQuestionDetailActivity(context: Context,pt_id:String,content:String){
-            val intent = Intent(context,AskQuestionDetailActivity::class.java)
-            intent.putExtra("pt_id",pt_id)
-            intent.putExtra("content",content)
+        fun startAskQuestionDetailActivity(context: Context, pt_id: String, content: String) {
+            val intent = Intent(context, AskQuestionDetailActivity::class.java)
+            intent.putExtra("pt_id", pt_id)
+            intent.putExtra("content", content)
             context.startActivity(intent)
         }
     }

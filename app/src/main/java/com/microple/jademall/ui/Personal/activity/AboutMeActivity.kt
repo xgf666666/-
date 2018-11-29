@@ -13,12 +13,13 @@ import com.microple.jademall.ui.Personal.mvp.presenter.AboutMePresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_about_me.*
 import kotlinx.android.synthetic.main.item_title.*
+
 /**
  * author: xiaoguagnfei
  * date: 2018/8/13
  * describe:关于我们
  */
-class AboutMeActivity : BaseMvpActivity<AboutMePresenter>(),AboutMeContract.View {
+class AboutMeActivity : BaseMvpActivity<AboutMePresenter>(), AboutMeContract.View {
     /**
      * 创建P层
      *
@@ -31,13 +32,13 @@ class AboutMeActivity : BaseMvpActivity<AboutMePresenter>(),AboutMeContract.View
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_about_me
+    override fun getActivityLayoutId(): Int = R.layout.activity_about_me
 
     /**
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text="关于我们"
+        tv_title.text = "关于我们"
         showLoadingDialog()
         getPresenter().aboutMe()
     }
@@ -52,12 +53,12 @@ class AboutMeActivity : BaseMvpActivity<AboutMePresenter>(),AboutMeContract.View
 
     override fun aboutMe(aboutMe: AboutMe) {
         dismissLoadingDialog()
-        wv_content.loadDataWithBaseURL(null,aboutMe.about_us,"text/html","utf-8",null)
+        wv_content.loadDataWithBaseURL(null, aboutMe.about_us, "text/html", "utf-8", null)
     }
 
     companion object {
-        fun startAboutMeActivity(context: Context){
-            val intent = Intent(context,AboutMeActivity::class.java)
+        fun startAboutMeActivity(context: Context) {
+            val intent = Intent(context, AboutMeActivity::class.java)
             context.startActivity(intent)
         }
     }

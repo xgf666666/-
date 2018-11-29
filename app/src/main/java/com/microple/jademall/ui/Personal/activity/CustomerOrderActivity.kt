@@ -19,16 +19,16 @@ import kotlinx.android.synthetic.main.activity_customer_order.*
 import kotlinx.android.synthetic.main.item_title.*
 
 /**
-* author: xiaoguagnfei
-* date: 2018/8/13
-* describe:售后订单
-*/
+ * author: xiaoguagnfei
+ * date: 2018/8/13
+ * describe:售后订单
+ */
 
-class CustomerOrderActivity : BaseMvpActivity<CustomerOrderPresenter>(),CustomerOrderContract.View {
+class CustomerOrderActivity : BaseMvpActivity<CustomerOrderPresenter>(), CustomerOrderContract.View {
     override fun getCustomer(customer: Customer) {
-        loading.visibility= View.GONE
-        if (customer.returns.size==0){
-            tv_tishi.visibility=View.VISIBLE
+        loading.visibility = View.GONE
+        if (customer.returns.size == 0) {
+            tv_tishi.visibility = View.VISIBLE
         }
         adapter.setNewData(customer.returns)
     }
@@ -39,24 +39,25 @@ class CustomerOrderActivity : BaseMvpActivity<CustomerOrderPresenter>(),Customer
      * @return P层对象
      */
     override fun createPresenter(): CustomerOrderPresenter = CustomerOrderPresenter()
+
     var adapter = CustomerAdapter(arrayListOf())
     /**
      * 获取布局资源文件id
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_customer_order
+    override fun getActivityLayoutId(): Int = R.layout.activity_customer_order
 
     /**
      * 初始化数据状态
      */
     override fun initData() {
-        tv_title.text="售后订单列表"
+        tv_title.text = "售后订单列表"
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager= LinearLayoutManager(this)
-        recyclerView.adapter=adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
         adapter.setOnItemClickListener { adapter, view, position ->
-            CusetomerOrderDetailActivity.startCusetomerOrderDetailActivity(this,""+(adapter as CustomerAdapter).data[position].as_id)
+            CusetomerOrderDetailActivity.startCusetomerOrderDetailActivity(this, "" + (adapter as CustomerAdapter).data[position].as_id)
         }
     }
 
@@ -73,8 +74,8 @@ class CustomerOrderActivity : BaseMvpActivity<CustomerOrderPresenter>(),Customer
     }
 
     companion object {
-        fun startCustomerOrderActivity(context: Context){
-            val intent = Intent(context,CustomerOrderActivity::class.java)
+        fun startCustomerOrderActivity(context: Context) {
+            val intent = Intent(context, CustomerOrderActivity::class.java)
             context.startActivity(intent)
         }
     }

@@ -17,12 +17,13 @@ import com.microple.jademall.ui.Personal.mvp.presenter.AskQuestionTypePresenter
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_ask_question.*
 import kotlinx.android.synthetic.main.item_title.*
+
 /**
  * author: xiaoguagnfei
  * date: 2018/8/13
  * describe:常见问题
  */
-class AskQuestionTypeActivity : BaseMvpActivity<AskQuestionTypePresenter>(),AskQuestionTypeContract.View {
+class AskQuestionTypeActivity : BaseMvpActivity<AskQuestionTypePresenter>(), AskQuestionTypeContract.View {
     /**
      * 创建P层
      *
@@ -35,20 +36,21 @@ class AskQuestionTypeActivity : BaseMvpActivity<AskQuestionTypePresenter>(),AskQ
      *
      * @return 布局资源文件id
      */
-    override fun getActivityLayoutId(): Int =R.layout.activity_ask_question
+    override fun getActivityLayoutId(): Int = R.layout.activity_ask_question
 
     /**
      * 初始化数据状态
      */
-    var adapter= AskQuestionTypeAdapter(arrayListOf())
+    var adapter = AskQuestionTypeAdapter(arrayListOf())
+
     override fun initData() {
-        tv_title.text="常见问题"
+        tv_title.text = "常见问题"
         getPresenter().getType()
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        recyclerView.layoutManager= LinearLayoutManager(this)
-        recyclerView.adapter=adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
         adapter.setOnItemClickListener { adapter, view, position ->
-            AskQuestionActivity.startAskQuestionActivity(this,""+(adapter as AskQuestionTypeAdapter).data[position].pt_id)
+            AskQuestionActivity.startAskQuestionActivity(this, "" + (adapter as AskQuestionTypeAdapter).data[position].pt_id)
         }
     }
 
@@ -56,19 +58,19 @@ class AskQuestionTypeActivity : BaseMvpActivity<AskQuestionTypePresenter>(),AskQ
      * 初始化事件
      */
     override fun initEvent() {
-        iv_back.setOnClickListener{
+        iv_back.setOnClickListener {
             finish()
         }
     }
 
     override fun getType(askType: AskType) {
-        loading.visibility= View.GONE
+        loading.visibility = View.GONE
         adapter.setNewData(askType.problem_type)
     }
 
     companion object {
-        fun startAskQuestionTypeActivity(context: Context){
-            val intent = Intent(context,AskQuestionTypeActivity::class.java)
+        fun startAskQuestionTypeActivity(context: Context) {
+            val intent = Intent(context, AskQuestionTypeActivity::class.java)
             context.startActivity(intent)
         }
     }

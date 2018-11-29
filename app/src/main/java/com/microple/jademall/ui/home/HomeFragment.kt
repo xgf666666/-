@@ -45,7 +45,7 @@ import kotlin.collections.ArrayList
  * date: 2018/8/1.
  * describe:首页
  */
-class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePresenter>(),HomeContract.View, View.OnClickListener , SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, TabLayout.OnTabSelectedListener {
+class HomeFragment : BaseMvpFragment<HomeContract.Model, HomeContract.View, HomePresenter>(), HomeContract.View, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, TabLayout.OnTabSelectedListener {
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -57,48 +57,48 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
 
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        current=1
-        catId=dataCategory!![tab?.position!!].cat_id
-        getPresenter().getGoodList(dataCategory!![tab?.position!!].cat_id,current,sort)
+        current = 1
+        catId = dataCategory!![tab?.position!!].cat_id
+        getPresenter().getGoodList(dataCategory!![tab?.position!!].cat_id, current, sort)
     }
 
     override fun onLoadMoreRequested() {
         current++
-        getPresenter().getGoodList(catId,current,sort)
+        getPresenter().getGoodList(catId, current, sort)
     }
 
     /**
      * Called when a swipe gesture triggers a refresh.
      */
     override fun onRefresh() {
-        current=1
-        getPresenter().getGoodList(catId,current,sort)
+        current = 1
+        getPresenter().getGoodList(catId, current, sort)
         getPresenter().getFirstView()
 //        getPresenter().getCategory()
 
     }
 
-    var data:Goods= Goods()
-    var catId:Int=0
-    var current:Int=1
-    var sort:String=""
-    var desc:String=" asc"//升序：asc 降序：desc
+    var data: Goods = Goods()
+    var catId: Int = 0
+    var current: Int = 1
+    var sort: String = ""
+    var desc: String = " asc"//升序：asc 降序：desc
     override fun getGoodList(data: Goods) {
         dismissLoadingDialog()
-        this.data=data
-        if (swipeRefreshLayout.isRefreshing){
+        this.data = data
+        if (swipeRefreshLayout.isRefreshing) {
             mAdapter?.setNewData(data.goods_list)
-            swipeRefreshLayout.isRefreshing=false
-        }else if (mAdapter?.isLoading!!){
+            swipeRefreshLayout.isRefreshing = false
+        } else if (mAdapter?.isLoading!!) {
             mAdapter?.addData(data.goods_list)
             mAdapter?.loadMoreComplete()
-        }else {
+        } else {
             mAdapter?.setNewData(data.goods_list)
         }
-        if (data.goods_list.size==0){
+        if (data.goods_list.size == 0) {
             mAdapter?.loadMoreEnd()
         }
-        Log.i("currentssss","current"+current)
+        Log.i("currentssss", "current" + current)
     }
 
 
@@ -107,16 +107,16 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
      *
      * @return P层对象
      */
-    override fun createPresenter(): HomePresenter =HomePresenter()
+    override fun createPresenter(): HomePresenter = HomePresenter()
 
     private var isFiltrate = true
 
     override fun getFragmentLayoutId(): Int = R.layout.fragment_home
 
     override fun init(view: View?) {
-        if (Constants.isLogin()){
+        if (Constants.isLogin()) {
             iv_head.loadHeadImag(Constants.getHeadImg())
-        }else{
+        } else {
             iv_head.setImageResource(R.drawable.datouxiang_)
         }
 
@@ -131,30 +131,34 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
         tv_newest.setOnClickListener(this)
         iv_head.setOnClickListener(this)
         scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            if (scrollY>=90){
-                tv_title.visibility=View.VISIBLE
-                tv_title.text="首页"
-            }else{
-                tv_title.visibility=View.GONE
+            if (scrollY >= 90) {
+                tv_title.visibility = View.VISIBLE
+                tv_title.text = "首页"
+            } else {
+                tv_title.visibility = View.GONE
             }
         }
 
     }
+
     //轮播图
     override fun getFirstView(data: List<FirstImage>) {
         // 3. 填充ViewPager
         fillViewPager(data)
         dismissLoadingDialog()
     }
+
     //首页一级分类
-    var dataCategory: List<Category>?=null
+    var dataCategory: List<Category>? = null
+
     override fun getCategory(data: List<Category>) {
-        if (data.size!=0){
-            dataCategory=data
+        if (data.size != 0) {
+            dataCategory = data
             initGoodsData(data)
         }
     }
-    var price=0
+
+    var price = 0
 
     override fun onClick(v: View?) {
         when (v) {
@@ -169,89 +173,91 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
             }
             tv_price -> {
                 setText(tv_price)
-                current=1
-                sort="goods_price"
-                if (price==0){
-                    price=1
-                    sort="goods_price desc"
-                }else{
-                    price=0
-                    sort="goods_price asc"
+                current = 1
+                sort = "goods_price"
+                if (price == 0) {
+                    price = 1
+                    sort = "goods_price desc"
+                } else {
+                    price = 0
+                    sort = "goods_price asc"
                 }
                 showLoadingDialog()
-                Log.i("goods_pricess",sort)
-                getPresenter().getGoodList(catId,current,sort)
+                Log.i("goods_pricess", sort)
+                getPresenter().getGoodList(catId, current, sort)
 
             }
             tv_hot -> {
                 setText(tv_hot)
-                current=1
-                sort="hot"
+                current = 1
+                sort = "hot"
                 showLoadingDialog()
-                getPresenter().getGoodList(catId,current,sort)
+                getPresenter().getGoodList(catId, current, sort)
 
             }
             tv_newest -> {
                 setText(tv_newest)
-                current=1
-                sort="new"
+                current = 1
+                sort = "new"
                 showLoadingDialog()
-                getPresenter().getGoodList(catId,current,sort)
+                getPresenter().getGoodList(catId, current, sort)
             }
-            iv_head->{
+            iv_head -> {
                 (activity as MainActivity).setSelect(4)
             }
         }
     }
-    var mAdapter=HomeGoodsAdapter(arrayListOf())
+
+    var mAdapter = HomeGoodsAdapter(arrayListOf())
     private fun initGoodsData(data: List<Category>) {
-        if (catId==0){
-            getPresenter().getGoodList(data[0].cat_id,current,sort)
-        }else{
-            getPresenter().getGoodList(catId,current,sort)
+        if (catId == 0) {
+            getPresenter().getGoodList(data[0].cat_id, current, sort)
+        } else {
+            getPresenter().getGoodList(catId, current, sort)
         }
         recyclerView.adapter = mAdapter
-        recyclerView.layoutManager= LinearLayoutManager(context)
-        recyclerView.isNestedScrollingEnabled=false
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.isNestedScrollingEnabled = false
         mAdapter?.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        mAdapter?.setOnLoadMoreListener(this,recyclerView)
+        mAdapter?.setOnLoadMoreListener(this, recyclerView)
         mAdapter?.disableLoadMoreIfNotFullPage()
         swipeRefreshLayout.setOnRefreshListener(this)
         slidingTabLayout.removeAllTabs()
-        for (i in 0..data.size-1){
+        for (i in 0..data.size - 1) {
             slidingTabLayout.addTab(slidingTabLayout.newTab().setText(data[i].name))
         }
         slidingTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE)
         slidingTabLayout.addOnTabSelectedListener(this)
         mAdapter?.setOnItemClickListener { adapter, view, position ->
-            GoodsDetailActivity.startGoodsDetailActivity(context!!,(adapter as HomeGoodsAdapter).data[position].goods_sn)
+            GoodsDetailActivity.startGoodsDetailActivity(context!!, (adapter as HomeGoodsAdapter).data[position].goods_sn)
         }
     }
 
-    private fun fillViewPager(data:List<FirstImage>) {
-        cb_home_top.viewPager.pageMargin=26
-        cb_home_top.viewPager.clipToPadding=false
-        cb_home_top.viewPager.setPaddingRelative(ConvertUtils.dp2px(36f),0,ConvertUtils.dp2px(36f),0)
-        (cb_home_top as ConvenientBanner<FirstImage>).setPages({ImageHolderView()},data)
+    private fun fillViewPager(data: List<FirstImage>) {
+        cb_home_top.viewPager.pageMargin = 26
+        cb_home_top.viewPager.clipToPadding = false
+        cb_home_top.viewPager.setPaddingRelative(ConvertUtils.dp2px(36f), 0, ConvertUtils.dp2px(36f), 0)
+        (cb_home_top as ConvenientBanner<FirstImage>).setPages({ ImageHolderView() }, data)
                 .startTurning(3000)
-                .setPageTransformer( CustPagerTransformer(context))
-                .setOnItemClickListener{
+                .setPageTransformer(CustPagerTransformer(context))
+                .setOnItemClickListener {
 
                 }
         cb_home_top.setOnItemClickListener {
-            if (data[it].is_type==1){
-                WebViewActivity.startLivePlayerActivity(context!!,data[it].url,data[it].name)
+            if (data[it].is_type == 1) {
+                WebViewActivity.startLivePlayerActivity(context!!, data[it].url, data[it].name)
 
-            }else if (data[it].is_type==2){
-                GoodsDetailActivity.startGoodsDetailActivity(context!!,data[it].url)
+            } else if (data[it].is_type == 2) {
+                GoodsDetailActivity.startGoodsDetailActivity(context!!, data[it].url)
 
-            }else if (data[it].is_type==3){
-                LiveDetailsActivity.startLiveDetail(context!!,data[it].url)
+            } else if (data[it].is_type == 3) {
+                LiveDetailsActivity.startLiveDetail(context!!, data[it].url)
 
             }
         }
     }
-    fun setText(textView: TextView){
+
+    fun setText(textView: TextView) {
         tv_newest.setTextColor(resources.getColor(R.color.text_black))
         tv_price.setTextColor(resources.getColor(R.color.text_black))
         tv_hot.setTextColor(resources.getColor(R.color.text_black))
@@ -265,24 +271,25 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model,HomeContract.View,HomePr
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!hidden){
-            if (Constants.isLogin()){
+        if (!hidden) {
+            if (Constants.isLogin()) {
                 iv_head.loadHeadImag(Constants.getPersonal().head_img)
-            }else{
+            } else {
                 iv_head.setImageResource(R.drawable.datouxiang_)
             }
         }
     }
+
     inner class ImageHolderView : Holder<FirstImage> {
-        var view : View? = null
+        var view: View? = null
 
         override fun UpdateUI(context: Context?, position: Int, data: FirstImage?) {
             view?.findViewById<ImageView>(R.id.iv_banner)?.loadImag(data?.img!!)
         }
 
         override fun createView(context: Context?): View {
-            var views=View.inflate(context,R.layout.fragment_common,null)
-            this.view=views
+            var views = View.inflate(context, R.layout.fragment_common, null)
+            this.view = views
             return views
         }
 

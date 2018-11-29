@@ -129,16 +129,20 @@ class PersonlFragment : BaseMvpFragment<PersonalContract.Model,PersonalContract.
 
                }
                2->{
-                   AllOrderActivity.startAllOrderActivity(context!!,3)
+                   AllOrderActivity.startAllOrderActivity(context!!,2)
                }
                3->{
-                   AllOrderActivity.startAllOrderActivity(context!!,4)
+                   AllOrderActivity.startAllOrderActivity(context!!,3)
                }
                4->{
-                   AllOrderActivity.startAllOrderActivity(context!!,5)
+                   AllOrderActivity.startAllOrderActivity(context!!,4)
 
                }
                5->{
+                   AllOrderActivity.startAllOrderActivity(context!!,5)
+
+               }
+               6->{
                    CustomerOrderActivity.startCustomerOrderActivity(context!!)
                }
            }
