@@ -261,10 +261,6 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model, HomeContract.View, Home
         tv_newest.setTextColor(resources.getColor(R.color.text_black))
         tv_price.setTextColor(resources.getColor(R.color.text_black))
         tv_hot.setTextColor(resources.getColor(R.color.text_black))
-//        tv_newest.isEnabled=true
-//        tv_price.isEnabled=true
-//        tv_hot.isEnabled=true
-//        textView.isEnabled=false
         textView.setTextColor(resources.getColor(R.color.colorMain))
 
     }
@@ -277,7 +273,28 @@ class HomeFragment : BaseMvpFragment<HomeContract.Model, HomeContract.View, Home
             } else {
                 iv_head.setImageResource(R.drawable.datouxiang_)
             }
+            if (Constants.getTishiMessage()){
+                tv_tishi_yuan.visibility=View.VISIBLE
+            }else{
+                tv_tishi_yuan.visibility=View.GONE
+            }
+
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+            if (Constants.isLogin()) {
+                iv_head.loadHeadImag(Constants.getPersonal().head_img)
+            } else {
+                iv_head.setImageResource(R.drawable.datouxiang_)
+            }
+        if (Constants.getTishiMessage()){
+            tv_tishi_yuan.visibility=View.VISIBLE
+        }else{
+            tv_tishi_yuan.visibility=View.GONE
+        }
+
     }
 
     inner class ImageHolderView : Holder<FirstImage> {

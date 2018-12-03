@@ -342,6 +342,8 @@ class GoodsDetailActivity : BaseMvpActivity<GoodsDetailPresenter>(), GoodsDetail
         if (goodsDetail.goods_info.is_on_sale == 0) {
             tv_sure.text = "已下架"
             tv_sure.isEnabled = false
+            tv_sures.text="已下架"
+            tv_sures.isEnabled = false
         }
         if (goodsDetail.goods_info.is_collect == 1) {
             iv_collection.setImageResource(R.drawable.btn_favor_selected)

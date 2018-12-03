@@ -90,10 +90,13 @@ class SureCustomerActivity : BaseMvpActivity<SureCustomerPresenter>(),SureCustom
 
     }
     private fun showChangeSexDialogOne() {
-        val items=Array<String>(3,{""})
-        items[0]="不想要了"
-        items[1]="太贵了"
-        items[2]="石头有问题"
+        val items=Array<String>(6,{""})
+        items[0]="兑换积分"
+        items[1]="收到成品有破损"
+        items[2]="成品错发、漏发"
+        items[3]="成品与描述不符"
+        items[4]="未按约定时间发货"
+        items[5]="其他"
 
         val dialog = ActionSheetDialog(mContext, items, null).isTitleShow(false)
         dialog.setOnOperItemClickL(object : OnOperItemClickL {

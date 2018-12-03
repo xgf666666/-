@@ -38,6 +38,7 @@ public class Constants {
     private static final String KEY_USER_PHONE="SP_USER_PHONE";//手机号
     private static final String KEY_SP_SEARCH="KEY_SP_SEARCH";//搜索记录
     private static final String KEY_UNREAD_MESSAGE = "UNREAD_MESSAGE";//未读消息
+    private static final String TISHI_MESSAGE= "TISHI_MESSAGE";//新消息提示
     //滑动关闭Activity
     public static final int ACTIVITY_FINISH_REQUEST_CODE = 10000;
     public static final int ACTIVITY_FINISH_RESULT_CODE = 10001;
@@ -85,6 +86,19 @@ public class Constants {
      */
     public static void loginOut() {
         SPUtils.getInstance().put(KEY_SP_LOGIN, false);
+    }
+    /**
+     * 设置新消息提示
+     */
+    public static void setTishiMessage(Boolean tishi) {
+        SPUtils.getInstance().put(TISHI_MESSAGE, tishi);
+    }
+
+    /**
+     * 登出
+     */
+    public static Boolean getTishiMessage() {
+        return SPUtils.getInstance().getBoolean(TISHI_MESSAGE, false);
     }
 
 

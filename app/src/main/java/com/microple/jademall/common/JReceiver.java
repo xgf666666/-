@@ -46,6 +46,11 @@ public class JReceiver extends BroadcastReceiver {
                     MainActivity.Companion.startMainActivity(context);
                     LiveDetailsActivity.Companion.startLiveDetail(context,notify.getType_id());
                 }
+            }else {
+                if (!MyLifecycleHandler.isApplicationInForeground()){
+                    MainActivity.Companion.startMainActivity(context);
+                }
+                   Constants.setTishiMessage(true);
             }
         }
     }

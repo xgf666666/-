@@ -44,6 +44,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+
         <service
             android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"

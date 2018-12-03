@@ -32,6 +32,7 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
     var search:Search?=null
     var hotToData:ArrayList<Search.CategorysBean>?=null
     var histroyData:ArrayList<Search.CategorysBean>?=null
+    var flag=1
 
     /**
      * 创建P层
@@ -82,12 +83,15 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
         }
         tv_classify.setOnClickListener{
             setText(tv_classify,1)
+            flag=1
         }
         tv_hot.setOnClickListener{
             setText(tv_hot,2)
+            flag=2
         }
         tv_history.setOnClickListener{
             setText(tv_history,3)
+            flag=3
         }
         et_search.setOnEditorActionListener(this)
 
@@ -141,10 +145,18 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
                 if (!Constants.getSearch().isNullOrEmpty()){
                     var item=Constants.getSearch().split(",")
                     histroyData=ArrayList()
-                    for ( i in 0..item.size-1){
-                        var history=Search.CategorysBean()
-                        history.name=item[i]
-                        histroyData?.add(history)
+                    if (item.size<=10){
+                        for ( i in 0..item.size-1){
+                            var history=Search.CategorysBean()
+                            history.name=item[i]
+                            histroyData?.add(history)
+                        }
+                    }else{
+                        for (i in item.size-10..item.size-1){
+                            var history=Search.CategorysBean()
+                            history.name=item[i]
+                            histroyData?.add(history)
+                        }
                     }
                 }
                 mAdapter.setNewData(histroyData)
@@ -162,6 +174,32 @@ class SearchFragment : BaseMvpFragment<SearchContract.Model,SearchContract.View,
                 iv_head.setImageResource(R.drawable.datouxiang_)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isHidden&&flag==3){
+            if (!Constants.getSearch().isNullOrEmpty()){
+                var item=Constants.getSearch().split(",")
+                histroyData=ArrayList()
+                if (item.size<=10){
+                    for ( i in 0..item.size-1){
+                        var history=Search.CategorysBean()
+                        history.name=item[i]
+                        histroyData?.add(history)
+                    }
+                }else{
+                    for (i in item.size-10..item.size-1){
+                        var history=Search.CategorysBean()
+                        history.name=item[i]
+                        histroyData?.add(history)
+                    }
+                }
+                mAdapter.setNewData(histroyData)
+            }
+
+        }
+
     }
 
 }

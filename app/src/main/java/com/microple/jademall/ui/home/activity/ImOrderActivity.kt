@@ -3,9 +3,11 @@ package com.microple.jademall.ui.home.activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.inputmethodservice.InputMethodService
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
 import com.microple.jademall.dialog.BuytypeDialog
@@ -27,6 +29,7 @@ import com.weibiaogan.bangbang.common.md5Salt
 import com.xx.anypay.XxAnyPay
 import com.xx.anypay.XxAnyPayResultCallBack
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
+import java.util.*
 
 
 /**
@@ -70,6 +73,7 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(), ImOrderContract.Vie
                         indexs = 3
                         if (isSetting == 1) {
                             showDialog()
+
                         } else {
                             PassswordActivity.startPassswordActivity(this@ImOrderActivity, 2)
                         }
@@ -538,6 +542,18 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(), ImOrderContract.Vie
         dialog = AlertDialog.Builder(mContext).create()
         dialog!!.setView(view)
         dialog!!.show()
+//        psw_view.isFocusable=true
+//        psw_view.isFocusableInTouchMode=true
+        var timer=Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                var imm:InputMethodManager=(psw_view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                if (imm!=null)
+                    imm.showSoftInput(psw_view,0)
+            }
+        },100)
+
+
     }
 
     var name = ""

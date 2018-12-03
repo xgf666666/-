@@ -8,8 +8,7 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_head"
             android:layout_width="34dp"
@@ -27,6 +26,16 @@
             tools:text="标题"
             android:visibility="gone"
             android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/tv_tishi_yuan"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:background="@drawable/bg_yuan"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="13dp"
+            android:visibility="gone"
+            />
     </RelativeLayout>
 
 

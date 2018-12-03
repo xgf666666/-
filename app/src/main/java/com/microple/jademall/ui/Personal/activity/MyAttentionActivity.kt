@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.google.gson.Gson
 import com.microple.jademall.R
 import com.microple.jademall.bean.Attention
@@ -18,6 +19,9 @@ import kotlinx.android.synthetic.main.item_title.*
 class MyAttentionActivity : BaseMvpActivity<MyAttentionPresenter>(), MyAttentionContract.View  {
     override fun getAttention(attention: Attention) {
         adapter.setNewData(attention.follow)
+        if (attention.follow.size==0){
+            tv_tishiOne.visibility= View.VISIBLE
+        }
 
 
     }

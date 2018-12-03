@@ -7,8 +7,16 @@
     <include layout="@layout/item_title"/>
     <include layout="@layout/item_loading"
         android:id="@+id/loading"/>
-
-
+    <TextView
+        android:id="@+id/tv_tishiOne"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/sp_17"
+        android:textColor="@color/black_666666"
+        android:text="暂无数据"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:gravity="center"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

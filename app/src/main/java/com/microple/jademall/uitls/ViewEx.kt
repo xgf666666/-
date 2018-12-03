@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.MemoryCategory
 import com.microple.jademall.R
 import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
 
@@ -21,6 +22,7 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
     }else{
         urltemp=url
     }
+    Glide.get(context).setMemoryCategory(MemoryCategory.HIGH)
     Glide.with(this.context).load(urltemp)
             .placeholder(R.drawable.img_product_booth)
             .dontAnimate()

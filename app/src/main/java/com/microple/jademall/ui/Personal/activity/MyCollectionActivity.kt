@@ -75,6 +75,9 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenter>(),MyCollecti
     override fun getCollection(collection: Collection) {
         loading.visibility= View.GONE
         adapter.setNewData(collection.list)
+        if (collection.list.size==0){
+            tv_tishiOne.visibility=View.VISIBLE
+        }
     }
 
     companion object {
