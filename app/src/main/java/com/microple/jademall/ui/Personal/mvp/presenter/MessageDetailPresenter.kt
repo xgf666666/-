@@ -11,11 +11,14 @@ import com.weibiaogan.litong.extensions.ui
  * describe:
  */
 class MessageDetailPresenter:MessageDetailContract.Presenter() {
+
     override fun getMessageDetail(token: String, msg_id: String) {
+        getView()?.showLoadingDialog()
         getModel().getMessageDetail(token,msg_id).ui({
             getView()?.getMessageDetail(it.data!!)
         },{
             getView()?.showToast(it)
+            getView()?.dismissLoadingDialog()
         })
 
     }

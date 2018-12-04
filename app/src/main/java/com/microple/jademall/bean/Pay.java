@@ -56,6 +56,15 @@ public class Pay {
         private String trade_type;
         private String time;
         private String order_sn;
+        private int pay_status;
+
+        public int getPay_status() {
+            return pay_status;
+        }
+
+        public void setPay_status(int pay_status) {
+            this.pay_status = pay_status;
+        }
 
         public String getOrder_sn() {
             return order_sn;

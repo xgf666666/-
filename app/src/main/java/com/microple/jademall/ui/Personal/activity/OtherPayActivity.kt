@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.google.gson.Gson
 import com.microple.jademall.R
@@ -15,8 +16,6 @@ import com.microple.jademall.common.Constants
 import com.microple.jademall.dialog.PayDialog
 import com.microple.jademall.ui.Personal.mvp.contract.OtherPayContract
 import com.microple.jademall.ui.Personal.mvp.presenter.OtherPayPresenter
-import com.microple.jademall.ui.home.activity.DaifuActivity
-import com.microple.jademall.ui.home.activity.PaySucceefulActivity
 import com.microple.jademall.uitls.loadImag
 import com.microple.jademall.weight.PwdEditText
 import com.weibiaogan.bangbang.common.md5Salt
@@ -25,8 +24,16 @@ import com.xx.anypay.XxAnyPayResultCallBack
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import kotlinx.android.synthetic.main.activity_other_pay.*
 import kotlinx.android.synthetic.main.item_title.*
+import java.util.*
 
 class OtherPayActivity : BaseMvpActivity<OtherPayPresenter>(),OtherPayContract.View {
+    override fun refecePay(msg: String) {
+        showToast("拒绝成功")
+        tv_content.text="已拒绝"
+        tv_pay.visibility=View.GONE
+        tv_refuse.visibility=View.GONE
+    }
+
     override fun getPayTyle(payTyle: PayTyle) {
         var dialog= PayDialog(this)
         for (i in 1..4){
@@ -45,14 +52,14 @@ class OtherPayActivity : BaseMvpActivity<OtherPayPresenter>(),OtherPayContract.V
                         indexs = 1
                         showLoadingDialog()
                         dialog.dismiss()
-                        getPresenter().otherPay(Constants.getToken(),"1",content.sb_id,content.send,content.live,content.cabinet,content.freight_pay,content.incr_type1,content.incr_type2,content.incr_type3,content.address_id,intent.getStringExtra("user_id"),"")
+                        getPresenter().otherPay(Constants.getToken(),"1",content.sb_id,content.send,content.live,content.cabinet,content.freight_pay,content.incr_type1,content.incr_type2,content.incr_type3,content.address_id,intent.getStringExtra("user_id"),"",intent.getStringExtra("msg_id"))
                     }
                     2 -> {//支付宝支付
 
                         indexs = 2
                         showLoadingDialog()
                         dialog.dismiss()
-                        getPresenter().otherPay(Constants.getToken(),"2",content.sb_id,content.send,content.live,content.cabinet,content.freight_pay,content.incr_type1,content.incr_type2,content.incr_type3,content.address_id,intent.getStringExtra("user_id"),"")
+                        getPresenter().otherPay(Constants.getToken(),"2",content.sb_id,content.send,content.live,content.cabinet,content.freight_pay,content.incr_type1,content.incr_type2,content.incr_type3,content.address_id,intent.getStringExtra("user_id"),"",intent.getStringExtra("msg_id"))
 
                     }
                     3 -> {
@@ -118,6 +125,21 @@ class OtherPayActivity : BaseMvpActivity<OtherPayPresenter>(),OtherPayContract.V
         tv_message.text=intent.getStringExtra("msg_content")
         tv_price.text="￥"+content.total_fee
         XxAnyPay.intance.init(this)
+        when(intent.getIntExtra("status",0)){
+                1->{
+
+                }
+                2->{
+                    tv_content.text="已支付"
+                    tv_pay.visibility=View.GONE
+                    tv_refuse.visibility=View.GONE
+                }
+                3->{
+                    tv_content.text="已拒绝"
+                    tv_pay.visibility=View.GONE
+                    tv_refuse.visibility=View.GONE
+                }
+        }
     }
 
     /**
@@ -130,9 +152,10 @@ class OtherPayActivity : BaseMvpActivity<OtherPayPresenter>(),OtherPayContract.V
         }
         tv_pay.setOnClickListener {
             getPresenter().getPayTyle(Constants.getToken(),"1")
-
-
             }
+        tv_refuse.setOnClickListener {
+            getPresenter().refecePay(Constants.getToken(),intent.getStringExtra("msg_id"))
+        }
 
     }
     //积分支付
@@ -153,20 +176,31 @@ class OtherPayActivity : BaseMvpActivity<OtherPayPresenter>(),OtherPayContract.V
             password=it
             dialog!!.dismiss()
             showLoadingDialog()
-            getPresenter().otherPay(Constants.getToken(),"3",content.sb_id,content.send,content.live,content.cabinet,content.freight_pay,content.incr_type1,content.incr_type2,content.incr_type3,content.address_id,intent.getStringExtra("user_id"),it.md5Salt())
+            getPresenter().otherPay(Constants.getToken(),"3",content.sb_id,content.send,content.live,content.cabinet,content.freight_pay,content.incr_type1,content.incr_type2,content.incr_type3,content.address_id,intent.getStringExtra("user_id"),it.md5Salt(),intent.getStringExtra("msg_id"))
 
         }
         dialog = AlertDialog.Builder(mContext).create()
         dialog!!.setView(view)
         dialog!!.show()
+        var timer= Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                var imm: InputMethodManager =(psw_view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                if (imm!=null)
+                    imm.showSoftInput(psw_view,0)
+            }
+        },100)
     }
 
     companion object {
-        fun startOtherPayActivity(context: Context,content:String,user_id:String,msg_content:String){
+        fun startOtherPayActivity(context: Context,content:String,user_id:String,msg_content:String,msg_id:String,status:Int){
             val intent = Intent(context,OtherPayActivity::class.java)
             intent.putExtra("content",content)
             intent.putExtra("user_id",user_id)
             intent.putExtra("msg_content",msg_content)
+            intent.putExtra("msg_content",msg_content)
+            intent.putExtra("msg_id",msg_id)
+            intent.putExtra("status",status)
             context.startActivity(intent)
         }
     }

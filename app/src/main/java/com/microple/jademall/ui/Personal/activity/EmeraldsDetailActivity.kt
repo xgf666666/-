@@ -24,8 +24,10 @@ import kotlinx.android.synthetic.main.item_title.*
  * describe:翡翠订单详情
  */
 class EmeraldsDetailActivity : BaseMvpActivity<EmeraldsDetailPresenter>(), EmeraldsDetailContract.View {
+    var   jifenDetail: JifenDetail?=null
     override fun getjifenDetail(jifenDetail: JifenDetail) {
         loading.visibility = View.GONE
+        this.jifenDetail=jifenDetail
         iv_goodsImage.loadImag(jifenDetail.increment.goods.goods_img)
         tv_goodsName.text = jifenDetail.increment.goods.goods_name
         tv_goodsNum.text = jifenDetail.increment.goods.goods_sn
@@ -95,8 +97,13 @@ class EmeraldsDetailActivity : BaseMvpActivity<EmeraldsDetailPresenter>(), Emera
         iv_back.setOnClickListener {
             finish()
         }
-        tv_img.setOnClickListener {
-            ImageDetailActivity.startImageDetailActivity(this, "" + emeraldsDetail?.cabinet?.goods_id)
+        tv_img.setOnClickListener {//emeraldsDetail
+            if (index==2){
+                ImageDetailActivity.startImageDetailActivity(this, "" + jifenDetail?.increment?.goods_id)
+            }else{
+                ImageDetailActivity.startImageDetailActivity(this, "" + emeraldsDetail?.cabinet?.goods_id)
+
+            }
         }
     }
 

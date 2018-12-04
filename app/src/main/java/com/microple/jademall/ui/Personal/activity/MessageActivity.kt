@@ -50,7 +50,7 @@ class MessageActivity : BaseMvpActivity<MessagePresenter>(),MessageContract.View
         recyclerView.adapter=adapter
         adapter.setOnItemClickListener { adapter, view, position ->
            if ((adapter as MessageAdapter).data[position].type==2){
-               OtherPayActivity.startOtherPayActivity(this,Gson().toJson(adapter.data[position].msg_param),adapter.data[position].user_id,adapter.data[position].msg_content)
+               OtherPayActivity.startOtherPayActivity(this,Gson().toJson(adapter.data[position].msg_param),adapter.data[position].user_id,adapter.data[position].msg_content,adapter.data[position].msg_id,adapter.data[position].status)
            }else{
                MessageDetailActivity.startMessageDetailActivity(this,""+(adapter as MessageAdapter).data[position].msg_id)
            }

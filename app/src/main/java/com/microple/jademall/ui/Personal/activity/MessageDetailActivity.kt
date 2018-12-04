@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.item_title.*
  * describe:消息详情
  */
 class MessageDetailActivity : BaseMvpActivity<MessageDetailPresenter>(),MessageDetailContract.View {
+
     /**
      * 创建P层
      *

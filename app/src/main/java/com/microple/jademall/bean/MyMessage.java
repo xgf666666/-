@@ -37,6 +37,15 @@ public class MyMessage {
         private int type;
         private String is_push;
         private MsgParamBean msg_param;
+        private int status;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
 
         public String getMsg_id() {
             return msg_id;

@@ -15,13 +15,16 @@ interface MessageDetailContract {
     interface View :BaseMvpView{
        fun getMessageDetail(messageDetail: MessageDetail)
 
+
     }
     interface Model{
         fun getMessageDetail(token:String,msg_id:String): Observable<BaseResponseEntity<MessageDetail>>
 
+
     }
     abstract class Presenter:BaseMvpPresenter<Model, View>(){
         abstract fun getMessageDetail(token: String,msg_id:String)
+
 
     }
 }

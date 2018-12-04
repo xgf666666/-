@@ -677,8 +677,8 @@ public interface AppService {
      * 代付支付
      */
     @FormUrlEncoded
-    @POST("pay/pay")
-    Observable<BaseResponseEntity<Pay>> otherPay(@Header("token") String token, @Field("pay_type") String pay_type, @Field("sb_id") String sb_id, @Field("send") String send, @Field("live") String live, @Field("cabinet") String cabinet, @Field("freight_pay") String freight_pay, @Field("incr_type1") String incr_type1, @Field("incr_type2") String incr_type2, @Field("incr_type3") String incr_type3, @Field("address_id") String address_id, @Field("userId") String userId, @Field("trade_password") String trade_password);
+    @POST("other_pay/others_paid")
+    Observable<BaseResponseEntity<Pay>> otherPay(@Header("token") String token, @Field("pay_type") String pay_type, @Field("sb_id") String sb_id, @Field("send") String send, @Field("live") String live, @Field("cabinet") String cabinet, @Field("freight_pay") String freight_pay, @Field("incr_type1") String incr_type1, @Field("incr_type2") String incr_type2, @Field("incr_type3") String incr_type3, @Field("address_id") String address_id, @Field("userId") String userId, @Field("trade_password") String trade_password,@Field("msg_id")String msg_id);
 
     /**
      * 历史代付
@@ -720,6 +720,12 @@ public interface AppService {
     @FormUrlEncoded
     @POST("order/pay_type")
     Observable<BaseResponseEntity<PayTyle>> payTyle(@Header("token") String token, @Field("type") String type);
+    /**
+     * 拒绝代付
+     */
+    @FormUrlEncoded
+    @POST("message/reject_pay")
+    Observable<BaseResponseEntity<Object>> refecePay(@Header("token") String token, @Field("msg_id") String msg_id);
 }
 
 

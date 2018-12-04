@@ -69,16 +69,46 @@
         android:textColor="@color/text_black"
         android:textSize="@dimen/sp_16"
         android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
     <TextView
         android:id="@+id/tv_pay"
-        android:layout_width="150dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="支付"
         android:textColor="@color/white_default"
         android:textSize="@dimen/sp_16"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/bg_sure"
-        android:gravity="center_horizontal"/>
-
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text=" "
+            android:textColor="@color/black_333333"
+            android:textSize="22sp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/tv_refuse"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="拒绝"
+            android:textColor="@color/white_default"
+            android:textSize="@dimen/sp_16"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_refece"
+            android:gravity="center_horizontal"
+            android:layout_marginRight="30dp"/>
+    </LinearLayout>
 </LinearLayout>

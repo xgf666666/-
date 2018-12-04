@@ -14,5 +14,5 @@ import io.reactivex.Observable
  * describe:
  */
 class MessageDetailModel: MessageDetailContract.Model {
-    override fun getMessageDetail(token: String,msg_id:String) : Observable<BaseResponseEntity<MessageDetail>> =AppApi.Api().getMessageDetail(token,msg_id)
+    override fun getMessageDetail(token: String,msg_id:String) =AppApi.Api().getMessageDetail(token,msg_id)
 }
