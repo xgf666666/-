@@ -494,15 +494,15 @@ class ImOrderActivity : BaseMvpActivity<ImOrderPresenter>(), ImOrderContract.Vie
         loading.visibility = View.GONE
         order = imOrder
         adapter.setNewData(imOrder.order.goods_info)
-        for (i in 0..imOrder.order.goods_info.size - 1) {
-            you_list.add(imOrder.order.goods_info[i].goods_sn)
-            if (i == 0)
-                you = you_list[i]
-            else
-                you = you + "/" + you_list[i]
-        }
-        tv_youji.visibility = View.VISIBLE
-        tv_youji.text = "邮寄(运费现付):   " + you
+//        for (i in 0..imOrder.order.goods_info.size - 1) {
+//            you_list.add(imOrder.order.goods_info[i].goods_sn)
+//            if (i == 0)
+//                you = you_list[i]
+//            else
+//                you = you + "/" + you_list[i]
+//        }
+//        tv_youji.visibility = View.VISIBLE
+//        tv_youji.text = "邮寄(运费现付):   " + you
         tv_wuliu.text = "物流费用:  ￥" + imOrder.order.shipping_fee
         if (imOrder.order.user_address.address.isNullOrEmpty()) {
             add_address.visibility = View.VISIBLE

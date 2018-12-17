@@ -109,7 +109,7 @@ dependencies {
     implementation 'com.umeng.sdk:share-core:latest.integration'
     implementation 'com.umeng.sdk:share-qq:6.9.1.1'
     implementation 'com.umeng.sdk:share-wechat:latest.integration'
-    implementation 'com.umeng.sdk:share-sina:6.9.1'
+    implementation 'com.umeng.sdk:share-sina:latest.integration'
     implementation files('libs/bugly_2.4.0_imsdk_release.jar')
     implementation files('libs/imsdk.jar')
     implementation files('libs/imsdk_group_ext.jar')

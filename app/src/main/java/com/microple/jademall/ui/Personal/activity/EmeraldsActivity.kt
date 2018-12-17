@@ -3,6 +3,7 @@ package com.microple.jademall.ui.Personal.activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.microple.jademall.R
@@ -54,6 +55,8 @@ class EmeraldsActivity : BaseMvpActivity<EmeraldsPresenter>(), EmeraldsContract.
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = adapter
+        Log.i("dddd","fafafaf")
+
         adapter.setOnItemClickListener { adapter, view, position ->
                 EmeraldsDetailActivity.startOrderDetailActivity(this, "" + (adapter as EmealdsAdapter).data[position].ct_id, ""+(adapter as EmealdsAdapter).data[position].incr_id, index)
 

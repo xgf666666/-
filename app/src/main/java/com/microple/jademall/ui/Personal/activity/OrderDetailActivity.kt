@@ -173,7 +173,12 @@ class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(),OrderDetailC
 
                 }
                 3->{
-                    tv_order.text="申请售后"
+                    if (orderDetail.order_detail.goods_info.type==1){
+                        tv_order.text="申请售后"
+                    }else if (orderDetail.order_detail.goods_info.type==2){
+                        tv_order.visibility=View.GONE
+                    }
+
                     tv_type.text="已完成"
                     tv_wuliu.text="物流单号      "+orderDetail.order_detail.shipping_no
                     tv_wuliufuwu.text="物流服务商     "+orderDetail.order_detail.shipping_name

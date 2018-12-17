@@ -336,6 +336,15 @@ public class OrderDetail {
             private String goods_sn;
             private String goods_price;
             private String goods_img;
+            private int type;
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
 
             public int getGoods_id() {
                 return goods_id;
